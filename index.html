@@ -44,7 +44,78 @@ function setTab(t){tab=t;document.getElementById('loadsTab').classList.toggle('a
 function render(){let q=(document.getElementById('q').value||'').toLowerCase(),f=(document.getElementById('from').value||'').toLowerCase(),t=(document.getElementById('to').value||'').toLowerCase();let filtered=items.filter(x=>x.type=== (tab==='loads'?'load':'truck') && (!q||[x.from,x.to,x.cargo,x.owner].join(' ').toLowerCase().includes(q))&&(!f||x.from.toLowerCase().includes(f))&&(!t||x.to.toLowerCase().includes(t)));let c=document.getElementById('cards');if(!filtered.length){c.innerHTML=`<div class="empty">${tr('Азырынча жарыя табылган жок. Биринчи болуп жарыя бериңиз!','Пока объявлений нет. Разместите первое!')}</div>`;return}c.innerHTML=filtered.map(x=>`<article class="item"><div class="item-top"><div><div class="route">${esc(x.from)} <span class="arrow">→</span> ${esc(x.to)}</div><div class="muted">${esc(x.owner)}</div></div><div class="price">${esc(x.price)}</div></div><span class="tag">${x.type==='load'?tr('ЖҮК','ГРУЗ'):tr('УНАА','ТРАНСПОРТ')}</span><span class="tag">${esc(x.date)}</span><div class="details"><span>📦 ${esc(x.cargo)}</span><span>⚖️ ${esc(x.weight)}</span></div><div class="item-actions"><button class="btn blue" onclick="contact('${escAttr(x.phone)}')">☎ ${tr('Чалуу','Позвонить')}</button><button class="btn" onclick="whatsapp('${escAttr(x.wa)}')">WhatsApp</button><button class="btn ghost" onclick="startChat(${x.id})">💬 ${tr('Жазуу','Написать')}</button></div></article>`).join('')}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function escAttr(s){return String(s).replace(/[^0-9+]/g,'')}
 function contact(p){location.href='tel:'+p}function whatsapp(n){if(!n){alert(tr('Телефон көрсөтүлгөн эмес','Телефон не указан'));return}window.open('https://wa.me/'+n,'_blank')}
-function openModal(kind,pre=''){let body=document.getElementById('modalBody'),title=document.getElementById('modalTitle');document.getElementById('modalBack').classList.add('show');if(kind==='post'){title.textContent=tr('Жаңы жарыя берүү','Новое объявление');let type=pre||'load';body.innerHTML=`<form onsubmit="savePost(event)"><div class="field"><label>${tr('Жарыянын түрү','Тип объявления')}</label><select name="type" id="postType" onchange="updatePostLabels()"><option value="load" ${type==='load'?'selected':''}>${tr('Жүк керек','Нужна перевозка груза')}</option><option value="truck" ${type==='truck'?'selected':''}>${tr('Бош унаа бар','Есть свободная машина')}</option></select></div><div class="form-grid" style="margin-top:12px"><div class="field"><label>${tr('Кайдан','Откуда')}</label><input name="from" required placeholder="Ош"></div><div class="field"><label>${tr('Кайда','Куда')}</label><input name="to" required placeholder="Бишкек"></div><div class="field full"><label id="cargoLabel">${tr('Жүктүн түрү','Тип груза')}</label><input name="cargo" required placeholder="${tr('Мисалы: картошка','Например: картофель')}"></div><div class="field"><label>${tr('Салмагы / жүк көтөрүмдүүлүгү','Вес / грузоподъёмность')}</label><input name="weight" required placeholder="5 тонна"></div><div class="field"><label>${tr('Баасы','Цена')}</label><input name="price" required placeholder="20 000 сом"></div><div class="field"><label>${tr('Телефон','Телефон')}</label><input name="phone" required type="tel" placeholder="+996..."></div><div class="field"><label>${tr('Аты-жөнү / компания','Имя / компания')}</label><input name="owner" required placeholder="Атыңыз"></div></div><div class="form-actions"><button type="button" class="btn ghost" onclick="closeModal()">${tr('Жабуу','Отмена')}</button><button class="btn blue">${tr('Жарыяны сактоо','Опубликовать')}</button></div></form>`}else if(kind==='login'){title.textContent=tr('Кирүү / Катталуу','Вход / Регистрация');body.innerHTML=`<div class="field"><label>${tr('Телефон номери','Номер телефона')}</label><input type="tel" placeholder="+996..."></div><div class="field" style="margin-top:12px"><label>${tr('Сыр сөз','Пароль')}</label><input type="password" placeholder="••••••••"></div><div class="note">${tr('Бул демо-версияда аккаунт түзүү азырынча иштетиле элек. Кийинки этапта коопсуз SMS-код жана Supabase Auth кошобуз.','В демо-версии создание аккаунта пока не подключено. На следующем этапе добавим безопасный вход и Supabase Auth.')}</div><div class="form-actions"><button class="btn blue" onclick="alert('${tr('Кийинки этапта кошулат','Будет добавлено на следующем этапе')}')">${tr('Улантуу','Продолжить')}</button></div>`}else if(kind==='chats'){title.textContent=tr('Билдирүүлөр','Сообщения');body.innerHTML=`<div class="chat-list"><div class="chat-row"><div><strong>${tr('Жеке чат системасы','Система личных сообщений')}</strong><div class="muted">${tr('Бул демо-версияда чат интерфейси даярдалууда.','Интерфейс чата подготовлен к подключению.')}</div></div><span>💬</span></div></div><div class="note">${tr('Чыныгы жеке кат алышуу үчүн колдонуучуларды каттоо, билдирүүлөр базасы жана реалдуу убакыттагы байланыш серверге туташтырылат.','Для настоящей переписки подключим авторизацию, базу сообщений и обмен в реальном времени.')}</div>`}else if(kind==='chat'){title.textContent=tr('Жеке билдирүү','Личное сообщение');body.innerHTML=`<p>${tr('Жарыя ээси менен байланышуу үчүн телефон же WhatsApp колдонуңуз. Сайттагы жеке чат кийинки сервердик этапта ишке кирет.','Для связи используйте телефон или WhatsApp. Внутренний чат заработает после подключения сервера.')}</p><button class="btn blue" onclick="closeModal();whatsapp('${pre}')">WhatsApp ${tr('аркылуу жазуу','написать')}</button>`}}
+let confirmationResult=null;
+let recaptchaVerifier=null;
+
+async function sendPhoneCode(){
+  try{
+    let phone=document.getElementById('loginPhone').value.trim().replace(/[\s()-]/g,'');
+    if(phone.startsWith('0')) phone='+996'+phone.slice(1);
+    else if(phone.startsWith('996')) phone='+'+phone;
+
+    if(!/^\+996\d{9}$/.test(phone)){
+      alert('Телефонду +996700123456 форматында жазыңыз');
+      return;
+    }
+
+    if(recaptchaVerifier){
+      recaptchaVerifier.clear();
+      recaptchaVerifier=null;
+    }
+
+    auth.languageCode='ky';
+    recaptchaVerifier=new firebase.auth.RecaptchaVerifier(
+      'recaptcha-container',
+      {size:'normal'}
+    );
+
+    await recaptchaVerifier.render();
+    confirmationResult=await auth.signInWithPhoneNumber(phone,recaptchaVerifier);
+
+    document.getElementById('smsCodeBox').style.display='block';
+    alert('SMS-код жөнөтүлдү!');
+  }catch(error){
+    console.error(error);
+    alert('Ката: '+error.message);
+  }
+}
+
+async function verifyPhoneCode(){
+  try{
+    const code=document.getElementById('smsCode').value.trim();
+    if(!confirmationResult){
+      alert('Адегенде SMS-код жөнөтүңүз');
+      return;
+    }
+    await confirmationResult.confirm(code);
+    alert('Ийгиликтүү кирдиңиз!');
+    closeModal();
+  }catch(error){
+    console.error(error);
+    alert('Код туура эмес же мөөнөтү өттү');
+  }
+}
+function openModal(kind,pre=''){let body=document.getElementById('modalBody'),title=document.getElementById('modalTitle');document.getElementById('modalBack').classList.add('show');if(kind==='post'){title.textContent=tr('Жаңы жарыя берүү','Новое объявление');let type=pre||'load';body.innerHTML=`<form onsubmit="savePost(event)"><div class="field"><label>${tr('Жарыянын түрү','Тип объявления')}</label><select name="type" id="postType" onchange="updatePostLabels()"><option value="load" ${type==='load'?'selected':''}>${tr('Жүк керек','Нужна перевозка груза')}</option><option value="truck" ${type==='truck'?'selected':''}>${tr('Бош унаа бар','Есть свободная машина')}</option></select></div><div class="form-grid" style="margin-top:12px"><div class="field"><label>${tr('Кайдан','Откуда')}</label><input name="from" required placeholder="Ош"></div><div class="field"><label>${tr('Кайда','Куда')}</label><input name="to" required placeholder="Бишкек"></div><div class="field full"><label id="cargoLabel">${tr('Жүктүн түрү','Тип груза')}</label><input name="cargo" required placeholder="${tr('Мисалы: картошка','Например: картофель')}"></div><div class="field"><label>${tr('Салмагы / жүк көтөрүмдүүлүгү','Вес / грузоподъёмность')}</label><input name="weight" required placeholder="5 тонна"></div><div class="field"><label>${tr('Баасы','Цена')}</label><input name="price" required placeholder="20 000 сом"></div><div class="field"><label>${tr('Телефон','Телефон')}</label><input name="phone" required type="tel" placeholder="+996..."></div><div class="field"><label>${tr('Аты-жөнү / компания','Имя / компания')}</label><input name="owner" required placeholder="Атыңыз"></div></div><div class="form-actions"><button type="button" class="btn ghost" onclick="closeModal()">${tr('Жабуу','Отмена')}</button><button class="btn blue">${tr('Жарыяны сактоо','Опубликовать')}</button></div></form>`}else if(kind==='login'){
+title.textContent=tr('Телефон менен кирүү','Вход по телефону');
+body.innerHTML=`
+<div class="field">
+<label>Телефон номери</label>
+<input id="loginPhone" type="tel" placeholder="+996700123456">
+</div>
+<div id="recaptcha-container" style="margin-top:12px"></div>
+<div class="form-actions">
+<button class="btn blue" onclick="sendPhoneCode()">SMS-код жөнөтүү</button>
+</div>
+<div id="smsCodeBox" style="display:none;margin-top:14px">
+<div class="field">
+<label>SMS-код</label>
+<input id="smsCode" type="text" inputmode="numeric" placeholder="6 орундуу код">
+</div>
+<div class="form-actions">
+<button class="btn blue" onclick="verifyPhoneCode()">Кирүү</button>
+</div>
+</div>`;
+}else if(kind==='chats'){title.textContent=tr('Билдирүүлөр','Сообщения');body.innerHTML=`<div class="chat-list"><div class="chat-row"><div><strong>${tr('Жеке чат системасы','Система личных сообщений')}</strong><div class="muted">${tr('Бул демо-версияда чат интерфейси даярдалууда.','Интерфейс чата подготовлен к подключению.')}</div></div><span>💬</span></div></div><div class="note">${tr('Чыныгы жеке кат алышуу үчүн колдонуучуларды каттоо, билдирүүлөр базасы жана реалдуу убакыттагы байланыш серверге туташтырылат.','Для настоящей переписки подключим авторизацию, базу сообщений и обмен в реальном времени.')}</div>`}else if(kind==='chat'){title.textContent=tr('Жеке билдирүү','Личное сообщение');body.innerHTML=`<p>${tr('Жарыя ээси менен байланышуу үчүн телефон же WhatsApp колдонуңуз. Сайттагы жеке чат кийинки сервердик этапта ишке кирет.','Для связи используйте телефон или WhatsApp. Внутренний чат заработает после подключения сервера.')}</p><button class="btn blue" onclick="closeModal();whatsapp('${pre}')">WhatsApp ${tr('аркылуу жазуу','написать')}</button>`}}
 function updatePostLabels(){let truck=document.getElementById('postType').value==='truck';document.getElementById('cargoLabel').textContent=truck?tr('Унаанын түрү','Тип транспорта'):tr('Жүктүн түрү','Тип груза')}
 function savePost(e){e.preventDefault();let d=Object.fromEntries(new FormData(e.target));let n=d.phone.replace(/\D/g,'');items.unshift({id:Date.now(),...d,wa:n,date:tr('Жаңы','Новое')});localStorage.setItem('jukItems',JSON.stringify(items));closeModal();setTab(d.type==='load'?'loads':'trucks');alert(tr('Жарыя ушул түзмөктө сакталды. Сервер туташкандан кийин жалпыга көрүнөт.','Объявление сохранено на этом устройстве. После подключения сервера оно станет общедоступным.'))}
 function startChat(id){let x=items.find(a=>a.id===id);openModal('chat',x.wa)}function closeModal(){document.getElementById('modalBack').classList.remove('show')}render();
