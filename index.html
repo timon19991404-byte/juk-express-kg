@@ -17,8 +17,28 @@
 <footer class="footer"><div class="wrap"><strong>ЖҮК ЭКСПРЕСС.KG</strong><p data-ky="Кыргызстандагы жүк ээлери жана ташуучулар үчүн платформа." data-ru="Платформа для грузовладельцев и перевозчиков Кыргызстана.">Кыргызстандагы жүк ээлери жана ташуучулар үчүн платформа.</p><span>© 2026 ЖҮК ЭКСПРЕСС.KG</span></div></footer>
 <button class="chat-fab" onclick="openModal('chats')">💬 <span data-ky="Чат" data-ru="Чат">Чат</span></button>
 <div class="modal-back" id="modalBack" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><h3 id="modalTitle">Жарыя берүү</h3><button class="close" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
-let lang='ky',tab='loads';const demo=[{id:1,type:'load',from:'Ош',to:'Бишкек',cargo:'Жашылча-жемиш',weight:'5 тонна',price:'25 000 сом',date:'Бүгүн',phone:'+996700000001',wa:'996700000001',owner:'ОсОО Ала-Тоо'},{id:2,type:'load',from:'Бишкек',to:'Жалал-Абад',cargo:'Курулуш материалдары',weight:'10 тонна',price:'Макулдашуу',date:'Эртең',phone:'+996555000002',wa:'996555000002',owner:'Жеке кардар'},{id:3,type:'truck',from:'Ош',to:'Кыргызстан боюнча',cargo:'Газель, 3 тонна',weight:'3 тонна',price:'Баасы сүйлөшүлөт',date:'Бош бүгүн',phone:'+996770000003',wa:'996770000003',owner:'Айдоочу Нурбек'},{id:4,type:'truck',from:'Бишкек',to:'Ош / Жалал-Абад',cargo:'Фура, 20 тонна',weight:'20 тонна',price:'Макулдашуу',date:'Бош эртең',phone:'+996500000004',wa:'996500000004',owner:'Транс KG'}];let items=JSON.parse(localStorage.getItem('jukItems')||'null')||demo;
+// FIREBASE CONFIGURATION
+const firebaseConfig = {
+  apiKey: "AIzaSyCmxvVfXCeLRVRc8PqniM8uEbtLJMplaL8",
+  authDomain: "juk-express-kg.firebaseapp.com",
+  projectId: "juk-express-kg",
+  storageBucket: "juk-express-kg.firebasestorage.app",
+  messagingSenderId: "368524874863",
+  appId: "1:368524874863:web:c73e4fdd2c3211088da99a"
+};
+
+// FIREBASE INITIALIZATION
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+console.log("ЖҮК ЭКСПРЕСС.KG Firebase туташты!");
+  let lang='ky',tab='loads';const demo=[{id:1,type:'load',from:'Ош',to:'Бишкек',cargo:'Жашылча-жемиш',weight:'5 тонна',price:'25 000 сом',date:'Бүгүн',phone:'+996700000001',wa:'996700000001',owner:'ОсОО Ала-Тоо'},{id:2,type:'load',from:'Бишкек',to:'Жалал-Абад',cargo:'Курулуш материалдары',weight:'10 тонна',price:'Макулдашуу',date:'Эртең',phone:'+996555000002',wa:'996555000002',owner:'Жеке кардар'},{id:3,type:'truck',from:'Ош',to:'Кыргызстан боюнча',cargo:'Газель, 3 тонна',weight:'3 тонна',price:'Баасы сүйлөшүлөт',date:'Бош бүгүн',phone:'+996770000003',wa:'996770000003',owner:'Айдоочу Нурбек'},{id:4,type:'truck',from:'Бишкек',to:'Ош / Жалал-Абад',cargo:'Фура, 20 тонна',weight:'20 тонна',price:'Макулдашуу',date:'Бош эртең',phone:'+996500000004',wa:'996500000004',owner:'Транс KG'}];let items=JSON.parse(localStorage.getItem('jukItems')||'null')||demo;
 const tr=(ky,ru)=>lang==='ky'?ky:ru;function toggleLang(){lang=lang==='ky'?'ru':'ky';document.documentElement.lang=lang;document.querySelectorAll('[data-ky]').forEach(el=>el.textContent=el.dataset[lang]);document.getElementById('langBtn').textContent=lang==='ky'?'РУС':'КЫР';document.getElementById('listTitle').textContent=tab==='loads'?tr('Жүк жарыялары','Объявления грузов'):tr('Бош унаалар','Свободный транспорт');render()}
 function setTab(t){tab=t;document.getElementById('loadsTab').classList.toggle('active',t==='loads');document.getElementById('trucksTab').classList.toggle('active',t==='trucks');document.getElementById('listTitle').textContent=t==='loads'?tr('Жүк жарыялары','Объявления грузов'):tr('Бош унаалар','Свободный транспорт');document.getElementById('listSub').textContent=t==='loads'?tr('Жүк ташууга сунуштар','Предложения грузов'):tr('Бош транспорт сунуштары','Предложения свободного транспорта');render()}
 function render(){let q=(document.getElementById('q').value||'').toLowerCase(),f=(document.getElementById('from').value||'').toLowerCase(),t=(document.getElementById('to').value||'').toLowerCase();let filtered=items.filter(x=>x.type=== (tab==='loads'?'load':'truck') && (!q||[x.from,x.to,x.cargo,x.owner].join(' ').toLowerCase().includes(q))&&(!f||x.from.toLowerCase().includes(f))&&(!t||x.to.toLowerCase().includes(t)));let c=document.getElementById('cards');if(!filtered.length){c.innerHTML=`<div class="empty">${tr('Азырынча жарыя табылган жок. Биринчи болуп жарыя бериңиз!','Пока объявлений нет. Разместите первое!')}</div>`;return}c.innerHTML=filtered.map(x=>`<article class="item"><div class="item-top"><div><div class="route">${esc(x.from)} <span class="arrow">→</span> ${esc(x.to)}</div><div class="muted">${esc(x.owner)}</div></div><div class="price">${esc(x.price)}</div></div><span class="tag">${x.type==='load'?tr('ЖҮК','ГРУЗ'):tr('УНАА','ТРАНСПОРТ')}</span><span class="tag">${esc(x.date)}</span><div class="details"><span>📦 ${esc(x.cargo)}</span><span>⚖️ ${esc(x.weight)}</span></div><div class="item-actions"><button class="btn blue" onclick="contact('${escAttr(x.phone)}')">☎ ${tr('Чалуу','Позвонить')}</button><button class="btn" onclick="whatsapp('${escAttr(x.wa)}')">WhatsApp</button><button class="btn ghost" onclick="startChat(${x.id})">💬 ${tr('Жазуу','Написать')}</button></div></article>`).join('')}
@@ -28,4 +48,6 @@ function openModal(kind,pre=''){let body=document.getElementById('modalBody'),ti
 function updatePostLabels(){let truck=document.getElementById('postType').value==='truck';document.getElementById('cargoLabel').textContent=truck?tr('Унаанын түрү','Тип транспорта'):tr('Жүктүн түрү','Тип груза')}
 function savePost(e){e.preventDefault();let d=Object.fromEntries(new FormData(e.target));let n=d.phone.replace(/\D/g,'');items.unshift({id:Date.now(),...d,wa:n,date:tr('Жаңы','Новое')});localStorage.setItem('jukItems',JSON.stringify(items));closeModal();setTab(d.type==='load'?'loads':'trucks');alert(tr('Жарыя ушул түзмөктө сакталды. Сервер туташкандан кийин жалпыга көрүнөт.','Объявление сохранено на этом устройстве. После подключения сервера оно станет общедоступным.'))}
 function startChat(id){let x=items.find(a=>a.id===id);openModal('chat',x.wa)}function closeModal(){document.getElementById('modalBack').classList.remove('show')}render();
-</script></body></html>
+</script>
+</body>
+</html>
