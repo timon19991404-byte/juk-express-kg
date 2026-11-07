@@ -33,7 +33,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 12px}
 </main>
 <footer data-i18n="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан ичинде жүк ташуу платформасы</footer>
 
-<div class="backdrop" id="authModal"><div class="modal"><div class="modal-head"><h2 data-i18n="authTitle">Телефон аркылуу кирүү</h2><button class="close" data-close="authModal">✕</button></div><div class="notice" data-i18n="authNotice">Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу акысыз.</div><div class="field"><label data-i18n="phoneLabel">Телефон номери</label><input id="authPhone" type="tel" value="+996" data-i18n-placeholder="phonePlaceholder" placeholder="+996 XXX XXX XXX"></div><button class="btn-blue" id="sendOtp" style="width:100%" data-i18n="sendOtp">SMS код жөнөтүү</button><div id="otpArea" class="hidden"><div class="field"><label data-i18n="smsLabel">SMS код</label><input id="otpCode" inputmode="numeric" data-i18n-placeholder="codePlaceholder" placeholder="6 орундуу код"></div><button class="btn-blue" id="verifyOtp" style="width:100%" data-i18n="verifyOtp">Кодду текшерүү</button></div><p class="small" id="authMessage"></p></div></div>
+<div class="backdrop" id="authModal"><div class="modal"><div class="modal-head"><h2 id="authHeading" data-i18n="authTitle">Email аркылуу кирүү</h2><button class="close" data-close="authModal">✕</button></div><div class="notice" data-i18n="authNotice">Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу акысыз.</div><div class="field"><label data-i18n="emailLabel">Email дареги</label><input id="authEmail" type="email" autocomplete="email" placeholder="example@gmail.com"></div><div class="field"><label data-i18n="passwordLabel">Сырсөз</label><input id="authPassword" type="password" autocomplete="current-password" data-i18n-placeholder="passwordPlaceholder" placeholder="Кеминде 6 белги"></div><button class="btn-blue" id="authSubmit" style="width:100%" data-i18n="signIn">Кирүү</button><button class="btn-light" id="authModeBtn" type="button" style="width:100%;margin-top:9px" data-i18n="switchToSignUp">Аккаунт түзүү</button><p class="small" id="authMessage"></p></div></div>
 
 <div class="backdrop" id="postModal"><div class="modal"><div class="modal-head"><h2 data-i18n="postHeading">Жарыя кошуу</h2><button class="close" data-close="postModal">✕</button></div><div class="notice" data-i18n="postNotice">Телефон номериң жарыяда көрсөтүлөт, ошондуктан жарыя берүү менен аны башка колдонуучулар көрүшүнө макул болосуң.</div>
 <div class="field"><label data-i18n="typeLabel">Жарыянын түрү</label><select id="postType"><option value="load" data-i18n="loadOption">Жүк жөнөтөм</option><option value="vehicle" data-i18n="vehicleOption">Бош унаам бар</option></select></div>
@@ -65,8 +65,8 @@ const TEXT = {
   loading:'Жарыялар жүктөлүүдө...',empty:'Азырынча жарыя жок. Кийинчерээк кайра текшерип көрүңүз же биринчи болуп жарыя кошуңуз.',
   loadWord:'Жүк',vehicleWord:'Бош унаа',country:'Кыргызстан',call:'☎ Чалуу',whatsapp:'WhatsApp',negotiable:'Баасы сүйлөшүлөт',
   footer:'© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан ичинде жүк ташуу платформасы',
-  authTitle:'Телефон аркылуу кирүү',authNotice:'Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу акысыз.',
-  phoneLabel:'Телефон номери',phonePlaceholder:'+996 XXX XXX XXX',sendOtp:'SMS код жөнөтүү',smsLabel:'SMS код',codePlaceholder:'6 орундуу код',verifyOtp:'Кодду текшерүү',
+  authTitle:'Email аркылуу кирүү',authNotice:'Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу акысыз.',
+  emailLabel:'Email дареги',passwordLabel:'Сырсөз',passwordPlaceholder:'Кеминде 6 белги',signIn:'Кирүү',signUp:'Катталуу',switchToSignUp:'Аккаунт түзүү',switchToSignIn:'Аккаунтуңуз барбы? Кирүү',emailRequired:'Email дарегин жана сырсөздү толтуруңуз.',working:'Текшерилүүдө...',checkEmail:'Email дарегиңизге ырастоо шилтемеси жөнөтүлдү. Почтаңызды текшериңиз.',signupFailed:'Катталуу ишке ашкан жок: ',signinFailed:'Кирүү ишке ашкан жок: ',signedIn:'Ийгиликтүү кирдиңиз.',signedOut:'Аккаунттан чыктыңыз.',
   postHeading:'Жарыя кошуу',postNotice:'Телефон номериң жарыяда көрсөтүлөт, ошондуктан жарыя берүү менен аны башка колдонуучулар көрүшүнө макул болосуң.',
   typeLabel:'Жарыянын түрү',loadOption:'Жүк жөнөтөм',vehicleOption:'Бош унаам бар',titleLabel:'Аталышы',titlePlaceholder:'Мисалы: Картошка, 10 тонна',
   fromLabel:'Кайдан',toLabel:'Кайда',cargoLabel:'Жүктүн түрү',cargoPlaceholder:'Картошка, цемент...',weightLabel:'Салмагы (тонна)',
@@ -87,8 +87,8 @@ const TEXT = {
   loading:'Загрузка объявлений...',empty:'Пока объявлений нет. Проверьте позже или добавьте первое объявление.',
   loadWord:'Груз',vehicleWord:'Свободная машина',country:'Кыргызстан',call:'☎ Позвонить',whatsapp:'WhatsApp',negotiable:'Цена договорная',
   footer:'© 2026 ЖҮК ЭКСПРЕСС.KG · Платформа грузоперевозок по Кыргызстану',
-  authTitle:'Вход по номеру телефона',authNotice:'Регистрация нужна только для добавления объявлений. Просмотр, поиск и связь бесплатны.',
-  phoneLabel:'Номер телефона',phonePlaceholder:'+996 XXX XXX XXX',sendOtp:'Отправить SMS-код',smsLabel:'SMS-код',codePlaceholder:'6-значный код',verifyOtp:'Проверить код',
+  authTitle:'Вход по Email',authNotice:'Регистрация нужна только для добавления объявлений. Просмотр, поиск и связь бесплатны.',
+  emailLabel:'Email',passwordLabel:'Пароль',passwordPlaceholder:'Минимум 6 символов',signIn:'Войти',signUp:'Зарегистрироваться',switchToSignUp:'Создать аккаунт',switchToSignIn:'Уже есть аккаунт? Войти',emailRequired:'Введите email и пароль.',working:'Проверка...',checkEmail:'Ссылка для подтверждения отправлена на вашу почту. Проверьте email.',signupFailed:'Не удалось зарегистрироваться: ',signinFailed:'Не удалось войти: ',signedIn:'Вы успешно вошли.',signedOut:'Вы вышли из аккаунта.',
   postHeading:'Добавить объявление',postNotice:'Ваш номер телефона будет показан в объявлении. Публикуя объявление, вы соглашаетесь, что его увидят другие пользователи.',
   typeLabel:'Тип объявления',loadOption:'Отправляю груз',vehicleOption:'Есть свободная машина',titleLabel:'Название',titlePlaceholder:'Например: Картофель, 10 тонн',
   fromLabel:'Откуда',toLabel:'Куда',cargoLabel:'Тип груза',cargoPlaceholder:'Картофель, цемент...',weightLabel:'Вес (тонн)',
@@ -104,7 +104,7 @@ const TEXT = {
 };
 
 let lang=localStorage.getItem('jukLang')||'ky';
-let activeTab='loads',rows=[],currentUser=null;
+let activeTab='loads',rows=[],currentUser=null,authMode='signin',pendingPost=false;
 
 const $=id=>document.getElementById(id);
 const t=key=>TEXT[lang][key]||TEXT.ky[key]||key;
@@ -114,7 +114,7 @@ function applyLanguage(){
  document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;el.textContent=t(key)});
  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)});
  $('langBtn').textContent=lang==='ky'?'🇷🇺 Русский':'🇰🇬 Кыргызча';
- $('loginBtn').textContent=currentUser?t('account'):t('login');
+ $('loginBtn').textContent=currentUser?t('logout'):t('login');
  document.title=lang==='ky'?'ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу':'ЖҮК ЭКСПРЕСС.KG — грузоперевозки по Кыргызстану';
  render();
 }
@@ -125,7 +125,6 @@ document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.
 $('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')closeModal('authModal')});
 $('postModal').addEventListener('click',e=>{if(e.target.id==='postModal')closeModal('postModal')});
 function phoneClean(v){return String(v||'').replace(/[^\d+]/g,'')}
-function validPhone(v){return /^\+996\d{9}$/.test(phoneClean(v))}
 function expired(r){return r.expires_at&&new Date(r.expires_at).getTime()<Date.now()}
 function fmtPrice(v){return v===null||v===undefined||v===''?t('negotiable'):Number(v).toLocaleString(lang==='ky'?'ky-KG':'ru-RU')+' сом'}
 function render(){
@@ -152,32 +151,37 @@ async function loadRows(){
 function switchTab(tab){activeTab=tab;$('loadsTab').classList.toggle('active',tab==='loads');$('trucksTab').classList.toggle('active',tab==='vehicles');loadRows()}
 $('loadsTab').onclick=()=>switchTab('loads');$('trucksTab').onclick=()=>switchTab('vehicles');
 $('searchBtn').onclick=render;$('search').addEventListener('input',render);$('cityFilter').onchange=render;
-$('loginBtn').onclick=()=>{ $('authMessage').textContent='';openModal('authModal') };
-$('postBtn').onclick=async()=>{const {data}=await db.auth.getSession();currentUser=data.session?.user||null;if(!currentUser){$('authMessage').textContent=t('signInRequired');openModal('authModal');return}openPostForm()};
+function showAuth(mode='signin',forPost=false){authMode=mode;pendingPost=forPost;$('authMessage').textContent='';$('authHeading').textContent=mode==='signup'?t('signUp'):t('authTitle');$('authSubmit').textContent=mode==='signup'?t('signUp'):t('signIn');$('authModeBtn').textContent=mode==='signup'?t('switchToSignIn'):t('switchToSignUp');$('authPassword').value='';openModal('authModal')}
+$('loginBtn').onclick=async()=>{if(currentUser){await db.auth.signOut();return}showAuth('signin',false)};
+$('authModeBtn').onclick=()=>showAuth(authMode==='signin'?'signup':'signin',pendingPost);
+$('postBtn').onclick=async()=>{const {data}=await db.auth.getSession();currentUser=data.session?.user||null;if(!currentUser){showAuth('signin',true);return}openPostForm()};
 function openPostForm(){$('pPhone').value=currentUser?.phone||'';$('postMessage').textContent='';togglePostFields();openModal('postModal')}
 $('postType').onchange=togglePostFields;
 function togglePostFields(){const vehicle=$('postType').value==='vehicle';$('cargoField').classList.toggle('hidden',vehicle);$('weightField').classList.toggle('hidden',vehicle);$('vehicleField').classList.toggle('hidden',!vehicle);$('capacityField').classList.toggle('hidden',!vehicle)}
-$('sendOtp').onclick=async()=>{
- const phone=phoneClean($('authPhone').value);$('authMessage').textContent='';
- if(!validPhone(phone)){$('authMessage').textContent=t('invalidPhone');return}
- $('sendOtp').disabled=true;$('authMessage').textContent=t('sending');
- const {error}=await db.auth.signInWithOtp({phone});
- $('sendOtp').disabled=false;
- if(error){$('authMessage').textContent=t('smsFailed')+error.message;return}
- $('otpArea').classList.remove('hidden');$('authMessage').textContent=t('sent');
-};
-$('verifyOtp').onclick=async()=>{
- const phone=phoneClean($('authPhone').value),token=$('otpCode').value.trim();
- if(!token){$('authMessage').textContent=t('enterCode');return}
- const {data,error}=await db.auth.verifyOtp({phone,token,type:'sms'});
- if(error){$('authMessage').textContent=t('badCode')+error.message;return}
- currentUser=data.user;$('loginBtn').textContent=t('account');closeModal('authModal');openPostForm();
+$('authSubmit').onclick=async()=>{
+ const email=$('authEmail').value.trim().toLowerCase(),password=$('authPassword').value;
+ $('authMessage').textContent='';
+ if(!email||!/^\S+@\S+\.\S+$/.test(email)||password.length<6){$('authMessage').textContent=t('emailRequired');return}
+ $('authSubmit').disabled=true;$('authMessage').textContent=t('working');
+ if(authMode==='signup'){
+  const {data,error}=await db.auth.signUp({email,password,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
+  $('authSubmit').disabled=false;
+  if(error){$('authMessage').textContent=t('signupFailed')+error.message;return}
+  if(data.session){currentUser=data.user;$('authMessage').textContent=t('signedIn');closeModal('authModal');if(pendingPost)openPostForm()}
+  else{$('authMessage').textContent=t('checkEmail');$('authPassword').value='';}
+ }else{
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  $('authSubmit').disabled=false;
+  if(error){$('authMessage').textContent=t('signinFailed')+error.message;return}
+  currentUser=data.user;$('loginBtn').textContent=t('logout');closeModal('authModal');
+  if(pendingPost){pendingPost=false;openPostForm()}
+ }
 };
 async function savePost(){
- const vehicle=$('postType').value==='vehicle',title=$('pTitle').value.trim(),from=$('pFrom').value.trim(),to=$('pTo').value.trim(),phone=phoneClean($('pPhone').value);
- if(!title||!from||!to||!validPhone(phone)){$('postMessage').textContent=t('required');return}
+ const vehicle=$('postType').value==='vehicle',title=$('pTitle').value.trim(),from=$('pFrom').value.trim(),to=$('pTo').value.trim(),phone=String($('pPhone').value||'').replace(/[^\d+]/g,'');
+ if(!title||!from||!to||!/^\+996\d{9}$/.test(phone)){$('postMessage').textContent=t('required');return}
  const price=$('pPrice').value?Number($('pPrice').value):null,now=new Date(),expires=new Date(now.getTime()+7*86400000).toISOString();
- const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price,phone,whatsapp:phoneClean($('pWhatsapp').value)||phone,description:$('pDescription').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',created_at:now.toISOString(),expires_at:expires};
+ const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price,phone,whatsapp:String($('pWhatsapp').value||'').replace(/[^\d+]/g,'')||phone,description:$('pDescription').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',created_at:now.toISOString(),expires_at:expires};
  if(vehicle){payload.vehicle_type=$('pVehicle').value;payload.capacity_tons=$('pCapacity').value?Number($('pCapacity').value):null}
  else{payload.cargo=$('pCargo').value.trim();payload.weight_tons=$('pWeight').value?Number($('pWeight').value):null}
  $('savePost').disabled=true;$('postMessage').textContent=t('saving');
@@ -187,8 +191,8 @@ async function savePost(){
  closeModal('postModal');switchTab(vehicle?'vehicles':'loads');alert(t('saved'));
 }
 $('savePost').onclick=savePost;
-db.auth.getSession().then(({data})=>{currentUser=data.session?.user||null;$('loginBtn').textContent=currentUser?t('account'):t('login')});
-db.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;$('loginBtn').textContent=currentUser?t('account'):t('login')});
+db.auth.getSession().then(({data})=>{currentUser=data.session?.user||null;$('loginBtn').textContent=currentUser?t('logout'):t('login')});
+db.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;$('loginBtn').textContent=currentUser?t('logout'):t('login')});
 applyLanguage();
 loadRows();
 setInterval(loadRows,60000);
