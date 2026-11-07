@@ -241,6 +241,17 @@ function openModal(kind,pre=''){
 function updatePostLabels(){let truck=document.getElementById('postType').value==='truck';document.getElementById('cargoLabel').textContent=truck?tr('Унаанын түрү','Тип транспорта'):tr('Жүктүн түрү','Тип груза')}
 function savePost(e){e.preventDefault();let d=Object.fromEntries(new FormData(e.target));let n=d.phone.replace(/\D/g,'');items.unshift({id:Date.now(),...d,wa:n,date:tr('Жаңы','Новое')});localStorage.setItem('jukItems',JSON.stringify(items));closeModal();setTab(d.type==='load'?'loads':'trucks');alert(tr('Жарыя ушул түзмөктө сакталды. Сервер туташкандан кийин жалпыга көрүнөт.','Объявление сохранено на этом устройстве. После подключения сервера оно станет общедоступным.'))}
 function startChat(id){let x=items.find(a=>a.id===id);openModal('chat',x.wa)}function closeModal(){document.getElementById('modalBack').classList.remove('show')}render();
+auth.onAuthStateChanged(async function(user){
+  const loginButton=document.querySelector('.nav button[onclick="openModal(\'login\')"]');
+if(!loginButton) return;
+  if(user){
+    loginButton.textContent='Аккаунт';
+    loginButton.onclick=()=>alert('Сиз аккаунтка кирдиңиз!');
+  }else{
+    loginButton.textContent='Кирүү';
+    loginButton.onclick=()=>openModal('login');
+  }
+});
 </script>
 </body>
 </html>
