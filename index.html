@@ -33,12 +33,12 @@
 <section id="page-home">
  <div class="hero">
   <div><div class="tag" style="background:#ffffff20;color:#ffd77b">100% Кыргызстан ичинде</div><h1>Жүк барбы? Унаа керекпи?</h1><p>Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Кыргызстан боюнча жүк жана бош унаа жарыяларын табыңыз.</p><button class="btn btn-primary" onclick="showPage('ads')">Жарыяларды көрүү →</button> <button class="btn btn-outline" onclick="openAuth()">Катталуу</button></div>
-  <div class="hero-stat"><div class="stat"><b>🇰🇬</b><span>Кыргызстан гана</span></div><div class="stat"><b>0 сом</b><span>Баштапкы колдонуу</span></div><div class="stat"><b>Жүк</b><span>Жүк жарыялары</span></div><div class="stat"><b>Унаа</b><span>Бош унаалар</span></div></div>
+  <div class="hero-stat"><div class="stat"><b>🇰🇬</b><span>Кыргызстан гана</span></div><div class="stat"><b>0 сом</b><span>Баштапкы колдонуу</span></div><div class="stat"><b>Жүк</b><span>Жүк жарыялары</span></div><div class="stat"><b>Айдоочу</b><span>Жүктү таап, ээси менен байланыш</span></div></div>
  </div>
  <div class="section-head"><h2>Платформанын мүмкүнчүлүктөрү</h2></div>
  <div class="grid">
   <div class="card feature"><div class="feature-icon">📦</div><div><h3>Жүк жарыялары</h3><p>Кайдан–кайда, жүктүн түрү, салмагы жана баасы боюнча издеңиз.</p></div></div>
-  <div class="card feature"><div class="feature-icon">🚛</div><div><h3>Бош унаалар</h3><p>Багыты жана жүк көтөрүмдүүлүгү туура келген унааны табыңыз.</p></div></div>
+  <div class="card feature"><div class="feature-icon">🚚</div><div><h3>Айдоочулар үчүн</h3><p>Жарыяланган жүктөрдү карап, ылайыктуусун таап, жүк ээси менен түз байланышыңыз.</p></div></div>
   <div class="card feature"><div class="feature-icon">🤝</div><div><h3>Диспетчер кызматы</h3><p>Админ дайындаган диспетчер жүк ээси менен айдоочуга жардам берет.</p></div></div>
  </div>
  <div class="notice">Эскертүү: платформа азыр баштапкы акысыз режимге ылайыкталган. Ташуу келишими жана төлөм шарттарын кардар менен айдоочу өз ара такташат.</div>
@@ -49,7 +49,7 @@
  <div class="section-head"><div><h2>Жарыялар</h2><div class="muted">Кыргызстан боюнча жүк жана бош унааларды издөө</div></div><button class="btn btn-primary" onclick="openListing()">+ Жарыя кошуу</button></div>
  <div class="panel">
   <div class="filters">
-   <div class="field"><label>Жарыя түрү</label><select id="f-kind"><option value="all">Баары</option><option value="loads">Жүк керек</option><option value="vehicles">Бош унаа</option></select></div>
+   <div class="field"><label>Жарыялар</label><div class="input-like">Жүк жарыялары</div></div>
    <div class="field"><label>Кайдан (шаар/аймак)</label><input id="f-from" placeholder="Мисалы: Бишкек"></div>
    <div class="field"><label>Кайда (шаар/аймак)</label><input id="f-to" placeholder="Мисалы: Ош"></div>
    <div class="field"><label>Жүк же унаа түрү</label><input id="f-type" placeholder="Мисалы: эмерек, фура"></div>
@@ -86,11 +86,11 @@
 
 <div class="modal-back hidden" id="listingModal"><div class="modal">
  <div style="display:flex;justify-content:space-between;align-items:center"><h2>Жаңы жарыя</h2><button class="btn btn-light" onclick="closeModal('listingModal')">✕</button></div>
- <div class="field"><label>Жарыя түрү</label><select id="l-kind" onchange="toggleListingKind()"><option value="loads">Жүк керек</option><option value="vehicles">Бош унаа</option></select></div>
+ <input type="hidden" id="l-kind" value="loads">
  <div class="field"><label>Жарыянын аталышы</label><input id="l-title" placeholder="Мисалы: Бишкектен Ошко жүк"></div>
  <div class="profile-grid"><div class="field"><label>Кайдан</label><input id="l-from" placeholder="Шаар / айыл"></div><div class="field"><label>Кайда</label><input id="l-to" placeholder="Шаар / айыл"></div></div>
  <div class="field" id="loadTypeField"><label>Жүктүн түрү</label><input id="l-cargo" placeholder="Эмерек, азык-түлүк..."></div>
- <div class="field hidden" id="vehicleTypeField"><label>Унаанын түрү</label><input id="l-vehicle" placeholder="Фура, Газель, рефрижератор..."></div>
+ 
  <div class="field" id="weightField"><label id="weightLabel">Жүктүн салмагы, тонна</label><input id="l-weight" type="number" min="0" step="0.1" placeholder="Мисалы: 3"></div>
  <div class="field"><label>Баасы, сом</label><input id="l-price" type="number" min="0" placeholder="Келишимдүү болсо 0"></div>
  <div class="field"><label>Телефон</label><input id="l-phone" type="tel" placeholder="+996 ..."></div>
@@ -167,23 +167,17 @@ async function logout(){
 }
 $('authButton').addEventListener('click',()=>currentUser?logout():openAuth());
 async function loadListings(){
- const tables=['loads','vehicles'];let combined=[];
- for(const table of tables){
-  const {data,error}=await db.from(table).select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
-  if(error){console.warn(table,error.message);continue;}
-  (data||[]).forEach(row=>{
-   if(row.expires_at && new Date(row.expires_at)<new Date())return;
-   combined.push({...row,_table:table});
-  });
- }
+ const {data,error}=await db.from('loads').select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
+ if(error)console.warn('loads',error.message);
+ const combined=(data||[]).filter(row=>!row.expires_at||new Date(row.expires_at)>=new Date()).map(row=>({...row,_table:'loads'}));
  allListings=combined.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
  renderListings();renderSaved();renderHomeListings();
 }
 function listingTitle(x){return x.title|| (x._table==='loads'?(x.cargo||'Жүк'):(x.vehicle_type||'Унаа'));}
 function listingCard(x){
- const kind=x._table==='loads'?'Жүк керек':'Бош унаа';
- const type=x._table==='loads'?(x.cargo||'Жүк көрсөтүлгөн эмес'):(x.vehicle_type||'Унаа көрсөтүлгөн эмес');
- const weight=x._table==='loads'?x.weight_tons:x.capacity_tons;
+ const kind='Жүк';
+ const type=x.cargo||'Жүк көрсөтүлгөн эмес';
+ const weight=x.weight_tons;
  const route=`${x.city_from||'Көрсөтүлгөн эмес'} → ${x.city_to||'Көрсөтүлгөн эмес'}`;
  const phone=(x.phone||'').replace(/[^\d+]/g,'');
  const wa=(x.whatsapp||x.phone||'').replace(/\D/g,'');
@@ -195,22 +189,22 @@ function renderListings(){
  $('adsListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча ылайыктуу жарыя табылган жок</b>Фильтрлерди өзгөртүп кайра издеп көрүңүз.</div>';applyTranslations();
 }
 function filterListings(){
- let list=[...allListings],kind=$('f-kind').value,from=$('f-from').value.trim().toLowerCase(),to=$('f-to').value.trim().toLowerCase(),type=$('f-type').value.trim().toLowerCase(),weight=Number($('f-weight').value),price=Number($('f-price').value);
- if(kind!=='all')list=list.filter(x=>x._table===kind);
+ let list=[...allListings],from=$('f-from').value.trim().toLowerCase(),to=$('f-to').value.trim().toLowerCase(),type=$('f-type').value.trim().toLowerCase(),weight=Number($('f-weight').value),price=Number($('f-price').value);
+ list=list.filter(x=>x._table==='loads');
  if(from)list=list.filter(x=>(x.city_from||'').toLowerCase().includes(from));
  if(to)list=list.filter(x=>(x.city_to||'').toLowerCase().includes(to));
- if(type)list=list.filter(x=>`${x.cargo||''} ${x.vehicle_type||''} ${x.title||''}`.toLowerCase().includes(type));
- if(weight)list=list.filter(x=>Number(x._table==='loads'?x.weight_tons:x.capacity_tons)>=weight);
+ if(type)list=list.filter(x=>`${x.cargo||''} ${x.title||''}`.toLowerCase().includes(type));
+ if(weight)list=list.filter(x=>Number(x.weight_tons)>=weight);
  if(price)list=list.filter(x=>Number(x.price||0)<=price);
  const sort=$('f-sort').value;if(sort==='cheap')list.sort((a,b)=>(a.price||0)-(b.price||0));if(sort==='expensive')list.sort((a,b)=>(b.price||0)-(a.price||0));
  return list;
 }
 function applyFilters(){renderListings();}
-function resetFilters(){['f-from','f-to','f-type','f-weight','f-price'].forEach(id=>$(id).value='');$('f-kind').value='all';$('f-sort').value='new';renderListings();}
-function renderHomeListings(){const list=allListings.slice(0,3);$('homeListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча жарыя жок</b>Биринчи жарыяларды кошкондо бул жерде көрүнөт.</div>';}
+function resetFilters(){['f-from','f-to','f-type','f-weight','f-price'].forEach(id=>$(id).value='');$('f-sort').value='new';renderListings();}
+function renderHomeListings(){const list=allListings.slice(0,3);$('homeListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча жарыя жок</b>Биринчи жарыяларды кошкондо бул жерде көрүнөт.</div>';applyTranslations();}
 function getSaved(){try{return JSON.parse(localStorage.getItem(savedKey)||'[]')}catch{return[]}}
 function toggleSaved(key){let a=getSaved();a=a.includes(key)?a.filter(x=>x!==key):[...a,key];localStorage.setItem(savedKey,JSON.stringify(a));renderListings();renderSaved();renderHomeListings();}
-function renderSaved(){const ids=getSaved(),list=allListings.filter(x=>ids.includes(x._table+':'+x.id));$('savedListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Сакталган жарыялар жок</b>Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.</div>';}
+function renderSaved(){const ids=getSaved(),list=allListings.filter(x=>ids.includes(x._table+':'+x.id));$('savedListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Сакталган жарыялар жок</b>Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.</div>';applyTranslations();}
 function showPage(page){
  document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));
  $('page-'+page).classList.remove('hidden');
@@ -235,14 +229,13 @@ function openListing(){
  $('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';
  $('l-phone').value=profile?.phone||'';
 }
-function toggleListingKind(){const load=$('l-kind').value==='loads';$('loadTypeField').classList.toggle('hidden',!load);$('vehicleTypeField').classList.toggle('hidden',load);$('weightLabel').textContent=load?'Жүктүн салмагы, тонна':'Унаанын көтөрүмдүүлүгү, тонна';}
+function toggleListingKind(){$('l-kind').value='loads';$('loadTypeField').classList.remove('hidden');$('weightLabel').textContent='Жүктүн салмагы, тонна';}
 async function publishListing(){
  if(!currentUser){showMsg('listingMessage','Алгач аккаунтуңузга кириңиз.','error');return;}
- const table=$('l-kind').value,title=$('l-title').value.trim(),from=$('l-from').value.trim(),to=$('l-to').value.trim(),phone=$('l-phone').value.trim();
+ const table='loads',title=$('l-title').value.trim(),from=$('l-from').value.trim(),to=$('l-to').value.trim(),phone=$('l-phone').value.trim();
  if(!title||!from||!to||!phone){showMsg('listingMessage','Аталыш, кайдан, кайда жана телефон талааларын толтуруңуз.','error');return;}
  const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString()};
- if(table==='loads'){payload.cargo=$('l-cargo').value.trim();payload.weight_tons=Number($('l-weight').value||0);}
- else{payload.vehicle_type=$('l-vehicle').value.trim();payload.capacity_tons=Number($('l-weight').value||0);}
+ payload.cargo=$('l-cargo').value.trim();payload.weight_tons=Number($('l-weight').value||0);
  const {error}=await db.from(table).insert(payload);
  if(error){showMsg('listingMessage',error.message,'error');return;}
  closeModal('listingModal');await loadListings();showPage('ads');
@@ -268,7 +261,16 @@ async function acceptRequest(id){
 }
 
 const translations = {
- 'КЫР':'РУС','Башкы бет':'Главная','Жарыялар':'Объявления','Сакталган':'Сохранённые','Билдирүүлөр':'Сообщения','Менин кабинетым':'Мой кабинет','Диспетчер':'Диспетчер','Жөндөөлөр':'Настройки',
+ 'КЫР':'РУС','КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ':'ГРУЗОВАЯ ПЛАТФОРМА ПО КЫРГЫЗСТАНУ',
+ 'Жүк жарыялары':'Объявления о грузах','Айдоочу':'Водитель','Жүктү таап, ээси менен байланыш':'Найдите груз и свяжитесь с владельцем',
+ 'Айдоочулар үчүн':'Для водителей','Жарыяланган жүктөрдү карап, ылайыктуусун таап, жүк ээси менен түз байланышыңыз.':'Просматривайте грузы, выбирайте подходящие и связывайтесь напрямую с владельцем.',
+ 'Кыргызстан боюнча жүк жана бош унааларды издөө':'Поиск грузов по Кыргызстану','Жүк же унаа түрү':'Тип груза',
+ 'Салмак / көтөрүмдүүлүк, тонна':'Вес груза, тонн',
+
+ 'Жарыя кошуу':'Добавить объявление','+ Жарыя кошуу':'Добавить объявление','Жаңы жарыя':'Новое объявление','Жарыя түрү':'Тип объявления','Жарыянын аталышы':'Название объявления',
+ 'Кайдан':'Откуда','Кайда':'Куда','Жүктүн түрү':'Тип груза','Унаанын түрү':'Тип транспорта','Жүктүн салмагы, тонна':'Вес груза, тонн','Унаанын көтөрүмдүүлүгү, тонна':'Грузоподъёмность, тонн',
+ 'Баасы, сом':'Цена, сом','Кошумча маалымат':'Дополнительная информация','Жарыялоо':'Опубликовать','Жабуу':'Закрыть','Транспорттун түрүн тандаңыз':'Выберите тип транспорта',
+ 'Фура':'Фура','Газель':'Газель','Рефрижератор':'Рефрижератор','Борттук унаа':'Бортовой автомобиль','Самосвал':'Самосвал','Трал':'Трал','Контейнер ташуучу':'Контейнеровоз','Эвакуатор':'Эвакуатор','Цистерна':'Цистерна','Микроавтобус':'Микроавтобус','Трактор':'Трактор','Башка':'Другое','Баштапкы колдонуу':'Стартовое использование','Жүк жарыялары':'Объявления о грузах','Бош унаалар':'Свободный транспорт','Башкы бет':'Главная','Жарыялар':'Объявления','Сакталган':'Сохранённые','Билдирүүлөр':'Сообщения','Менин кабинетым':'Мой кабинет','Диспетчер':'Диспетчер','Жөндөөлөр':'Настройки',
  'Кирүү':'Войти','Чыгуу':'Выйти','Катталуу':'Регистрация','Жарыяларды көрүү →':'Смотреть объявления →','Жарыяларды көрүү':'Смотреть объявления',
  '100% Кыргызстан ичинде':'100% по Кыргызстану','Жүк барбы? Унаа керекпи?':'Есть груз? Нужна машина?','Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Кыргызстан боюнча жүк жана бош унаа жарыяларын табыңыз.':'Соединяем владельцев грузов и водителей на одной платформе. Находите грузы и свободный транспорт по Кыргызстану.',
  'Кыргызстан гана':'Только Кыргызстан','Баштапкы колдонуу':'Стартовое использование','Жүк':'Груз','Жүк жарыялары':'Объявления о грузах','Унаа':'Транспорт','Бош унаалар':'Свободный транспорт',
@@ -304,6 +306,11 @@ const translations = {
  'Сайт':'Сайт','ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа':'ЖҮК ЭКСПРЕСС.KG · Платформа для Кыргызстана'
 };
 const placeholderTranslations = {
+ 'Фура, Газель, рефрижератор...':'Фура, Газель, рефрижератор...',
+ 'Эмерек, азык-түлүк...':'Мебель, продукты...',
+ 'Мисалы: Бишкектен Ошко жүк':'Например: груз из Бишкека в Ош',
+ 'Шаар / айыл':'Город / село',
+
  'Мисалы: Бишкектен Ошко жүк':'Например: груз из Бишкека в Ош','Шаар / айыл':'Город / село','Эмерек, азык-түлүк...':'Мебель, продукты...',
  'Мисалы: 3':'Например: 3','Келишимдүү болсо 0':'0, если договорная','+996 ...':'+996 ...',
  'Мисалы: Бишкек':'Например: Бишкек','Мисалы: Ош':'Например: Ош','Мисалы: эмерек, фура':'Например: мебель, фура',
@@ -317,6 +324,8 @@ function translateTextNode(node) {
  if(!trimmed)return;
  const dict=lang==='ru'?translations:reverseTranslations;
  if(dict[trimmed]) node.nodeValue=raw.replace(trimmed,dict[trimmed]);
+ else if(lang==='ru'&&trimmed.startsWith('+ Жарыя кошуу')) node.nodeValue=raw.replace('+ Жарыя кошуу','+ Добавить объявление');
+ else if(lang==='ky'&&trimmed.startsWith('+ Добавить объявление')) node.nodeValue=raw.replace('+ Добавить объявление','+ Жарыя кошуу');
  else if(lang==='ru'&&trimmed.startsWith('Жарыялар: ')) node.nodeValue=raw.replace('Жарыялар: ','Объявления: ');
  else if(lang==='ky'&&trimmed.startsWith('Объявления: ')) node.nodeValue=raw.replace('Объявления: ','Жарыялар: ');
 }
