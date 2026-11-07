@@ -1,364 +1,305 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10243a">
 <title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--navy:#10243a;--navy2:#183752;--blue:#246bce;--gold:#f3b63f;--bg:#f3f6fa;--card:#fff;--text:#172638;--muted:#6d7b8b;--line:#e1e8f0;--green:#16845b;--red:#c34444;--shadow:0 8px 28px rgba(16,36,58,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:16px 4vw 0}.toprow{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1250px;margin:auto;padding-bottom:14px}.brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:.3px}.logo{width:43px;height:43px;border-radius:13px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:22px}.brand small{display:block;color:#c6d4e1;font-weight:500;font-size:11px;letter-spacing:1.3px;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:750}.btn-primary{background:var(--gold);color:#172638}.btn-dark{background:var(--navy);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-light{background:#eef3f8;color:var(--navy)}.btn-outline{background:transparent;border:1px solid #8da4b8;color:#fff}.btn-danger{background:#fff0f0;color:var(--red)}.tabs{max-width:1250px;margin:auto;display:flex;gap:4px;overflow:auto;scrollbar-width:none}.tabs button{white-space:nowrap;border:0;background:transparent;color:#d8e3ed;padding:13px 14px;border-bottom:3px solid transparent;font-weight:700}.tabs button.active{color:var(--gold);border-color:var(--gold)}main{max-width:1250px;margin:24px auto;padding:0 18px 55px}.hero{background:linear-gradient(115deg,#173b5c,#245c89);border-radius:20px;padding:28px;color:white;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.12;margin:0 0 12px}.hero p{color:#dce8f2;max-width:600px;line-height:1.55}.hero-stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#ffffff15;border:1px solid #ffffff24;border-radius:13px;padding:15px}.stat b{display:block;font-size:23px;color:var(--gold)}.stat span{font-size:12px;color:#dce8f2}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 14px}.section-head h2{margin:0;font-size:22px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:42px;height:42px;flex:none;border-radius:12px;background:#eaf2fc;display:grid;place-items:center;font-size:21px}.feature h3{margin:1px 0 5px;font-size:16px}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #d7e0e9;border-radius:10px;padding:11px 12px;background:#fff;outline:none;color:var(--text)}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #246bce18}.field textarea{min-height:85px;resize:vertical}.filter-actions{display:flex;gap:8px;align-items:end}.listing{display:flex;flex-direction:column;gap:11px}.listing-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 4px 16px #10243a0a}.listing-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.tag{display:inline-block;padding:5px 9px;border-radius:30px;background:#eaf2fc;color:#245c89;font-size:11px;font-weight:800}.route{font-size:18px;font-weight:850;margin:10px 0 7px}.listing-meta{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:13px}.price{font-size:20px;font-weight:900;color:var(--green);white-space:nowrap}.listing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.empty b{display:block;color:var(--text);font-size:17px;margin-bottom:6px}.hidden{display:none!important}.modal-back{position:fixed;inset:0;background:#071421a8;display:grid;place-items:center;padding:16px;z-index:10}.modal{width:min(480px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 60px #0004}.modal h2{margin:0 0 6px}.modal .field{margin-top:12px}.modal-actions{display:flex;gap:8px;margin-top:16px}.modal-actions>*{flex:1}.notice{padding:12px 14px;border-radius:11px;background:#fff8e7;color:#74520c;font-size:13px;margin:12px 0}.success{background:#eaf8f1;color:#146444}.error{background:#fff0f0;color:#a52f2f}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.footer{text-align:center;color:#7c8b9a;font-size:12px;padding:25px 10px}.language{background:#ffffff16;color:white;border:1px solid #ffffff44;border-radius:9px;padding:9px}.mobile-only{display:none}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:16px 4vw 0}.toprow{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1250px;margin:auto;padding-bottom:14px}.brand{display:flex;align-items:center;gap:11px;font-weight:900}.logo{width:43px;height:43px;border-radius:13px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:22px}.brand small{display:block;color:#c6d4e1;font-weight:500;font-size:11px;letter-spacing:1px;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:750}.btn-primary{background:var(--gold);color:#172638}.btn-dark{background:var(--navy);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-light{background:#eef3f8;color:var(--navy)}.btn-outline{background:transparent;border:1px solid #8da4b8;color:#fff}.btn-danger{background:#fff0f0;color:var(--red)}.tabs{max-width:1250px;margin:auto;display:flex;gap:4px;overflow:auto;scrollbar-width:none}.tabs button{white-space:nowrap;border:0;background:transparent;color:#d8e3ed;padding:13px 14px;border-bottom:3px solid transparent;font-weight:700}.tabs button.active{color:var(--gold);border-color:var(--gold)}main{max-width:1250px;margin:24px auto;padding:0 18px 55px}.hero{background:linear-gradient(115deg,#173b5c,#245c89);border-radius:20px;padding:28px;color:white;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.12;margin:0 0 12px}.hero p{color:#dce8f2;max-width:600px;line-height:1.55}.hero-stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#ffffff15;border:1px solid #ffffff24;border-radius:13px;padding:15px}.stat b{display:block;font-size:23px;color:var(--gold)}.stat span{font-size:12px;color:#dce8f2}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 14px}.section-head h2{margin:0;font-size:22px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:42px;height:42px;flex:none;border-radius:12px;background:#eaf2fc;display:grid;place-items:center;font-size:21px}.feature h3{margin:1px 0 5px;font-size:16px}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #d7e0e9;border-radius:10px;padding:11px 12px;background:#fff;outline:none;color:var(--text)}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #246bce18}.field textarea{min-height:85px;resize:vertical}.filter-actions{display:flex;gap:8px;align-items:end}.listing{display:flex;flex-direction:column;gap:11px}.listing-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 4px 16px #10243a0a}.listing-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.tag{display:inline-block;padding:5px 9px;border-radius:30px;background:#eaf2fc;color:#245c89;font-size:11px;font-weight:800}.route{font-size:18px;font-weight:850;margin:10px 0 7px}.listing-meta{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:13px}.price{font-size:20px;font-weight:900;color:var(--green);white-space:nowrap}.listing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.empty b{display:block;color:var(--text);font-size:17px;margin-bottom:6px}.hidden{display:none!important}.modal-back{position:fixed;inset:0;background:#071421a8;display:grid;place-items:center;padding:16px;z-index:10}.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 60px #0004}.modal h2{margin:0 0 6px}.modal .field{margin-top:12px}.modal-actions{display:flex;gap:8px;margin-top:16px}.modal-actions>*{flex:1}.notice{padding:12px 14px;border-radius:11px;background:#fff8e7;color:#74520c;font-size:13px;margin:12px 0}.success{background:#eaf8f1;color:#146444}.error{background:#fff0f0;color:#a52f2f}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.footer{text-align:center;color:#7c8b9a;font-size:12px;padding:25px 10px}.language{background:#ffffff16;color:white;border:1px solid #ffffff44;border-radius:9px;padding:9px}.driver-card{background:white;border:1px solid var(--line);border-radius:15px;padding:16px}.driver-card h3{margin:8px 0}.pill{display:inline-block;background:#eaf8f1;color:#146444;border-radius:30px;padding:5px 9px;font-size:11px;font-weight:800}
 @media(max-width:800px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr 1fr}.top{padding-left:14px;padding-right:14px}.toprow{align-items:flex-start}.brand{font-size:14px}.top-actions .btn{padding:9px 10px;font-size:12px}}
-@media(max-width:520px){main{padding:0 12px 40px;margin-top:14px}.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.hero{padding:21px}.hero-stat{grid-template-columns:1fr 1fr}.tabs button{padding:12px 11px;font-size:12px}.toprow{flex-wrap:wrap}.top-actions{margin-left:auto}.profile-grid{grid-template-columns:1fr}.listing-top{display:block}.price{margin-top:7px}.filter-actions{grid-column:1/-1}.section-head h2{font-size:19px}}
+@media(max-width:520px){main{padding:0 12px 40px;margin-top:14px}.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.hero{padding:21px}.hero-stat{grid-template-columns:1fr 1fr}.tabs button{padding:12px 11px;font-size:12px}.toprow{flex-wrap:wrap}.top-actions{margin-left:auto}.profile-grid{grid-template-columns:1fr}.listing-top{display:block}.price{margin-top:7px}.filter-actions{grid-column:1/-1}.section-head h2{font-size:19px}.modal{padding:17px}}
 </style>
 </head>
 <body>
-<header class="top">
- <div class="toprow">
-  <div class="brand"><div class="logo">🚚</div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div></div>
-  <div class="top-actions"><select id="lang" class="language" aria-label="Тил"><option value="ky">КЫР</option><option value="ru">РУС</option></select><button class="btn btn-outline" id="authButton" onclick="openAuth()">Кирүү</button></div>
- </div>
- <nav class="tabs" id="nav">
-  <button class="active" data-page="home">Башкы бет</button>
-  <button data-page="ads">Жарыялар</button>
-  <button data-page="saved">Сакталган</button>
-  <button data-page="messages">Билдирүүлөр</button>
-  <button data-page="cabinet">Менин кабинетым</button>
-  <button data-page="dispatcher" id="dispatcherNav" class="hidden">Диспетчер</button>
-  <button data-page="settings">Жөндөөлөр</button>
- </nav>
-</header>
+<header class="top"><div class="toprow">
+ <div class="brand"><div class="logo">🚚</div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div></div>
+ <div class="top-actions"><select id="lang" class="language"><option value="ky">КЫР</option><option value="ru">РУС</option></select><button class="btn btn-outline" id="authButton" onclick="openAuth()">Кирүү</button></div>
+</div><nav class="tabs" id="nav">
+ <button class="active" data-page="home">Башкы бет</button><button data-page="ads">Жүк жарыялары</button><button data-page="drivers">Айдоочулар</button><button data-page="saved">Сакталган</button><button data-page="messages">Билдирүүлөр</button><button data-page="cabinet">Менин кабинетым</button><button data-page="dispatcher" id="dispatcherNav" class="hidden">Диспетчер</button><button data-page="settings">Жөндөөлөр</button>
+</nav></header>
 <main>
-<section id="page-home">
- <div class="hero">
-  <div><div class="tag" style="background:#ffffff20;color:#ffd77b">100% Кыргызстан ичинде</div><h1>Жүк барбы? Унаа керекпи?</h1><p>Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Кыргызстан боюнча жүк жана бош унаа жарыяларын табыңыз.</p><button class="btn btn-primary" onclick="showPage('ads')">Жарыяларды көрүү →</button> <button class="btn btn-outline" onclick="openAuth()">Катталуу</button></div>
-  <div class="hero-stat"><div class="stat"><b>🇰🇬</b><span>Кыргызстан гана</span></div><div class="stat"><b>0 сом</b><span>Баштапкы колдонуу</span></div><div class="stat"><b>Жүк</b><span>Жүк жарыялары</span></div><div class="stat"><b>Айдоочу</b><span>Жүктү таап, ээси менен байланыш</span></div></div>
- </div>
- <div class="section-head"><h2>Платформанын мүмкүнчүлүктөрү</h2></div>
- <div class="grid">
-  <div class="card feature"><div class="feature-icon">📦</div><div><h3>Жүк жарыялары</h3><p>Кайдан–кайда, жүктүн түрү, салмагы жана баасы боюнча издеңиз.</p></div></div>
-  <div class="card feature"><div class="feature-icon">🚚</div><div><h3>Айдоочулар үчүн</h3><p>Жарыяланган жүктөрдү карап, ылайыктуусун таап, жүк ээси менен түз байланышыңыз.</p></div></div>
-  <div class="card feature"><div class="feature-icon">🤝</div><div><h3>Диспетчер кызматы</h3><p>Админ дайындаган диспетчер жүк ээси менен айдоочуга жардам берет.</p></div></div>
- </div>
- <div class="notice">Эскертүү: платформа азыр баштапкы акысыз режимге ылайыкталган. Ташуу келишими жана төлөм шарттарын кардар менен айдоочу өз ара такташат.</div>
- <div class="section-head"><h2>Акыркы жарыялар</h2><button class="btn btn-light" onclick="showPage('ads')">Баарын көрүү</button></div>
- <div id="homeListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
+<section id="page-home"><div class="hero"><div><span class="tag" style="background:#ffffff20;color:#ffd77b">100% Кыргызстан ичинде</span><h1>Жүк барбы? Унаа керекпи?</h1><p>Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Жүк жарыяларын таап, түз байланышыңыз.</p><button class="btn btn-primary" onclick="showPage('ads')">Жүк жарыяларын көрүү →</button> <button class="btn btn-outline" onclick="openAuth()">Катталуу</button></div><div class="hero-stat"><div class="stat"><b>🇰🇬</b><span>Кыргызстан гана</span></div><div class="stat"><b>0 сом</b><span>Баштапкы колдонуу</span></div><div class="stat"><b>Жүк</b><span>Жүк жарыялары</span></div><div class="stat"><b>Айдоочу</b><span>Жүк ээсине түз байланыш</span></div></div></div>
+<div class="section-head"><h2>Платформанын мүмкүнчүлүктөрү</h2></div><div class="grid">
+<div class="card feature"><div class="feature-icon">📦</div><div><h3>Жүк жарыялары</h3><p>Кайдан–кайда, жүктүн түрү, салмагы жана баасы боюнча издеңиз.</p></div></div>
+<div class="card feature"><div class="feature-icon">🚚</div><div><h3>Айдоочулар каталогу</h3><p>Айдоочунун унаасын, багытын жана байланыш маалыматтарын көрүңүз.</p></div></div>
+<div class="card feature"><div class="feature-icon">🤝</div><div><h3>Диспетчер кызматы</h3><p>Админ дайындаган диспетчер жүк ээси менен айдоочуга жардам берет.</p></div></div></div>
+<div class="notice">Платформа баштапкы акысыз режимде. Ташуу жана төлөм шарттарын тараптар өз ара макулдашат.</div>
+<div class="section-head"><h2>Акыркы жүк жарыялары</h2><button class="btn btn-light" onclick="showPage('ads')">Баарын көрүү</button></div><div id="homeListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
 </section>
-<section id="page-ads" class="hidden">
- <div class="section-head"><div><h2>Жарыялар</h2><div class="muted">Кыргызстан боюнча жүк жана бош унааларды издөө</div></div><button class="btn btn-primary" onclick="openListing()">+ Жарыя кошуу</button></div>
- <div class="panel">
-  <div class="filters">
-   <div class="field"><label>Жарыялар</label><div class="input-like">Жүк жарыялары</div></div>
-   <div class="field"><label>Кайдан (шаар/аймак)</label><input id="f-from" placeholder="Мисалы: Бишкек"></div>
-   <div class="field"><label>Кайда (шаар/аймак)</label><input id="f-to" placeholder="Мисалы: Ош"></div>
-   <div class="field"><label>Жүк же унаа түрү</label><input id="f-type" placeholder="Мисалы: эмерек, фура"></div>
-   <div class="field"><label>Салмак / көтөрүмдүүлүк, тонна</label><input id="f-weight" type="number" min="0" step="0.1" placeholder="Мисалы: 5"></div>
-   <div class="field"><label>Баасы, сомго чейин</label><input id="f-price" type="number" min="0" placeholder="Мисалы: 20000"></div>
-   <div class="field"><label>Иреттөө</label><select id="f-sort"><option value="new">Жаңылары биринчи</option><option value="cheap">Баасы төмөндөн</option><option value="expensive">Баасы жогорудан</option></select></div>
-   <div class="filter-actions"><button class="btn btn-blue" onclick="applyFilters()">Издөө</button><button class="btn btn-light" onclick="resetFilters()">Тазалоо</button></div>
-  </div>
- </div>
- <div class="section-head"><h2 id="adsCount">Жарыялар</h2><span class="muted" id="adsHint">Активдүү жарыялар</span></div>
- <div id="adsListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
-</section>
+<section id="page-ads" class="hidden"><div class="section-head"><div><h2>Жүк жарыялары</h2><div class="muted">Кыргызстан боюнча жүктөрдү издөө</div></div><button class="btn btn-primary" onclick="openListing()">+ Жүк жарыялоо</button></div>
+<div class="panel"><div class="filters">
+<div class="field"><label>Кайдан</label><input id="f-from" placeholder="Мисалы: Бишкек"></div><div class="field"><label>Кайда</label><input id="f-to" placeholder="Мисалы: Ош"></div><div class="field"><label>Жүктүн түрү</label><input id="f-type" placeholder="Мисалы: картошка"></div><div class="field"><label>Салмак, тоннадан</label><input id="f-weight" type="number" min="0" step=".1"></div><div class="field"><label>Баасы, сомго чейин</label><input id="f-price" type="number" min="0"></div><div class="field"><label>Иреттөө</label><select id="f-sort"><option value="new">Жаңылары биринчи</option><option value="cheap">Баасы төмөндөн</option><option value="expensive">Баасы жогорудан</option></select></div><div class="filter-actions"><button class="btn btn-blue" onclick="renderListings()">Издөө</button><button class="btn btn-light" onclick="resetFilters()">Тазалоо</button></div></div></div>
+<div class="section-head"><h2 id="adsCount">Жарыялар</h2><span class="muted">Активдүү жүк жарыялары</span></div><div id="adsListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div></section>
+<section id="page-drivers" class="hidden"><div class="section-head"><div><h2>Айдоочулар</h2><div class="muted">Жалпыга көрсөтүүгө уруксат берген айдоочулар</div></div></div><div class="panel"><div class="filters"><div class="field"><label>Облус / шаар</label><select id="df-region"><option value="">Баары</option></select></div><div class="field"><label>Унаа түрү / модели</label><input id="df-vehicle" placeholder="Мисалы: Sprinter, Atego"></div><div class="field"><label>Көтөрүмдүүлүгү, тоннадан</label><input id="df-capacity" type="number" min="0" step=".1"></div><div class="filter-actions"><button class="btn btn-blue" onclick="renderDrivers()">Издөө</button><button class="btn btn-light" onclick="resetDriverFilters()">Тазалоо</button></div></div></div><div id="driversList" class="listing"><div class="empty">Айдоочулар жүктөлүүдө…</div></div></section>
 <section id="page-saved" class="hidden"><div class="section-head"><h2>Сакталган жарыялар</h2></div><div id="savedListings" class="listing"></div></section>
-<section id="page-messages" class="hidden"><div class="section-head"><h2>Билдирүүлөр</h2></div><div class="panel"><div class="empty"><b>Билдирүүлөр бөлүмү</b>Бул версияда байланыш жарыянын ичиндеги телефон жана WhatsApp аркылуу жүргүзүлөт. Ички чат кийинки этапта кошулат.</div></div></section>
+<section id="page-messages" class="hidden"><div class="panel empty"><b>Билдирүүлөр бөлүмү</b>Бул версияда телефон жана WhatsApp аркылуу түз байланышсаңыз болот.</div></section>
 <section id="page-cabinet" class="hidden"><div class="section-head"><h2>Менин кабинетым</h2></div><div id="cabinetContent" class="panel"></div></section>
 <section id="page-dispatcher" class="hidden"><div class="section-head"><h2>Диспетчер кабинети</h2></div><div id="dispatcherContent" class="panel"></div></section>
-<section id="page-settings" class="hidden"><div class="section-head"><h2>Жөндөөлөр</h2></div><div class="panel"><p><b>Тил:</b> кыргызча / русский</p><p><b>Өлкө:</b> Кыргызстан</p><p><b>Валюта:</b> Кыргыз сому (сом)</p><p><b>Акысыз баштапкы режим:</b> катталуу, жарыяларды көрүү жана издөө акысыз.</p><button class="btn btn-light" onclick="setLang(document.getElementById('lang').value==='ky'?'ru':'ky')">Тилди алмаштыруу</button></div></section>
-<div class="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа</div>
-</main>
+<section id="page-settings" class="hidden"><div class="panel"><h2>Жөндөөлөр</h2><p>Өлкө: Кыргызстан</p><p>Валюта: Кыргыз сому (сом)</p><p>Катталуу, жарыяларды көрүү жана издөө акысыз.</p></div></section>
+<div class="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа</div></main>
 
-<div class="modal-back hidden" id="authModal"><div class="modal">
- <div style="display:flex;justify-content:space-between;align-items:center"><h2 id="authTitle">Кирүү</h2><button class="btn btn-light" onclick="closeModal('authModal')">✕</button></div>
- <div class="field"><label>Email</label><input id="authEmail" type="email" autocomplete="email" placeholder="example@mail.com"></div>
- <div class="field"><label>Сыр сөз</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Кеминде 6 белги"></div>
- <div id="signupFields" class="hidden">
-  <div class="field"><label>Аты-жөнү</label><input id="authName" placeholder="Аты-жөнүңүз"></div>
-  <div class="field"><label>Телефон</label><input id="authPhone" type="tel" placeholder="+996 ..."></div>
-  <div class="field"><label>Аккаунт түрү</label><select id="authRole"><option value="customer">Жүк ээси</option><option value="driver">Айдоочу</option></select></div>
- </div>
- <div id="authMessage"></div>
- <div class="modal-actions"><button class="btn btn-blue" id="authSubmit" onclick="submitAuth()">Кирүү</button><button class="btn btn-light" id="authSwitch" onclick="toggleAuthMode()">Катталуу</button></div>
- <p class="muted" style="font-size:11px">Катталууда email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.</p>
-</div></div>
+<div class="modal-back hidden" id="authModal"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="authTitle">Кирүү</h2><button class="btn btn-light" onclick="closeModal('authModal')">✕</button></div>
+<div class="field"><label>Email</label><input id="authEmail" type="email" autocomplete="email" placeholder="example@mail.com"></div><div class="field"><label>Сыр сөз</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Кеминде 6 белги"></div>
+<div id="signupFields" class="hidden"><div class="field"><label>Аты-жөнү</label><input id="authName" autocomplete="name" placeholder="Аты-жөнүңүз"></div><div class="field"><label>Телефон</label><input id="authPhone" type="tel" autocomplete="tel" placeholder="+996 ..."></div><div class="field"><label>Аккаунт түрү</label><select id="authRole"><option value="customer">Жүк ээси</option><option value="driver">Айдоочу</option></select></div></div>
+<div id="authMessage"></div><div class="modal-actions"><button class="btn btn-blue" id="authSubmit" onclick="submitAuth()">Кирүү</button><button class="btn btn-light" id="authSwitch" onclick="toggleAuthMode()">Катталуу</button></div><p class="muted" style="font-size:11px">Email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.</p></div></div>
 
-<div class="modal-back hidden" id="listingModal"><div class="modal">
- <div style="display:flex;justify-content:space-between;align-items:center"><h2>Жаңы жарыя</h2><button class="btn btn-light" onclick="closeModal('listingModal')">✕</button></div>
- <input type="hidden" id="l-kind" value="loads">
- <div class="field"><label>Жарыянын аталышы</label><input id="l-title" placeholder="Мисалы: Бишкектен Ошко жүк"></div>
- <div class="profile-grid"><div class="field"><label>Кайдан</label><input id="l-from" placeholder="Шаар / айыл"></div><div class="field"><label>Кайда</label><input id="l-to" placeholder="Шаар / айыл"></div></div>
- <div class="field" id="loadTypeField"><label>Жүктүн түрү</label><input id="l-cargo" placeholder="Эмерек, азык-түлүк..."></div>
- 
- <div class="field" id="weightField"><label id="weightLabel">Жүктүн салмагы, тонна</label><input id="l-weight" type="number" min="0" step="0.1" placeholder="Мисалы: 3"></div>
- <div class="field"><label>Баасы, сом</label><input id="l-price" type="number" min="0" placeholder="Келишимдүү болсо 0"></div>
- <div class="field"><label>Телефон</label><input id="l-phone" type="tel" placeholder="+996 ..."></div>
- <div class="field"><label>WhatsApp (милдеттүү эмес)</label><input id="l-whatsapp" type="tel" placeholder="+996 ..."></div>
- <div class="field"><label>Кошумча маалымат</label><textarea id="l-description" placeholder="Жүк, унаа, жүктөө күнү жана башка шарттар..."></textarea></div>
- <div id="listingMessage"></div><div class="modal-actions"><button class="btn btn-blue" onclick="publishListing()">Жарыялоо</button><button class="btn btn-light" onclick="closeModal('listingModal')">Жабуу</button></div>
-</div></div>
+<div class="modal-back hidden" id="listingModal"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Жаңы жүк жарыясы</h2><button class="btn btn-light" onclick="closeModal('listingModal')">✕</button></div>
+<div class="field"><label>Жарыянын аталышы</label><input id="l-title" placeholder="Мисалы: Бишкектен Ошко картошка"></div><div class="profile-grid"><div class="field"><label>Кайдан</label><select id="l-from"></select></div><div class="field"><label>Кайда</label><select id="l-to"></select></div></div><div class="field"><label>Жүктүн түрү</label><input id="l-cargo" placeholder="Картошка, эмерек..."></div><div class="field"><label>Жүктүн салмагы, тонна</label><input id="l-weight" type="number" min=".1" step=".1"></div><div class="field"><label>Баасы, сом (0 — келишимдүү)</label><input id="l-price" type="number" min="0"></div><div class="field"><label>Телефон</label><input id="l-phone" type="tel"></div><div class="field"><label>WhatsApp</label><input id="l-whatsapp" type="tel"></div><div class="field"><label>Кошумча маалымат</label><textarea id="l-description"></textarea></div><div id="listingMessage"></div><div class="modal-actions"><button class="btn btn-blue" onclick="publishListing()">Жарыялоо</button><button class="btn btn-light" onclick="closeModal('listingModal')">Жабуу</button></div></div></div>
 
+<section id="page-detail" class="hidden">
+ <div class="section-head"><div><h2>Жүк тууралуу толук маалымат</h2><div class="muted">Жарыянын бардык шарттары жана байланыш маалыматтары</div></div>
+ <button class="btn btn-light" onclick="showPage('ads')">← Жарыяларга кайтуу</button></div>
+ <div id="detailPageContent" class="panel"></div>
+</section>
 <script>
-const SUPABASE_URL = 'https://esnmfwhzwrmcvokfgqld.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HJu0aBiE_jlPhD644iI_pw_j6grrjiq';
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-});
-let currentUser = null, profile = null, authMode = 'login', allListings = [], lang = localStorage.getItem('juk_express_lang') || 'ky';
-const savedKey = 'juk_express_saved_v1';
-const $ = id => document.getElementById(id);
-const tr = (ky,ru) => lang==='ru'?ru:ky;
-function esc(v=''){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function money(v){return Number(v)>0?Number(v).toLocaleString('ru-RU')+' сом':'Келишимдүү';}
-function showMsg(id,msg,type='notice'){ $(id).innerHTML=msg?`<div class="notice ${type}">${esc(msg)}</div>`:''; }
-function openAuth(){authMode='login';updateAuthMode();$('authModal').classList.remove('hidden');}
-function closeModal(id){$(id).classList.add('hidden');}
-function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';updateAuthMode();}
-function updateAuthMode(){
- $('authTitle').textContent=authMode==='login'?'Кирүү':'Катталуу';
- $('authSubmit').textContent=authMode==='login'?'Кирүү':'Катталуу';
- $('authSwitch').textContent=authMode==='login'?'Катталуу':'Кирүүгө өтүү';
- $('signupFields').classList.toggle('hidden',authMode!=='signup');$('authMessage').innerHTML='';
-}
+'use strict';
+const SUPABASE_URL='https://esnmfwhzwrmcvokfgqld.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_HJu0aBiE_jlPhD644iI_pw_j6grrjiq';
+const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const regions=['Бишкек шаары','Ош шаары','Чүй облусу','Ош облусу','Ысык-Көл облусу','Нарын облусу','Талас облусу','Жалал-Абад облусу','Баткен облусу'];
+let currentUser=null,profile=null,driverProfile=null,authMode='login',allListings=[],allDrivers=[],lang=localStorage.getItem('juk_express_lang')||'ky';
+const savedKey='juk_express_saved_v1';
+function tr(ky,ru){return lang==='ru'?ru:ky}
+function showMsg(id,msg,type='notice'){if($(id))$(id).innerHTML=msg?`<div class="notice ${type}">${esc(msg)}</div>`:''}
+function money(v){return Number(v)>0?Number(v).toLocaleString('ru-RU')+' сом':tr('Келишимдүү','Договорная')}
+function phoneClean(v){return String(v||'').replace(/[^\d+]/g,'')}
+function waLink(v){return String(v||'').replace(/\D/g,'')}
+function openAuth(){authMode='login';updateAuthMode();$('authModal').classList.remove('hidden')}
+function closeModal(id){$(id).classList.add('hidden')}
+function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';updateAuthMode()}
+function updateAuthMode(){$('authTitle').textContent=tr(authMode==='login'?'Кирүү':'Катталуу',authMode==='login'?'Войти':'Регистрация');$('authSubmit').textContent=$('authTitle').textContent;$('authSwitch').textContent=tr(authMode==='login'?'Катталуу':'Кирүүгө өтүү',authMode==='login'?'Регистрация':'Войти');$('signupFields').classList.toggle('hidden',authMode!=='signup');$('authMessage').innerHTML=''}
 async function submitAuth(){
  const email=$('authEmail').value.trim(),password=$('authPassword').value;
- if(!email||password.length<6){showMsg('authMessage','Email жана кеминде 6 белгиден турган сыр сөздү киргизиңиз.','error');return;}
- $('authSubmit').disabled=true;
+ if(!email||password.length<6){showMsg('authMessage',tr('Email жана кеминде 6 белгиден турган сыр сөздү киргизиңиз.','Введите email и пароль не короче 6 символов.'),'error');return}
+ const btn=$('authSubmit');btn.disabled=true;
  try{
   if(authMode==='signup'){
    const name=$('authName').value.trim(),phone=$('authPhone').value.trim(),role=$('authRole').value;
-   if(!name||!phone){showMsg('authMessage','Аты-жөнүңүздү жана телефонуңузду толтуруңуз.','error');return;}
-   const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name}}});
+   if(!name||!phone){showMsg('authMessage',tr('Аты-жөнүңүздү жана телефонуңузду толтуруңуз.','Заполните имя и телефон.'),'error');return}
+   const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name,phone,account_type:role}}});
    if(error)throw error;
-   if(data.user && data.session){
-    const {error:pe}=await db.from('profiles').upsert({id:data.user.id,full_name:name,phone,account_type:role},{onConflict:'id'});
-    if(pe)throw pe;
-    currentUser=data.user;await loadProfile();closeModal('authModal');refreshUI();
-   }else{
-    showMsg('authMessage','Катталуу кабыл алынды. Email дарегиңизге ырастоо шилтемеси жөнөтүлдү. Ырастагандан кийин кирип, кабинеттен профилди толуктаңыз.','success');
-   }
+   if(data.session&&data.user){currentUser=data.user;await ensureProfile(data.user,{name,phone,role});await afterLogin()}
+   else{showMsg('authMessage',tr('Катталуу кабыл алынды. Email дарегиңизди ырастап, андан кийин ушул email жана пароль менен кириңиз.','Регистрация принята. Подтвердите email, затем войдите с этим адресом и паролем.'),'success')}
   }else{
-   const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;
-   currentUser=data.user;await loadProfile();closeModal('authModal');refreshUI();
+   const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;currentUser=data.user;await ensureProfile(data.user);await afterLogin()
   }
- }catch(e){showMsg('authMessage',e.message||'Ката чыкты. Кайра аракет кылыңыз.','error');}
- finally{$('authSubmit').disabled=false;}
+ }catch(e){showMsg('authMessage',friendlyError(e),'error')}
+ finally{btn.disabled=false}
 }
-async function loadProfile(){
- if(!currentUser){profile=null;return;}
- let {data,error}=await db.from('profiles').select('*').eq('id',currentUser.id).maybeSingle();
- if(error)console.warn('Profile read:',error.message);
- if(!data){
-  const meta=currentUser.user_metadata||{};
-  const ins=await db.from('profiles').insert({id:currentUser.id,full_name:meta.full_name||'',account_type:'customer'}).select().maybeSingle();
-  data=ins.data;
+function friendlyError(e){const m=e?.message||'Белгисиз ката';if(/fetch|network|failed to fetch/i.test(m))return tr('Серверге туташуу мүмкүн болгон жок. Интернетти жана Supabase долбоорунун URL дарегин текшериңиз.','Не удалось подключиться к серверу. Проверьте интернет и URL проекта Supabase.');if(/invalid login credentials/i.test(m))return tr('Email же пароль туура эмес.','Неверный email или пароль.');if(/already registered/i.test(m))return tr('Бул email мурда катталган. Кирүү бөлүмүн колдонуңуз.','Этот email уже зарегистрирован. Перейдите ко входу.');return m}
+async function ensureProfile(user,provided={}){
+ const meta=user.user_metadata||{},name=provided.name||meta.full_name||'',phone=provided.phone||meta.phone||'',role=provided.role||meta.account_type||'customer';
+ const {data,error}=await db.from('profiles').select('*').eq('id',user.id).maybeSingle();if(error)throw error;
+ if(!data){const {data:created,error:ie}=await db.from('profiles').insert({id:user.id,full_name:name,phone,account_type:['customer','driver'].includes(role)?role:'customer'}).select().single();if(ie)throw ie;profile=created}
+ else{profile=data;const patch={};if(!profile.full_name&&name)patch.full_name=name;if(!profile.phone&&phone)patch.phone=phone;if(Object.keys(patch).length){const {data:updated,error:ue}=await db.from('profiles').update(patch).eq('id',user.id).select().single();if(ue)throw ue;profile=updated}}
+}
+async function afterLogin(){
+ await loadDriverProfile();
+ closeModal('authModal');
+ refreshUI();
+ if(profile?.account_type==='driver'){
+  showPage('cabinet');
+  setTimeout(()=>{
+   const formTitle=document.getElementById('driver-profile-heading');
+   if(formTitle)formTitle.scrollIntoView({behavior:'smooth',block:'start'});
+  },180);
  }
- profile=data||{id:currentUser.id,full_name:currentUser.user_metadata?.full_name||'',account_type:'customer'};
 }
-function refreshUI(){
- $('authButton').textContent=currentUser?'Чыгуу':'Кирүү';
- $('dispatcherNav').classList.toggle('hidden',!(profile&&profile.account_type==='dispatcher'));
- renderCabinet();renderDispatcher();loadListings();
-}
-async function logout(){
- const {error}=await db.auth.signOut();if(error){alert(error.message);return;}
- currentUser=null;profile=null;refreshUI();
-}
+async function loadProfile(){if(!currentUser){profile=null;return}await ensureProfile(currentUser)}
+async function loadDriverProfile(){driverProfile=null;if(!currentUser||profile?.account_type!=='driver')return;const {data,error}=await db.from('driver_profiles').select('*').eq('user_id',currentUser.id).maybeSingle();if(error){console.warn('driver profile',error.message);return}driverProfile=data}
+async function logout(){const {error}=await db.auth.signOut();if(error){alert(error.message);return}currentUser=null;profile=null;driverProfile=null;refreshUI();showPage('home')}
+function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');renderCabinet();renderDispatcher();loadListings();applyLanguage();loadDrivers()}
 $('authButton').addEventListener('click',()=>currentUser?logout():openAuth());
 async function loadListings(){
- const {data,error}=await db.from('loads').select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
- if(error)console.warn('loads',error.message);
- const combined=(data||[]).filter(row=>!row.expires_at||new Date(row.expires_at)>=new Date()).map(row=>({...row,_table:'loads'}));
- allListings=combined.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
- renderListings();renderSaved();renderHomeListings();
+ $('homeListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';$('adsListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';
+ try{const {data,error}=await db.from('loads').select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);if(error)throw error;
+ allListings=(data||[]).filter(x=>!x.expires_at||new Date(x.expires_at)>=new Date()).map(x=>({...x,_table:'loads'}));renderListings();renderSaved();renderHomeListings()
+ }catch(e){const msg=friendlyError(e);$('adsListings').innerHTML=`<div class="panel notice error">${esc(msg)}<br><small>Жарыялар таблицасы же RLS эрежелери да текшерилиши мүмкүн.</small></div>`;$('homeListings').innerHTML=`<div class="empty">${esc(msg)}</div>`}
 }
-function listingTitle(x){return x.title|| (x._table==='loads'?(x.cargo||'Жүк'):(x.vehicle_type||'Унаа'));}
-function listingCard(x){
- const kind='Жүк';
- const type=x.cargo||'Жүк көрсөтүлгөн эмес';
- const weight=x.weight_tons;
- const route=`${x.city_from||'Көрсөтүлгөн эмес'} → ${x.city_to||'Көрсөтүлгөн эмес'}`;
- const phone=(x.phone||'').replace(/[^\d+]/g,'');
- const wa=(x.whatsapp||x.phone||'').replace(/\D/g,'');
- const isSaved=getSaved().includes(x._table+':'+x.id);
- return `<article class="listing-card"><div class="listing-top"><div><span class="tag">${kind}</span><div class="route">${esc(route)}</div><b>${esc(listingTitle(x))}</b></div><div class="price">${esc(money(x.price))}</div></div><div class="listing-meta"><span>📦 ${esc(type)}</span>${weight?`<span>⚖️ ${esc(weight)} т</span>`:''}<span>📅 ${x.created_at?new Date(x.created_at).toLocaleDateString('ru-RU'):'—'}</span></div>${x.description?`<p class="muted" style="font-size:13px;margin:10px 0 0">${esc(x.description)}</p>`:''}<div class="listing-actions"><button class="btn btn-light" onclick="toggleSaved('${x._table}:${x.id}')">${isSaved?'★ Сакталды':'☆ Сактоо'}</button>${phone?`<a class="btn btn-blue" style="text-decoration:none" href="tel:${esc(phone)}">Чалуу</a>`:''}${wa?`<a class="btn btn-primary" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}<button class="btn btn-light" onclick="requestDispatcher('${x._table}','${x.id}')">Диспетчер жардам берсин</button></div></article>`;
-}
-function renderListings(){
- let list=filterListings();$('adsCount').textContent=`Жарыялар: ${list.length}`;
- $('adsListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча ылайыктуу жарыя табылган жок</b>Фильтрлерди өзгөртүп кайра издеп көрүңүз.</div>';applyTranslations();
-}
-function filterListings(){
- let list=[...allListings],from=$('f-from').value.trim().toLowerCase(),to=$('f-to').value.trim().toLowerCase(),type=$('f-type').value.trim().toLowerCase(),weight=Number($('f-weight').value),price=Number($('f-price').value);
- list=list.filter(x=>x._table==='loads');
- if(from)list=list.filter(x=>(x.city_from||'').toLowerCase().includes(from));
- if(to)list=list.filter(x=>(x.city_to||'').toLowerCase().includes(to));
- if(type)list=list.filter(x=>`${x.cargo||''} ${x.title||''}`.toLowerCase().includes(type));
- if(weight)list=list.filter(x=>Number(x.weight_tons)>=weight);
- if(price)list=list.filter(x=>Number(x.price||0)<=price);
- const sort=$('f-sort').value;if(sort==='cheap')list.sort((a,b)=>(a.price||0)-(b.price||0));if(sort==='expensive')list.sort((a,b)=>(b.price||0)-(a.price||0));
- return list;
-}
-function applyFilters(){renderListings();}
-function resetFilters(){['f-from','f-to','f-type','f-weight','f-price'].forEach(id=>$(id).value='');$('f-sort').value='new';renderListings();}
-function renderHomeListings(){const list=allListings.slice(0,3);$('homeListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча жарыя жок</b>Биринчи жарыяларды кошкондо бул жерде көрүнөт.</div>';applyTranslations();}
 function getSaved(){try{return JSON.parse(localStorage.getItem(savedKey)||'[]')}catch{return[]}}
-function toggleSaved(key){let a=getSaved();a=a.includes(key)?a.filter(x=>x!==key):[...a,key];localStorage.setItem(savedKey,JSON.stringify(a));renderListings();renderSaved();renderHomeListings();}
-function renderSaved(){const ids=getSaved(),list=allListings.filter(x=>ids.includes(x._table+':'+x.id));$('savedListings').innerHTML=list.length?list.map(listingCard).join(''):'<div class="panel empty"><b>Сакталган жарыялар жок</b>Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.</div>';applyTranslations();}
-function showPage(page){
- document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));
- $('page-'+page).classList.remove('hidden');
- document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
- if(page==='saved')renderSaved();if(page==='cabinet')renderCabinet();if(page==='dispatcher')renderDispatcher();
- window.scrollTo({top:0,behavior:'smooth'});
+function toggleSaved(key){let a=getSaved();a=a.includes(key)?a.filter(x=>x!==key):[...a,key];localStorage.setItem(savedKey,JSON.stringify(a));renderListings();renderSaved();renderHomeListings()}
+function listingCard(x){const route=`${x.city_from||'—'} → ${x.city_to||'—'}`,key=`loads:${x.id}`,saved=getSaved().includes(key),phone=phoneClean(x.phone),wa=waLink(x.whatsapp||x.phone);
+return `<article class="listing-card" role="button" tabindex="0" onclick="openDetail('${esc(x.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail('${esc(x.id)}')}"><div class="listing-top"><div><span class="tag">ЖҮК</span><div class="route">${esc(route)}</div><b>${esc(x.title||x.cargo||'Жүк')}</b></div><div class="price">${esc(money(x.price))}</div></div><div class="listing-meta"><span>📦 ${esc(x.cargo||'Жүк көрсөтүлгөн эмес')}</span>${x.weight_tons?`<span>⚖️ ${esc(x.weight_tons)} т</span>`:''}<span>📅 ${x.created_at?new Date(x.created_at).toLocaleDateString('ru-RU'):'—'}</span></div><div class="listing-actions"><button class="btn btn-light" onclick="event.stopPropagation();openDetail('${esc(x.id)}')">Толук маалымат</button><button class="btn btn-light" onclick="event.stopPropagation();toggleSaved('${key}')">${saved?'★ Сакталды':'☆ Сактоо'}</button>${phone?`<a class="btn btn-blue" onclick="event.stopPropagation()" href="tel:${esc(phone)}">Чалуу</a>`:''}${wa?`<a class="btn btn-primary" onclick="event.stopPropagation()" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}<button class="btn btn-light" onclick="event.stopPropagation();requestDispatcher('loads','${esc(x.id)}')">Диспетчер жардам берсин</button></div></article>`}
+function filteredLoads(){let a=[...allListings],from=$('f-from').value.trim().toLowerCase(),to=$('f-to').value.trim().toLowerCase(),type=$('f-type').value.trim().toLowerCase(),w=Number($('f-weight').value),p=Number($('f-price').value);if(from)a=a.filter(x=>(x.city_from||'').toLowerCase().includes(from));if(to)a=a.filter(x=>(x.city_to||'').toLowerCase().includes(to));if(type)a=a.filter(x=>`${x.cargo||''} ${x.title||''}`.toLowerCase().includes(type));if(w)a=a.filter(x=>Number(x.weight_tons)>=w);if(p)a=a.filter(x=>Number(x.price||0)<=p);if($('f-sort').value==='cheap')a.sort((x,y)=>Number(x.price||0)-Number(y.price||0));if($('f-sort').value==='expensive')a.sort((x,y)=>Number(y.price||0)-Number(x.price||0));return a}
+function renderListings(){if(!$('adsListings'))return;const a=filteredLoads();$('adsCount').textContent=`Жарыялар: ${a.length}`;$('adsListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча ылайыктуу жарыя табылган жок</b>Фильтрлерди өзгөртүп кайра издеңиз.</div>';applyLanguage()}
+function renderHomeListings(){const a=allListings.slice(0,3);$('homeListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча жүк жарыясы жок</b>Жаңы жарыялар бул жерде көрүнөт.</div>';applyLanguage()}
+function renderSaved(){const ids=getSaved(),a=allListings.filter(x=>ids.includes(`loads:${x.id}`));$('savedListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Сакталган жарыялар жок</b>Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.</div>';applyLanguage()}
+function resetFilters(){['f-from','f-to','f-type','f-weight','f-price'].forEach(id=>$(id).value='');$('f-sort').value='new';renderListings()}
+function openDetail(id){
+ const x=allListings.find(a=>String(a.id)===String(id));
+ if(!x)return;
+ const phone=phoneClean(x.phone),wa=waLink(x.whatsapp||x.phone);
+ $('detailPageContent').innerHTML=`
+  <span class="tag">ЖҮК ЖАРЫЯСЫ</span>
+  <h2 style="margin:14px 0 8px">${esc(x.title||x.cargo||'Жүк')}</h2>
+  <div class="route" style="font-size:22px">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div>
+  <div class="price" style="font-size:25px;margin:14px 0">${esc(money(x.price))}</div>
+  <div class="profile-grid" style="margin-top:18px">
+   <div><span class="muted">Жүктүн түрү</span><p><b>${esc(x.cargo||'Көрсөтүлгөн эмес')}</b></p></div>
+   <div><span class="muted">Салмагы</span><p><b>${esc(x.weight_tons||'—')} т</b></p></div>
+   <div><span class="muted">Жарыяланган күнү</span><p><b>${x.created_at?new Date(x.created_at).toLocaleString('ru-RU'):'—'}</b></p></div>
+   <div><span class="muted">Өлкө</span><p><b>Кыргызстан</b></p></div>
+  </div>
+  <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+  <h3>Кошумча маалымат</h3>
+  <p style="white-space:pre-wrap;line-height:1.6">${esc(x.description||'Кошумча маалымат көрсөтүлгөн эмес.')}</p>
+  <h3 style="margin-top:22px">Жүк ээси менен байланышуу</h3>
+  <div class="listing-actions">
+   ${phone?`<a class="btn btn-blue" style="text-decoration:none" href="tel:${esc(phone)}">Чалуу</a>`:''}
+   ${wa?`<a class="btn btn-primary" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}
+   <button class="btn btn-light" onclick="toggleSaved('loads:${esc(x.id)}')">☆ Сактоо</button>
+  </div>`;
+ showPage('detail');
+ applyLanguage();
 }
+function showPage(page){document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='dispatcher')renderDispatcher();if(page==='saved')renderSaved();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
-function renderCabinet(){
- if(!currentUser){$('cabinetContent').innerHTML=`<div class="empty"><b>Жеке кабинетке кирүү керек</b>Жарыя кошуу жана жеке маалыматтарды башкаруу үчүн аккаунтуңузга кириңиз.<br><br><button class="btn btn-blue" onclick="openAuth()">Кирүү / Катталуу</button></div>`;return;}
- const role=profile?.account_type==='driver'?'Айдоочу':profile?.account_type==='dispatcher'?'Диспетчер':'Жүк ээси';
- $('cabinetContent').innerHTML=`<div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аккаунт түрү</label><input value="${role}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:15px"><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button><button class="btn btn-primary" onclick="openListing()">+ Жарыя кошуу</button><button class="btn btn-danger" onclick="logout()">Аккаунттан чыгуу</button></div><div class="notice">Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.</div>`;
-}
-async function saveProfile(){
- if(!currentUser)return;
- const {error}=await db.from('profiles').update({full_name:$('p-name').value.trim(),phone:$('p-phone').value.trim()}).eq('id',currentUser.id);
- if(error){showMsg('profileMessage',error.message,'error');return;}
- await loadProfile();showMsg('profileMessage','Маалымат сакталды.','success');
-}
-function openListing(){
- if(!currentUser){openAuth();return;}
- $('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';
- $('l-phone').value=profile?.phone||'';
-}
-function toggleListingKind(){$('l-kind').value='loads';$('loadTypeField').classList.remove('hidden');$('weightLabel').textContent='Жүктүн салмагы, тонна';}
-async function publishListing(){
- if(!currentUser){showMsg('listingMessage','Алгач аккаунтуңузга кириңиз.','error');return;}
- const table='loads',title=$('l-title').value.trim(),from=$('l-from').value.trim(),to=$('l-to').value.trim(),phone=$('l-phone').value.trim();
- if(!title||!from||!to||!phone){showMsg('listingMessage','Аталыш, кайдан, кайда жана телефон талааларын толтуруңуз.','error');return;}
- const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString()};
- payload.cargo=$('l-cargo').value.trim();payload.weight_tons=Number($('l-weight').value||0);
- const {error}=await db.from(table).insert(payload);
- if(error){showMsg('listingMessage',error.message,'error');return;}
- closeModal('listingModal');await loadListings();showPage('ads');
-}
-async function requestDispatcher(table,id){
- if(!currentUser){openAuth();return;}
- const message=prompt('Диспетчерге кандай жардам керек экенин жазыңыз:','Бул жарыя боюнча байланышууга жардам бериңиз.');
- if(message===null)return;
- const {error}=await db.from('dispatch_requests').insert({requester_id:currentUser.id,request_type:table==='loads'?'find_driver':'find_load',listing_id:id,listing_table:table,message,payment_mode:'direct'});
- if(error){alert('Өтүнүч жөнөтүлгөн жок: '+error.message);return;}
- alert('Өтүнүч жөнөтүлдү. Диспетчер кызматын иштетүү үчүн администратор диспетчерлерди дайындашы керек.');
-}
-async function renderDispatcher(){
- if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b>Диспетчер укугун администратор гана дайындайт.</div>';return;}
- const {data:dp,error:de}=await db.from('dispatcher_profiles').select('*').eq('user_id',currentUser.id).maybeSingle();
- if(de){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(de.message)}</div>`;return;}
- const {data:req,error}=await db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);
- $('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз. Кардар менен кызмат акысы жана шарттары түз макулдашылат.</div><div class="card"><b>${esc(dp?.display_name||profile.full_name||'Диспетчер')}</b><p class="muted">${esc(dp?.region||'Аймак көрсөтүлгөн эмес')} · ${esc(dp?.phone||profile.phone||'Телефон көрсөтүлгөн эмес')}</p><p>Төлөм модели: ${esc(dp?.payment_mode||'direct')}</p></div><div class="section-head"><h3>Ачык өтүнүчтөр</h3></div>${error?`<div class="notice error">${esc(error.message)}</div>`:(req||[]).length?(req||[]).map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':r.request_type==='find_load'?'Айдоочу жүк издеп жатат':'Башка өтүнүч'}</b><p>${esc(r.message||'Кошумча маалымат жок')}</p><small class="muted">${new Date(r.created_at).toLocaleString('ru-RU')}</small><div class="listing-actions"><button class="btn btn-blue" onclick="acceptRequest('${r.id}')">Кабыл алуу</button></div></div>`).join(''):'<div class="empty">Азырынча ачык өтүнүч жок.</div>'}`;
-}
-async function acceptRequest(id){
- const {error}=await db.from('dispatch_requests').update({dispatcher_id:currentUser.id,status:'accepted'}).eq('id',id).eq('status','open');
- if(error){alert(error.message);return;}renderDispatcher();
-}
+function openListing(){if(!currentUser){openAuth();return}if(!['customer','dispatcher'].includes(profile?.account_type)){alert(tr('Айдоочу жүк жарыясын жарыялабайт. Жүк ээси аккаунту керек.','Водитель не публикует грузы. Нужен аккаунт владельца груза.'));return}$('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';$('l-phone').value=profile?.phone||''}
+async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value,to=$('l-to').value,phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage','Аталыш, кайдан, кайда жана телефонду толтуруңуз.','error');return}const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),cargo:$('l-cargo').value.trim(),weight_tons:Number($('l-weight').value||0)};try{const {error}=await db.from('loads').insert(payload);if(error)throw error;closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}}
+async function requestDispatcher(table,id){if(!currentUser){openAuth();return}const message=prompt('Диспетчерге кандай жардам керек?','Бул жүк боюнча байланышууга жардам бериңиз.');if(message===null)return;try{const {error}=await db.from('dispatch_requests').insert({requester_id:currentUser.id,request_type:'find_driver',listing_id:id,listing_table:table,message,payment_mode:'direct'});if(error)throw error;alert('Өтүнүч жөнөтүлдү.')}catch(e){alert('Өтүнүч жөнөтүлгөн жок: '+e.message)}}
+function regionOptions(){return regions.map(r=>`<option value="${esc(r)}">${esc(r)}</option>`).join('')}
+function setupRegions(){$('df-region').innerHTML='<option value="">Баары</option>'+regionOptions();$('l-from').innerHTML='<option value="">Аймакты тандаңыз</option>'+regionOptions();$('l-to').innerHTML='<option value="">Аймакты тандаңыз</option>'+regionOptions()}
+async function loadDrivers(){try{const {data,error}=await db.from('driver_profiles').select('user_id,driver_name,vehicle_type,vehicle_model,capacity_tons,region,work_directions,phone,whatsapp,description,is_public').eq('is_public',true).order('created_at',{ascending:false}).limit(100);if(error)throw error;allDrivers=data||[];renderDrivers()}catch(e){$('driversList').innerHTML=`<div class="panel notice error">${esc(friendlyError(e))}<br>Айдоочулар таблицасынын SELECT уруксатын текшерүү керек.</div>`}}
+function renderDrivers(){const region=$('df-region').value,vehicle=$('df-vehicle').value.trim().toLowerCase(),capacity=Number($('df-capacity').value);let a=allDrivers.filter(d=>(!region||d.region===region)&&(!vehicle||`${d.vehicle_type||''} ${d.vehicle_model||''}`.toLowerCase().includes(vehicle))&&(!capacity||Number(d.capacity_tons)>=capacity));$('driversList').innerHTML=a.length?a.map(d=>`<article class="driver-card"><span class="pill">Айдоочу</span><h3>${esc(d.driver_name||'Айдоочу')}</h3><div class="listing-meta"><span>🚚 ${esc(d.vehicle_type||'Унаа көрсөтүлгөн эмес')} ${esc(d.vehicle_model||'')}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(d.region||'—')}</span></div><p class="muted">${esc(d.work_directions||'Багыт көрсөтүлгөн эмес')}</p>${d.description?`<p>${esc(d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">Чалуу</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}</div></article>`).join(''):'<div class="panel empty"><b>Айдоочу табылган жок</b>Фильтрлерди өзгөртүп көрүңүз.</div>';applyLanguage()}
 
-const translations = {
- 'КЫР':'РУС','КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ':'ГРУЗОВАЯ ПЛАТФОРМА ПО КЫРГЫЗСТАНУ',
- 'Жүк жарыялары':'Объявления о грузах','Айдоочу':'Водитель','Жүктү таап, ээси менен байланыш':'Найдите груз и свяжитесь с владельцем',
- 'Айдоочулар үчүн':'Для водителей','Жарыяланган жүктөрдү карап, ылайыктуусун таап, жүк ээси менен түз байланышыңыз.':'Просматривайте грузы, выбирайте подходящие и связывайтесь напрямую с владельцем.',
- 'Кыргызстан боюнча жүк жана бош унааларды издөө':'Поиск грузов по Кыргызстану','Жүк же унаа түрү':'Тип груза',
- 'Салмак / көтөрүмдүүлүк, тонна':'Вес груза, тонн',
+function resetDriverFilters(){$('df-region').value='';$('df-vehicle').value='';$('df-capacity').value='';renderDrivers()}
+function renderCabinet(){if(!currentUser){$('cabinetContent').innerHTML='<div class="empty"><b>Жеке кабинетке кирүү керек</b><button class="btn btn-blue" onclick="openAuth()">Кирүү / Катталуу</button></div>';return}
+const role=profile?.account_type,roleName=role==='driver'?'Айдоочу':role==='dispatcher'?'Диспетчер':'Жүк ээси';
+let base=`<div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аккаунт түрү</label><input value="${roleName}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button> `;
+if(role==='driver')base+=driverFormHtml();
+base+=`<div style="margin-top:15px"><button class="btn btn-danger" onclick="logout()">Аккаунттан чыгуу</button></div><div class="notice">Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.</div>`;$('cabinetContent').innerHTML=base;applyLanguage()}
+function driverFormHtml(){const d=driverProfile||{};return `<hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3 id="driver-profile-heading">Айдоочунун профили</h3><p class="muted">Профилди жалпыга көрсөтсөңүз, жүк ээлери сиз менен түз байланыша алышат.</p><div class="profile-grid"><div class="field"><label>Айдоочунун аты-жөнү</label><input id="d-name" value="${esc(d.driver_name||profile?.full_name||'')}"></div><div class="field"><label>Унаа түрү</label><select id="d-type">${['Sprinter','Atego','Газель','Фура','Рефрижератор','Борттук унаа','Самосвал','Трал','Контейнер ташуучу','Цистерна','Башка'].map(x=>`<option ${d.vehicle_type===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Унаанын модели</label><input id="d-model" value="${esc(d.vehicle_model||'')}"></div><div class="field"><label>Жүк көтөрүмдүүлүгү, тонна</label><input id="d-capacity" type="number" min="0" step=".1" value="${esc(d.capacity_tons||'')}"></div><div class="field"><label>Аймак</label><select id="d-region"><option value="">Аймакты тандаңыз</option>${regions.map(x=>`<option ${d.region===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Телефон</label><input id="d-phone" value="${esc(d.phone||profile?.phone||'')}"></div><div class="field"><label>WhatsApp</label><input id="d-whatsapp" value="${esc(d.whatsapp||'')}"></div><div class="field"><label>Каттаган багыттары</label><input id="d-directions" value="${esc(d.work_directions||'')}" placeholder="Мисалы: Ош — Бишкек"></div></div><div class="field"><label>Кошумча маалымат</label><textarea id="d-description">${esc(d.description||'')}</textarea></div><label style="display:flex;gap:9px;align-items:center;margin:14px 0"><input type="checkbox" id="d-public" ${d.is_public?'checked':''}> Профилимди жалпыга көрсөтүүгө уруксат берем</label><div id="driverMessage"></div><button class="btn btn-primary" onclick="saveDriverProfile()">Айдоочу профилин сактоо</button>`}
+async function saveProfile(){try{const {data,error}=await db.from('profiles').update({full_name:$('p-name').value.trim(),phone:$('p-phone').value.trim()}).eq('id',currentUser.id).select().single();if(error)throw error;profile=data;showMsg('profileMessage','Маалымат сакталды.','success');if(profile.account_type==='driver'&&!$('d-phone').value.trim())$('d-phone').value=profile.phone||''}catch(e){showMsg('profileMessage',e.message,'error')}}
+async function saveDriverProfile(){if(!currentUser||profile?.account_type!=='driver')return;const name=$('d-name').value.trim(),phone=$('d-phone').value.trim();if(!name||!phone||!$('d-region').value){showMsg('driverMessage','Аты-жөнү, телефон жана аймак милдеттүү.','error');return}const payload={user_id:currentUser.id,driver_name:name,vehicle_type:$('d-type').value,vehicle_model:$('d-model').value.trim(),capacity_tons:Number($('d-capacity').value||0),region:$('d-region').value,work_directions:$('d-directions').value.trim(),phone,whatsapp:$('d-whatsapp').value.trim(),description:$('d-description').value.trim(),is_public:$('d-public').checked,updated_at:new Date().toISOString()};try{const {error}=await db.from('driver_profiles').upsert(payload,{onConflict:'user_id'});if(error)throw error;driverProfile=payload;showMsg('driverMessage','Айдоочу профили сакталды.','success');loadDrivers()}catch(e){showMsg('driverMessage',e.message,'error')}}
+async function renderDispatcher(){if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b></div>';return}try{const {data:req,error}=await db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);if(error)throw error;$('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз.</div><h3>Ачык өтүнүчтөр</h3>${(req||[]).length?req.map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':'Айдоочу жүк издеп жатат'}</b><p>${esc(r.message||'')}</p><button class="btn btn-blue" onclick="acceptRequest('${esc(r.id)}')">Кабыл алуу</button></div>`).join(''):'<div class="empty">Ачык өтүнүч жок.</div>'}`}catch(e){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(e.message)}</div>`}}
+async function acceptRequest(id){try{const {error}=await db.from('dispatch_requests').update({dispatcher_id:currentUser.id,status:'accepted'}).eq('id',id).eq('status','open');if(error)throw error;renderDispatcher()}catch(e){alert(e.message)}}
 
- 'Жарыя кошуу':'Добавить объявление','+ Жарыя кошуу':'Добавить объявление','Жаңы жарыя':'Новое объявление','Жарыя түрү':'Тип объявления','Жарыянын аталышы':'Название объявления',
- 'Кайдан':'Откуда','Кайда':'Куда','Жүктүн түрү':'Тип груза','Унаанын түрү':'Тип транспорта','Жүктүн салмагы, тонна':'Вес груза, тонн','Унаанын көтөрүмдүүлүгү, тонна':'Грузоподъёмность, тонн',
- 'Баасы, сом':'Цена, сом','Кошумча маалымат':'Дополнительная информация','Жарыялоо':'Опубликовать','Жабуу':'Закрыть','Транспорттун түрүн тандаңыз':'Выберите тип транспорта',
- 'Фура':'Фура','Газель':'Газель','Рефрижератор':'Рефрижератор','Борттук унаа':'Бортовой автомобиль','Самосвал':'Самосвал','Трал':'Трал','Контейнер ташуучу':'Контейнеровоз','Эвакуатор':'Эвакуатор','Цистерна':'Цистерна','Микроавтобус':'Микроавтобус','Трактор':'Трактор','Башка':'Другое','Баштапкы колдонуу':'Стартовое использование','Жүк жарыялары':'Объявления о грузах','Бош унаалар':'Свободный транспорт','Башкы бет':'Главная','Жарыялар':'Объявления','Сакталган':'Сохранённые','Билдирүүлөр':'Сообщения','Менин кабинетым':'Мой кабинет','Диспетчер':'Диспетчер','Жөндөөлөр':'Настройки',
- 'Кирүү':'Войти','Чыгуу':'Выйти','Катталуу':'Регистрация','Жарыяларды көрүү →':'Смотреть объявления →','Жарыяларды көрүү':'Смотреть объявления',
- '100% Кыргызстан ичинде':'100% по Кыргызстану','Жүк барбы? Унаа керекпи?':'Есть груз? Нужна машина?','Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Кыргызстан боюнча жүк жана бош унаа жарыяларын табыңыз.':'Соединяем владельцев грузов и водителей на одной платформе. Находите грузы и свободный транспорт по Кыргызстану.',
- 'Кыргызстан гана':'Только Кыргызстан','Баштапкы колдонуу':'Стартовое использование','Жүк':'Груз','Жүк жарыялары':'Объявления о грузах','Унаа':'Транспорт','Бош унаалар':'Свободный транспорт',
- 'Платформанын мүмкүнчүлүктөрү':'Возможности платформы','Жүк жарыялары':'Объявления о грузах','Кайдан–кайда, жүктүн түрү, салмагы жана баасы боюнча издеңиз.':'Ищите по маршруту, типу груза, весу и цене.',
- 'Бош унаалар':'Свободный транспорт','Багыты жана жүк көтөрүмдүүлүгү туура келген унааны табыңыз.':'Найдите транспорт по направлению и грузоподъёмности.',
- 'Диспетчер кызматы':'Услуги диспетчера','Админ дайындаган диспетчер жүк ээси менен айдоочуга жардам берет.':'Назначенный администратором диспетчер помогает владельцам грузов и водителям.',
- 'Эскертүү: платформа азыр баштапкы акысыз режимге ылайыкталган. Ташуу келишими жана төлөм шарттарын кардар менен айдоочу өз ара такташат.':'Примечание: платформа пока работает в бесплатном стартовом режиме. Условия перевозки и оплаты клиент и водитель согласовывают напрямую.',
- 'Акыркы жарыялар':'Последние объявления','Баарын көрүү':'Смотреть все','Жаңы жарыя':'Новое объявление','Жарыя кошуу':'Добавить объявление',
- 'Жарыялар':'Объявления','Кыргызстан боюнча жүк жана бош унааларды издөө':'Поиск грузов и свободного транспорта по Кыргызстану',
- 'Жарыя түрү':'Тип объявления','Баары':'Все','Жүк керек':'Нужен груз','Бош унаа':'Свободная машина','Кайдан (шаар/аймак)':'Откуда (город/регион)','Кайда (шаар/аймак)':'Куда (город/регион)',
- 'Жүк же унаа түрү':'Тип груза или транспорта','Салмак / көтөрүмдүүлүк, тонна':'Вес / грузоподъёмность, тонн','Баасы, сомго чейин':'Цена до, сом','Иреттөө':'Сортировка',
- 'Жаңылары биринчи':'Сначала новые','Баасы төмөндөн':'Сначала дешевле','Баасы жогорудан':'Сначала дороже','Издөө':'Найти','Тазалоо':'Сбросить',
- 'Активдүү жарыялар':'Активные объявления','Жарыялар жүктөлүүдө…':'Загрузка объявлений…','Азырынча ылайыктуу жарыя табылган жок':'Подходящих объявлений пока нет','Фильтрлерди өзгөртүп кайра издеп көрүңүз.':'Измените фильтры и попробуйте снова.',
- 'Сакталган жарыялар':'Сохранённые объявления','Сакталган жарыялар жок':'Сохранённых объявлений нет','Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.':'Нажмите «Сохранить» рядом с нужным объявлением.',
- 'Бул версияда байланыш жарыянын ичиндеги телефон жана WhatsApp аркылуу жүргүзүлөт. Ички чат кийинки этапта кошулат.':'В этой версии можно связаться по телефону или WhatsApp из объявления. Внутренний чат будет добавлен позже.',
- 'Жеке кабинетке кирүү керек':'Войдите в личный кабинет','Жарыя кошуу жана жеке маалыматтарды башкаруу үчүн аккаунтуңузга кириңиз.':'Войдите в аккаунт, чтобы добавлять объявления и управлять личными данными.',
- 'Маалымат сакталды.':'Данные сохранены.','Маалыматты сактоо':'Сохранить данные','Аккаунттан чыгуу':'Выйти из аккаунта',
- 'Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.':'Пользователь не может менять тип аккаунта. Права диспетчера назначает только администратор.',
- 'Диспетчер кабинети':'Кабинет диспетчера','Бул бөлүмгө уруксат жок':'Нет доступа к этому разделу','Диспетчер укугун администратор гана дайындайт.':'Права диспетчера назначает только администратор.',
- 'Диспетчер катары кирдиңиз. Кардар менен кызмат акысы жана шарттары түз макулдашылат.':'Вы вошли как диспетчер. Стоимость и условия услуги согласовываются с клиентом напрямую.',
- 'Ачык өтүнүчтөр':'Открытые заявки','Азырынча ачык өтүнүч жок.':'Открытых заявок пока нет.','Кабыл алуу':'Принять','Жүк ээси айдоочу издеп жатат':'Владелец груза ищет водителя','Айдоочу жүк издеп жатат':'Водитель ищет груз','Башка өтүнүч':'Другая заявка',
- 'Тил:':'Язык:','Өлкө:':'Страна:','Кыргызстан':'Кыргызстан','Валюта:':'Валюта:','Кыргыз сому (сом)':'Кыргызский сом (сом)','Акысыз баштапкы режим: катталуу, жарыяларды көрүү жана издөө акысыз.':'Бесплатный стартовый режим: регистрация, просмотр и поиск объявлений бесплатны.',
- 'Жөндөөлөр':'Настройки','КЫР':'КЫР','РУС':'РУС','Email':'Email','Сыр сөз':'Пароль','Аты-жөнү':'Имя и фамилия','Телефон':'Телефон','Аккаунт түрү':'Тип аккаунта',
- 'Жүк ээси':'Владелец груза','Айдоочу':'Водитель','Кеминде 6 белги':'Не менее 6 символов','Кошумча маалымат':'Дополнительная информация','WhatsApp (милдеттүү эмес)':'WhatsApp (необязательно)',
- 'Жарыянын аталышы':'Название объявления','Кайдан':'Откуда','Кайда':'Куда','Жүктүн түрү':'Тип груза','Жүктүн салмагы, тонна':'Вес груза, тонн','Унаанын түрү':'Тип транспорта','Унаанын көтөрүмдүүлүгү, тонна':'Грузоподъёмность, тонн',
- 'Баасы, сом':'Цена, сом','Кошумча маалымат':'Дополнительная информация','Жарыялоо':'Опубликовать','Жабуу':'Закрыть','Сактоо':'Сохранить','Сакталды':'Сохранено','Чалуу':'Позвонить',
- 'Диспетчер жардам берсин':'Попросить помощи диспетчера','Жүк көрсөтүлгөн эмес':'Груз не указан','Унаа көрсөтүлгөн эмес':'Транспорт не указан','Келишимдүү':'Договорная',
- 'Мисалы: Бишкектен Ошко жүк':'Например: груз из Бишкека в Ош','Шаар / айыл':'Город / село','Эмерек, азык-түлүк...':'Мебель, продукты...','Мисалы: 3':'Например: 3','Келишимдүү болсо 0':'0, если договорная','+996 ...':'+996 ...',
- 'Жүк, унаа, жүктөө күнү жана башка шарттар...':'Груз, транспорт, дата загрузки и другие условия...',
- 'Катталууда email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.':'Если требуется подтверждение email, откройте ссылку из письма.',
- 'Аккаунт түрү':'Тип аккаунта','Маалымат сакталды.':'Данные сохранены.',
- 'Жарыялар:':'Объявления:','Жарыялар':'Объявления','тонна':'тонн','сом':'сом','📦':'📦','Көрсөтүлгөн эмес':'Не указано',
- 'Сайт':'Сайт','ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа':'ЖҮК ЭКСПРЕСС.KG · Платформа для Кыргызстана'
+const UI_RU = {
+'КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ':'ГРУЗОВАЯ ПЛАТФОРМА ПО КЫРГЫЗСТАНУ',
+'Кирүү':'Войти','Башкы бет':'Главная','Жүк жарыялары':'Грузы','Айдоочулар':'Водители','Сакталган':'Избранное','Билдирүүлөр':'Сообщения','Менин кабинетым':'Личный кабинет','Диспетчер':'Диспетчер','Жөндөөлөр':'Настройки',
+'100% Кыргызстан ичинде':'100% по Кыргызстану','Жүк барбы? Унаа керекпи?':'Есть груз? Нужна машина?',
+'Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Жүк жарыяларын таап, түз байланышыңыз.':'Соединяем владельцев грузов и водителей на одной платформе. Находите грузы и связывайтесь напрямую.',
+'Жүк жарыяларын көрүү →':'Смотреть грузы →','Катталуу':'Регистрация','Кыргызстан гана':'Только Кыргызстан','Баштапкы колдонуу':'Стартовый режим','Жүк':'Груз','Айдоочу':'Водитель','Жүк ээсине түз байланыш':'Прямая связь с владельцем груза',
+'Платформанын мүмкүнчүлүктөрү':'Возможности платформы','Кайдан–кайда, жүктүн түрү, салмагы жана баасы боюнча издеңиз.':'Ищите по маршруту, типу, весу и цене груза.',
+'Айдоочулар каталогу':'Каталог водителей','Айдоочунун унаасын, багытын жана байланыш маалыматтарын көрүңүз.':'Смотрите транспорт, маршруты и контакты водителей.',
+'Диспетчер кызматы':'Услуги диспетчера','Админ дайындаган диспетчер жүк ээси менен айдоочуга жардам берет.':'Назначенный администратором диспетчер помогает владельцам грузов и водителям.',
+'Платформа баштапкы акысыз режимде. Ташуу жана төлөм шарттарын тараптар өз ара макулдашат.':'Платформа работает в бесплатном стартовом режиме. Условия перевозки и оплаты стороны согласовывают напрямую.',
+'Акыркы жүк жарыялары':'Последние объявления о грузах','Баарын көрүү':'Смотреть все','Жарыялар жүктөлүүдө…':'Загрузка объявлений…',
+'Кыргызстан боюнча жүктөрдү издөө':'Поиск грузов по Кыргызстану','+ Жүк жарыялоо':'+ Добавить груз','Кайдан':'Откуда','Кайда':'Куда','Жүктүн түрү':'Тип груза','Салмак, тоннадан':'Вес, тонн от','Баасы, сомго чейин':'Цена до, сом','Иреттөө':'Сортировка',
+'Жаңылары биринчи':'Сначала новые','Баасы төмөндөн':'Сначала дешевле','Баасы жогорудан':'Сначала дороже','Издөө':'Найти','Тазалоо':'Сбросить','Активдүү жүк жарыялары':'Активные объявления о грузах',
+'Жалпыга көрсөтүүгө уруксат берген айдоочулар':'Водители, разрешившие публичный показ профиля','Облус / шаар':'Область / город','Баары':'Все','Унаа түрү / модели':'Тип / модель транспорта','Көтөрүмдүүлүгү, тоннадан':'Грузоподъёмность, тонн от','Айдоочулар жүктөлүүдө…':'Загрузка водителей…',
+'Сакталган жарыялар':'Сохранённые объявления','Билдирүүлөр бөлүмү':'Раздел сообщений','Бул версияда телефон жана WhatsApp аркылуу түз байланышсаңыз болот.':'В этой версии можно связаться напрямую по телефону и WhatsApp.',
+'Диспетчер кабинети':'Кабинет диспетчера','Өлкө: Кыргызстан':'Страна: Кыргызстан','Валюта: Кыргыз сому (сом)':'Валюта: Кыргызский сом (сом)','Катталуу, жарыяларды көрүү жана издөө акысыз.':'Регистрация, просмотр и поиск объявлений бесплатны.',
+'© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа':'© 2026 ЖҮК ЭКСПРЕСС.KG · Платформа для Кыргызстана',
+'Email':'Email','Сыр сөз':'Пароль','Аты-жөнү':'Имя и фамилия','Телефон':'Телефон','Аккаунт түрү':'Тип аккаунта','Жүк ээси':'Владелец груза',
+'Email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.':'Если требуется подтверждение email, откройте ссылку из письма.',
+'Жаңы жүк жарыясы':'Новое объявление о грузе','Жарыянын аталышы':'Название объявления','Жүктүн салмагы, тонна':'Вес груза, тонн','Баасы, сом (0 — келишимдүү)':'Цена, сом (0 — договорная)',
+'WhatsApp':'WhatsApp','Кошумча маалымат':'Дополнительная информация','Жарыялоо':'Опубликовать','Жабуу':'Закрыть','Жүк тууралуу маалымат':'Информация о грузе',
+'Жүк тууралуу толук маалымат':'Полная информация о грузе',
+'Жарыянын бардык шарттары жана байланыш маалыматтары':'Все условия объявления и контактная информация',
+'Жарыяларга кайтуу':'Вернуться к объявлениям',
+'ЖҮК ЖАРЫЯСЫ':'ОБЪЯВЛЕНИЕ О ГРУЗЕ',
+'Жүктүн түрү':'Тип груза',
+'Салмагы':'Вес',
+'Жарыяланган күнү':'Дата публикации',
+'Өлкө':'Страна',
+'Кошумча маалымат көрсөтүлгөн эмес.':'Дополнительная информация не указана.',
+'Жүк ээси менен байланышуу':'Связаться с владельцем груза',
+'Көрсөтүлгөн эмес':'Не указано',
+'т':'т',
+
+'Айдоочу профили':'Профиль водителя','Унаанын түрү':'Тип транспорта','Унаанын модели':'Модель транспорта','Көтөрүмдүүлүгү':'Грузоподъёмность','Иштөө багыттары':'Направления работы','Жалпыга көрсөтүү':'Показывать публично',
+'Маалыматты сактоо':'Сохранить данные','Аккаунттан чыгуу':'Выйти из аккаунта','Келишимдүү':'Договорная','Көрсөтүлгөн эмес':'Не указано','Телефон көрсөтүлгөн эмес':'Телефон не указан',
+'Жарыя табылган жок':'Объявления не найдены','Азырынча жарыя жок':'Пока нет объявлений','Айдоочу табылган жок':'Водители не найдены',
+'Диспетчер жардам берсин':'Попросить помощи диспетчера','Сактоо':'Сохранить','Сакталды':'Сохранено','Чалуу':'Позвонить','Профиль сакталды':'Профиль сохранён',
+'Жеке кабинетке кирүү керек':'Войдите в личный кабинет','Бул бөлүмгө уруксат жок':'Нет доступа к этому разделу',
+'ЖҮК':'ГРУЗ',
+'Жүк көрсөтүлгөн эмес':'Груз не указан',
+'Толук маалымат':'Подробнее',
+'☆ Сактоо':'☆ Сохранить',
+'★ Сакталды':'★ Сохранено',
+'Диспетчер жардам берсин':'Попросить помощи диспетчера',
+'Жарыялар:':'Объявления:',
+'Азырынча ылайыктуу жарыя табылган жок':'Подходящие объявления пока не найдены',
+'Фильтрлерди өзгөртүп кайра издеңиз.':'Измените фильтры и попробуйте снова.',
+'Азырынча жүк жарыясы жок':'Пока нет объявлений о грузах',
+'Жаңы жарыялар бул жерде көрүнөт.':'Новые объявления будут отображаться здесь.',
+'Айдоочу':'Водитель',
+'Унаа көрсөтүлгөн эмес':'Транспорт не указан',
+'Багыт көрсөтүлгөн эмес':'Направление не указано',
+'Айдоочу табылган жок':'Водители не найдены',
+'Фильтрлерди өзгөртүп көрүңүз.':'Попробуйте изменить фильтры.',
+'Кошумча маалымат':'Дополнительная информация',
+'Жүк ээси менен байланышуу':'Связаться с владельцем груза',
+'Жүктүн түрү':'Тип груза',
+'Салмагы':'Вес',
+'Жарыяланган күнү':'Дата публикации',
+'Өлкө':'Страна',
+'Көрсөтүлгөн эмес':'Не указано',
+'Кошумча маалымат көрсөтүлгөн эмес.':'Дополнительная информация не указана.',
+'Сакталган жарыялар жок':'Сохранённых объявлений нет',
+'Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.':'Нажмите «Сохранить» рядом с нужным объявлением.',
+'Чалуу':'Позвонить',
+'Маалыматты сактоо':'Сохранить данные',
+'Аккаунт түрү':'Тип аккаунта',
+'Аты-жөнү':'Имя и фамилия',
+'Телефон':'Телефон',
+'Жүк ээси':'Владелец груза',
+'Айдоочу профили':'Профиль водителя',
+'Унаанын түрү':'Тип транспорта',
+'Унаанын модели':'Модель транспорта',
+'Көтөрүмдүүлүгү':'Грузоподъёмность',
+'Иштөө багыттары':'Направления работы',
+'Жалпыга көрсөтүү':'Показывать публично',
+'Жарыяларга кайтуу':'Вернуться к объявлениям'
 };
-const placeholderTranslations = {
- 'Фура, Газель, рефрижератор...':'Фура, Газель, рефрижератор...',
- 'Эмерек, азык-түлүк...':'Мебель, продукты...',
- 'Мисалы: Бишкектен Ошко жүк':'Например: груз из Бишкека в Ош',
- 'Шаар / айыл':'Город / село',
-
- 'Мисалы: Бишкектен Ошко жүк':'Например: груз из Бишкека в Ош','Шаар / айыл':'Город / село','Эмерек, азык-түлүк...':'Мебель, продукты...',
- 'Мисалы: 3':'Например: 3','Келишимдүү болсо 0':'0, если договорная','+996 ...':'+996 ...',
- 'Мисалы: Бишкек':'Например: Бишкек','Мисалы: Ош':'Например: Ош','Мисалы: эмерек, фура':'Например: мебель, фура',
- 'Мисалы: 5':'Например: 5','Мисалы: 20000':'Например: 20000','example@mail.com':'example@mail.com',
- 'Аты-жөнүңүз':'Ваше имя и фамилия','+996 ...':'+996 ...',
- 'Жүк, унаа, жүктөө күнү жана башка шарттар...':'Груз, транспорт, дата загрузки и другие условия...'
-};
-const reverseTranslations = Object.fromEntries(Object.entries(translations).map(([ky,ru])=>[ru,ky]));
-function translateTextNode(node) {
- const raw=node.nodeValue, trimmed=raw.trim();
- if(!trimmed)return;
- const dict=lang==='ru'?translations:reverseTranslations;
- if(dict[trimmed]) node.nodeValue=raw.replace(trimmed,dict[trimmed]);
- else if(lang==='ru'&&trimmed.startsWith('+ Жарыя кошуу')) node.nodeValue=raw.replace('+ Жарыя кошуу','+ Добавить объявление');
- else if(lang==='ky'&&trimmed.startsWith('+ Добавить объявление')) node.nodeValue=raw.replace('+ Добавить объявление','+ Жарыя кошуу');
- else if(lang==='ru'&&trimmed.startsWith('Жарыялар: ')) node.nodeValue=raw.replace('Жарыялар: ','Объявления: ');
- else if(lang==='ky'&&trimmed.startsWith('Объявления: ')) node.nodeValue=raw.replace('Объявления: ','Жарыялар: ');
-}
-function applyTranslations(){
+const UI_KY = Object.fromEntries(Object.entries(UI_RU).map(([k,v])=>[v,k]));
+function applyLanguage(){
+ const dict=lang==='ru'?UI_RU:{};
+ document.documentElement.lang=lang;
+ document.title=lang==='ru'?'ЖҮК ЭКСПРЕСС.KG — Грузоперевозки по Кыргызстану':'ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу';
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
- let nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
- nodes.forEach(translateTextNode);
- document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
-  const p=el.getAttribute('placeholder');
-  if(lang==='ru'&&placeholderTranslations[p]){el.dataset.kyPlaceholder=p;el.setAttribute('placeholder',placeholderTranslations[p]);}
-  else if(lang==='ky'&&el.dataset.kyPlaceholder){el.setAttribute('placeholder',el.dataset.kyPlaceholder);}
+ const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+ nodes.forEach(n=>{
+   if(n._jukOriginalText===undefined)n._jukOriginalText=n.nodeValue;
+   const original=n._jukOriginalText;
+   const t=original.trim();if(!t)return;
+   let translated=dict[t];
+   if(!translated && lang==='ru'){
+     const m=t.match(/^Жарыялар:\s*(\d+)$/);
+     if(m)translated='Объявления: '+m[1];
+   }
+   if(translated)n.nodeValue=original.replace(t,translated);
+   else n.nodeValue=original;
+ });
+ const placeholderMap={
+  'Мисалы: Бишкек':'Например: Бишкек',
+  'Мисалы: Ош':'Например: Ош',
+  'Мисалы: картошка':'Например: картофель',
+  'Аты-жөнүңүз':'Ваше имя и фамилия',
+  'Кеминде 6 белги':'Не менее 6 символов',
+  'Кошумча маалымат':'Дополнительная информация',
+  'Мисалы: 3':'Например: 3',
+  'Мисалы: 5':'Например: 5'
+ };
+ const reverse=Object.fromEntries(Object.entries(placeholderMap).map(([a,b])=>[b,a]));
+ document.querySelectorAll('[placeholder]').forEach(el=>{
+   if(!el.dataset.jukOriginalPlaceholder)el.dataset.jukOriginalPlaceholder=el.getAttribute('placeholder')||'';
+   const original=el.dataset.jukOriginalPlaceholder;
+   const map=lang==='ru'?placeholderMap:reverse;
+   el.setAttribute('placeholder',map[original]||original);
  });
  document.querySelectorAll('select option').forEach(o=>{
-  const dict=lang==='ru'?translations:reverseTranslations;
-  const key=o.textContent.trim();if(dict[key])o.textContent=dict[key];
+   if(!o.dataset.jukOriginalText)o.dataset.jukOriginalText=o.textContent;
+   const original=o.dataset.jukOriginalText.trim();
+   o.textContent=(lang==='ru'?UI_RU[original]:null)||original;
  });
 }
-function setLang(value){
- lang=value;$('lang').value=value;document.documentElement.lang=value;
- localStorage.setItem('juk_express_lang',value);
- renderListings();renderSaved();renderHomeListings();renderCabinet();renderDispatcher();
- applyTranslations();
-}
+function setLang(v){lang=v;localStorage.setItem('juk_express_lang',v);document.documentElement.lang=v;$('lang').value=v;applyLanguage();}
 $('lang').addEventListener('change',e=>setLang(e.target.value));
-
-async function init(){
- $('lang').value=lang;document.documentElement.lang=lang;
- const {data:{session}}=await db.auth.getSession();currentUser=session?.user||null;
- if(currentUser)await loadProfile();
- db.auth.onAuthStateChange(async(_event,session)=>{currentUser=session?.user||null;if(currentUser)await loadProfile();else profile=null;refreshUI();});
- refreshUI();applyTranslations();
-}
+async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile()}else{profile=null;driverProfile=null}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
-</script>
-</body>
-</html>
+</script></body></html>
