@@ -1,383 +1,140 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102b46">
-  <title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу</title>
-  <style>
-    :root{--navy:#102b46;--blue:#1769aa;--gold:#f4b942;--bg:#f3f6fa;--ink:#172536;--muted:#64748b;--line:#dce4ed;--white:#fff;--green:#16834a}
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
-    button,input,select,textarea{font:inherit}button{cursor:pointer}
-    header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 3px 14px #102b4622}
-    .wrap{max-width:1100px;margin:auto;padding:0 16px}
-    .top{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{font-size:21px;font-weight:900;letter-spacing:.3px}.brand span{color:var(--gold)}
-    .nav{display:flex;gap:8px;align-items:center}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:700}
-    .btn-gold{background:var(--gold);color:#1c2b3a}.btn-light{background:#ffffff18;color:#fff;border:1px solid #ffffff44}
-    .btn-blue{background:var(--blue);color:#fff}.btn-outline{background:#fff;border:1px solid var(--line);color:var(--navy)}
-    .hero{background:linear-gradient(125deg,#102b46,#174f79);color:#fff;padding:34px 0 28px}
-    .hero h1{font-size:clamp(26px,5vw,40px);margin:0 0 10px}.hero p{color:#d9e8f5;margin:0 0 22px;line-height:1.5}
-    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
-    main{padding:22px 0 50px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 5px 20px #1a35500a}
-    .tabs{display:flex;gap:8px;margin-bottom:14px}.tab{flex:1;padding:13px;border-radius:11px;border:1px solid var(--line);background:#fff;font-weight:800;color:var(--navy)}
-    .tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
-    .search-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:9px}
-    input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:var(--ink);outline:none}
-    input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1769aa18}
-    .section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 12px}
-    .section-head h2{font-size:21px;margin:0}.count{font-size:13px;color:var(--muted)}
-    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .listing{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;min-width:0}
-    .listing-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}
-    .tag{background:#eaf3fb;color:#145b91;border-radius:20px;padding:6px 9px;font-size:12px;font-weight:800}
-    .date{font-size:12px;color:var(--muted)}
-    .listing h3{font-size:18px;margin:0 0 9px;overflow-wrap:anywhere}
-    .route{font-size:15px;font-weight:700;margin:8px 0;color:#263e56}
-    .details{font-size:13px;color:var(--muted);line-height:1.6;overflow-wrap:anywhere}
-    .price{font-size:21px;font-weight:900;color:var(--green);margin:12px 0}
-    .card-actions{display:flex;gap:8px;margin-top:12px}.card-actions a{flex:1;text-align:center;text-decoration:none}
-    .empty{padding:30px 14px;text-align:center;color:var(--muted);background:#fff;border:1px dashed #cbd5e1;border-radius:14px}
-    footer{background:#0c2034;color:#d4e0eb;padding:24px 0;font-size:13px;line-height:1.6}
-    .modal-backdrop{position:fixed;inset:0;background:#071827aa;display:none;align-items:center;justify-content:center;padding:16px;z-index:30}
-    .modal-backdrop.show{display:flex}.modal{background:#fff;width:min(100%,520px);max-height:92vh;overflow:auto;border-radius:17px;padding:20px;box-shadow:0 20px 60px #0004}
-    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modal-head h2{font-size:21px;margin:0}
-    .close{border:0;background:#edf2f7;border-radius:9px;width:36px;height:36px;font-size:22px}
-    .field{margin:11px 0}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hint{font-size:12px;color:var(--muted);line-height:1.5}
-    .form-actions{display:flex;gap:9px;margin-top:16px}.form-actions button{flex:1}
-    #recaptcha-container{margin:12px 0}.notice{background:#fff7e5;border:1px solid #f4d58b;border-radius:10px;padding:11px;font-size:12px;line-height:1.5;color:#6b4a0b}
-    .user-state{font-size:12px;color:#dbeafe;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    @media(max-width:700px){.top{padding-top:10px;padding-bottom:10px;align-items:flex-start;flex-direction:column}.nav{width:100%}.nav .btn{flex:1;padding:10px 8px;font-size:13px}.search-grid{grid-template-columns:1fr 1fr}.search-grid .wide{grid-column:1/-1}.cards{grid-template-columns:1fr}.hero{padding:27px 0}.form-grid{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b46">
+<title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#102b46;--blue:#1769aa;--gold:#f4b942;--bg:#f3f6fa;--ink:#172536;--muted:#64748b;--line:#dce4ed;--white:#fff;--green:#16834a}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:12px 16px;font-weight:700}
+header{background:var(--navy);color:#fff;padding:16px max(16px,calc((100% - 1120px)/2));position:sticky;top:0;z-index:10;box-shadow:0 3px 14px #102b4622}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-size:22px;font-weight:900;letter-spacing:.3px}.brand span{color:var(--gold)}.sub{font-size:12px;color:#d6e2ef;margin-top:4px}.head-actions{display:flex;gap:8px;align-items:center}.btn-gold{background:var(--gold);color:#182b3d}.btn-outline{background:transparent;border:1px solid #ffffff77;color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-light{background:#e8eef5;color:var(--navy)}main{max-width:1120px;margin:22px auto;padding:0 16px}
+.hero{background:linear-gradient(120deg,#102b46,#1c5685);color:#fff;padding:26px;border-radius:20px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:clamp(23px,4vw,34px)}.hero p{margin:0;color:#d9e8f5;line-height:1.5}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.stat{background:#ffffff16;border:1px solid #ffffff22;padding:9px 12px;border-radius:12px;font-size:13px}
+.toolbar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:14px}
+input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:12px;background:#fff;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1769aa18}
+.tabs{display:flex;gap:8px;margin:14px 0}.tab{background:#e5ebf2;color:#34495e}.tab.active{background:var(--navy);color:#fff}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 14px #102b4608}.item h3{margin:0 0 10px;font-size:18px}.route{font-size:16px;font-weight:800;color:var(--navy);margin:8px 0}.meta{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.pill{background:#edf3f8;color:#38516b;border-radius:20px;padding:6px 9px;font-size:12px}.price{font-size:20px;font-weight:900;color:#0c7040}.item p{color:var(--muted);line-height:1.45;margin:8px 0}.contact{display:flex;gap:8px;margin-top:12px}.contact a{flex:1;text-align:center;text-decoration:none;border-radius:10px;padding:11px 8px;font-weight:700;background:#e8f4ed;color:#12633a}.contact a.call{background:#e9f1fa;color:#15558b}.empty{background:#fff;border:1px dashed #b8c6d5;border-radius:16px;padding:30px;text-align:center;color:var(--muted);grid-column:1/-1}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 12px}
+.backdrop{display:none;position:fixed;inset:0;background:#071827aa;z-index:30;align-items:center;justify-content:center;padding:14px}.backdrop.show{display:flex}.modal{background:#fff;border-radius:18px;width:min(100%,520px);max-height:92vh;overflow:auto;padding:20px;box-shadow:0 20px 60px #0004}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.modal h2{margin:0 0 12px}.close{background:#edf1f5;padding:8px 12px}.field{margin:12px 0}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}.notice{background:#fff7df;color:#684d12;border:1px solid #f2d78c;border-radius:12px;padding:12px;font-size:13px;line-height:1.45;margin:12px 0}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wide{grid-column:1/-1}.hidden{display:none!important}.small{font-size:12px;color:var(--muted);line-height:1.45}
+@media(max-width:680px){.toolbar{grid-template-columns:1fr}.list{grid-template-columns:1fr}.brand{font-size:19px}.hero{padding:20px}.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}}
+</style>
 </head>
 <body>
-<header>
-  <div class="wrap top">
-    <div class="brand">ЖҮК <span>ЭКСПРЕСС.KG</span></div>
-    <div class="nav">
-      <span class="user-state" id="userState">Катталбастан көрүү</span>
-      <button class="btn btn-light" id="accountButton" onclick="openAuth()">Кирүү</button>
-      <button class="btn btn-gold" onclick="openPost()">+ Жарыя кошуу</button>
-    </div>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <h1>Жүк ташуу — эми оңой!</h1>
-    <p>Кыргызстан боюнча жүк жөнөтүүчүлөрдү жана бош унааларды бир жерден табыңыз.</p>
-    <div class="hero-actions">
-      <button class="btn btn-gold" onclick="switchTab('loads')">Жүк табуу</button>
-      <button class="btn btn-light" onclick="switchTab('trucks')">Бош унаа табуу</button>
-    </div>
-  </div>
-</section>
-
-<main class="wrap">
-  <section class="panel">
-    <div class="tabs">
-      <button class="tab active" id="loadsTab" onclick="switchTab('loads')">ЖҮКТӨР</button>
-      <button class="tab" id="trucksTab" onclick="switchTab('trucks')">БОШ УНААЛАР</button>
-    </div>
-    <div class="search-grid">
-      <input class="wide" id="searchText" placeholder="Жүк, унаа же шаар боюнча издөө..." oninput="render()">
-      <input id="searchFrom" placeholder="Кайдан?" oninput="render()">
-      <input id="searchTo" placeholder="Каякка?" oninput="render()">
-      <button class="btn btn-blue" onclick="render()">Издөө</button>
-    </div>
-  </section>
-
-  <div class="section-head">
-    <h2 id="listTitle">Акыркы жүк жарыялары</h2>
-    <span class="count" id="resultCount">Жүктөлүүдө...</span>
-  </div>
-  <section class="cards" id="cards"></section>
-  <div class="hint" style="margin-top:14px">Жарыялар Firebase базасынан алынат. Мөөнөтү бүткөн (7 күндөн эски) жарыялар тизмеде көрсөтүлбөйт.</div>
+<header><div class="top"><div><div class="brand">ЖҮК <span>ЭКСПРЕСС.KG</span></div><div class="sub">Кыргызстан боюнча жүк жана бош унаа табуу</div></div><div class="head-actions"><button class="btn-outline" id="loginBtn">Кирүү</button><button class="btn-gold" id="postBtn">＋ Жарыя кошуу</button></div></div></header>
+<main>
+<section class="hero"><h1>Жүгүңө унаа тап. Унааңа жүк тап.</h1><p>Кыргызстандын ичиндеги жүк ташуу жарыялары. Көрүү, издөө жана байланышуу акысыз.</p><div class="stats"><div class="stat">🇰🇬 Кыргызстан гана</div><div class="stat">💰 Баалар сом менен</div><div class="stat">🕒 Жарыя 7 күн көрүнөт</div></div></section>
+<section class="toolbar"><input id="search" placeholder="Кайдан? Кайда? Жүк же унаа изде..."><select id="cityFilter"><option value="">Бардык багыттар</option><option>Бишкек</option><option>Ош</option><option>Жалал-Абад</option><option>Каракол</option><option>Талас</option><option>Нарын</option><option>Баткен</option><option>Кара-Балта</option><option>Токмок</option><option>Кызыл-Кыя</option></select><button class="btn-blue" id="searchBtn">Издөө</button></section>
+<div class="tabs"><button class="tab active" id="loadsTab">Жүк керек</button><button class="tab" id="trucksTab">Бош унаалар</button></div>
+<section class="list" id="list"><div class="empty">Жарыялар жүктөлүүдө...</div></section>
 </main>
+<footer>© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан ичинде жүк ташуу платформасы</footer>
 
-<footer>
-  <div class="wrap">
-    <strong>ЖҮК ЭКСПРЕСС.KG</strong><br>
-    Кыргызстан ичиндеги жүк ташуу платформасы. Валюта: Кыргыз сому (KGS).<br>
-    Жардам керекпи? Байланыш маалыматтарын кийин ушул жерге кошобуз.
-  </div>
-</footer>
+<div class="backdrop" id="authModal"><div class="modal"><div class="modal-head"><h2>Телефон аркылуу кирүү</h2><button class="close" data-close="authModal">✕</button></div><div class="notice">Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу акысыз.</div><div class="field"><label>Телефон номери</label><input id="authPhone" type="tel" value="+996" placeholder="+996 XXX XXX XXX"></div><button class="btn-blue" id="sendOtp" style="width:100%">SMS код жөнөтүү</button><div id="otpArea" class="hidden"><div class="field"><label>SMS код</label><input id="otpCode" inputmode="numeric" placeholder="6 орундуу код"></div><button class="btn-blue" id="verifyOtp" style="width:100%">Кодду текшерүү</button></div><p class="small" id="authMessage"></p></div></div>
 
-<div class="modal-backdrop" id="modalBackdrop" onclick="backdropClose(event)">
-  <div class="modal">
-    <div class="modal-head"><h2 id="modalTitle">Кирүү</h2><button class="close" onclick="closeModal()">×</button></div>
-    <div id="modalBody"></div>
-  </div>
-</div>
+<div class="backdrop" id="postModal"><div class="modal"><div class="modal-head"><h2 id="postHeading">Жарыя кошуу</h2><button class="close" data-close="postModal">✕</button></div><div class="notice">Телефон номериң жарыяда көрсөтүлөт, ошондуктан жарыя берүү менен аны башка колдонуучулар көрүшүнө макул болосуң.</div>
+<div class="field"><label>Жарыянын түрү</label><select id="postType"><option value="load">Жүк жөнөтөм</option><option value="vehicle">Бош унаам бар</option></select></div>
+<div class="form-grid">
+<div class="field wide"><label>Аталышы</label><input id="pTitle" placeholder="Мисалы: Картошка, 10 тонна"></div>
+<div class="field"><label>Кайдан</label><input id="pFrom" placeholder="Ош"></div><div class="field"><label>Кайда</label><input id="pTo" placeholder="Бишкек"></div>
+<div class="field" id="cargoField"><label>Жүктүн түрү</label><input id="pCargo" placeholder="Картошка, цемент..."></div>
+<div class="field" id="weightField"><label>Салмагы (тонна)</label><input id="pWeight" type="number" min="0.1" step="0.1" placeholder="10"></div>
+<div class="field hidden" id="vehicleField"><label>Унаанын түрү</label><select id="pVehicle"><option>Фура</option><option>Тент</option><option>Рефрижератор</option><option>Газель</option><option>Самосвал</option><option>Бус</option><option>Башка</option></select></div>
+<div class="field hidden" id="capacityField"><label>Жүк көтөрүмдүүлүгү (тонна)</label><input id="pCapacity" type="number" min="0.1" step="0.1" placeholder="20"></div>
+<div class="field"><label>Баасы (сом)</label><input id="pPrice" type="number" min="0" placeholder="25000"></div>
+<div class="field"><label>Телефон</label><input id="pPhone" type="tel" placeholder="+996 XXX XXX XXX"></div>
+<div class="field wide"><label>WhatsApp номери (милдеттүү эмес)</label><input id="pWhatsapp" type="tel" placeholder="+996 XXX XXX XXX"></div>
+<div class="field wide"><label>Кошумча маалымат</label><textarea id="pDescription" rows="3" placeholder="Жүктөө күнү, шарттары..."></textarea></div>
+</div><button class="btn-blue" id="savePost" style="width:100%">Жарыяны жарыялоо</button><p class="small" id="postMessage"></p></div></div>
 
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script>
-/* Firebase конфигурациясы — мурдагы долбооруңуздагы конфигурация */
-const firebaseConfig = {
-  apiKey: "AIzaSyCmxvVfXCeLRVRc8PqniM8uEbtLJMpla8",
-  authDomain: "juk-express-kg.firebaseapp.com",
-  projectId: "juk-express-kg",
-  storageBucket: "juk-express-kg.firebasestorage.app",
-  messagingSenderId: "368524874863",
-  appId: "1:368524874863:web:c73e4fdd2c3211088da99a"
-};
+const SUPABASE_URL = 'https://esnmfwhzwrmcyokfgqald.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HJu0aBiE_jlPhD644iI_pw_j6grrjiq';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let activeTab='loads', rows=[], currentUser=null, pendingOtp=false;
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-let activeTab = 'loads';
-let allLoads = [];
-let allVehicles = [];
-let confirmationResult = null;
-let recaptchaVerifier = null;
-let pendingPostData = null;
-
-function safe(value){
-  return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function formatDate(value){
-  try{
-    const d = value && value.toDate ? value.toDate() : (value ? new Date(value) : null);
-    return d && !isNaN(d) ? d.toLocaleDateString('ky-KG') : 'Жаңы жарыя';
-  }catch(e){return 'Жаңы жарыя';}
-}
-function isExpired(item){
-  if(!item.expiresAt) return false;
-  const d = item.expiresAt.toDate ? item.expiresAt.toDate() : new Date(item.expiresAt);
-  return d < new Date();
-}
-function switchTab(tab){
-  activeTab = tab;
-  document.getElementById('loadsTab').classList.toggle('active',tab==='loads');
-  document.getElementById('trucksTab').classList.toggle('active',tab==='trucks');
-  document.getElementById('listTitle').textContent = tab==='loads' ? 'Акыркы жүк жарыялары' : 'Акыркы бош унаалар';
-  render();
-}
-function getText(item, keys){
-  for(const key of keys){ if(item[key]) return item[key]; }
-  return '';
-}
+const $=id=>document.getElementById(id);
+const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function openModal(id){$(id).classList.add('show')}
+function closeModal(id){$(id).classList.remove('show')}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>closeModal(b.dataset.close));
+$('authModal').addEventListener('click',e=>{if(e.target.id==='authModal')closeModal('authModal')});
+$('postModal').addEventListener('click',e=>{if(e.target.id==='postModal')closeModal('postModal')});
+function phoneClean(v){return String(v||'').replace(/[^\d+]/g,'')}
+function validPhone(v){return /^\+996\d{9}$/.test(phoneClean(v))}
+function expired(r){return r.expires_at && new Date(r.expires_at).getTime()<Date.now()}
+function fmtPrice(v){return v===null||v===undefined||v===''?'Баасы сүйлөшүлөт':Number(v).toLocaleString('ru-RU')+' сом'}
 function render(){
-  const source = activeTab==='loads' ? allLoads : allVehicles;
-  const q = document.getElementById('searchText').value.trim().toLowerCase();
-  const from = document.getElementById('searchFrom').value.trim().toLowerCase();
-  const to = document.getElementById('searchTo').value.trim().toLowerCase();
-  const filtered = source.filter(x=>{
-    if(isExpired(x) || x.status==='deleted' || x.isActive===false) return false;
-    const f = getText(x,['from','cityFrom','origin','departure']).toLowerCase();
-    const t = getText(x,['to','cityTo','destination','arrival']).toLowerCase();
-    const hay = [x.title,x.cargo,x.cargoType,x.vehicle,x.vehicleType,x.description,x.from,x.cityFrom,x.to,x.cityTo].join(' ').toLowerCase();
-    return (!q || hay.includes(q)) && (!from || f.includes(from)) && (!to || t.includes(to));
-  }).sort((a,b)=>{
-    const da=a.createdAt&&a.createdAt.toDate?a.createdAt.toDate().getTime():0;
-    const dbb=b.createdAt&&b.createdAt.toDate?b.createdAt.toDate().getTime():0;
-    return dbb-da;
-  });
-  document.getElementById('resultCount').textContent = filtered.length+' жарыя';
-  const cards = document.getElementById('cards');
-  if(!filtered.length){
-    cards.innerHTML='<div class="empty" style="grid-column:1/-1">Азырынча жарыя жок. Издөө сөздөрүн өзгөртүп көрүңүз же биринчи болуп жарыя кошуңуз.</div>';
-    return;
-  }
-  cards.innerHTML = filtered.map(x=>{
-    const fromText=safe(getText(x,['from','cityFrom','origin','departure']) || 'Көрсөтүлгөн эмес');
-    const toText=safe(getText(x,['to','cityTo','destination','arrival']) || 'Көрсөтүлгөн эмес');
-    const title=safe(getText(x,['title','cargo','cargoType','vehicle','vehicleType']) || (activeTab==='loads'?'Жүк':'Бош унаа'));
-    const phone=String(x.phone||'').replace(/[^\d+]/g,'');
-    const wa=String(x.wa||x.phone||'').replace(/\D/g,'');
-    const price=x.price ? safe(x.price)+' сом' : (x.pricePerKm ? safe(x.pricePerKm)+' сом/км' : 'Баасы сүйлөшүлөт');
-    const extra=[x.weight?'Салмагы: '+safe(x.weight):'',x.vehicleType?'Унаа: '+safe(x.vehicleType):'',x.capacity?'Жүк көтөрүмдүүлүгү: '+safe(x.capacity):'',x.description?safe(x.description):''].filter(Boolean).join(' · ');
-    return `<article class="listing">
-      <div class="listing-top"><span class="tag">${activeTab==='loads'?'ЖҮК':'БОШ УНАА'}</span><span class="date">${safe(formatDate(x.createdAt))}</span></div>
-      <h3>${title}</h3>
-      <div class="route">${fromText}　→　${toText}</div>
-      <div class="details">${extra || 'Кошумча маалымат көрсөтүлгөн эмес'}</div>
-      <div class="price">${price}</div>
-      <div class="card-actions">
-        ${phone?`<a class="btn btn-blue" href="tel:${safe(phone)}">Чалуу</a>`:''}
-        ${wa?`<a class="btn btn-gold" target="_blank" rel="noopener" href="https://wa.me/${safe(wa)}">WhatsApp</a>`:''}
-      </div>
-    </article>`;
-  }).join('');
+ const q=$('search').value.trim().toLowerCase(), city=$('cityFilter').value.toLowerCase();
+ const data=rows.filter(r=>!expired(r)).filter(r=>{
+  const hay=[r.title,r.cargo,r.city_from,r.city_to,r.description,r.vehicle_type].join(' ').toLowerCase();
+  return (!q||hay.includes(q))&&(!city||String(r.city_from||'').toLowerCase()===city||String(r.city_to||'').toLowerCase()===city);
+ });
+ const list=$('list');
+ if(!data.length){list.innerHTML='<div class="empty">Азырынча жарыя жок. Кийинчерээк кайра текшерип көрүңүз же биринчи болуп жарыя кошуңуз.</div>';return}
+ list.innerHTML=data.map(r=>{
+  const isVehicle=activeTab==='vehicles';
+  const phone=phoneClean(r.phone), wa=phoneClean(r.whatsapp||r.phone).replace('+','');
+  const detail=isVehicle?(r.vehicle_type||'Бош унаа'):(r.cargo||'Жүк');
+  const tons=isVehicle?r.capacity_tons:r.weight_tons;
+  const title=r.title||detail;
+  return `<article class="item"><h3>${safe(title)}</h3><div class="route">${safe(r.city_from||'—')} → ${safe(r.city_to||'—')}</div><div class="meta"><span class="pill">${safe(detail)}</span>${tons?`<span class="pill">${safe(tons)} тонна</span>`:''}<span class="pill">Кыргызстан</span></div><div class="price">${safe(fmtPrice(r.price))}</div>${r.description?`<p>${safe(r.description)}</p>`:''}<div class="contact"><a class="call" href="tel:${safe(phone)}">☎ Чалуу</a><a href="https://wa.me/${safe(wa)}" target="_blank" rel="noopener">WhatsApp</a></div></article>`;
+ }).join('');
 }
-
-/* Жарыяларды коомдук түрдө окуу: кирүү талап кылынбайт */
-function listenToCollection(collection, callback){
-  db.collection(collection).onSnapshot(snapshot=>{
-    callback(snapshot.docs.map(doc=>({id:doc.id,...doc.data()})));
-    render();
-  },error=>{
-    console.error('Firestore read error:',error);
-    document.getElementById('cards').innerHTML='<div class="empty" style="grid-column:1/-1">Базадан маалымат алуу мүмкүн болгон жок. Интернетти жана Firebase эрежелерин текшериңиз.</div>';
-    document.getElementById('resultCount').textContent='Ката';
-  });
+async function loadRows(){
+ $('list').innerHTML='<div class="empty">Жарыялар жүктөлүүдө...</div>';
+ const table=activeTab;
+ const {data,error}=await db.from(table).select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
+ if(error){console.error(error);$('list').innerHTML='<div class="empty">Маалымат жүктөлгөн жок. Баракты жаңыртып көрүңүз.</div>';return}
+ rows=data||[];render();
 }
-listenToCollection('loads', data=>{allLoads=data;});
-listenToCollection('vehicles', data=>{allVehicles=data;});
-
-/* Аккаунт абалы */
-auth.onAuthStateChanged(user=>{
-  const button=document.getElementById('accountButton');
-  const state=document.getElementById('userState');
-  if(user){
-    button.textContent='Чыгуу';
-    button.onclick=()=>auth.signOut().then(()=>alert('Аккаунттан чыктыңыз.'));
-    state.textContent=user.phoneNumber || 'Аккаунт активдүү';
-  }else{
-    button.textContent='Кирүү';
-    button.onclick=openAuth;
-    state.textContent='Катталбастан көрүү';
-  }
-});
-
-function openModal(title,html){
-  document.getElementById('modalTitle').textContent=title;
-  document.getElementById('modalBody').innerHTML=html;
-  document.getElementById('modalBackdrop').classList.add('show');
+function switchTab(tab){activeTab=tab;$('loadsTab').classList.toggle('active',tab==='loads');$('trucksTab').classList.toggle('active',tab==='vehicles');loadRows()}
+$('loadsTab').onclick=()=>switchTab('loads');$('trucksTab').onclick=()=>switchTab('vehicles');
+$('searchBtn').onclick=render;$('search').addEventListener('input',render);$('cityFilter').onchange=render;
+$('loginBtn').onclick=()=>openModal('authModal');
+$('postBtn').onclick=async()=>{const {data}=await db.auth.getSession();currentUser=data.session?.user||null;if(!currentUser){openModal('authModal');return}openPostForm()};
+function openPostForm(){ $('pPhone').value=currentUser?.phone||''; $('postMessage').textContent='';togglePostFields();openModal('postModal')}
+$('postType').onchange=togglePostFields;
+function togglePostFields(){const vehicle=$('postType').value==='vehicle';$('cargoField').classList.toggle('hidden',vehicle);$('weightField').classList.toggle('hidden',vehicle);$('vehicleField').classList.toggle('hidden',!vehicle);$('capacityField').classList.toggle('hidden',!vehicle)}
+$('sendOtp').onclick=async()=>{
+ const phone=phoneClean($('authPhone').value);$('authMessage').textContent='';
+ if(!validPhone(phone)){$('authMessage').textContent='Телефонду +996XXXXXXXXX форматында жазыңыз.';return}
+ $('sendOtp').disabled=true;$('authMessage').textContent='SMS жөнөтүлүүдө...';
+ const {error}=await db.auth.signInWithOtp({phone});
+ $('sendOtp').disabled=false;
+ if(error){$('authMessage').textContent='SMS жөнөтүлгөн жок: '+error.message;return}
+ pendingOtp=true;$('otpArea').classList.remove('hidden');$('authMessage').textContent='SMS код жөнөтүлдү. Кодду киргизиңиз.';
+};
+$('verifyOtp').onclick=async()=>{
+ const phone=phoneClean($('authPhone').value),token=$('otpCode').value.trim();
+ if(!token){$('authMessage').textContent='SMS кодду жазыңыз.';return}
+ const {data,error}=await db.auth.verifyOtp({phone,token,type:'sms'});
+ if(error){$('authMessage').textContent='Код туура эмес же мөөнөтү өттү: '+error.message;return}
+ currentUser=data.user;$('loginBtn').textContent='Аккаунт';closeModal('authModal');openPostForm();
+};
+async function savePost(){
+ const type=$('postType').value,vehicle=type==='vehicle';
+ const title=$('pTitle').value.trim(),from=$('pFrom').value.trim(),to=$('pTo').value.trim(),phone=phoneClean($('pPhone').value);
+ if(!title||!from||!to||!validPhone(phone)){ $('postMessage').textContent='Аталыш, багыт жана туура телефон номерин толтуруңуз.';return}
+ const price=$('pPrice').value?Number($('pPrice').value):null;
+ const now=new Date(),expires=new Date(now.getTime()+7*24*60*60*1000).toISOString();
+ const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price,phone,whatsapp:phoneClean($('pWhatsapp').value)||phone,description:$('pDescription').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',created_at:now.toISOString(),expires_at:expires};
+ if(vehicle){payload.vehicle_type=$('pVehicle').value;payload.capacity_tons=$('pCapacity').value?Number($('pCapacity').value):null}
+ else{payload.cargo=$('pCargo').value.trim();payload.weight_tons=$('pWeight').value?Number($('pWeight').value):null}
+ $('savePost').disabled=true;$('postMessage').textContent='Сакталууда...';
+ const {error}=await db.from(vehicle?'vehicles':'loads').insert(payload);
+ $('savePost').disabled=false;
+ if(error){console.error(error);$('postMessage').textContent='Сакталбай калды: '+error.message;return}
+ closeModal('postModal');switchTab(vehicle?'vehicles':'loads');alert('Жарыя ийгиликтүү жарыяланды!');
 }
-function closeModal(){
-  document.getElementById('modalBackdrop').classList.remove('show');
-  if(recaptchaVerifier){try{recaptchaVerifier.clear();}catch(e){} recaptchaVerifier=null;}
-}
-function backdropClose(e){if(e.target.id==='modalBackdrop')closeModal();}
-
-function openAuth(){
-  confirmationResult=null;
-  openModal('Телефон менен катталуу / кирүү',`
-    <div class="notice">Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу үчүн аккаунт талап кылынбайт.</div>
-    <div class="field"><label>Телефон номери</label><input id="phoneInput" type="tel" placeholder="+996 700 123 456"></div>
-    <div id="recaptcha-container"></div>
-    <button class="btn btn-blue" style="width:100%" onclick="sendSmsCode()">SMS код жөнөтүү</button>
-    <div id="smsStep" style="display:none">
-      <div class="field"><label>SMS менен келген 6 орундуу код</label><input id="smsCode" inputmode="numeric" maxlength="6" placeholder="123456"></div>
-      <button class="btn btn-gold" style="width:100%" onclick="verifySmsCode()">Кодду текшерүү</button>
-    </div>
-    <p class="hint">Телефон номериңизди +996 менен жазыңыз. SMS келбесе Firebase'деги Phone Authentication жана SMS квотасын текшерүү керек.</p>
-  `);
-}
-async function sendSmsCode(){
-  const raw=document.getElementById('phoneInput').value.trim();
-  let digits=raw.replace(/\D/g,'');
-  if(digits.startsWith('0')) digits='996'+digits.slice(1);
-  if(!digits.startsWith('996')) digits='996'+digits;
-  const phone='+'+digits;
-  if(!/^\+996\d{9}$/.test(phone)){alert('Телефонду туура жазыңыз. Мисалы: +996 700 123 456');return;}
-  try{
-    if(!recaptchaVerifier){
-      recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{size:'normal'});
-      await recaptchaVerifier.render();
-    }
-    confirmationResult=await auth.signInWithPhoneNumber(phone,recaptchaVerifier);
-    document.getElementById('smsStep').style.display='block';
-    alert('SMS коду жөнөтүлдү. Телефонуңузду текшериңиз.');
-  }catch(error){
-    console.error(error);
-    alert('SMS жөнөтүүдө ката: '+(error.message||error.code)+' . Firebase Phone Authentication, домен жана SMS квотасын текшериңиз.');
-    if(recaptchaVerifier){try{recaptchaVerifier.clear();}catch(e){}recaptchaVerifier=null;}
-  }
-}
-async function verifySmsCode(){
-  const code=document.getElementById('smsCode').value.trim();
-  if(!confirmationResult){alert('Адегенде SMS код сураңыз.');return;}
-  if(!/^\d{6}$/.test(code)){alert('6 орундуу кодду жазыңыз.');return;}
-  try{
-    await confirmationResult.confirm(code);
-    closeModal();
-    alert('Телефон номери ырасталды. Эми жарыяңызды кошо аласыз.');
-    if(pendingPostData){
-      const data=pendingPostData;pendingPostData=null;
-      await savePostData(data);
-    }
-  }catch(error){
-    console.error(error);
-    alert('Код туура эмес же мөөнөтү бүттү. Кайра аракет кылыңыз.');
-  }
-}
-
-function openPost(){
-  if(!auth.currentUser){
-    pendingPostData=null;
-    openAuth();
-    return;
-  }
-  showPostForm();
-}
-function showPostForm(){
-  openModal('Жаңы жарыя кошуу',`
-    <form id="postForm" onsubmit="submitPost(event)">
-      <div class="field"><label>Жарыянын түрү</label>
-        <select name="type" required><option value="load">Жүк жөнөтөм</option><option value="vehicle">Бош унаам бар</option></select>
-      </div>
-      <div class="field"><label>Жарыянын аталышы / жүктүн түрү</label><input name="title" required placeholder="Мисалы: Картошка, эмерек, фура"></div>
-      <div class="form-grid">
-        <div class="field"><label>Кайдан?</label><input name="from" required placeholder="Ош"></div>
-        <div class="field"><label>Каякка?</label><input name="to" required placeholder="Бишкек"></div>
-      </div>
-      <div class="form-grid">
-        <div class="field"><label>Салмагы же жүк көтөрүмдүүлүгү</label><input name="weight" placeholder="Мисалы: 5 тонна"></div>
-        <div class="field"><label>Унаанын түрү</label><input name="vehicleType" placeholder="Газель, фура..."></div>
-      </div>
-      <div class="form-grid">
-        <div class="field"><label>Баасы (сом)</label><input name="price" type="number" min="0" placeholder="Сүйлөшүү"></div>
-        <div class="field"><label>Байланыш телефону</label><input name="phone" type="tel" required placeholder="+996 700 123 456"></div>
-      </div>
-      <div class="field"><label>Кошумча маалымат</label><textarea name="description" rows="3" placeholder="Жүктөө күнү, шарттары ж.б."></textarea></div>
-      <div class="notice">Жарыяңыз 7 күнгө көрсөтүлөт. Телефон номериңиз жарыяда ачык көрүнөт.</div>
-      <div class="form-actions"><button type="button" class="btn btn-outline" onclick="closeModal()">Жокко чыгаруу</button><button class="btn btn-blue" type="submit">Жарыяны жарыялоо</button></div>
-    </form>
-  `);
-}
-async function submitPost(event){
-  event.preventDefault();
-  const data=Object.fromEntries(new FormData(event.target).entries());
-  if(!auth.currentUser){
-    pendingPostData=data;
-    openAuth();
-    return;
-  }
-  await savePostData(data);
-}
-async function savePostData(data){
-  try{
-    const user=auth.currentUser;
-    if(!user){pendingPostData=data;openAuth();return;}
-    const digits=String(data.phone||'').replace(/\D/g,'');
-    const collection=data.type==='load'?'loads':'vehicles';
-    const ref=db.collection(collection).doc();
-    const postData={
-      type:data.type,
-      title:data.title.trim(),
-      from:data.from.trim(),
-      to:data.to.trim(),
-      weight:data.weight.trim(),
-      vehicleType:data.vehicleType.trim(),
-      price:data.price ? Number(data.price) : null,
-      phone:data.phone.trim(),
-      wa:digits,
-      description:data.description.trim(),
-      ownerUid:user.uid,
-      ownerId:user.uid,
-      currency:'KGS',
-      country:'Kyrgyzstan',
-      status:'active',
-      isActive:true,
-      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-      updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
-      expiresAt:firebase.firestore.Timestamp.fromDate(new Date(Date.now()+7*24*60*60*1000))
-    };
-    await ref.set(postData);
-    closeModal();
-    switchTab(data.type==='load'?'loads':'trucks');
-    alert('Жарыя Firebase базасына ийгиликтүү сакталды!');
-  }catch(error){
-    console.error(error);
-    alert('Жарыя сакталбай калды: '+(error.message||error.code));
-  }
-}
+$('savePost').onclick=savePost;
+db.auth.getSession().then(({data})=>{currentUser=data.session?.user||null;if(currentUser)$('loginBtn').textContent='Аккаунт'});
+db.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;$('loginBtn').textContent=currentUser?'Аккаунт':'Кирүү'});
+loadRows();
+setInterval(loadRows,60000);
 </script>
 </body>
 </html>
