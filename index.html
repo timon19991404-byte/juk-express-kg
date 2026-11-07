@@ -52,7 +52,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 12px}
 
 <script>
 /* Supabase Project URL жана Publishable key. Secret/service_role ачкычын браузерге салбаңыз. */
-const SUPABASE_URL = 'https://esnmfwhzwrmcvokfgqld.supabase.co';
+const SUPABASE_URL = 'https://esnmfwhzwrmcyokfgqald.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HJu0aBiE_jlPhD644iI_pw_j6grrjiq';
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
@@ -66,7 +66,7 @@ const TEXT = {
   loadWord:'Жүк',vehicleWord:'Бош унаа',country:'Кыргызстан',call:'☎ Чалуу',whatsapp:'WhatsApp',negotiable:'Баасы сүйлөшүлөт',
   footer:'© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан ичинде жүк ташуу платформасы',
   authTitle:'Email аркылуу кирүү',authNotice:'Жарыя кошуу үчүн гана катталуу керек. Сайтты көрүү, издөө жана байланышуу акысыз.',
-  emailLabel:'Email дареги',passwordLabel:'Сырсөз',passwordPlaceholder:'Кеминде 6 белги',signIn:'Кирүү',signUp:'Катталуу',switchToSignUp:'Аккаунт түзүү',switchToSignIn:'Аккаунтуңуз барбы? Кирүү',emailRequired:'Email дарегин жана сырсөздү толтуруңуз.',working:'Текшерилүүдө...',checkEmail:'Email дарегиңизге ырастоо шилтемеси жөнөтүлдү. Почтаңызды текшериңиз.',signupFailed:'Катталуу ишке ашкан жок: ',signinFailed:'Кирүү ишке ашкан жок: ',signedIn:'Ийгиликтүү кирдиңиз.',signedOut:'Аккаунттан чыктыңыз.',
+  emailLabel:'Email дареги',passwordLabel:'Сырсөз',passwordPlaceholder:'Кеминде 6 белги',signIn:'Кирүү',signUp:'Катталуу',switchToSignUp:'Аккаунт түзүү',switchToSignIn:'Аккаунтуңуз барбы? Кирүү',emailRequired:'Email дарегин жана сырсөздү толтуруңуз.',working:'Текшерилүүдө...',checkEmail:'Email дарегиңизге ырастоо шилтемеси жөнөтүлдү. Почтаңызды текшериңиз.',signupFailed:'Катталуу ишке ашкан жок: ',signinFailed:'Кирүү ишке ашкан жок: ',signedIn:'Ийгиликтүү кирдиңиз.',signedOut:'Аккаунттан чыктыңыз.',edit:'Өзгөртүү',remove:'Өчүрүү',confirmDelete:'Бул жарыяны өчүрөсүзбү?',updated:'Жарыя өзгөртүлдү.',deleted:'Жарыя өчүрүлдү.',
   postHeading:'Жарыя кошуу',postNotice:'Телефон номериң жарыяда көрсөтүлөт, ошондуктан жарыя берүү менен аны башка колдонуучулар көрүшүнө макул болосуң.',
   typeLabel:'Жарыянын түрү',loadOption:'Жүк жөнөтөм',vehicleOption:'Бош унаам бар',titleLabel:'Аталышы',titlePlaceholder:'Мисалы: Картошка, 10 тонна',
   fromLabel:'Кайдан',toLabel:'Кайда',cargoLabel:'Жүктүн түрү',cargoPlaceholder:'Картошка, цемент...',weightLabel:'Салмагы (тонна)',
@@ -88,7 +88,7 @@ const TEXT = {
   loadWord:'Груз',vehicleWord:'Свободная машина',country:'Кыргызстан',call:'☎ Позвонить',whatsapp:'WhatsApp',negotiable:'Цена договорная',
   footer:'© 2026 ЖҮК ЭКСПРЕСС.KG · Платформа грузоперевозок по Кыргызстану',
   authTitle:'Вход по Email',authNotice:'Регистрация нужна только для добавления объявлений. Просмотр, поиск и связь бесплатны.',
-  emailLabel:'Email',passwordLabel:'Пароль',passwordPlaceholder:'Минимум 6 символов',signIn:'Войти',signUp:'Зарегистрироваться',switchToSignUp:'Создать аккаунт',switchToSignIn:'Уже есть аккаунт? Войти',emailRequired:'Введите email и пароль.',working:'Проверка...',checkEmail:'Ссылка для подтверждения отправлена на вашу почту. Проверьте email.',signupFailed:'Не удалось зарегистрироваться: ',signinFailed:'Не удалось войти: ',signedIn:'Вы успешно вошли.',signedOut:'Вы вышли из аккаунта.',
+  emailLabel:'Email',passwordLabel:'Пароль',passwordPlaceholder:'Минимум 6 символов',signIn:'Войти',signUp:'Зарегистрироваться',switchToSignUp:'Создать аккаунт',switchToSignIn:'Уже есть аккаунт? Войти',emailRequired:'Введите email и пароль.',working:'Проверка...',checkEmail:'Ссылка для подтверждения отправлена на вашу почту. Проверьте email.',signupFailed:'Не удалось зарегистрироваться: ',signinFailed:'Не удалось войти: ',signedIn:'Вы успешно вошли.',signedOut:'Вы вышли из аккаунта.',edit:'Изменить',remove:'Удалить',confirmDelete:'Удалить это объявление?',updated:'Объявление изменено.',deleted:'Объявление удалено.',
   postHeading:'Добавить объявление',postNotice:'Ваш номер телефона будет показан в объявлении. Публикуя объявление, вы соглашаетесь, что его увидят другие пользователи.',
   typeLabel:'Тип объявления',loadOption:'Отправляю груз',vehicleOption:'Есть свободная машина',titleLabel:'Название',titlePlaceholder:'Например: Картофель, 10 тонн',
   fromLabel:'Откуда',toLabel:'Куда',cargoLabel:'Тип груза',cargoPlaceholder:'Картофель, цемент...',weightLabel:'Вес (тонн)',
@@ -104,7 +104,7 @@ const TEXT = {
 };
 
 let lang=localStorage.getItem('jukLang')||'ky';
-let activeTab='loads',rows=[],currentUser=null,authMode='signin',pendingPost=false;
+let activeTab='loads',rows=[],currentUser=null,authMode='signin',pendingPost=false,editingId=null;
 
 const $=id=>document.getElementById(id);
 const t=key=>TEXT[lang][key]||TEXT.ky[key]||key;
@@ -139,7 +139,8 @@ function render(){
   const isVehicle=activeTab==='vehicles',phone=phoneClean(r.phone),wa=phoneClean(r.whatsapp||r.phone).replace('+','');
   const detail=isVehicle?(r.vehicle_type||t('vehicleWord')):(r.cargo||t('loadWord'));
   const tons=isVehicle?r.capacity_tons:r.weight_tons,title=r.title||detail;
-  return `<article class="item"><h3>${safe(title)}</h3><div class="route">${safe(r.city_from||'—')} → ${safe(r.city_to||'—')}</div><div class="meta"><span class="pill">${safe(detail)}</span>${tons?`<span class="pill">${safe(tons)} ${t('tons')}</span>`:''}<span class="pill">${t('country')}</span></div><div class="price">${safe(fmtPrice(r.price))}</div>${r.description?`<p>${safe(r.description)}</p>`:''}<div class="contact"><a class="call" href="tel:${safe(phone)}">${t('call')}</a><a href="https://wa.me/${safe(wa)}" target="_blank" rel="noopener">${t('whatsapp')}</a></div></article>`;
+  const own=!!currentUser&&r.owner_id===currentUser.id;
+  return `<article class="item"><h3>${safe(title)}</h3><div class="route">${safe(r.city_from||'—')} → ${safe(r.city_to||'—')}</div><div class="meta"><span class="pill">${safe(detail)}</span>${tons?`<span class="pill">${safe(tons)} ${t('tons')}</span>`:''}<span class="pill">${t('country')}</span></div><div class="price">${safe(fmtPrice(r.price))}</div>${r.description?`<p>${safe(r.description)}</p>`:''}<div class="contact"><a class="call" href="tel:${safe(phone)}">${t('call')}</a><a href="https://wa.me/${safe(wa)}" target="_blank" rel="noopener">${t('whatsapp')}</a></div>${own?`<div class="contact" style="margin-top:8px"><button class="btn-light" onclick="editListing('${safe(r.id)}')">${t('edit')}</button><button class="btn-light" onclick="deleteListing('${safe(r.id)}')">${t('remove')}</button></div>`:''}</article>`;
  }).join('');
 }
 async function loadRows(){
@@ -155,7 +156,9 @@ function showAuth(mode='signin',forPost=false){authMode=mode;pendingPost=forPost
 $('loginBtn').onclick=async()=>{if(currentUser){await db.auth.signOut();return}showAuth('signin',false)};
 $('authModeBtn').onclick=()=>showAuth(authMode==='signin'?'signup':'signin',pendingPost);
 $('postBtn').onclick=async()=>{const {data}=await db.auth.getSession();currentUser=data.session?.user||null;if(!currentUser){showAuth('signin',true);return}openPostForm()};
-function openPostForm(){$('pPhone').value=currentUser?.phone||'';$('postMessage').textContent='';togglePostFields();openModal('postModal')}
+function openPostForm(){$('pTitle').value='';$('pFrom').value='';$('pTo').value='';$('pCargo').value='';$('pWeight').value='';$('pCapacity').value='';$('pPrice').value='';$('pPhone').value=currentUser?.phone||'';$('pWhatsapp').value='';$('pDescription').value='';$('postType').value='load';editingId=null;$('savePost').textContent=t('publish');$('postMessage').textContent='';togglePostFields();openModal('postModal')}
+window.editListing=(id)=>{const r=rows.find(x=>String(x.id)===String(id));if(!r||!currentUser||r.owner_id!==currentUser.id)return;editingId=r.id;$('postType').value=activeTab==='vehicles'?'vehicle':'load';$('pTitle').value=r.title||'';$('pFrom').value=r.city_from||'';$('pTo').value=r.city_to||'';$('pCargo').value=r.cargo||'';$('pWeight').value=r.weight_tons??'';$('pVehicle').value=r.vehicle_type||'Тент';$('pCapacity').value=r.capacity_tons??'';$('pPrice').value=r.price??'';$('pPhone').value=r.phone||'';$('pWhatsapp').value=r.whatsapp||'';$('pDescription').value=r.description||'';$('savePost').textContent=t('edit');$('postMessage').textContent='';togglePostFields();openModal('postModal')};
+window.deleteListing=async(id)=>{if(!currentUser)return;if(!confirm(t('confirmDelete')))return;const {error}=await db.from(activeTab).delete().eq('id',id).eq('owner_id',currentUser.id);if(error){alert(t('saveFailed')+error.message);return}rows=rows.filter(r=>String(r.id)!==String(id));render();alert(t('deleted'))};
 $('postType').onchange=togglePostFields;
 function togglePostFields(){const vehicle=$('postType').value==='vehicle';$('cargoField').classList.toggle('hidden',vehicle);$('weightField').classList.toggle('hidden',vehicle);$('vehicleField').classList.toggle('hidden',!vehicle);$('capacityField').classList.toggle('hidden',!vehicle)}
 $('authSubmit').onclick=async()=>{
@@ -185,10 +188,10 @@ async function savePost(){
  if(vehicle){payload.vehicle_type=$('pVehicle').value;payload.capacity_tons=$('pCapacity').value?Number($('pCapacity').value):null}
  else{payload.cargo=$('pCargo').value.trim();payload.weight_tons=$('pWeight').value?Number($('pWeight').value):null}
  $('savePost').disabled=true;$('postMessage').textContent=t('saving');
- const {error}=await db.from(vehicle?'vehicles':'loads').insert(payload);
+ const table=vehicle?'vehicles':'loads';const result=editingId?await db.from(table).update(payload).eq('id',editingId).eq('owner_id',currentUser.id):await db.from(table).insert(payload);const {error}=result;
  $('savePost').disabled=false;
  if(error){console.error(error);$('postMessage').textContent=t('saveFailed')+error.message;return}
- closeModal('postModal');switchTab(vehicle?'vehicles':'loads');alert(t('saved'));
+ const wasEditing=!!editingId;editingId=null;closeModal('postModal');switchTab(vehicle?'vehicles':'loads');alert(wasEditing?t('updated'):t('saved'));
 }
 $('savePost').onclick=savePost;
 db.auth.getSession().then(({data})=>{currentUser=data.session?.user||null;$('loginBtn').textContent=currentUser?t('logout'):t('login')});
