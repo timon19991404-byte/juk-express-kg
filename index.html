@@ -239,7 +239,60 @@ function openModal(kind,pre=''){
   }
 }
 function updatePostLabels(){let truck=document.getElementById('postType').value==='truck';document.getElementById('cargoLabel').textContent=truck?tr('Унаанын түрү','Тип транспорта'):tr('Жүктүн түрү','Тип груза')}
-function savePost(e){e.preventDefault();let d=Object.fromEntries(new FormData(e.target));let n=d.phone.replace(/\D/g,'');items.unshift({id:Date.now(),...d,wa:n,date:tr('Жаңы','Новое')});localStorage.setItem('jukItems',JSON.stringify(items));closeModal();setTab(d.type==='load'?'loads':'trucks');alert(tr('Жарыя ушул түзмөктө сакталды. Сервер туташкандан кийин жалпыга көрүнөт.','Объявление сохранено на этом устройстве. После подключения сервера оно станет общедоступным.'))}
+async function savePost(e){
+  e.preventDefault();
+
+  try{
+    const user=auth.currentUser;
+
+    if(!user){
+      alert('Адегенде аккаунтка кириңиз!');
+      openModal('login');
+      return;
+    }
+
+    const d=Object.fromEntries(new FormData(e.target));
+    const n=d.phone.replace(/\D/g,'');
+
+    const collection=d.type==='load'?'loads':'vehicles';
+    const docRef=db.collection(collection).doc();
+
+    const postData={
+      ...d,
+      ownerUid:user.uid,
+      ownerId:user.uid,
+      phone:d.phone,
+      wa:n,
+      currency:'KGS',
+      country:'Kyrgyzstan',
+      status:'active',
+      isActive:true,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp(),
+      expiresAt:firebase.firestore.Timestamp.fromDate(
+        new Date(Date.now()+7*24*60*60*1000)
+      )
+    };
+
+    await docRef.set(postData);
+
+    items.unshift({
+      id:docRef.id,
+      ...d,
+      wa:n,
+      date:tr('Жаңы','Новое')
+    });
+
+    closeModal();
+    setTab(d.type==='load'?'loads':'trucks');
+
+    alert('Жарыя Firebase базасына сакталды!');
+
+  }catch(error){
+    console.error(error);
+    alert('Ката: '+error.message);
+  }
+}
 function startChat(id){let x=items.find(a=>a.id===id);openModal('chat',x.wa)}function closeModal(){document.getElementById('modalBack').classList.remove('show')}render();
 auth.onAuthStateChanged(async function(user){
   const loginButton=document.querySelector('.nav button[onclick="openModal(\'login\')"]');
