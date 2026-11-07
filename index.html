@@ -52,7 +52,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 12px}
 
 <script>
 /* Supabase Project URL жана Publishable key. Secret/service_role ачкычын браузерге салбаңыз. */
-const SUPABASE_URL = 'https://esnmfwhzwrmcvokfgqld.supabase.co';
+const SUPABASE_URL = 'https://esnmfwhzwrmcyokfgqald.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_HJu0aBiE_jlPhD644iI_pw_j6grrjiq';
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
@@ -104,7 +104,7 @@ const TEXT = {
 };
 
 let lang=localStorage.getItem('jukLang')||'ky';
-let activeTab='loads',rows=[],currentUser=null,authMode='signin',pendingPost=false,editingId=null;
+let activeTab='loads',rows=[],currentUser=null,authMode='signin',pendingPost=false,editingId=null,editingTable=null,loadRequest=0;
 
 const $=id=>document.getElementById(id);
 const t=key=>TEXT[lang][key]||TEXT.ky[key]||key;
@@ -140,25 +140,52 @@ function render(){
   const detail=isVehicle?(r.vehicle_type||t('vehicleWord')):(r.cargo||t('loadWord'));
   const tons=isVehicle?r.capacity_tons:r.weight_tons,title=r.title||detail;
   const own=!!currentUser&&r.owner_id===currentUser.id;
-  return `<article class="item"><h3>${safe(title)}</h3><div class="route">${safe(r.city_from||'—')} → ${safe(r.city_to||'—')}</div><div class="meta"><span class="pill">${safe(detail)}</span>${tons?`<span class="pill">${safe(tons)} ${t('tons')}</span>`:''}<span class="pill">${t('country')}</span></div><div class="price">${safe(fmtPrice(r.price))}</div>${r.description?`<p>${safe(r.description)}</p>`:''}<div class="contact"><a class="call" href="tel:${safe(phone)}">${t('call')}</a><a href="https://wa.me/${safe(wa)}" target="_blank" rel="noopener">${t('whatsapp')}</a></div>${own?`<div class="contact" style="margin-top:8px"><button class="btn-light" onclick="editListing('${safe(r.id)}')">${t('edit')}</button><button class="btn-light" onclick="deleteListing('${safe(r.id)}')">${t('remove')}</button></div>`:''}</article>`;
+  return `<article class="item"><h3>${safe(title)}</h3><div class="route">${safe(r.city_from||'—')} → ${safe(r.city_to||'—')}</div><div class="meta"><span class="pill">${safe(detail)}</span>${tons?`<span class="pill">${safe(tons)} ${t('tons')}</span>`:''}<span class="pill">${t('country')}</span></div><div class="price">${safe(fmtPrice(r.price))}</div>${r.description?`<p>${safe(r.description)}</p>`:''}<div class="contact"><a class="call" href="tel:${safe(phone)}">${t('call')}</a><a href="https://wa.me/${safe(wa)}" target="_blank" rel="noopener">${t('whatsapp')}</a></div>${own?`<div class="contact" style="margin-top:8px"><button type="button" class="btn-light" data-action="edit" data-id="${safe(r.id)}">${t('edit')}</button><button type="button" class="btn-light" data-action="delete" data-id="${safe(r.id)}">${t('remove')}</button></div>`:''}</article>`;
  }).join('');
 }
 async function loadRows(){
- $('list').innerHTML=`<div class="empty">${t('loading')}</div>`;
- const {data,error}=await db.from(activeTab).select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
- if(error){console.error(error);$('list').innerHTML=`<div class="empty">${t('loadFailed')}</div>`;return}
- rows=data||[];render();
+ const requestedTab=activeTab,requestId=++loadRequest;
+ if(!rows.length)$('list').innerHTML=`<div class="empty">${t('loading')}</div>`;
+ const {data,error}=await db.from(requestedTab).select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
+ // Эски же башка вкладканын кечиккен жообу учурдагы тизмени алмаштырбасын.
+ if(requestId!==loadRequest||requestedTab!==activeTab)return;
+ if(error){console.error('Supabase load error:',error);if(!rows.length)$('list').innerHTML=`<div class="empty">${t('loadFailed')}</div>`;return}
+ rows=Array.isArray(data)?data:[];render();
 }
-function switchTab(tab){activeTab=tab;$('loadsTab').classList.toggle('active',tab==='loads');$('trucksTab').classList.toggle('active',tab==='vehicles');loadRows()}
+function switchTab(tab){if(tab===activeTab)return;activeTab=tab;rows=[];$('loadsTab').classList.toggle('active',tab==='loads');$('trucksTab').classList.toggle('active',tab==='vehicles');loadRows()}
 $('loadsTab').onclick=()=>switchTab('loads');$('trucksTab').onclick=()=>switchTab('vehicles');
 $('searchBtn').onclick=render;$('search').addEventListener('input',render);$('cityFilter').onchange=render;
 function showAuth(mode='signin',forPost=false){authMode=mode;pendingPost=forPost;$('authMessage').textContent='';$('authHeading').textContent=mode==='signup'?t('signUp'):t('authTitle');$('authSubmit').textContent=mode==='signup'?t('signUp'):t('signIn');$('authModeBtn').textContent=mode==='signup'?t('switchToSignIn'):t('switchToSignUp');$('authPassword').value='';openModal('authModal')}
 $('loginBtn').onclick=async()=>{if(currentUser){await db.auth.signOut();return}showAuth('signin',false)};
 $('authModeBtn').onclick=()=>showAuth(authMode==='signin'?'signup':'signin',pendingPost);
 $('postBtn').onclick=async()=>{const {data}=await db.auth.getSession();currentUser=data.session?.user||null;if(!currentUser){showAuth('signin',true);return}openPostForm()};
-function openPostForm(){$('pTitle').value='';$('pFrom').value='';$('pTo').value='';$('pCargo').value='';$('pWeight').value='';$('pCapacity').value='';$('pPrice').value='';$('pPhone').value=currentUser?.phone||'';$('pWhatsapp').value='';$('pDescription').value='';$('postType').value='load';editingId=null;$('savePost').textContent=t('publish');$('postMessage').textContent='';togglePostFields();openModal('postModal')}
-window.editListing=(id)=>{const r=rows.find(x=>String(x.id)===String(id));if(!r||!currentUser||r.owner_id!==currentUser.id)return;editingId=r.id;$('postType').value=activeTab==='vehicles'?'vehicle':'load';$('pTitle').value=r.title||'';$('pFrom').value=r.city_from||'';$('pTo').value=r.city_to||'';$('pCargo').value=r.cargo||'';$('pWeight').value=r.weight_tons??'';$('pVehicle').value=r.vehicle_type||'Тент';$('pCapacity').value=r.capacity_tons??'';$('pPrice').value=r.price??'';$('pPhone').value=r.phone||'';$('pWhatsapp').value=r.whatsapp||'';$('pDescription').value=r.description||'';$('savePost').textContent=t('edit');$('postMessage').textContent='';togglePostFields();openModal('postModal')};
-window.deleteListing=async(id)=>{if(!currentUser)return;if(!confirm(t('confirmDelete')))return;const {error}=await db.from(activeTab).delete().eq('id',id).eq('owner_id',currentUser.id);if(error){alert(t('saveFailed')+error.message);return}rows=rows.filter(r=>String(r.id)!==String(id));render();alert(t('deleted'))};
+function openPostForm(){editingId=null;editingTable=null;$('pTitle').value='';$('pFrom').value='';$('pTo').value='';$('pCargo').value='';$('pWeight').value='';$('pCapacity').value='';$('pPrice').value='';$('pPhone').value=currentUser?.phone||'';$('pWhatsapp').value='';$('pDescription').value='';$('postType').value='load';editingId=null;$('savePost').textContent=t('publish');$('postMessage').textContent='';togglePostFields();openModal('postModal')}
+window.editListing=(id)=>{
+ const r=rows.find(x=>String(x.id)===String(id));
+ if(!r||!currentUser||String(r.owner_id)!==String(currentUser.id)){alert(t('signInRequired'));return}
+ editingId=r.id;editingTable=activeTab;
+ $('postType').value=editingTable==='vehicles'?'vehicle':'load';
+ $('pTitle').value=r.title||'';$('pFrom').value=r.city_from||'';$('pTo').value=r.city_to||'';
+ $('pCargo').value=r.cargo||'';$('pWeight').value=r.weight_tons??'';$('pVehicle').value=r.vehicle_type||'Тент';
+ $('pCapacity').value=r.capacity_tons??'';$('pPrice').value=r.price??'';$('pPhone').value=r.phone||'';
+ $('pWhatsapp').value=r.whatsapp||'';$('pDescription').value=r.description||'';
+ $('savePost').textContent=t('edit');$('postMessage').textContent='';togglePostFields();openModal('postModal');
+};
+window.deleteListing=async(id)=>{
+ if(!currentUser||!confirm(t('confirmDelete')))return;
+ const table=activeTab;
+ const {data,error}=await db.from(table).delete().eq('id',id).eq('owner_id',currentUser.id).select('id');
+ if(error){alert(t('saveFailed')+error.message);return}
+ if(!data||!data.length){alert(t('saveFailed')+' No row was deleted. Check Supabase RLS/ownership.');return}
+ rows=rows.filter(r=>String(r.id)!==String(id));render();alert(t('deleted'));
+};
+$('list').addEventListener('click',e=>{
+ const button=e.target.closest('button[data-action]');if(!button)return;
+ e.preventDefault();e.stopPropagation();
+ const id=button.dataset.id;
+ if(button.dataset.action==='edit')window.editListing(id);
+ if(button.dataset.action==='delete')window.deleteListing(id);
+});
 $('postType').onchange=togglePostFields;
 function togglePostFields(){const vehicle=$('postType').value==='vehicle';$('cargoField').classList.toggle('hidden',vehicle);$('weightField').classList.toggle('hidden',vehicle);$('vehicleField').classList.toggle('hidden',!vehicle);$('capacityField').classList.toggle('hidden',!vehicle)}
 $('authSubmit').onclick=async()=>{
@@ -184,21 +211,35 @@ async function savePost(){
  const vehicle=$('postType').value==='vehicle',title=$('pTitle').value.trim(),from=$('pFrom').value.trim(),to=$('pTo').value.trim(),phone=String($('pPhone').value||'').replace(/[^\d+]/g,'');
  if(!title||!from||!to||!/^\+996\d{9}$/.test(phone)){$('postMessage').textContent=t('required');return}
  const price=$('pPrice').value?Number($('pPrice').value):null,now=new Date(),expires=new Date(now.getTime()+7*86400000).toISOString();
- const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price,phone,whatsapp:String($('pWhatsapp').value||'').replace(/[^\d+]/g,'')||phone,description:$('pDescription').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',created_at:now.toISOString(),expires_at:expires};
+ const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price,phone,whatsapp:String($('pWhatsapp').value||'').replace(/[^\d+]/g,'')||phone,description:$('pDescription').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active'};
+ // 7 күндүк мөөнөт жана created_at жаңы жарыяга гана берилет; өзгөртүүдө сакталат.
+ if(!editingId){payload.created_at=now.toISOString();payload.expires_at=expires;}
  if(vehicle){payload.vehicle_type=$('pVehicle').value;payload.capacity_tons=$('pCapacity').value?Number($('pCapacity').value):null}
  else{payload.cargo=$('pCargo').value.trim();payload.weight_tons=$('pWeight').value?Number($('pWeight').value):null}
  $('savePost').disabled=true;$('postMessage').textContent=t('saving');
- const table=vehicle?'vehicles':'loads';const result=editingId?await db.from(table).update(payload).eq('id',editingId).eq('owner_id',currentUser.id):await db.from(table).insert(payload);const {error}=result;
+ const wasEditing=!!editingId,table=wasEditing?editingTable:(vehicle?'vehicles':'loads');
+ let result;
+ if(wasEditing){
+  // Таблица өзгөртүү формасындагы тандоодон эмес, баштапкы жарыядан алынат.
+  result=await db.from(table).update(payload).eq('id',editingId).eq('owner_id',currentUser.id).select('*').maybeSingle();
+ }else{
+  result=await db.from(table).insert(payload).select('*').single();
+ }
  $('savePost').disabled=false;
- if(error){console.error(error);$('postMessage').textContent=t('saveFailed')+error.message;return}
- const wasEditing=!!editingId;editingId=null;closeModal('postModal');switchTab(vehicle?'vehicles':'loads');alert(wasEditing?t('updated'):t('saved'));
+ if(result.error){console.error('Supabase save error:',result.error);$('postMessage').textContent=t('saveFailed')+result.error.message;return}
+ if(!result.data){$('postMessage').textContent=t('saveFailed')+' Жарыя табылган жок же өзгөртүүгө уруксат жок (RLS).';return}
+ editingId=null;editingTable=null;closeModal('postModal');
+ if(activeTab===table){rows=rows.filter(r=>String(r.id)!==String(result.data.id));rows.unshift(result.data);render();}
+ else{switchTab(table)}
+ alert(wasEditing?t('updated'):t('saved'));
 }
 $('savePost').onclick=savePost;
 db.auth.getSession().then(({data})=>{currentUser=data.session?.user||null;$('loginBtn').textContent=currentUser?t('logout'):t('login')});
 db.auth.onAuthStateChange((_event,session)=>{currentUser=session?.user||null;$('loginBtn').textContent=currentUser?t('logout'):t('login')});
 applyLanguage();
 loadRows();
-setInterval(loadRows,60000);
+// Автоматтык кайра жүктөө өчүрүлдү: колдонуучу жарыяны өзгөртүп жатканда тизмени алмаштырбайт.
+// Кааласаң, баракты кол менен жаңыртып жаңы маалыматты аласың.
 </script>
 </body>
 </html>
