@@ -95,27 +95,149 @@ async function verifyPhoneCode(){
     alert('Код туура эмес же мөөнөтү өттү');
   }
 }
-function openModal(kind,pre=''){let body=document.getElementById('modalBody'),title=document.getElementById('modalTitle');document.getElementById('modalBack').classList.add('show');if(kind==='post'){title.textContent=tr('Жаңы жарыя берүү','Новое объявление');let type=pre||'load';body.innerHTML=`<form onsubmit="savePost(event)"><div class="field"><label>${tr('Жарыянын түрү','Тип объявления')}</label><select name="type" id="postType" onchange="updatePostLabels()"><option value="load" ${type==='load'?'selected':''}>${tr('Жүк керек','Нужна перевозка груза')}</option><option value="truck" ${type==='truck'?'selected':''}>${tr('Бош унаа бар','Есть свободная машина')}</option></select></div><div class="form-grid" style="margin-top:12px"><div class="field"><label>${tr('Кайдан','Откуда')}</label><input name="from" required placeholder="Ош"></div><div class="field"><label>${tr('Кайда','Куда')}</label><input name="to" required placeholder="Бишкек"></div><div class="field full"><label id="cargoLabel">${tr('Жүктүн түрү','Тип груза')}</label><input name="cargo" required placeholder="${tr('Мисалы: картошка','Например: картофель')}"></div><div class="field"><label>${tr('Салмагы / жүк көтөрүмдүүлүгү','Вес / грузоподъёмность')}</label><input name="weight" required placeholder="5 тонна"></div><div class="field"><label>${tr('Баасы','Цена')}</label><input name="price" required placeholder="20 000 сом"></div><div class="field"><label>${tr('Телефон','Телефон')}</label><input name="phone" required type="tel" placeholder="+996..."></div><div class="field"><label>${tr('Аты-жөнү / компания','Имя / компания')}</label><input name="owner" required placeholder="Атыңыз"></div></div><div class="form-actions"><button type="button" class="btn ghost" onclick="closeModal()">${tr('Жабуу','Отмена')}</button><button class="btn blue">${tr('Жарыяны сактоо','Опубликовать')}</button></div></form>`}else if(kind==='login'){
-title.textContent=tr('Телефон менен кирүү','Вход по телефону');
-body.innerHTML=`
-<div class="field">
-<label>Телефон номери</label>
-<input id="loginPhone" type="tel" placeholder="+996700123456">
-</div>
-<div id="recaptcha-container" style="margin-top:12px"></div>
-<div class="form-actions">
-<button class="btn blue" onclick="sendPhoneCode()">SMS-код жөнөтүү</button>
-</div>
-<div id="smsCodeBox" style="display:none;margin-top:14px">
-<div class="field">
-<label>SMS-код</label>
-<input id="smsCode" type="text" inputmode="numeric" placeholder="6 орундуу код">
-</div>
-<div class="form-actions">
-<button class="btn blue" onclick="verifyPhoneCode()">Кирүү</button>
-</div>
-</div>`;
-}else if(kind==='chats'){title.textContent=tr('Билдирүүлөр','Сообщения');body.innerHTML=`<div class="chat-list"><div class="chat-row"><div><strong>${tr('Жеке чат системасы','Система личных сообщений')}</strong><div class="muted">${tr('Бул демо-версияда чат интерфейси даярдалууда.','Интерфейс чата подготовлен к подключению.')}</div></div><span>💬</span></div></div><div class="note">${tr('Чыныгы жеке кат алышуу үчүн колдонуучуларды каттоо, билдирүүлөр базасы жана реалдуу убакыттагы байланыш серверге туташтырылат.','Для настоящей переписки подключим авторизацию, базу сообщений и обмен в реальном времени.')}</div>`}else if(kind==='chat'){title.textContent=tr('Жеке билдирүү','Личное сообщение');body.innerHTML=`<p>${tr('Жарыя ээси менен байланышуу үчүн телефон же WhatsApp колдонуңуз. Сайттагы жеке чат кийинки сервердик этапта ишке кирет.','Для связи используйте телефон или WhatsApp. Внутренний чат заработает после подключения сервера.')}</p><button class="btn blue" onclick="closeModal();whatsapp('${pre}')">WhatsApp ${tr('аркылуу жазуу','написать')}</button>`}}
+async function emailRegister(){
+  try{
+    const email=document.getElementById('loginEmail').value.trim();
+    const password=document.getElementById('loginPassword').value;
+
+    if(!email || password.length<6){
+      alert('Email жазыңыз жана сырсөз кеминде 6 белгиден турсун');
+      return;
+    }
+
+    const result=await auth.createUserWithEmailAndPassword(email,password);
+
+    await db.collection('users').doc(result.user.uid).set({
+      email:email,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    alert('Катталуу ийгиликтүү!');
+    closeModal();
+  }catch(error){
+    alert('Ката: '+error.message);
+  }
+}
+
+async function emailLogin(){
+  try{
+    const email=document.getElementById('loginEmail').value.trim();
+    const password=document.getElementById('loginPassword').value;
+
+    await auth.signInWithEmailAndPassword(email,password);
+
+    alert('Ийгиликтүү кирдиңиз!');
+    closeModal();
+  }catch(error){
+    alert('Ката: '+error.message);
+  }
+}
+function openModal(kind,pre=''){
+  let body=document.getElementById('modalBody');
+  let title=document.getElementById('modalTitle');
+
+  document.getElementById('modalBack').classList.add('show');
+
+  if(kind==='post'){
+    title.textContent=tr('Жаңы жарыя берүү','Новое объявление');
+    let type=pre||'load';
+
+    body.innerHTML=`
+      <form onsubmit="savePost(event)">
+        <div class="field">
+          <label>${tr('Жарыянын түрү','Тип объявления')}</label>
+          <select name="type" id="postType" onchange="updatePostLabels()">
+            <option value="load" ${type==='load'?'selected':''}>${tr('Жүк керек','Нужна перевозка груза')}</option>
+            <option value="truck" ${type==='truck'?'selected':''}>${tr('Бош унаа бар','Есть свободная машина')}</option>
+          </select>
+        </div>
+
+        <div class="form-grid" style="margin-top:12px">
+          <div class="field">
+            <label>${tr('Кайдан','Откуда')}</label>
+            <input name="from" required placeholder="Ош">
+          </div>
+          <div class="field">
+            <label>${tr('Кайда','Куда')}</label>
+            <input name="to" required placeholder="Бишкек">
+          </div>
+          <div class="field full">
+            <label id="cargoLabel">${tr('Жүктүн түрү','Тип груза')}</label>
+            <input name="cargo" required placeholder="${tr('Мисалы: картошка','Например: картофель')}">
+          </div>
+          <div class="field">
+            <label>${tr('Салмагы / жүк көтөрүмдүүлүгү','Вес / грузоподъёмность')}</label>
+            <input name="weight" required placeholder="5 тонна">
+          </div>
+          <div class="field">
+            <label>${tr('Баасы','Цена')}</label>
+            <input name="price" required placeholder="20 000 сом">
+          </div>
+          <div class="field">
+            <label>${tr('Телефон','Телефон')}</label>
+            <input name="phone" required type="tel" placeholder="+996...">
+          </div>
+          <div class="field">
+            <label>${tr('Аты-жөнү / компания','Имя / компания')}</label>
+            <input name="owner" required placeholder="Атыңыз">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn ghost" onclick="closeModal()">${tr('Жабуу','Отмена')}</button>
+          <button class="btn blue">${tr('Жарыяны сактоо','Опубликовать')}</button>
+        </div>
+      </form>`;
+  }
+
+  else if(kind==='login'){
+    title.textContent=tr('Аккаунтка кирүү','Вход в аккаунт');
+
+    body.innerHTML=`
+      <div class="field">
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="example@gmail.com">
+      </div>
+
+      <div class="field" style="margin-top:12px">
+        <label>Сырсөз</label>
+        <input id="loginPassword" type="password" placeholder="Кеминде 6 белги">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn ghost" onclick="emailRegister()">Катталуу</button>
+        <button class="btn blue" onclick="emailLogin()">Кирүү</button>
+      </div>`;
+  }
+
+  else if(kind==='chats'){
+    title.textContent=tr('Билдирүүлөр','Сообщения');
+
+    body.innerHTML=`
+      <div class="chat-list">
+        <div class="chat-row">
+          <div>
+            <strong>${tr('Жеке чат системасы','Система личных сообщений')}</strong>
+            <div class="muted">${tr('Бул демо-версияда чат интерфейси даярдалууда.','Интерфейс чата подготовлен к подключению.')}</div>
+          </div>
+          <span>💬</span>
+        </div>
+      </div>
+      <div class="note">
+        ${tr('Чыныгы жеке кат алышуу үчүн колдонуучуларды каттоо, билдирүүлөр базасы жана реалдуу убакыттагы байланыш серверге туташтырылат.','Для настоящей переписки подключим авторизацию, базу сообщений и обмен в реальном времени.')}
+      </div>`;
+  }
+
+  else if(kind==='chat'){
+    title.textContent=tr('Жеке билдирүү','Личное сообщение');
+
+    body.innerHTML=`
+      <p>${tr('Жарыя ээси менен байланышуу үчүн телефон же WhatsApp колдонуңуз. Сайттагы жеке чат кийинки сервердик этапта ишке кирет.','Для связи используйте телефон или WhatsApp. Внутренний чат заработает после подключения сервера.')}</p>
+      <button class="btn blue" onclick="closeModal();whatsapp('${pre}')">
+        WhatsApp ${tr('аркылуу жазуу','написать')}
+      </button>`;
+  }
+}
 function updatePostLabels(){let truck=document.getElementById('postType').value==='truck';document.getElementById('cargoLabel').textContent=truck?tr('Унаанын түрү','Тип транспорта'):tr('Жүктүн түрү','Тип груза')}
 function savePost(e){e.preventDefault();let d=Object.fromEntries(new FormData(e.target));let n=d.phone.replace(/\D/g,'');items.unshift({id:Date.now(),...d,wa:n,date:tr('Жаңы','Новое')});localStorage.setItem('jukItems',JSON.stringify(items));closeModal();setTab(d.type==='load'?'loads':'trucks');alert(tr('Жарыя ушул түзмөктө сакталды. Сервер туташкандан кийин жалпыга көрүнөт.','Объявление сохранено на этом устройстве. После подключения сервера оно станет общедоступным.'))}
 function startChat(id){let x=items.find(a=>a.id===id);openModal('chat',x.wa)}function closeModal(){document.getElementById('modalBack').classList.remove('show')}render();
