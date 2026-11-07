@@ -144,13 +144,37 @@ function render(){
  }).join('');
 }
 async function loadRows(){
- const requestedTab=activeTab,requestId=++loadRequest;
- if(!rows.length)$('list').innerHTML=`<div class="empty">${t('loading')}</div>`;
- const {data,error}=await db.from(requestedTab).select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);
- // Эски же башка вкладканын кечиккен жообу учурдагы тизмени алмаштырбасын.
- if(requestId!==loadRequest||requestedTab!==activeTab)return;
- if(error){console.error('Supabase load error:',error);if(!rows.length)$('list').innerHTML=`<div class="empty">${t('loadFailed')}</div>`;return}
- rows=Array.isArray(data)?data:[];render();
+  const requestedTab = activeTab;
+  const requestId = ++loadRequest;
+
+  $('list').innerHTML =
+    `<div class="empty">${t('loading')}</div>`;
+
+  const result = await db
+    .from(requestedTab)
+    .select('*')
+    .order('created_at', {ascending:false})
+    .limit(100);
+
+  console.log('TABLE:', requestedTab);
+  console.log('DATA:', result.data);
+  console.log('ERROR:', result.error);
+
+  if(requestId !== loadRequest || requestedTab !== activeTab) return;
+
+  if(result.error){
+    $('list').innerHTML =
+      `<div class="empty">Ката: ${safe(result.error.message)}</div>`;
+    return;
+  }
+
+  rows = (result.data || []).filter(r =>
+    r.country === 'Кыргызстан' &&
+    r.status === 'active' &&
+    !expired(r)
+  );
+
+  render();
 }
 function switchTab(tab){if(tab===activeTab)return;activeTab=tab;rows=[];$('loadsTab').classList.toggle('active',tab==='loads');$('trucksTab').classList.toggle('active',tab==='vehicles');loadRows()}
 $('loadsTab').onclick=()=>switchTab('loads');$('trucksTab').onclick=()=>switchTab('vehicles');
