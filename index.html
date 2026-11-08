@@ -17,7 +17,7 @@
  <div class="brand"><div class="logo">🚚</div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div></div>
  <div class="top-actions"><select id="lang" class="language"><option value="ky">КЫР</option><option value="ru">РУС</option></select><button class="btn btn-outline" id="authButton" onclick="openAuth()">Кирүү</button></div>
 </div><nav class="tabs" id="nav">
- <button class="active" data-page="home">Башкы бет</button><button data-page="ads">Жүк жарыялары</button><button data-page="drivers">Айдоочулар</button><button data-page="saved">Сакталган</button><button data-page="messages">Билдирүүлөр</button><button data-page="cabinet">Менин кабинетым</button><button data-page="dispatcher" id="dispatcherNav" class="hidden">Диспетчер</button><button data-page="settings">Жөндөөлөр</button>
+ <button class="active" data-page="home">Башкы бет</button><button data-page="ads">Жүк жарыялары</button><button data-page="drivers">Айдоочулар</button><button data-page="saved">Сакталган</button><button data-page="messages">Билдирүүлөр</button><button data-page="cabinet">Менин кабинетым</button><button data-page="dispatcher" id="dispatcherNav" class="hidden">Диспетчер</button><button data-page="admin" id="adminNav" class="hidden">Админ панель</button><button data-page="settings">Жөндөөлөр</button>
 </nav></header>
 <main>
 <section id="page-home"><div class="hero"><div><span class="tag" style="background:#ffffff20;color:#ffd77b">100% Кыргызстан ичинде</span><h1>Жүк барбы? Унаа керекпи?</h1><p>Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Жүк жарыяларын таап, түз байланышыңыз.</p><button class="btn btn-primary" onclick="showPage('ads')">Жүк жарыяларын көрүү →</button> <button class="btn btn-outline" onclick="openAuth()">Катталуу</button></div><div class="hero-stat"><div class="stat"><b>🇰🇬</b><span>Кыргызстан гана</span></div><div class="stat"><b>0 сом</b><span>Баштапкы колдонуу</span></div><div class="stat"><b>Жүк</b><span>Жүк жарыялары</span></div><div class="stat"><b>Айдоочу</b><span>Жүк ээсине түз байланыш</span></div></div></div>
@@ -37,6 +37,10 @@
 <section id="page-messages" class="hidden"><div class="panel empty"><b>Билдирүүлөр бөлүмү</b>Бул версияда телефон жана WhatsApp аркылуу түз байланышсаңыз болот.</div></section>
 <section id="page-cabinet" class="hidden"><div class="section-head"><h2>Менин кабинетым</h2></div><div id="cabinetContent" class="panel"></div></section>
 <section id="page-dispatcher" class="hidden"><div class="section-head"><h2>Диспетчер кабинети</h2></div><div id="dispatcherContent" class="panel"></div></section>
+<section id="page-admin" class="hidden">
+ <div class="section-head"><div><h2>Админ панель</h2><div class="muted">Колдонуучуларды, жүк жарыяларын жана диспетчерлерди башкаруу</div></div><button class="btn btn-blue" onclick="loadAdminData()">Жаңылоо</button></div>
+ <div id="adminContent" class="panel"><div class="empty">Админ маалыматы жүктөлүүдө…</div></div>
+</section>
 <section id="page-settings" class="hidden"><div class="panel"><h2>Жөндөөлөр</h2><p>Өлкө: Кыргызстан</p><p>Валюта: Кыргыз сому (сом)</p><p>Катталуу, жарыяларды көрүү жана издөө акысыз.</p></div></section>
 <div class="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа</div></main>
 
@@ -60,7 +64,7 @@ const SUPABASE_PUBLISHABLE_KEY='sb_publishable_HJu0aBiE_jlPhD644iI_pw_j6grrjiq';
 const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const regions=['Бишкек шаары','Ош шаары','Чүй облусу','Ош облусу','Ысык-Көл облусу','Нарын облусу','Талас облусу','Жалал-Абад облусу','Баткен облусу'];
-let currentUser=null,profile=null,driverProfile=null,authMode='login',allListings=[],allDrivers=[],lang=localStorage.getItem('juk_express_lang')||'ky';
+let currentUser=null,profile=null,driverProfile=null,isAdmin=false,authMode='login',allListings=[],allDrivers=[],lang=localStorage.getItem('juk_express_lang')||'ky';
 const savedKey='juk_express_saved_v1';
 function tr(ky,ru){return lang==='ru'?ru:ky}
 function showMsg(id,msg,type='notice'){if($(id))$(id).innerHTML=msg?`<div class="notice ${type}">${esc(msg)}</div>`:''}
@@ -110,8 +114,8 @@ async function afterLogin(){
 }
 async function loadProfile(){if(!currentUser){profile=null;return}await ensureProfile(currentUser)}
 async function loadDriverProfile(){driverProfile=null;if(!currentUser||profile?.account_type!=='driver')return;const {data,error}=await db.from('driver_profiles').select('*').eq('user_id',currentUser.id).maybeSingle();if(error){console.warn('driver profile',error.message);return}driverProfile=data}
-async function logout(){const {error}=await db.auth.signOut();if(error){alert(error.message);return}currentUser=null;profile=null;driverProfile=null;refreshUI();showPage('home')}
-function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');renderCabinet();renderDispatcher();loadListings();applyLanguage();loadDrivers()}
+async function logout(){const {error}=await db.auth.signOut();if(error){alert(error.message);return}currentUser=null;profile=null;driverProfile=null;isAdmin=false;refreshUI();showPage('home')}
+function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('adminNav').classList.toggle('hidden',!isAdmin);renderCabinet();renderDispatcher();loadListings();applyLanguage();loadDrivers()}
 $('authButton').addEventListener('click',()=>currentUser?logout():openAuth());
 async function loadListings(){
  $('homeListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';$('adsListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';
@@ -155,7 +159,7 @@ function openDetail(id){
  showPage('detail');
  applyLanguage();
 }
-function showPage(page){document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='dispatcher')renderDispatcher();if(page==='saved')renderSaved();window.scrollTo({top:0,behavior:'smooth'})}
+function showPage(page){document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function openListing(){if(!currentUser){openAuth();return}if(!['customer','dispatcher'].includes(profile?.account_type)){alert(tr('Айдоочу жүк жарыясын жарыялабайт. Жүк ээси аккаунту керек.','Водитель не публикует грузы. Нужен аккаунт владельца груза.'));return}$('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';$('l-phone').value=profile?.phone||''}
 async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value,to=$('l-to').value,phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage','Аталыш, кайдан, кайда жана телефонду толтуруңуз.','error');return}const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),cargo:$('l-cargo').value.trim(),weight_tons:Number($('l-weight').value||0)};try{const {error}=await db.from('loads').insert(payload);if(error)throw error;closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}}
@@ -177,9 +181,82 @@ async function saveDriverProfile(){if(!currentUser||profile?.account_type!=='dri
 async function renderDispatcher(){if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b></div>';return}try{const {data:req,error}=await db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);if(error)throw error;$('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз.</div><h3>Ачык өтүнүчтөр</h3>${(req||[]).length?req.map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':'Айдоочу жүк издеп жатат'}</b><p>${esc(r.message||'')}</p><button class="btn btn-blue" onclick="acceptRequest('${esc(r.id)}')">Кабыл алуу</button></div>`).join(''):'<div class="empty">Ачык өтүнүч жок.</div>'}`}catch(e){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(e.message)}</div>`}}
 async function acceptRequest(id){try{const {error}=await db.from('dispatch_requests').update({dispatcher_id:currentUser.id,status:'accepted'}).eq('id',id).eq('status','open');if(error)throw error;renderDispatcher()}catch(e){alert(e.message)}}
 
+
+async function checkAdminAccess(){
+ isAdmin=false;
+ if(!currentUser)return false;
+ try{
+  const {data,error}=await db.rpc('is_current_user_admin');
+  if(error)throw error;
+  isAdmin=data===true;
+ }catch(e){console.warn('Admin access check:',e.message);isAdmin=false}
+ return isAdmin;
+}
+function adminDenied(){
+ $('adminContent').innerHTML='<div class="empty"><b>Админ панелге уруксат жок</b>Бул бөлүмдү администратор гана көрө алат.</div>';
+}
+async function loadAdminData(){
+ if(!currentUser){adminDenied();return}
+ const ok=await checkAdminAccess();
+ $('adminNav').classList.toggle('hidden',!ok);
+ if(!ok){adminDenied();return}
+ $('adminContent').innerHTML='<div class="empty">Маалымат жүктөлүүдө…</div>';
+ try{
+  const [usersRes,loadsRes,requestsRes]=await Promise.all([
+   db.from('profiles').select('id,full_name,phone,account_type,created_at').order('created_at',{ascending:false}).limit(200),
+   db.from('loads').select('id,title,cargo,city_from,city_to,status,price,created_at,owner_id').order('created_at',{ascending:false}).limit(200),
+   db.from('dispatch_requests').select('id,request_type,message,status,requester_id,dispatcher_id,created_at').order('created_at',{ascending:false}).limit(100)
+  ]);
+  if(usersRes.error)throw usersRes.error;
+  if(loadsRes.error)throw loadsRes.error;
+  if(requestsRes.error)throw requestsRes.error;
+  const users=usersRes.data||[],loads=loadsRes.data||[],requests=requestsRes.data||[];
+  const userRows=users.map(u=>`<tr>
+   <td>${esc(u.full_name||'—')}<br><small>${esc(u.phone||'')}</small></td>
+   <td><select id="admin-role-${esc(u.id)}"><option value="customer" ${u.account_type==='customer'?'selected':''}>Жүк ээси</option><option value="driver" ${u.account_type==='driver'?'selected':''}>Айдоочу</option><option value="dispatcher" ${u.account_type==='dispatcher'?'selected':''}>Диспетчер</option></select></td>
+   <td><button class="btn btn-blue" onclick="adminChangeRole('${esc(u.id)}')">Сактоо</button></td></tr>`).join('');
+  const loadRows=loads.map(x=>`<tr><td><b>${esc(x.title||x.cargo||'Жүк')}</b><br><small>${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</small></td><td>${esc(x.status||'—')}</td><td><div class="listing-actions"><button class="btn btn-light" onclick="adminSetLoadStatus('${esc(x.id)}','closed')">Жабуу</button><button class="btn btn-danger" onclick="adminDeleteLoad('${esc(x.id)}')">Өчүрүү</button></div></td></tr>`).join('');
+  const requestRows=requests.map(r=>`<tr><td>${esc(r.request_type||'—')}<br><small>${esc(r.message||'')}</small></td><td>${esc(r.status||'—')}</td><td>${r.status==='open'?`<button class="btn btn-blue" onclick="adminAssignRequest('${esc(r.id)}')">Өзүмө алуу</button>`:'—'}</td></tr>`).join('');
+  $('adminContent').innerHTML=`
+   <div class="notice success">Администратор катары кирдиңиз. Табылган колдонуучулар: ${users.length}; жүк жарыялары: ${loads.length}; өтүнүчтөр: ${requests.length}.</div>
+   <h3>Колдонуучулар жана ролдор</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Колдонуучу</th><th align="left">Роль</th><th></th></tr></thead><tbody>${userRows||'<tr><td colspan="3">Колдонуучулар жок</td></tr>'}</tbody></table></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+   <h3>Жүк жарыялары</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Жарыя</th><th align="left">Статус</th><th align="left">Аракет</th></tr></thead><tbody>${loadRows||'<tr><td colspan="3">Жарыялар жок</td></tr>'}</tbody></table></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+   <h3>Диспетчер өтүнүчтөрү</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Өтүнүч</th><th align="left">Статус</th><th align="left">Аракет</th></tr></thead><tbody>${requestRows||'<tr><td colspan="3">Өтүнүчтөр жок</td></tr>'}</tbody></table></div>`;
+ }catch(e){$('adminContent').innerHTML=`<div class="notice error">Админ маалыматын жүктөөдө ката: ${esc(e.message)}<br><small>Supabase RLS SQL эрежелерин орнотуу керек болушу мүмкүн.</small></div>`}
+ applyLanguage();
+}
+async function adminChangeRole(userId){
+ if(!isAdmin)return alert('Уруксат жок');
+ const role=$('admin-role-'+userId)?.value;
+ if(!['customer','driver','dispatcher'].includes(role))return;
+ if(userId===currentUser.id && role!=='dispatcher' && profile?.account_type==='dispatcher'){/* allow admin profile role update only; admin access remains in admin_users */}
+ if(!confirm('Бул колдонуучунун ролун өзгөртөсүзбү?'))return;
+ try{const {error}=await db.from('profiles').update({account_type:role}).eq('id',userId);if(error)throw error;alert('Колдонуучунун ролу жаңыртылды.');await loadAdminData()}
+ catch(e){alert('Роль өзгөргөн жок: '+e.message)}
+}
+async function adminSetLoadStatus(id,status){
+ if(!isAdmin)return alert('Уруксат жок');
+ if(!confirm('Бул жүк жарыясын жабасызбы?'))return;
+ try{const {error}=await db.from('loads').update({status}).eq('id',id);if(error)throw error;await loadListings();await loadAdminData()}
+ catch(e){alert('Статус өзгөргөн жок: '+e.message)}
+}
+async function adminDeleteLoad(id){
+ if(!isAdmin)return alert('Уруксат жок');
+ if(!confirm('Бул жарыяны биротоло өчүрөсүзбү? Бул аракетти кайтаруу мүмкүн эмес.'))return;
+ try{const {error}=await db.from('loads').delete().eq('id',id);if(error)throw error;await loadListings();await loadAdminData()}
+ catch(e){alert('Жарыя өчүрүлгөн жок: '+e.message)}
+}
+async function adminAssignRequest(id){
+ if(!isAdmin||!currentUser)return alert('Уруксат жок');
+ try{const {error}=await db.from('dispatch_requests').update({dispatcher_id:currentUser.id,status:'accepted'}).eq('id',id);if(error)throw error;await loadAdminData()}
+ catch(e){alert('Өтүнүч дайындалган жок: '+e.message)}
+}
+
 const UI_RU = {
 'КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ':'ГРУЗОВАЯ ПЛАТФОРМА ПО КЫРГЫЗСТАНУ',
-'Кирүү':'Войти','Башкы бет':'Главная','Жүк жарыялары':'Грузы','Айдоочулар':'Водители','Сакталган':'Избранное','Билдирүүлөр':'Сообщения','Менин кабинетым':'Личный кабинет','Диспетчер':'Диспетчер','Жөндөөлөр':'Настройки',
+'Кирүү':'Войти','Башкы бет':'Главная','Жүк жарыялары':'Грузы','Айдоочулар':'Водители','Сакталган':'Избранное','Билдирүүлөр':'Сообщения','Менин кабинетым':'Личный кабинет','Диспетчер':'Диспетчер','Админ панель':'Панель администратора','Жөндөөлөр':'Настройки',
 '100% Кыргызстан ичинде':'100% по Кыргызстану','Жүк барбы? Унаа керекпи?':'Есть груз? Нужна машина?',
 'Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Жүк жарыяларын таап, түз байланышыңыз.':'Соединяем владельцев грузов и водителей на одной платформе. Находите грузы и связывайтесь напрямую.',
 'Жүк жарыяларын көрүү →':'Смотреть грузы →','Катталуу':'Регистрация','Кыргызстан гана':'Только Кыргызстан','Баштапкы колдонуу':'Стартовый режим','Жүк':'Груз','Айдоочу':'Водитель','Жүк ээсине түз байланыш':'Прямая связь с владельцем груза',
@@ -300,6 +377,6 @@ function applyLanguage(){
 }
 function setLang(v){lang=v;localStorage.setItem('juk_express_lang',v);document.documentElement.lang=v;$('lang').value=v;applyLanguage();}
 $('lang').addEventListener('change',e=>setLang(e.target.value));
-async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile()}else{profile=null;driverProfile=null}refreshUI()}catch(e){console.error(e)}},0)})}
+async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
 </script></body></html>
