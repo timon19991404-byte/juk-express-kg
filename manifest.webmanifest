@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "ЖҮК ЭКСПРЕСС.KG",
+  "short_name": "Жүк Экспресс",
+  "description": "Кыргызстан боюнча жүк ээлери менен айдоочуларды бириктирген платформа",
+  "lang": "ky",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fb",
+  "theme_color": "#10243a",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10243a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -21,6 +26,74 @@
 .chat-compose{display:flex;gap:8px;align-items:flex-end;border-top:1px solid var(--line);padding-top:12px}.chat-compose textarea{flex:1;min-height:45px;max-height:120px;resize:vertical;border:1px solid #d7e0e9;border-radius:10px;padding:11px}
 .unread-count{display:inline-grid;place-items:center;min-width:19px;height:19px;padding:0 5px;border-radius:20px;background:var(--gold);color:var(--navy);font-size:11px;margin-left:4px}
 @media(max-width:650px){.chat-layout{grid-template-columns:1fr}.chat-list{max-height:240px}.chat-window{min-height:420px}.chat-body{max-height:360px}}
+
+/* V21 — mobile-first app shell */
+:root{--app-yellow:#ffbd18;--app-blue:#1769d2;--app-green:#159b58}
+body{background:#f5f7fb}
+.top{position:sticky;top:0;z-index:8;padding-top:12px;box-shadow:0 5px 20px #10243a12}
+.brand{font-size:18px}.logo{width:50px;height:50px;border-radius:16px}
+main{max-width:1180px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#10243a 0%,#1e527b 65%,#3279a3 100%);min-height:270px}
+.hero:after{content:"🚚";position:absolute;right:4%;bottom:4%;font-size:clamp(90px,18vw,190px);opacity:.18;transform:scaleX(-1);pointer-events:none}
+.hero>div{position:relative;z-index:1}
+.hero h1{max-width:650px}
+.hero-stat .stat{backdrop-filter:blur(4px)}
+#page-home .grid .card{border-radius:18px}
+.listing-card,.driver-card{border-radius:18px;border:1px solid #e4eaf1;box-shadow:0 5px 18px #10243a0b}
+.listing-card{padding:18px}
+.driver-card{padding:18px}
+.btn{transition:transform .15s ease,filter .15s ease}
+.btn:active{transform:scale(.98)}
+#page-ads .panel,#page-drivers>.panel{border-radius:18px}
+#page-detail .panel{border-radius:20px}
+.app-bottom-nav{display:none}
+.app-bottom-nav button{border:0;background:transparent;color:#5e6b7b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1;padding:8px 2px;font-size:11px;font-weight:750}
+.app-bottom-nav button .nav-ico{font-size:21px;line-height:1.1}
+.app-bottom-nav button.active{color:#132b43}
+.app-bottom-nav button.active .nav-ico{background:var(--app-yellow);border-radius:14px;padding:7px 16px}
+.app-bottom-nav .add-nav .nav-ico{background:var(--app-yellow);color:#14283d;border-radius:50%;width:52px;height:52px;display:grid;place-items:center;font-size:29px;margin-top:-24px;box-shadow:0 5px 15px #d99c183d}
+.app-bottom-nav .add-nav{color:#172638}
+.install-hint{display:none}
+@media(max-width:650px){
+ body{padding-bottom:76px}
+ .top{padding:10px 13px 0}
+ .toprow{padding-bottom:10px;align-items:center;flex-wrap:nowrap}
+ .brand{font-size:15px;gap:9px}
+ .brand small{font-size:9px;letter-spacing:.6px}
+ .logo{width:43px;height:43px}
+ .top-actions{gap:6px;flex:none}
+ .top-actions .btn{padding:8px 10px}
+ .tabs{display:none}
+ main{margin:13px auto 0;padding:0 12px 28px}
+ .hero{min-height:0;padding:22px 18px;border-radius:21px;grid-template-columns:1fr;gap:16px}
+ .hero h1{font-size:29px;max-width:90%;line-height:1.12}
+ .hero p{font-size:14px;max-width:80%}
+ .hero:after{right:-2%;bottom:13%;font-size:108px}
+ .hero-stat{grid-template-columns:repeat(2,1fr);max-width:100%}
+ .stat{padding:10px}.stat b{font-size:18px}.stat span{font-size:10px}
+ .section-head{margin:20px 2px 12px}
+ .section-head h2{font-size:19px}
+ .grid{grid-template-columns:1fr;gap:10px}
+ .card,.panel{padding:14px;border-radius:17px}
+ .filters{grid-template-columns:1fr 1fr;gap:8px}
+ .filters .field label{font-size:11px}
+ .field input,.field select,.field textarea{padding:10px;font-size:14px}
+ .listing{gap:11px}
+ .listing-card,.driver-card{padding:13px;border-radius:17px}
+ .route{font-size:17px}
+ .listing-meta{font-size:12px;gap:7px 12px}
+ .listing-actions{gap:7px}
+ .listing-actions .btn{padding:10px 11px;font-size:12px}
+ .app-bottom-nav{display:flex;position:fixed;z-index:30;left:0;right:0;bottom:0;height:72px;padding:5px 7px max(5px,env(safe-area-inset-bottom));background:#ffffffef;backdrop-filter:blur(14px);border-top:1px solid #e2e8ef;box-shadow:0 -5px 20px #10243a12}
+ .footer{padding-bottom:18px}
+ .chat-layout{grid-template-columns:1fr}
+ .chat-list{max-height:180px}
+ .chat-window{min-height:390px}
+ .chat-body{max-height:310px}
+ #page-messages .section-head{align-items:center}
+ #page-messages .section-head .muted{font-size:13px}
+}
+
 </style>
 </head>
 <body>
@@ -59,7 +132,17 @@
  <div id="adminContent" class="panel"><div class="empty">Админ маалыматы жүктөлүүдө…</div></div>
 </section>
 <section id="page-settings" class="hidden"><div class="panel"><h2>Жөндөөлөр</h2><p>Өлкө: Кыргызстан</p><p>Валюта: Кыргыз сому (сом)</p><p>Катталуу, жарыяларды көрүү жана издөө акысыз.</p></div></section>
-<div class="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа</div></main>
+
+<div class="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа</div>
+</main>
+<nav class="app-bottom-nav" id="appBottomNav" aria-label="Төмөнкү меню">
+ <button data-page="home" class="active" onclick="showPage('home')"><span class="nav-ico">⌂</span><span>Башкы</span></button>
+ <button data-page="ads" onclick="showPage('ads')"><span class="nav-ico">▣</span><span>Жүктөр</span></button>
+ <button class="add-nav" onclick="openListing()"><span class="nav-ico">＋</span><span>Жарыялоо</span></button>
+ <button data-page="drivers" onclick="showPage('drivers')"><span class="nav-ico">🚚</span><span>Айдоочулар</span></button>
+ <button data-page="messages" onclick="showPage('messages')"><span class="nav-ico">▢</span><span>Чаттар</span></button>
+</nav>
+
 
 <div class="modal-back hidden" id="authModal"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="authTitle">Кирүү</h2><button class="btn btn-light" onclick="closeModal('authModal')">✕</button></div>
 <div class="field"><label>Email</label><input id="authEmail" type="email" autocomplete="email" placeholder="example@mail.com"></div><div class="field"><label>Сыр сөз</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Кеминде 6 белги"></div>
@@ -211,7 +294,7 @@ async function markChatRead(otherId){if(!currentUser||!otherId)return;const {err
 async function sendChatMessage(){if(!currentUser||!canUsePrivateChat()||!activeChatUserId)return;const input=$('chatInput'),body=input.value.trim();if(!body)return;const btn=$('chatSendBtn');btn.disabled=true;try{const {data,error}=await db.from('chat_messages').insert({sender_id:currentUser.id,recipient_id:activeChatUserId,body}).select('id,sender_id,recipient_id,body,created_at,read_at').single();if(error)throw error;if(data&&!chatMessagesCache.some(x=>x.id===data.id)){chatMessagesCache.push(data);renderChatMessages()}input.value='';await loadConversations()}catch(e){showMsg('chatNotice',e.message,'error')}finally{btn.disabled=false;input.focus()}}
 $('chatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMessage()}});
 
-function showPage(page){document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();window.scrollTo({top:0,behavior:'smooth'})}
+function showPage(page){document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.querySelectorAll('#appBottomNav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function openListing(){if(!currentUser){openAuth();return}if(!['customer','dispatcher'].includes(profile?.account_type)){alert(tr('Айдоочу жүк жарыясын жарыялабайт. Жүк ээси аккаунту керек.','Водитель не публикует грузы. Нужен аккаунт владельца груза.'));return}$('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';$('l-phone').value=profile?.phone||''}
 async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value,to=$('l-to').value,phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage','Аталыш, кайдан, кайда жана телефонду толтуруңуз.','error');return}const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),cargo:$('l-cargo').value.trim(),weight_tons:Number($('l-weight').value||0)};try{const {error}=await db.from('loads').insert(payload);if(error)throw error;closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}}
@@ -432,4 +515,9 @@ function setLang(v){lang=v;localStorage.setItem('juk_express_lang',v);document.d
 $('lang').addEventListener('change',e=>setLang(e.target.value));
 async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
+
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('PWA worker:',e)));
+}
+
 </script></body></html>
