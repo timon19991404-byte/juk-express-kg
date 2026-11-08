@@ -47,12 +47,12 @@ main{max-width:1180px}
 #page-ads .panel,#page-drivers>.panel{border-radius:18px}
 #page-detail .panel{border-radius:20px}
 .app-bottom-nav{display:none}
-.app-bottom-nav button{border:0;background:transparent;color:#5e6b7b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1;padding:8px 2px;font-size:11px;font-weight:750}
+.app-bottom-nav button{flex:0 0 19%;border:0;background:transparent;color:#5e6b7b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1;padding:8px 2px;font-size:11px;font-weight:750}
 .app-bottom-nav button .nav-ico{font-size:21px;line-height:1.1}
 .app-bottom-nav button.active{color:#132b43}
 .app-bottom-nav button.active .nav-ico{background:var(--app-yellow);border-radius:14px;padding:7px 16px}
 .app-bottom-nav .add-nav .nav-ico{background:var(--app-yellow);color:#14283d;border-radius:50%;width:52px;height:52px;display:grid;place-items:center;font-size:29px;margin-top:-24px;box-shadow:0 5px 15px #d99c183d}
-.app-bottom-nav .add-nav{color:#172638}
+.app-bottom-nav .add-nav{flex:0 0 19%;color:#172638}
 .install-hint{display:none}
 @media(max-width:650px){
  body{padding-bottom:76px}
@@ -84,7 +84,7 @@ main{max-width:1180px}
  .listing-meta{font-size:12px;gap:7px 12px}
  .listing-actions{gap:7px}
  .listing-actions .btn{padding:10px 11px;font-size:12px}
- .app-bottom-nav{display:flex;position:fixed;z-index:30;left:0;right:0;bottom:0;height:72px;padding:5px 7px max(5px,env(safe-area-inset-bottom));background:#ffffffef;backdrop-filter:blur(14px);border-top:1px solid #e2e8ef;box-shadow:0 -5px 20px #10243a12}
+ .app-bottom-nav{display:flex;overflow-x:auto;justify-content:flex-start;position:fixed;z-index:30;left:0;right:0;bottom:0;height:72px;padding:5px 7px max(5px,env(safe-area-inset-bottom));background:#ffffffef;backdrop-filter:blur(14px);border-top:1px solid #e2e8ef;box-shadow:0 -5px 20px #10243a12}
  .footer{padding-bottom:18px}
  .chat-layout{grid-template-columns:1fr}
  .chat-list{max-height:180px}
@@ -99,7 +99,7 @@ main{max-width:1180px}
 <body>
 <header class="top"><div class="toprow">
  <div class="brand"><div class="logo">🚚</div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div></div>
- <div class="top-actions"><select id="lang" class="language"><option value="ky">КЫР</option><option value="ru">РУС</option></select><button class="btn btn-outline" id="authButton" onclick="openAuth()">Кирүү</button></div>
+ <div class="top-actions"><select id="lang" class="language"><option value="ky">КЫР</option><option value="ru">РУС</option></select><button class="btn btn-outline hidden" id="cabinetQuickButton" onclick="showPage('cabinet')">Кабинет</button><button class="btn btn-outline" id="authButton" onclick="openAuth()">Кирүү</button></div>
 </div><nav class="tabs" id="nav">
  <button class="active" data-page="home">Башкы бет</button><button data-page="ads">Жүк жарыялары</button><button data-page="drivers">Айдоочулар</button><button data-page="saved">Сакталган</button><button data-page="messages">Билдирүүлөр</button><button data-page="cabinet">Менин кабинетым</button><button data-page="dispatcher" id="dispatcherNav" class="hidden">Диспетчер</button><button data-page="admin" id="adminNav" class="hidden">Админ панель</button><button data-page="settings">Жөндөөлөр</button>
 </nav></header>
@@ -141,6 +141,8 @@ main{max-width:1180px}
  <button class="add-nav" onclick="openListing()"><span class="nav-ico">＋</span><span>Жарыялоо</span></button>
  <button data-page="drivers" onclick="showPage('drivers')"><span class="nav-ico">🚚</span><span>Айдоочулар</span></button>
  <button data-page="messages" onclick="showPage('messages')"><span class="nav-ico">▢</span><span>Чаттар</span></button>
+ <button data-page="cabinet" onclick="showPage('cabinet')"><span class="nav-ico">♙</span><span>Кабинет</span></button>
+ <button data-page="admin" id="mobileAdminNav" class="hidden" onclick="showPage('admin')"><span class="nav-ico">⚙</span><span>Админ</span></button>
 </nav>
 
 
@@ -215,7 +217,7 @@ async function afterLogin(){
 async function loadProfile(){if(!currentUser){profile=null;return}await ensureProfile(currentUser)}
 async function loadDriverProfile(){driverProfile=null;if(!currentUser||profile?.account_type!=='driver')return;const {data,error}=await db.from('driver_profiles').select('*').eq('user_id',currentUser.id).maybeSingle();if(error){console.warn('driver profile',error.message);return}driverProfile=data}
 async function logout(){stopChatRealtime();activeChatUserId=null;const {error}=await db.auth.signOut();if(error){alert(error.message);return}currentUser=null;profile=null;driverProfile=null;isAdmin=false;refreshUI();showPage('home')}
-function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('adminNav').classList.toggle('hidden',!isAdmin);renderCabinet();renderDispatcher();loadListings();applyLanguage();loadDrivers()}
+function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('cabinetQuickButton').classList.toggle('hidden',!currentUser);$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('adminNav').classList.toggle('hidden',!isAdmin);$('mobileAdminNav').classList.toggle('hidden',!isAdmin);renderCabinet();renderDispatcher();loadListings();applyLanguage();loadDrivers()}
 $('authButton').addEventListener('click',()=>currentUser?logout():openAuth());
 async function loadListings(){
  $('homeListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';$('adsListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';
