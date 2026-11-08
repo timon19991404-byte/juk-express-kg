@@ -1,21 +1,33 @@
 {
   "id": "./",
   "name": "ЖҮК ЭКСПРЕСС.KG",
-  "short_name": "Жүк Экспресс",
-  "description": "Кыргызстан боюнча жүк ээлери менен айдоочуларды бириктирген платформа",
+  "short_name": "ЖҮК ЭКСПРЕСС",
+  "description": "Кыргызстан боюнча жүк табуу, жүк ташуу жана айдоочулар платформасы",
   "lang": "ky",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#f5f7fb",
+  "orientation": "portrait-primary",
+  "background_color": "#10243a",
   "theme_color": "#10243a",
   "icons": [
     {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
