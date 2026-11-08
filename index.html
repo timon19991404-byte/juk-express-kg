@@ -94,23 +94,209 @@ main{max-width:1180px}
  #page-messages .section-head .muted{font-size:13px}
 }
 
+
+/* V23 — logistics marketplace home */
+.v23-hero{position:relative;min-height:300px;overflow:hidden;grid-template-columns:1.1fr .9fr;background:linear-gradient(118deg,#102b45,#1b527b 70%,#2a7094)}
+.v23-hero-copy{position:relative;z-index:2}.v23-hero h1{font-size:clamp(29px,4.5vw,46px);max-width:580px}
+.v23-hero-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.v23-hero-actions .btn{font-weight:800}
+.v23-hero-art{align-self:stretch;display:flex;align-items:end;position:relative;min-height:190px}
+.v23-hero-art svg{width:100%;max-height:260px;position:relative;z-index:1;filter:drop-shadow(0 12px 10px #061c2b55)}
+.v23-sun{position:absolute;width:150px;height:150px;border-radius:50%;background:#f3b63f;opacity:.18;right:12%;top:4%}
+.v23-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 25px}
+.v23-stat{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e4eaf1;border-radius:17px;padding:16px;box-shadow:0 6px 20px #10243a0b}
+.v23-stat-icon{width:46px;height:46px;border-radius:15px;background:#edf4fb;display:grid;place-items:center;font-size:24px;flex:none}
+.v23-stat b{display:block;font-size:25px;line-height:1.2;color:#173b5c}.v23-stat small{display:block;color:#6d7b8b;font-size:12px;margin-top:3px}
+.v23-map-card{background:#fff;border:1px solid #e3eaf1;border-radius:20px;padding:18px;box-shadow:0 6px 22px #10243a0a}
+.v23-map-heading{display:flex;align-items:center;justify-content:space-between}.v23-map-heading b{font-size:19px}.v23-map-heading p{margin:4px 0 0;font-size:13px}.v23-flag{font-size:30px}
+.v23-map{display:block;width:100%;height:auto;max-height:310px;margin:8px auto 0}
+.v23-region-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.v23-region-list span{background:#eff5fb;color:#234c6c;border-radius:30px;padding:7px 11px;font-size:12px;font-weight:700}
+.v23-routes{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.v23-routes button{background:#fff;border:1px solid #e0e8f0;border-radius:13px;padding:12px 9px;font-weight:750;color:#1c3852;text-align:left}.v23-routes button span{color:#e3a400;margin-right:4px}
+@media(max-width:650px){
+ .v23-hero{grid-template-columns:1fr;min-height:0;padding:22px 18px;gap:0}
+ .v23-hero h1{font-size:31px;max-width:90%}.v23-hero-copy p{max-width:88%;font-size:14px}
+ .v23-hero-art{min-height:130px;margin-top:-4px}.v23-hero-art svg{max-height:160px;width:100%}
+ .v23-sun{width:90px;height:90px}
+ .v23-hero-actions{display:grid;grid-template-columns:1fr 1fr}.v23-hero-actions .btn:last-child{grid-column:1/-1}
+ .v23-stats{grid-template-columns:1fr 1fr;gap:8px;margin:13px 0 20px}
+ .v23-stat{padding:11px;gap:8px;border-radius:14px}.v23-stat-icon{width:38px;height:38px;font-size:20px;border-radius:12px}
+ .v23-stat b{font-size:20px}.v23-stat small{font-size:10px}
+ .v23-map-card{padding:13px;border-radius:17px}.v23-map{max-height:220px}
+ .v23-map svg text{font-size:15px}.v23-region-list{gap:5px}.v23-region-list span{font-size:10px;padding:6px 8px}
+ .v23-routes{grid-template-columns:1fr 1fr;gap:7px}.v23-routes button{font-size:12px;padding:11px 8px}
+}
+
+
+/* V24 — screenshot-matched marketplace home and hamburger menu */
+.v24-top{background:#fff;color:#14263b;padding:12px 4vw 0;box-shadow:0 3px 16px #10243a0d}
+.v24-top .toprow{padding-bottom:10px}
+.v24-top .brand{color:#14263b;font-size:21px}
+.v24-top .brand small{color:#667789;font-size:11px;letter-spacing:.2px}
+.v24-top .logo{width:56px;height:56px;border-radius:16px;font-size:29px}
+.v24-head-actions{display:flex;align-items:center;gap:12px}
+.v24-icon-btn{position:relative;width:46px;height:46px;border:0;border-radius:50%;background:#f2f5f9;color:#14263b;font-size:27px;font-weight:700}
+.v24-icon-btn i{position:absolute;width:9px;height:9px;border-radius:50%;background:#e33;right:9px;top:8px}
+.v24-menu{position:absolute;z-index:40;right:16px;top:78px;width:min(330px,calc(100vw - 32px));padding:16px;background:#fff;color:#14263b;border:1px solid #e3e9f0;border-radius:18px;box-shadow:0 15px 40px #10243a30;display:grid;gap:10px}
+.v24-menu.hidden{display:none}
+.v24-menu-title{font-size:19px;font-weight:850;margin-bottom:2px}
+.v24-menu label{font-size:12px;color:#657486;font-weight:700}
+.v24-menu select{width:100%;padding:12px;border:1px solid #dce4ed;border-radius:11px;background:#fff;color:#172b40}
+.v24-menu button{padding:12px;text-align:left;border:1px solid #e5ebf1;border-radius:11px;background:#f8fafc;color:#17324c;font-weight:750}
+.v24-menu button.v24-menu-auth{background:#173b5c;color:#fff;text-align:center}
+.v24-top .tabs{display:none}
+.v24-home{padding-top:0}
+.v24-hero{position:relative;min-height:340px;border-radius:0 0 20px 20px;overflow:hidden;background:linear-gradient(100deg,#fff 0%,#f4f8fc 42%,#dbeaf5 70%,#d0e1ee 100%);display:block;padding:32px 28px;color:#14263b;box-shadow:none}
+.v24-hero-copy{position:relative;z-index:3;max-width:55%}
+.v24-eyebrow{display:inline-block;color:#28608a;font-weight:800;font-size:13px;margin-bottom:12px}
+.v24-hero h1{font-size:clamp(30px,4.5vw,49px);line-height:1.07;color:#10243a;margin:0 0 14px}
+.v24-hero p{font-size:18px;color:#697789;max-width:510px;line-height:1.45}
+.v24-hero-picture{position:absolute;right:0;top:0;bottom:0;width:58%;overflow:hidden;background:linear-gradient(130deg,#e9f2f8aa,#bdd4e5aa)}
+.v24-mountains{position:absolute;inset:0;background:linear-gradient(145deg,transparent 42%,#fff 42.5%,#d5e4ee 43%,transparent 65%),linear-gradient(35deg,transparent 35%,#dce8f0 35.5%,#fff 36%,transparent 63%);opacity:.85}
+.v24-hero-picture svg{position:absolute;width:100%;height:100%;bottom:-8%;right:-3%;filter:drop-shadow(0 14px 9px #183b5528)}
+.v24-flag{position:absolute;right:10%;top:12%;font-size:44px;z-index:2}
+.v24-action-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.v24-action{min-height:124px;border:0;border-radius:19px;padding:18px 16px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;align-items:center;text-align:left;box-shadow:0 7px 18px #10243a14}
+.v24-action span{font-size:34px;grid-column:1;grid-row:1}
+.v24-action b{font-size:18px;grid-column:1;grid-row:2;align-self:end}
+.v24-action strong{font-size:30px;grid-column:2;grid-row:1/3}
+.v24-yellow{background:#ffb914;color:#132a40}.v24-blue{background:#176bd2;color:#fff}.v24-green{background:#139d58;color:#fff}
+.v24-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#fff;border:1px solid #e2e9f0;border-radius:19px;padding:14px 5px;margin:14px 0 23px;box-shadow:0 6px 22px #10243a0d}
+.v24-stats>div{display:grid;grid-template-columns:42px 1fr;grid-template-rows:auto auto;column-gap:9px;align-items:center;padding:0 10px;border-right:1px solid #e5ebf1}
+.v24-stats>div:last-child{border:0}
+.v24-stat-icon{grid-row:1/3;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:20px}
+.v24-stat-icon.blue{background:#eaf2ff}.v24-stat-icon.gold{background:#fff5df}.v24-stat-icon.green{background:#e7f7ef}
+.v24-stats b{font-size:22px;color:#142d46}.v24-stats small{font-size:11px;color:#6c7886}
+.v24-section-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:22px 0 10px}
+.v24-section-head h2{font-size:19px;margin:0;color:#17283d}
+.v24-section-head button{border:0;background:transparent;color:#1762b5;font-weight:800;white-space:nowrap;font-size:12px}
+.v24-routes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.v24-routes button{background:#fff;border:1px solid #e1e8ef;border-radius:12px;padding:10px 8px;text-align:center;color:#273c52;font-size:12px;font-weight:700;box-shadow:0 3px 10px #10243a08}
+.v24-features{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.v24-features>div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:105px;padding:10px 6px;border-radius:14px;background:#f0f5fb;text-align:center}
+.v24-features>div:nth-child(1){background:#fff6e6}.v24-features>div:nth-child(2){background:#eaf7f1}.v24-features>div:nth-child(3){background:#edf4ff}.v24-features>div:nth-child(4){background:#f4efff}
+.v24-features span{font-size:27px}.v24-features b{font-size:11px;line-height:1.25}
+.v24-bottom{display:none}
+@media(max-width:650px){
+ body{padding-bottom:80px}
+ .v24-top{padding:10px 14px;background:#fff}
+ .v24-top .toprow{padding:0}
+ .v24-top .brand{font-size:17px;gap:9px}
+ .v24-top .brand small{font-size:9px;line-height:1.15}
+ .v24-top .logo{width:48px;height:48px;font-size:25px}
+ .v24-head-actions{gap:8px}
+ .v24-icon-btn{width:40px;height:40px;font-size:23px}
+ .v24-menu{top:68px}
+ main{margin:0 auto;padding:0 12px 35px}
+ .v24-hero{min-height:285px;padding:23px 14px 14px;border-radius:0 0 18px 18px}
+ .v24-hero-copy{max-width:65%}
+ .v24-eyebrow{font-size:10px}
+ .v24-hero h1{font-size:29px;max-width:340px}
+ .v24-hero p{font-size:13px;max-width:310px}
+ .v24-hero-picture{width:65%;top:35px;opacity:.92}
+ .v24-hero-picture svg{width:125%;right:-18%;bottom:-9%}
+ .v24-flag{font-size:31px;right:5%;top:9%}
+ .v24-action-cards{gap:7px;margin:12px 0}
+ .v24-action{min-height:112px;padding:12px 9px;border-radius:15px}
+ .v24-action span{font-size:27px}.v24-action b{font-size:13px;line-height:1.2}.v24-action strong{font-size:23px}
+ .v24-stats{padding:10px 2px;margin:12px 0 18px}
+ .v24-stats>div{grid-template-columns:30px 1fr;column-gap:5px;padding:0 5px}
+ .v24-stat-icon{width:29px;height:29px;font-size:15px}
+ .v24-stats b{font-size:17px}.v24-stats small{font-size:9px}
+ .v24-section-head{margin:18px 1px 9px}
+ .v24-section-head h2{font-size:16px}
+ .v24-section-head button{font-size:10px}
+ .v24-routes{grid-template-columns:repeat(3,1fr);gap:6px}
+ .v24-routes button{font-size:10px;padding:9px 4px}
+ .v24-features{grid-template-columns:repeat(5,1fr);gap:5px}
+ .v24-features>div{min-height:92px;padding:7px 3px;border-radius:11px;gap:6px}
+ .v24-features span{font-size:22px}.v24-features b{font-size:9px}
+ .app-bottom-nav.v24-bottom{display:flex;overflow:visible;justify-content:space-around;height:74px;padding:5px 5px max(5px,env(safe-area-inset-bottom));}
+ .v24-bottom button{flex:1;min-width:0;font-size:10px}
+ .v24-bottom .add-nav{flex:1}
+}
+
+
+.v24-action .v24-box-icon{font-family:"Apple Color Emoji","Segoe UI Emoji",sans-serif;font-size:36px;line-height:1;filter:drop-shadow(0 2px 1px #8a5b001f)}
+@media(max-width:650px){.v24-action .v24-box-icon{font-size:29px}}
+
+
+.v24-bell-btn{display:grid;place-items:center}
+.v24-bell-btn svg{width:24px;height:24px;fill:none;stroke:#14263b;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
 </style>
 </head>
 <body>
-<header class="top"><div class="toprow">
+<header class="top v24-top"><div class="toprow">
  <div class="brand"><div class="logo">🚚</div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div></div>
- <div class="top-actions"><select id="lang" class="language"><option value="ky">КЫР</option><option value="ru">РУС</option></select><button class="btn btn-outline hidden" id="cabinetQuickButton" onclick="showPage('cabinet')">Кабинет</button><button class="btn btn-outline" id="authButton" onclick="openAuth()">Кирүү</button></div>
-</div><nav class="tabs" id="nav">
+ <div class="v24-head-actions">
+  <button class="v24-icon-btn v24-bell-btn" aria-label="Чаттар жана билдирүүлөр" title="Чаттар" onclick="showPage('messages')">
+   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><i></i>
+  </button>
+  <button class="v24-icon-btn" id="menuToggle" aria-label="Меню" aria-expanded="false" onclick="toggleTopMenu()">☰</button>
+ </div>
+</div>
+<div class="v24-menu hidden" id="topMenu">
+ <div class="v24-menu-title">Меню</div>
+ <label for="lang">Тил / Язык</label>
+ <select id="lang" class="language"><option value="ky">Кыргызча</option><option value="ru">Русский</option></select>
+ <button onclick="showPage('cabinet');closeTopMenu()">♙ Менин кабинетым</button>
+ <button onclick="showPage('saved');closeTopMenu()">♡ Сакталган жарыялар</button>
+ <button onclick="showPage('dispatcher');closeTopMenu()" id="menuDispatcher" class="hidden">Диспетчер</button>
+ <button onclick="showPage('admin');closeTopMenu()" id="menuAdmin" class="hidden">⚙ Админ панель</button>
+ <button class="v24-menu-auth" id="authButton" onclick="handleAuthMenu()">Кирүү</button>
+</div>
+<nav class="tabs" id="nav">
  <button class="active" data-page="home">Башкы бет</button><button data-page="ads">Жүк жарыялары</button><button data-page="drivers">Айдоочулар</button><button data-page="saved">Сакталган</button><button data-page="messages">Билдирүүлөр</button><button data-page="cabinet">Менин кабинетым</button><button data-page="dispatcher" id="dispatcherNav" class="hidden">Диспетчер</button><button data-page="admin" id="adminNav" class="hidden">Админ панель</button><button data-page="settings">Жөндөөлөр</button>
 </nav></header>
 <main>
-<section id="page-home"><div class="hero"><div><span class="tag" style="background:#ffffff20;color:#ffd77b">100% Кыргызстан ичинде</span><h1>Жүк барбы? Унаа керекпи?</h1><p>Жүк ээлери менен айдоочуларды бир платформада жолуктурабыз. Жүк жарыяларын таап, түз байланышыңыз.</p><button class="btn btn-primary" onclick="showPage('ads')">Жүк жарыяларын көрүү →</button> <button class="btn btn-outline" onclick="openAuth()">Катталуу</button></div><div class="hero-stat"><div class="stat"><b>🇰🇬</b><span>Кыргызстан гана</span></div><div class="stat"><b>0 сом</b><span>Баштапкы колдонуу</span></div><div class="stat"><b>Жүк</b><span>Жүк жарыялары</span></div><div class="stat"><b>Айдоочу</b><span>Жүк ээсине түз байланыш</span></div></div></div>
-<div class="section-head"><h2>Платформанын мүмкүнчүлүктөрү</h2></div><div class="grid">
-<div class="card feature"><div class="feature-icon">📦</div><div><h3>Жүк жарыялары</h3><p>Кайдан–кайда, жүктүн түрү, салмагы жана баасы боюнча издеңиз.</p></div></div>
-<div class="card feature"><div class="feature-icon">🚚</div><div><h3>Айдоочулар каталогу</h3><p>Айдоочунун унаасын, багытын жана байланыш маалыматтарын көрүңүз.</p></div></div>
-<div class="card feature"><div class="feature-icon">🤝</div><div><h3>Диспетчер кызматы</h3><p>Админ дайындаган диспетчер жүк ээси менен айдоочуга жардам берет.</p></div></div></div>
-<div class="notice">Платформа баштапкы акысыз режимде. Ташуу жана төлөм шарттарын тараптар өз ара макулдашат.</div>
-<div class="section-head"><h2>Акыркы жүк жарыялары</h2><button class="btn btn-light" onclick="showPage('ads')">Баарын көрүү</button></div><div id="homeListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
+<section id="page-home" class="v24-home">
+ <div class="v24-hero">
+  <div class="v24-hero-copy">
+   <span class="v24-eyebrow">🇰🇬 Кыргызстан боюнча бирдиктүү платформа</span>
+   <h1>Кыргызстан боюнча жүк же унаа тап</h1>
+   <p>Жүк ээлерин, ташуучуларды жана айдоочуларды бириктиребиз</p>
+  </div>
+  <div class="v24-hero-picture" aria-hidden="true">
+   <div class="v24-mountains"></div>
+   <div class="v24-flag">🇰🇬</div>
+   <svg viewBox="0 0 520 270">
+    <g transform="translate(30 82)">
+     <path d="M0 143 77 43l53 62 75-98 90 108 62-65 103 93v57H0z" fill="#dceaf5"/>
+     <path d="m77 43 30 38-39-13-17 29zm128-36 34 49-60-18-18 23zm152 43 28 39-48-13-18 19z" fill="#fff"/>
+     <rect x="65" y="116" width="250" height="75" rx="10" fill="#f9fbfd" stroke="#10243a" stroke-width="8"/>
+     <path d="M315 139h75l44 43v9H315z" fill="#f3b63f" stroke="#10243a" stroke-width="8" stroke-linejoin="round"/>
+     <path d="M341 146v38h76l-39-38z" fill="#b8d7ed" stroke="#10243a" stroke-width="5"/>
+     <path d="M80 130h208" stroke="#f3b63f" stroke-width="10" stroke-linecap="round"/>
+     <circle cx="132" cy="197" r="26" fill="#10243a"/><circle cx="132" cy="197" r="11" fill="#fff"/>
+     <circle cx="382" cy="197" r="26" fill="#10243a"/><circle cx="382" cy="197" r="11" fill="#fff"/>
+    </g>
+   </svg>
+  </div>
+ </div>
+ <div class="v24-action-cards">
+  <button class="v24-action v24-yellow" onclick="showPage('ads')"><span class="v24-box-icon" aria-hidden="true">📦</span><b>Жүк табуу</b><strong>›</strong></button>
+  <button class="v24-action v24-blue" onclick="showPage('drivers')"><span>🚚</span><b>Унаа табуу</b><strong>›</strong></button>
+  <button class="v24-action v24-green" onclick="openListing()"><span>＋</span><b>Жарыя жайгаштыруу</b><strong>›</strong></button>
+ </div>
+ <div class="v24-stats">
+  <div><span class="v24-stat-icon blue">👥</span><b id="statDrivers">—</b><small>Айдоочулар</small></div>
+  <div><span class="v24-stat-icon gold">📦</span><b id="statLoads">—</b><small>Жүктөр</small></div>
+  <div><span class="v24-stat-icon green">📍</span><b>52</b><small>Кыргызстандын шаарлары</small></div>
+ </div>
+ <div class="v24-section-head"><h2>Популярдуу багыттар</h2><button onclick="showPage('ads')">Бардык багыттар →</button></div>
+ <div class="v24-routes">
+  <button onclick="setRouteAndSearch('Бишкек','Ош')">📍 Бишкек – Ош</button>
+  <button onclick="setRouteAndSearch('Ош','Бишкек')">📍 Ош – Бишкек</button>
+  <button onclick="setRouteAndSearch('Бишкек','Жалал-Абад')">📍 Бишкек – Жалал-Абад</button>
+  <button onclick="setRouteAndSearch('Бишкек','Баткен')">📍 Бишкек – Баткен</button>
+  <button onclick="setRouteAndSearch('Ош','Баткен')">📍 Ош – Баткен</button>
+  <button onclick="showPage('ads')">••• Башка багыттар</button>
+ </div>
+ <div class="v24-section-head"><h2>Платформанын мүмкүнчүлүктөрү</h2></div>
+ <div class="v24-features">
+  <div><span>⚡</span><b>Тез издөө</b></div><div><span>🛡️</span><b>Ишенимдүү айдоочулар</b></div><div><span>🔁</span><b>Кайтарым жүктөр</b></div><div><span>💬</span><b>Түз байланыш</b></div><div><span>⭐</span><b>Рейтинг жана пикирлер</b></div>
+ </div>
+ <div class="v24-section-head"><h2>Акыркы жүк жарыялары</h2><button onclick="showPage('ads')">Бардык жүктөр →</button></div>
+ <div id="homeListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
 </section>
 <section id="page-ads" class="hidden"><div class="section-head"><div><h2>Жүк жарыялары</h2><div class="muted">Кыргызстан боюнча жүктөрдү издөө</div></div><button class="btn btn-primary" onclick="openListing()">+ Жүк жарыялоо</button></div>
 <div class="panel"><div class="filters">
@@ -135,14 +321,13 @@ main{max-width:1180px}
 
 <div class="footer">© 2026 ЖҮК ЭКСПРЕСС.KG · Кыргызстан үчүн түзүлгөн платформа</div>
 </main>
-<nav class="app-bottom-nav" id="appBottomNav" aria-label="Төмөнкү меню">
+<nav class="app-bottom-nav v24-bottom" id="appBottomNav" aria-label="Төмөнкү меню">
  <button data-page="home" class="active" onclick="showPage('home')"><span class="nav-ico">⌂</span><span>Башкы</span></button>
  <button data-page="ads" onclick="showPage('ads')"><span class="nav-ico">▣</span><span>Жүктөр</span></button>
  <button class="add-nav" onclick="openListing()"><span class="nav-ico">＋</span><span>Жарыялоо</span></button>
  <button data-page="drivers" onclick="showPage('drivers')"><span class="nav-ico">🚚</span><span>Айдоочулар</span></button>
  <button data-page="messages" onclick="showPage('messages')"><span class="nav-ico">▢</span><span>Чаттар</span></button>
- <button data-page="cabinet" onclick="showPage('cabinet')"><span class="nav-ico">♙</span><span>Кабинет</span></button>
- <button data-page="admin" id="mobileAdminNav" class="hidden" onclick="showPage('admin')"><span class="nav-ico">⚙</span><span>Админ</span></button>
+ <button data-page="cabinet" onclick="showPage('cabinet')"><span class="nav-ico">♙</span><span>Профиль</span></button>
 </nav>
 
 
@@ -217,8 +402,30 @@ async function afterLogin(){
 async function loadProfile(){if(!currentUser){profile=null;return}await ensureProfile(currentUser)}
 async function loadDriverProfile(){driverProfile=null;if(!currentUser||profile?.account_type!=='driver')return;const {data,error}=await db.from('driver_profiles').select('*').eq('user_id',currentUser.id).maybeSingle();if(error){console.warn('driver profile',error.message);return}driverProfile=data}
 async function logout(){stopChatRealtime();activeChatUserId=null;const {error}=await db.auth.signOut();if(error){alert(error.message);return}currentUser=null;profile=null;driverProfile=null;isAdmin=false;refreshUI();showPage('home')}
-function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('cabinetQuickButton').classList.toggle('hidden',!currentUser);$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('adminNav').classList.toggle('hidden',!isAdmin);$('mobileAdminNav').classList.toggle('hidden',!isAdmin);renderCabinet();renderDispatcher();loadListings();applyLanguage();loadDrivers()}
-$('authButton').addEventListener('click',()=>currentUser?logout():openAuth());
+function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('menuAdmin').classList.toggle('hidden',!isAdmin);$('menuDispatcher').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('adminNav').classList.toggle('hidden',!isAdmin);renderCabinet();renderDispatcher();loadListings();loadHomeStats();applyLanguage();loadDrivers()}
+
+async function loadHomeStats(){
+ const set=(id,value)=>{const el=$(id);if(el)el.textContent=Number.isFinite(value)?value.toLocaleString('ky-KG'):'—'};
+ try{
+  const [users,loads,drivers]=await Promise.all([
+   db.from('profiles').select('id',{count:'exact',head:true}),
+   db.from('loads').select('id',{count:'exact',head:true}).eq('country','Кыргызстан').eq('status','active'),
+   db.from('driver_profiles').select('user_id',{count:'exact',head:true}).eq('is_public',true)
+  ]);
+  set('statUsers',users.error?NaN:(users.count??0));
+  set('statLoads',loads.error?NaN:(loads.count??0));
+  set('statDrivers',drivers.error?NaN:(drivers.count??0));
+  if(users.error)console.warn('Stats users:',users.error.message);
+  if(loads.error)console.warn('Stats loads:',loads.error.message);
+  if(drivers.error)console.warn('Stats drivers:',drivers.error.message);
+ }catch(e){console.warn('Home stats:',e.message)}
+}
+function setRouteAndSearch(from,to){
+ showPage('ads');
+ const a=$('f-from'),b=$('f-to');
+ if(a)a.value=from;if(b)b.value=to;
+ renderListings();
+}
 async function loadListings(){
  $('homeListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';$('adsListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';
  try{const {data,error}=await db.from('loads').select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);if(error)throw error;
@@ -295,6 +502,14 @@ function renderChatMessages(){const box=$('chatMessages');if(!box)return;if(!cha
 async function markChatRead(otherId){if(!currentUser||!otherId)return;const {error}=await db.from('chat_messages').update({read_at:new Date().toISOString()}).eq('sender_id',otherId).eq('recipient_id',currentUser.id).is('read_at',null);if(error)console.warn('Mark read:',error.message)}
 async function sendChatMessage(){if(!currentUser||!canUsePrivateChat()||!activeChatUserId)return;const input=$('chatInput'),body=input.value.trim();if(!body)return;const btn=$('chatSendBtn');btn.disabled=true;try{const {data,error}=await db.from('chat_messages').insert({sender_id:currentUser.id,recipient_id:activeChatUserId,body}).select('id,sender_id,recipient_id,body,created_at,read_at').single();if(error)throw error;if(data&&!chatMessagesCache.some(x=>x.id===data.id)){chatMessagesCache.push(data);renderChatMessages()}input.value='';await loadConversations()}catch(e){showMsg('chatNotice',e.message,'error')}finally{btn.disabled=false;input.focus()}}
 $('chatInput')?.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMessage()}});
+
+
+function toggleTopMenu(){
+ const menu=$('topMenu'),btn=$('menuToggle');const opening=menu.classList.contains('hidden');
+ menu.classList.toggle('hidden',!opening);btn.setAttribute('aria-expanded',String(opening));
+}
+function closeTopMenu(){ $('topMenu').classList.add('hidden');$('menuToggle').setAttribute('aria-expanded','false'); }
+function handleAuthMenu(){ if(currentUser){closeTopMenu();logout()}else{closeTopMenu();openAuth()} }
 
 function showPage(page){document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));$('page-'+page).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.querySelectorAll('#appBottomNav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
@@ -392,6 +607,33 @@ async function adminAssignRequest(id){
 }
 
 const UI_RU = {
+ 'Чыгуу':'Выйти',
+ 'Кирүү':'Войти',
+ 'Кыргызча':'Кыргызский',
+ 'Тил / Язык':'Язык',
+ 'Меню':'Меню',
+ 'Сакталган жарыялар':'Избранное',
+ 'Менин кабинетым':'Мой профиль',
+ 'Бардык жүктөр →':'Все грузы →',
+ 'Акыркы жүк жарыялары':'Последние заявки на грузы',
+ 'Рейтинг жана пикирлер':'Рейтинг и отзывы',
+ 'Түз байланыш':'Прямая связь',
+ 'Кайтарым жүктөр':'Обратные грузы',
+ 'Ишенимдүү айдоочулар':'Проверенные водители',
+ 'Тез издөө':'Быстрый поиск',
+ 'Платформанын мүмкүнчүлүктөрү':'Возможности платформы',
+ 'Башка багыттар':'Другие направления',
+ 'Бардык багыттар →':'Все направления →',
+ 'Популярдуу багыттар':'Популярные направления',
+ 'Кыргызстандын шаарлары':'Города Кыргызстана',
+ 'Жүктөр':'Грузы',
+ 'Айдоочулар':'Водители',
+ 'Жарыя жайгаштыруу':'Разместить заявку',
+ 'Унаа табуу':'Найти машину',
+ 'Жүк табуу':'Найти груз',
+ 'Жүк ээлерин, ташуучуларды жана айдоочуларды бириктиребиз':'Объединяем владельцев грузов, перевозчиков и водителей',
+ 'Кыргызстан боюнча жүк же унаа тап':'Найди груз или машину по всему Кыргызстану',
+ 'Кыргызстан боюнча бирдиктүү платформа':'Единая платформа по всему Кыргызстану',
 'КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ':'ГРУЗОВАЯ ПЛАТФОРМА ПО КЫРГЫЗСТАНУ',
 'Кирүү':'Войти','Башкы бет':'Главная','Жүк жарыялары':'Грузы','Айдоочулар':'Водители','Сакталган':'Избранное','Билдирүүлөр':'Сообщения','Менин кабинетым':'Личный кабинет','Диспетчер':'Диспетчер','Админ панель':'Панель администратора','Жөндөөлөр':'Настройки',
 '100% Кыргызстан ичинде':'100% по Кыргызстану','Жүк барбы? Унаа керекпи?':'Есть груз? Нужна машина?',
