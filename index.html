@@ -483,6 +483,17 @@ main{max-width:1180px}
  #savedListings .load-thumb{width:84px!important;height:84px!important;min-height:84px!important;max-height:84px!important}
 }
 
+
+.vehicle-manager{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.vehicle-manager-list{display:grid;gap:9px;margin-top:12px}
+.vehicle-manager-item{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}
+.vehicle-manager-item img{width:76px;height:62px;object-fit:cover;border-radius:9px;background:#eef3f8}
+.vehicle-manager-item .vm-info{flex:1;min-width:0}
+.vehicle-manager-item .vm-info b{display:block;overflow-wrap:anywhere}
+.vehicle-manager-actions{display:flex;gap:6px;flex-wrap:wrap}
+.vehicle-manager-actions button{padding:7px 9px;font-size:12px}
+@media(max-width:420px){.vehicle-manager-item{align-items:flex-start}.vehicle-manager-item img{width:64px;height:58px}.vehicle-manager-actions{flex-direction:column}}
+
 </style>
 <meta name="application-version" content="V42">
 </head>
@@ -892,9 +903,115 @@ function resetDriverFilters(){$('df-region').value='';$('df-vehicle').value='';$
 function renderCabinet(){if(!currentUser){$('cabinetContent').innerHTML='<div class="empty"><b>Жеке кабинетке кирүү керек</b><button class="btn btn-blue" onclick="openAuth()">Кирүү / Катталуу</button></div>';return}
 const role=profile?.account_type,roleName=role==='driver'?'Айдоочу':role==='dispatcher'?'Диспетчер':'Жүк ээси';
 let base=`<div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аккаунт түрү</label><input value="${roleName}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button> `;
-if(role==='driver')base+=driverFormHtml();
-base+=`<div style="margin-top:15px"><button class="btn btn-danger" onclick="logout()">Аккаунттан чыгуу</button></div><div class="notice">Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.</div>`;$('cabinetContent').innerHTML=base;applyLanguage()}
+if(role==='driver')base+=driverFormHtml()+vehicleManagerHtml();
+base+=`<div style="margin-top:15px"><button class="btn btn-danger" onclick="logout()">Аккаунттан чыгуу</button></div><div class="notice">Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.</div>`;$('cabinetContent').innerHTML=base;applyLanguage();if(role==='driver')loadVehicleManager()}
 function driverFormHtml(){const d=driverProfile||{};return `<hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3 id="driver-profile-heading">Айдоочунун профили</h3><p class="muted">Профилди жалпыга көрсөтсөңүз, жүк ээлери сиз менен түз байланыша алышат.</p><div class="profile-grid"><div class="field"><label>Айдоочунун аты-жөнү</label><input id="d-name" value="${esc(d.driver_name||profile?.full_name||'')}"></div><div class="field"><label>Унаа түрү</label><select id="d-type">${['Sprinter','Atego','Газель','Фура','Рефрижератор','Борттук унаа','Самосвал','Трал','Контейнер ташуучу','Цистерна','Башка'].map(x=>`<option ${d.vehicle_type===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Унаанын модели</label><input id="d-model" value="${esc(d.vehicle_model||'')}"></div><div class="field"><label>Айдоочунун сүрөтү (1)</label><input id="d-driver-photo" type="file" accept="image/*"><small class="muted">${d.driver_photo_url?'Учурдагы сүрөт сакталган. Жаңы сүрөт тандасаңыз алмашат.':'Сүрөт жүктөө милдеттүү эмес.'}</small></div><div class="field"><label>Унаанын сүрөттөрү (5ке чейин)</label><input id="d-vehicle-photos" type="file" accept="image/*" multiple><small class="muted">${(d.vehicle_photo_urls||[]).length?'Сакталган сүрөттөр: '+(d.vehicle_photo_urls||[]).length:'Унаанын сырткы көрүнүшүн жүктөңүз.'}</small></div><div class="field"><label>Жүк көтөрүмдүүлүгү, тонна</label><input id="d-capacity" type="number" min="0" step=".1" value="${esc(d.capacity_tons||'')}"></div><div class="field"><label>Аймак</label><select id="d-region"><option value="">Аймакты тандаңыз</option>${regions.map(x=>`<option ${d.region===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Телефон</label><input id="d-phone" value="${esc(d.phone||profile?.phone||'')}"></div><div class="field"><label>WhatsApp</label><input id="d-whatsapp" value="${esc(d.whatsapp||'')}"></div><div class="field"><label>${tr('Каттаган багыттары','Рабочие направления')}</label><input id="d-directions" value="${esc(d.work_directions||'')}" placeholder="Мисалы: Ош — Бишкек"></div><div class="field"><label>${tr('Багыттары орусча (милдеттүү эмес)','Направления на русском (необязательно)')}</label><input id="d-directions-ru" value="${esc(d.work_directions_ru||'')}" placeholder="Например: Ош — Бишкек"></div></div><div class="field"><label>${tr('Кошумча маалымат','Дополнительная информация')}</label><textarea id="d-description">${esc(d.description||'')}</textarea></div><div class="field"><label>${tr('Кошумча маалымат орусча (милдеттүү эмес)','Дополнительная информация на русском (необязательно)')}</label><textarea id="d-description-ru">${esc(d.description_ru||'')}</textarea></div><label class="driver-availability-setting"><input type="checkbox" id="d-available-today" ${d.is_available_today?'checked':''}> <span>${tr('Бүгүн бош — жүк алууга даярмын','Свободен сегодня — готов принять груз')}</span></label><label style="display:flex;gap:9px;align-items:center;margin:14px 0"><input type="checkbox" id="d-public" ${d.is_public?'checked':''}> Профилимди жалпыга көрсөтүүгө уруксат берем</label><div id="driverMessage"></div><button class="btn btn-primary" onclick="saveDriverProfile()">Айдоочу профилин сактоо</button>`}
+
+function vehicleManagerHtml(){
+ return `<section class="vehicle-manager" id="vehicleManager">
+ <h3>🚚 Унааларымды башкаруу</h3>
+ <p class="muted">Тарифке жараша унаа кошуп, өзгөртүп же өчүрө аласыз. Кошумча унаалар тариф мөөнөтү бүткөндө өчүрүлбөйт, көрүнбөй гана калат.</p>
+ <div id="vehiclePlanInfo" class="notice">Тариф маалыматы жүктөлүүдө…</div>
+ <div id="vehicleManagerMessage"></div>
+ <div class="profile-grid">
+  <div class="field"><label>Унаа түрү</label><select id="vm-type">${['Sprinter','Atego','Газель','Фура','Рефрижератор','Борттук унаа','Самосвал','Трал','Контейнер ташуучу','Цистерна','Башка'].map(x=>`<option>${x}</option>`).join('')}</select></div>
+  <div class="field"><label>Унаанын модели</label><input id="vm-model" placeholder="Мисалы: Mercedes Atego"></div>
+  <div class="field"><label>Жүк көтөрүмдүүлүгү, тонна</label><input id="vm-capacity" type="number" min="0" step=".1" placeholder="5"></div>
+  <div class="field"><label>Унаанын сүрөттөрү (5ке чейин)</label><input id="vm-photos" type="file" accept="image/*" multiple></div>
+ </div>
+ <input id="vm-edit-id" type="hidden">
+ <div class="listing-actions"><button class="btn btn-primary" onclick="saveManagedVehicle()">Унааны сактоо</button><button class="btn btn-light" onclick="resetVehicleEditor()">Тазалоо</button></div>
+ <div id="vehicleManagerList" class="vehicle-manager-list"></div>
+ </section>`;
+}
+let managedVehicles=[],managedPlan='free',managedStatus='free';
+async function loadVehicleManager(){
+ if(!currentUser||profile?.account_type!=='driver')return;
+ const box=$('vehicleManagerList'); if(!box)return;
+ try{
+  const [v,s]=await Promise.all([
+   db.from('driver_vehicles').select('id,driver_id,vehicle_type,vehicle_model,capacity_tons,photo_urls,is_active,created_at').eq('driver_id',currentUser.id).order('created_at',{ascending:true}),
+   db.from('driver_subscriptions').select('plan,status,trial_ends_at,current_period_end').eq('driver_id',currentUser.id).order('updated_at',{ascending:false}).limit(1)
+  ]);
+  if(v.error)throw v.error;
+  if(s.error && !String(s.error.message||'').toLowerCase().includes('permission'))throw s.error;
+  managedVehicles=v.data||[];
+  const sub=(s.data||[])[0]||{};
+  managedPlan=sub.plan||'free'; managedStatus=sub.status||'free';
+  const active=(managedPlan==='pro_plus'&&['active','trial','past_due'].includes(managedStatus));
+  const limit=active?5:1;
+  const shown=managedVehicles.filter(x=>x.is_active!==false).length;
+  const planText=managedPlan==='pro_plus'?'PRO+':managedPlan==='pro'?'PRO':'FREE';
+  $('vehiclePlanInfo').innerHTML=`<b>Тариф: ${planText}</b> · Активдүү унаалар: ${shown}/${limit}<br><small>PRO+: 899 сом/ай · 5 унаа. PRO: 599 сом/ай · 1 унаа. FREE: 1 унаа.</small>`;
+  renderManagedVehicles();
+ }catch(e){
+  $('vehicleManagerList').innerHTML=`<div class="notice error">Унааларды жүктөө катасы: ${esc(e.message||e)}</div>`;
+ }
+}
+function renderManagedVehicles(){
+ const el=$('vehicleManagerList');if(!el)return;
+ const active=managedVehicles.filter(v=>v.is_active!==false);
+ const hidden=managedVehicles.filter(v=>v.is_active===false);
+ const card=v=>`<div class="vehicle-manager-item">
+ ${v.photo_urls&&v.photo_urls[0]?`<img src="${esc(v.photo_urls[0])}" alt="Унаа">`:`<img alt="Унаа" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='62'%3E%3Crect width='100%25' height='100%25' fill='%23eef3f8'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-size='26'%3E%F0%9F%9A%9A%3C/text%3E%3C/svg%3E">`}
+ <div class="vm-info"><b>${esc(v.vehicle_type||'Унаа')} ${esc(v.vehicle_model||'')}</b><small>${esc(v.capacity_tons||'—')} т · ${v.is_active===false?'Көрсөтүлбөйт':'Активдүү'}</small></div>
+ <div class="vehicle-manager-actions"><button class="btn btn-light" onclick="editManagedVehicle('${esc(v.id)}')">Өзгөртүү</button><button class="btn btn-danger" onclick="deleteManagedVehicle('${esc(v.id)}')">Өчүрүү</button></div>
+ </div>`;
+ el.innerHTML=(active.length?active.map(card).join(''):'<div class="empty">Азырынча активдүү унаа жок.</div>')+
+ (hidden.length?`<div class="notice">Тариф чегинен ашкан ${hidden.length} унаа сакталган, бирок азырынча көрсөтүлбөйт.</div>${hidden.map(card).join('')}`:'');
+}
+function resetVehicleEditor(){
+ ['vm-edit-id','vm-model','vm-capacity'].forEach(id=>{const e=$(id);if(e)e.value=''});
+ if($('vm-type'))$('vm-type').selectedIndex=0;
+ if($('vm-photos'))$('vm-photos').value='';
+}
+function editManagedVehicle(id){
+ const v=managedVehicles.find(x=>x.id===id);if(!v)return;
+ $('vm-edit-id').value=v.id;$('vm-type').value=v.vehicle_type||'Sprinter';
+ $('vm-model').value=v.vehicle_model||'';$('vm-capacity').value=v.capacity_tons||'';
+ showMsg('vehicleManagerMessage','Унааны өзгөртүп, «Унааны сактоо» баскычын басыңыз.','notice');
+ $('vehicleManager').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function saveManagedVehicle(){
+ if(!currentUser)return;
+ const id=$('vm-edit-id').value||null;
+ const type=$('vm-type').value,model=$('vm-model').value.trim(),capacity=Number($('vm-capacity').value||0);
+ if(!type){showMsg('vehicleManagerMessage','Унаа түрүн тандаңыз.','error');return}
+ try{
+  let photos=[];
+  if(id){const old=managedVehicles.find(x=>x.id===id);photos=old?.photo_urls||[]}
+  const files=$('vm-photos').files;
+  if(files.length)photos=await uploadImages('driver-photos',Array.from(files).slice(0,5),'vehicle',5);
+  const payload={driver_id:currentUser.id,vehicle_type:type,vehicle_model:model,capacity_tons:capacity,photo_urls:photos,is_active:true};
+  let result;
+  if(id) result=await db.from('driver_vehicles').update(payload).eq('id',id).eq('driver_id',currentUser.id);
+  else result=await db.from('driver_vehicles').insert(payload);
+  if(result.error)throw result.error;
+  resetVehicleEditor();
+  showMsg('vehicleManagerMessage','Унаа ийгиликтүү сакталды.','success');
+  await loadVehicleManager();
+  await syncPrimaryVehicleToProfile();
+ }catch(e){showMsg('vehicleManagerMessage',e.message||String(e),'error')}
+}
+async function deleteManagedVehicle(id){
+ if(!confirm('Бул унааны өчүрөсүзбү?'))return;
+ try{
+  const {error}=await db.from('driver_vehicles').delete().eq('id',id).eq('driver_id',currentUser.id);
+  if(error)throw error;
+  await loadVehicleManager();await syncPrimaryVehicleToProfile();
+  showMsg('vehicleManagerMessage','Унаа өчүрүлдү.','success');
+ }catch(e){showMsg('vehicleManagerMessage',e.message||String(e),'error')}
+}
+async function syncPrimaryVehicleToProfile(){
+ const primary=managedVehicles.find(v=>v.is_active!==false)||managedVehicles[0];
+ if(!primary)return;
+ const patch={vehicle_type:primary.vehicle_type,vehicle_model:primary.vehicle_model,capacity_tons:primary.capacity_tons,vehicle_photo_urls:primary.photo_urls||[],updated_at:new Date().toISOString()};
+ const {error}=await db.from('driver_profiles').update(patch).eq('user_id',currentUser.id);
+ if(error)console.warn('Профилдин негизги унаасын синхрондоо:',error.message);
+ driverProfile={...(driverProfile||{}),...patch};
+ loadDrivers();
+}
+
 async function saveProfile(){try{const {data,error}=await db.from('profiles').update({full_name:$('p-name').value.trim(),phone:$('p-phone').value.trim()}).eq('id',currentUser.id).select().single();if(error)throw error;profile=data;showMsg('profileMessage','Маалымат сакталды.','success');if(profile.account_type==='driver'&&!$('d-phone').value.trim())$('d-phone').value=profile.phone||''}catch(e){showMsg('profileMessage',e.message,'error')}}
 async function saveDriverProfile(){if(!currentUser||profile?.account_type!=='driver')return;const name=$('d-name').value.trim(),phone=$('d-phone').value.trim();if(!name||!phone||!$('d-region').value){showMsg('driverMessage','Аты-жөнү, телефон жана аймак милдеттүү.','error');return}try{let driver_photo_url=driverProfile?.driver_photo_url||null,vehicle_photo_urls=driverProfile?.vehicle_photo_urls||[];if($('d-driver-photo').files.length){const a=await uploadImages('driver-photos',[$('d-driver-photo').files[0]],'driver',1);driver_photo_url=a[0]}if($('d-vehicle-photos').files.length){vehicle_photo_urls=await uploadImages('driver-photos',$('d-vehicle-photos').files,'vehicle',5)}const payload={user_id:currentUser.id,driver_name:name,vehicle_type:$('d-type').value,vehicle_model:$('d-model').value.trim(),capacity_tons:Number($('d-capacity').value||0),region:$('d-region').value,work_directions:$('d-directions').value.trim(),work_directions_ru:$('d-directions-ru').value.trim(),phone,whatsapp:$('d-whatsapp').value.trim(),description:$('d-description').value.trim(),description_ru:$('d-description-ru').value.trim(),is_public:$('d-public').checked,is_available_today:$('d-available-today').checked,driver_photo_url,vehicle_photo_urls,updated_at:new Date().toISOString()};const {error}=await db.from('driver_profiles').upsert(payload,{onConflict:'user_id'});if(error)throw error;driverProfile=payload;showMsg('driverMessage','Айдоочу профили жана сүрөттөр сакталды.','success');loadDrivers()}catch(e){showMsg('driverMessage',e.message,'error')}}
 async function renderDispatcher(){if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b></div>';return}try{const {data:req,error}=await db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);if(error)throw error;$('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз.</div><h3>Ачык өтүнүчтөр</h3>${(req||[]).length?req.map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':'Айдоочу жүк издеп жатат'}</b><p>${esc(r.message||'')}</p><button class="btn btn-blue" onclick="acceptRequest('${esc(r.id)}')">Кабыл алуу</button></div>`).join(''):'<div class="empty">Ачык өтүнүч жок.</div>'}`}catch(e){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(e.message)}</div>`}}
