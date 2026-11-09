@@ -9,12 +9,34 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу</title>
+<title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу — V42</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--navy:#10243a;--navy2:#183752;--blue:#246bce;--gold:#f3b63f;--bg:#f3f6fa;--card:#fff;--text:#172638;--muted:#6d7b8b;--line:#e1e8f0;--green:#16845b;--red:#c34444;--shadow:0 8px 28px rgba(16,36,58,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:16px 4vw 0}.toprow{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1250px;margin:auto;padding-bottom:14px}.brand{display:flex;align-items:center;gap:11px;font-weight:900}.logo{width:43px;height:43px;border-radius:13px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:22px}.brand small{display:block;color:#c6d4e1;font-weight:500;font-size:11px;letter-spacing:1px;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:750}.btn-primary{background:var(--gold);color:#172638}.btn-dark{background:var(--navy);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-light{background:#eef3f8;color:var(--navy)}.btn-outline{background:transparent;border:1px solid #8da4b8;color:#fff}.btn-danger{background:#fff0f0;color:var(--red)}.tabs{max-width:1250px;margin:auto;display:flex;gap:4px;overflow:auto;scrollbar-width:none}.tabs button{white-space:nowrap;border:0;background:transparent;color:#d8e3ed;padding:13px 14px;border-bottom:3px solid transparent;font-weight:700}.tabs button.active{color:var(--gold);border-color:var(--gold)}main{max-width:1250px;margin:24px auto;padding:0 18px 55px}.hero{background:linear-gradient(115deg,#173b5c,#245c89);border-radius:20px;padding:28px;color:white;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.12;margin:0 0 12px}.hero p{color:#dce8f2;max-width:600px;line-height:1.55}.hero-stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#ffffff15;border:1px solid #ffffff24;border-radius:13px;padding:15px}.stat b{display:block;font-size:23px;color:var(--gold)}.stat span{font-size:12px;color:#dce8f2}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 14px}.section-head h2{margin:0;font-size:22px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:42px;height:42px;flex:none;border-radius:12px;background:#eaf2fc;display:grid;place-items:center;font-size:21px}.feature h3{margin:1px 0 5px;font-size:16px}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #d7e0e9;border-radius:10px;padding:11px 12px;background:#fff;outline:none;color:var(--text)}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #246bce18}.field textarea{min-height:85px;resize:vertical}.filter-actions{display:flex;gap:8px;align-items:end}.listing{display:flex;flex-direction:column;gap:11px}.listing-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 4px 16px #10243a0a}.listing-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.tag{display:inline-block;padding:5px 9px;border-radius:30px;background:#eaf2fc;color:#245c89;font-size:11px;font-weight:800}.route{font-size:18px;font-weight:850;margin:10px 0 7px}.listing-meta{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:13px}.price{font-size:20px;font-weight:900;color:var(--green);white-space:nowrap}.listing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.empty b{display:block;color:var(--text);font-size:17px;margin-bottom:6px}.hidden{display:none!important}.modal-back{position:fixed;inset:0;background:#071421a8;display:grid;place-items:center;padding:16px;z-index:10}.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 60px #0004}.modal h2{margin:0 0 6px}.modal .field{margin-top:12px}.modal-actions{display:flex;gap:8px;margin-top:16px}.modal-actions>*{flex:1}.notice{padding:12px 14px;border-radius:11px;background:#fff8e7;color:#74520c;font-size:13px;margin:12px 0}.success{background:#eaf8f1;color:#146444}.error{background:#fff0f0;color:#a52f2f}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.footer{text-align:center;color:#7c8b9a;font-size:12px;padding:25px 10px}.language{background:#ffffff16;color:white;border:1px solid #ffffff44;border-radius:9px;padding:9px}.driver-card{background:white;border:1px solid var(--line);border-radius:15px;padding:16px}.driver-card h3{margin:8px 0}.pill{display:inline-block;background:#eaf8f1;color:#146444;border-radius:30px;padding:5px 9px;font-size:11px;font-weight:800}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;padding:16px 4vw 0}.toprow{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1250px;margin:auto;padding-bottom:14px}.brand{display:flex;align-items:center;gap:11px;font-weight:900}.logo{width:43px;height:43px;border-radius:13px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:22px}.brand small{display:block;color:#c6d4e1;font-weight:500;font-size:11px;letter-spacing:1px;margin-top:2px}.top-actions{display:flex;gap:8px;align-items:center}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:750}.btn-primary{background:var(--gold);color:#172638}.btn-dark{background:var(--navy);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-light{background:#eef3f8;color:var(--navy)}.btn-outline{background:transparent;border:1px solid #8da4b8;color:#fff}.btn-danger{background:#fff0f0;color:var(--red)}.tabs{max-width:1250px;margin:auto;display:flex;gap:4px;overflow:auto;scrollbar-width:none}.tabs button{white-space:nowrap;border:0;background:transparent;color:#d8e3ed;padding:13px 14px;border-bottom:3px solid transparent;font-weight:700}.tabs button.active{color:var(--gold);border-color:var(--gold)}main{max-width:1250px;margin:24px auto;padding:0 18px 55px}.hero{background:linear-gradient(115deg,#173b5c,#245c89);border-radius:20px;padding:28px;color:white;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center}.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.12;margin:0 0 12px}.hero p{color:#dce8f2;max-width:600px;line-height:1.55}.hero-stat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{background:#ffffff15;border:1px solid #ffffff24;border-radius:13px;padding:15px}.stat b{display:block;font-size:23px;color:var(--gold)}.stat span{font-size:12px;color:#dce8f2}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 14px}.section-head h2{margin:0;font-size:22px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:42px;height:42px;flex:none;border-radius:12px;background:#eaf2fc;display:grid;place-items:center;font-size:21px}.feature h3{margin:1px 0 5px;font-size:16px}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}.filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted);font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #d7e0e9;border-radius:10px;padding:11px 12px;background:#fff;outline:none;color:var(--text)}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #246bce18}.field textarea{min-height:85px;resize:vertical}.filter-actions{display:flex;gap:8px;align-items:end}.listing{display:flex;flex-direction:column;gap:11px}.listing-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 4px 16px #10243a0a}.listing-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.tag{display:inline-block;padding:5px 9px;border-radius:30px;background:#eaf2fc;color:#245c89;font-size:11px;font-weight:800}.route{font-size:18px;font-weight:850;margin:10px 0 7px}.listing-meta{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:13px}.price{font-size:20px;font-weight:900;color:var(--green);white-space:nowrap}.listing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.empty b{display:block;color:var(--text);font-size:17px;margin-bottom:6px}.hidden{display:none!important}.modal-back{position:fixed;inset:0;background:#071421a8;display:grid;place-items:center;padding:16px;z-index:10}.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 60px #0004}.modal h2{margin:0 0 6px}.modal .field{margin-top:12px}.modal-actions{display:flex;gap:8px;margin-top:16px}.modal-actions>*{flex:1}.notice{padding:12px 14px;border-radius:11px;background:#fff8e7;color:#74520c;font-size:13px;margin:12px 0}.success{background:#eaf8f1;color:#146444}.error{background:#fff0f0;color:#a52f2f}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.footer{text-align:center;color:#7c8b9a;font-size:12px;padding:25px 10px}.language{background:#ffffff16;color:white;border:1px solid #ffffff44;border-radius:9px;padding:9px}.driver-card{background:white;border:1px solid var(--line);border-radius:15px;padding:16px}
+.driver-card{display:grid;grid-template-columns:94px minmax(0,1fr);gap:10px;align-items:stretch;padding:9px;margin-bottom:9px;border-radius:15px}
+.driver-media{position:relative;min-width:0;min-height:116px}
+.driver-vehicle-photo{display:block;width:100%;height:100%;min-height:116px;max-height:145px;object-fit:cover;border-radius:10px;background:#eef3f8}
+.driver-photo-empty{display:grid;place-items:center;width:100%;height:100%;min-height:116px;border-radius:10px;background:#edf2f7;color:#718096;font-size:29px}
+.driver-info{min-width:0;display:flex;flex-direction:column;justify-content:flex-start}
+.driver-profile-head{display:flex;align-items:center;gap:7px;margin:0 0 6px;min-width:0}
+.driver-avatar{display:block;width:39px;height:39px;flex:0 0 39px;border-radius:50%;object-fit:cover;border:1px solid #e5edf5;background:#eef3f8}
+.driver-avatar-fallback{width:39px;height:39px;flex:0 0 39px;border-radius:50%;display:grid;place-items:center;background:#eaf2fc;color:#245c89;font-size:17px;font-weight:850}
+.driver-name{font-size:15px;font-weight:850;line-height:1.15;overflow-wrap:anywhere}
+.driver-info .pill{margin-bottom:2px;padding:3px 7px;font-size:10px}
+.driver-info .listing-meta{display:flex;flex-wrap:wrap;gap:4px 7px;font-size:11px;line-height:1.3}
+.driver-info p{margin:5px 0;font-size:12px;overflow-wrap:anywhere}
+.driver-info .listing-actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:6px}
+.driver-info .listing-actions .btn{padding:7px 7px;font-size:11px;flex:1 1 auto;text-align:center;white-space:nowrap}
+.driver-photo-count{position:absolute;right:5px;bottom:5px;background:#142536cc;color:#fff;border-radius:6px;padding:2px 5px;font-size:10px}
+.driver-available-badge{position:absolute;left:5px;top:5px;max-width:calc(100% - 10px);background:#078b45;color:#fff;border-radius:7px;padding:4px 6px;font-size:9px;font-weight:800;line-height:1.15;box-shadow:0 1px 5px #0002}
+.driver-available-badge:before{content:"●";color:#b9ff6b;margin-right:4px}
+.driver-availability-setting{display:flex;align-items:center;gap:9px;padding:11px 12px;margin:12px 0;border:1px solid #cfe9d9;border-radius:12px;background:#f0fbf4;color:#145c36;font-weight:750}
+.driver-availability-setting input{width:19px;height:19px;accent-color:#078b45}
+@media(max-width:390px){.driver-card{grid-template-columns:88px minmax(0,1fr);gap:8px;padding:8px}.driver-vehicle-photo,.driver-photo-empty{min-height:108px}.driver-avatar,.driver-avatar-fallback{width:36px;height:36px;flex-basis:36px}.driver-name{font-size:14px}.driver-info .listing-meta{font-size:10px;gap:3px 6px}.driver-info .listing-actions .btn{font-size:10px;padding:6px 5px}}
+@media(max-width:340px){.driver-card{grid-template-columns:78px minmax(0,1fr);gap:7px}.driver-info .listing-actions{flex-direction:column}.driver-info .listing-actions .btn{width:100%}}
+.driver-card h3{margin:8px 0}.pill{display:inline-block;background:#eaf8f1;color:#146444;border-radius:30px;padding:5px 9px;font-size:11px;font-weight:800}
 @media(max-width:800px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr 1fr}.top{padding-left:14px;padding-right:14px}.toprow{align-items:flex-start}.brand{font-size:14px}.top-actions .btn{padding:9px 10px;font-size:12px}}
 @media(max-width:520px){main{padding:0 12px 40px;margin-top:14px}.grid{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.hero{padding:21px}.hero-stat{grid-template-columns:1fr 1fr}.tabs button{padding:12px 11px;font-size:12px}.toprow{flex-wrap:wrap}.top-actions{margin-left:auto}.profile-grid{grid-template-columns:1fr}.listing-top{display:block}.price{margin-top:7px}.filter-actions{grid-column:1/-1}.section-head h2{font-size:19px}.modal{padding:17px}}
 
@@ -244,7 +266,225 @@ main{max-width:1180px}
  @supports (height: 100dvh){.modal{max-height:calc(100dvh - 24px)}}
  .modal-actions{position:sticky;bottom:-24px;background:#fff;padding:12px 0 max(8px,env(safe-area-inset-bottom));margin-top:14px;z-index:2}
 }
+
+/* V33 — compact cargo cards inspired by the supplied mobile reference */
+.listing{gap:12px}
+.load-card{padding:12px;border-radius:18px;background:#fff;border:1px solid #e5eaf1;box-shadow:0 4px 15px rgba(16,36,58,.07)}
+.load-card{padding:8px;margin-bottom:8px;border-radius:14px}
+.load-card-main{display:grid;grid-template-columns:82px minmax(0,1fr);gap:8px;align-items:stretch}
+.load-photo-wrap{position:relative;min-width:0;min-height:104px}
+.load-thumb{display:block;width:100%;height:100%;min-height:104px;max-height:126px;object-fit:cover;border-radius:9px;background:#edf2f7}
+.load-thumb-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#8190a0;font-size:22px}
+.load-thumb-empty small{font-size:9px}
+.photo-count{position:absolute;left:4px;bottom:4px;background:#172638d9;color:#fff;border-radius:14px;padding:2px 5px;font-size:8px;font-weight:700}
+.load-info{min-width:0}
+.load-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:3px}
+.load-card .route{font-size:13px;line-height:1.15;margin:0 0 4px;overflow-wrap:anywhere}
+.load-card .route .route-arrow{color:#e5a900}
+.load-card .save-icon{flex:none;border:0;background:#f2f5f9;color:#253b52;border-radius:50%;width:24px;height:24px;font-size:17px;line-height:1}
+.load-title{font-size:11px;font-weight:750;line-height:1.2;margin:0 0 4px;overflow-wrap:anywhere}
+.load-facts{display:grid;gap:2px;color:#657386;font-size:10px;line-height:1.2}
+.load-facts div{display:flex;gap:3px;align-items:flex-start;min-width:0}
+.load-facts div span{flex:none}
+.load-facts b{color:#253448;font-weight:700;overflow-wrap:anywhere}
+.load-price{font-size:15px;font-weight:900;color:var(--green);margin-top:4px;line-height:1.1}
+.load-status{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}
+.load-status .tag,.load-status .pill{margin:0;padding:2px 6px;font-size:8px}
+.load-urgent-badge{display:inline-flex;align-items:center;gap:2px;background:#e83245;color:#fff;border-radius:14px;padding:2px 5px;font-size:8px;font-weight:850}
+.load-urgent-badge:before{content:"⚡"}
+.load-owner-row{display:flex;align-items:center;gap:6px;min-width:0;margin-top:6px;padding-top:5px;border-top:1px solid #edf0f4}
+.load-owner-avatar{width:25px;height:25px;flex:0 0 25px;border-radius:50%;display:grid;place-items:center;background:#eef2f8;color:#43536a;font-size:13px}
+.load-owner-name{font-size:10px;font-weight:800;line-height:1.15;overflow-wrap:anywhere}
+.load-owner-caption{font-size:8px;color:#778496;margin-top:1px}
+.load-card-actions{display:flex;gap:5px;align-items:stretch;margin-top:5px;flex-wrap:wrap}
+.load-card-actions .btn{padding:6px 6px;font-size:10px;border-radius:8px;flex:1 1 0;text-align:center;text-decoration:none;white-space:nowrap}
+.btn-whatsapp{background:#16a34a;color:#fff}
+.dispatcher-btn{flex-basis:100%!important}
+@media(min-width:700px){.load-card-main{grid-template-columns:125px minmax(0,1fr);gap:11px}.load-thumb{min-height:118px}.load-card-actions .dispatcher-btn{flex:0 1 auto!important}}
+@media(max-width:380px){.load-card{padding:7px}.load-card-main{grid-template-columns:76px minmax(0,1fr);gap:7px}.load-photo-wrap{min-height:98px}.load-thumb{min-height:98px}.load-facts{font-size:9px;gap:2px}.load-card-actions .btn{font-size:9px;padding:6px 4px}.load-owner-avatar{width:23px;height:23px;flex-basis:23px}}
+
+
+/* V41: two cargo cards per row; photo stays left and details right */
+#adsListings,#homeListings,#savedListings{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-items:start}
+#adsListings .load-card,#homeListings .load-card,#savedListings .load-card{min-width:0;padding:7px;margin:0;border-radius:13px}
+.load-card-main{grid-template-columns:68px minmax(0,1fr);gap:7px}
+.load-photo-wrap{min-height:88px}.load-thumb{min-height:88px;max-height:108px;border-radius:8px}
+.load-card .route{font-size:11px;line-height:1.15;margin-bottom:3px}.load-card .save-icon{width:21px;height:21px;font-size:15px}
+.load-title{font-size:10px;margin-bottom:3px}.load-facts{font-size:9px;gap:2px;line-height:1.18}
+.load-price{font-size:13px;margin-top:4px}.load-status{margin-top:3px}
+.load-status .tag,.load-status .pill{font-size:7px;padding:2px 4px}.load-urgent-badge{font-size:7px;padding:2px 4px}
+.load-owner-row{margin-top:5px;padding-top:4px;gap:4px}.load-owner-avatar{width:21px;height:21px;flex-basis:21px;font-size:11px}
+.load-owner-name{font-size:9px}.load-owner-caption{font-size:7px}
+.load-card-actions{gap:4px;margin-top:5px}.load-card-actions .btn{font-size:8px;padding:6px 3px;white-space:normal;line-height:1.15;min-width:0}
+.load-card-actions .dispatcher-btn{font-size:8px}
+.detail-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:12px 0}
+.detail-photo-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+@media(min-width:700px){#adsListings,#homeListings,#savedListings{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.load-card-main{grid-template-columns:100px minmax(0,1fr);gap:9px}.load-photo-wrap{min-height:110px}.load-thumb{min-height:110px;max-height:130px}.load-card .route{font-size:13px}.load-title{font-size:11px}.load-facts{font-size:10px}.load-price{font-size:15px}.load-card-actions .btn{font-size:10px}}
+@media(max-width:350px){#adsListings,#homeListings,#savedListings{grid-template-columns:1fr}.load-card-main{grid-template-columns:90px minmax(0,1fr)}.load-photo-wrap{min-height:100px}.load-thumb{min-height:100px}.load-card .route{font-size:13px}.load-title{font-size:11px}.load-facts{font-size:10px}.load-price{font-size:15px}.load-card-actions .btn{font-size:10px}}
+
+
+/* V41 — compact horizontal cargo cards: one card per row, two rows visible */
+#adsListings,#homeListings,#savedListings{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ gap:9px!important;
+ align-items:start;
+}
+#adsListings .load-card,#homeListings .load-card,#savedListings .load-card{
+ width:100%;min-width:0;box-sizing:border-box;
+ padding:9px!important;margin:0!important;border-radius:15px;
+}
+.load-card-main{
+ display:grid!important;
+ grid-template-columns:112px minmax(0,1fr)!important;
+ gap:10px!important;align-items:start!important;
+}
+.load-photo-wrap{
+ width:112px;min-width:112px;height:112px;min-height:112px!important;
+ position:relative;overflow:hidden;border-radius:10px;
+}
+.load-thumb{
+ width:100%!important;height:112px!important;min-height:112px!important;
+ max-height:112px!important;aspect-ratio:1/1;object-fit:cover;border-radius:10px;
+}
+.load-thumb-empty{font-size:25px}
+.load-thumb-empty small{font-size:9px}
+.load-info{min-width:0}
+.load-card-head{gap:5px;align-items:flex-start}
+.load-card .route{
+ font-size:14px!important;line-height:1.16!important;
+ margin:0 0 4px!important;overflow-wrap:break-word;
+}
+.load-card .save-icon{width:25px;height:25px;font-size:17px;flex:0 0 25px}
+.load-title{font-size:12px!important;line-height:1.18!important;margin:0 0 4px!important}
+.load-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 8px!important;font-size:10px!important;line-height:1.2!important}
+.load-facts div{min-width:0;gap:3px;align-items:flex-start}
+.load-facts b{overflow-wrap:anywhere}
+.load-price{font-size:16px!important;line-height:1.1;margin-top:5px!important}
+.load-status{margin-top:4px!important;gap:4px}
+.load-status .tag,.load-status .pill{font-size:8px;padding:2px 6px}
+.load-urgent-badge{font-size:8px;padding:3px 6px}
+.photo-count{font-size:8px}
+.load-owner-row{margin-top:7px!important;padding-top:6px!important;gap:6px}
+.load-owner-avatar{width:25px;height:25px;flex:0 0 25px}
+.load-owner-name{font-size:10px}
+.load-owner-caption{font-size:8px}
+.load-card-actions{display:flex;gap:6px;margin-top:6px!important;flex-wrap:nowrap!important}
+.load-card-actions .btn{
+ min-width:0;flex:1 1 0!important;padding:7px 5px!important;
+ font-size:10px!important;line-height:1.15;border-radius:9px;
+ white-space:normal!important;text-align:center;
+}
+.load-card-actions .dispatcher-btn{flex-basis:100%!important}
+@media(max-width:380px){
+ .load-card-main{grid-template-columns:94px minmax(0,1fr)!important;gap:8px!important}
+ .load-photo-wrap{width:94px;min-width:94px;height:94px;min-height:94px!important}
+ .load-thumb{height:94px!important;min-height:94px!important;max-height:94px!important}
+ .load-card .route{font-size:12px!important}
+ .load-title{font-size:11px!important}
+ .load-facts{font-size:9px!important;gap:2px 5px!important}
+ .load-price{font-size:14px!important}
+ .load-card-actions .btn{font-size:9px!important;padding:6px 3px!important}
+}
+@media(min-width:700px){
+ #adsListings,#homeListings,#savedListings{grid-template-columns:minmax(0,1fr)!important}
+ .load-card-main{grid-template-columns:124px minmax(0,1fr)!important}
+ .load-photo-wrap{width:124px;min-width:124px;height:124px;min-height:124px!important}
+ .load-thumb{height:124px!important;min-height:124px!important;max-height:124px!important}
+}
+
+
+/* V42 hotfix: prevent action buttons from overlapping; compact dispatcher row */
+#adsListings .load-card-actions,
+#homeListings .load-card-actions,
+#savedListings .load-card-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:stretch!important;
+  gap:5px!important;
+  width:100%!important;
+  margin-top:6px!important;
+}
+#adsListings .load-card-actions > .btn,
+#homeListings .load-card-actions > .btn,
+#savedListings .load-card-actions > .btn{
+  box-sizing:border-box!important;
+  flex:1 1 calc(33.333% - 5px)!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  min-height:34px!important;
+  height:auto!important;
+  padding:6px 4px!important;
+  margin:0!important;
+  font-size:10px!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+#adsListings .load-card-actions > .dispatcher-btn,
+#homeListings .load-card-actions > .dispatcher-btn,
+#savedListings .load-card-actions > .dispatcher-btn{
+  flex:1 0 100%!important;
+  width:100%!important;
+  min-height:32px!important;
+  height:32px!important;
+  padding:5px 8px!important;
+  font-size:10px!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+#adsListings .load-card-main,
+#homeListings .load-card-main,
+#savedListings .load-card-main{
+  grid-template-columns:96px minmax(0,1fr)!important;
+  gap:9px!important;
+}
+#adsListings .load-photo-wrap,
+#homeListings .load-photo-wrap,
+#savedListings .load-photo-wrap{
+  width:96px!important;
+  min-width:96px!important;
+  height:96px!important;
+  min-height:96px!important;
+}
+#adsListings .load-thumb,
+#homeListings .load-thumb,
+#savedListings .load-thumb{
+  width:96px!important;
+  height:96px!important;
+  min-height:96px!important;
+  max-height:96px!important;
+  aspect-ratio:1/1!important;
+  object-fit:cover!important;
+}
+#adsListings .load-owner-row,
+#homeListings .load-owner-row,
+#savedListings .load-owner-row{
+  margin-top:6px!important;
+  padding-top:5px!important;
+}
+@media(max-width:380px){
+ #adsListings .load-card-actions > .btn,
+ #homeListings .load-card-actions > .btn,
+ #savedListings .load-card-actions > .btn{font-size:9px!important;padding:5px 2px!important}
+ #adsListings .load-card-main,
+ #homeListings .load-card-main,
+ #savedListings .load-card-main{grid-template-columns:84px minmax(0,1fr)!important}
+ #adsListings .load-photo-wrap,
+ #homeListings .load-photo-wrap,
+ #savedListings .load-photo-wrap{width:84px!important;min-width:84px!important;height:84px!important;min-height:84px!important}
+ #adsListings .load-thumb,
+ #homeListings .load-thumb,
+ #savedListings .load-thumb{width:84px!important;height:84px!important;min-height:84px!important;max-height:84px!important}
+}
+
 </style>
+<meta name="application-version" content="V42">
 </head>
 <body>
 <header class="top v24-top"><div class="toprow">
@@ -359,7 +599,7 @@ main{max-width:1180px}
 <div id="authMessage"></div><div class="modal-actions"><button class="btn btn-blue" id="authSubmit" onclick="submitAuth()">Кирүү</button><button class="btn btn-light" id="authSwitch" onclick="toggleAuthMode()">Катталуу</button></div><p class="muted" style="font-size:11px">Email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.</p></div></div>
 
 <div class="modal-back hidden" id="listingModal"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Жаңы жүк жарыясы</h2><button class="btn btn-light" onclick="closeModal('listingModal')">✕</button></div>
-<div class="field"><label>Жарыянын аталышы</label><input id="l-title" placeholder="Мисалы: Бишкектен Ошко картошка"></div><div class="profile-grid"><div class="field"><label>Кайдан</label><select id="l-from"></select></div><div class="field"><label>Кайда</label><select id="l-to"></select></div></div><div class="field"><label>Жүктүн сүрөттөрү (5ке чейин)</label><input id="l-photos" type="file" accept="image/*" multiple><small class="muted">Телефондон жүктүн сүрөттөрүн тандаңыз.</small></div><div class="field"><label>Жол аралыгы</label><div id="routeDistance" class="notice">Эки аймакты тандаңыз — унаа жолу боюнча км автоматтык эсептелет.</div><small class="muted">Аралык тандалган аймактардын борборлорунун ортосундагы автоунаа маршруту боюнча эсептелет. Айылга чейин жеткирүүдө чыныгы аралык айырмаланышы мүмкүн.</small></div><div class="field"><label>Жүктүн түрү</label><input id="l-cargo" placeholder="Картошка, эмерек..."></div><div class="field"><label>Жүктүн салмагы</label><div class="profile-grid"><input id="l-weight" type="number" min="0.01" step="0.01" placeholder="Мисалы: 500"><select id="l-weight-unit"><option value="kg">Килограмм (кг)</option><option value="t">Тонна (т)</option></select></div><small class="muted">Салмак базага тонна менен сакталат, сайтта кг же тонна болуп көрсөтүлөт.</small></div><div class="field"><label>Баасы, сом (0 — келишимдүү)</label><input id="l-price" type="number" min="0"></div><div class="field"><label>Телефон</label><input id="l-phone" type="tel"></div><div class="field"><label>WhatsApp</label><input id="l-whatsapp" type="tel"></div><div class="field"><label>Кошумча маалымат</label><textarea id="l-description"></textarea></div><div id="listingMessage"></div><div class="modal-actions"><button class="btn btn-blue" onclick="publishListing()">Жарыялоо</button><button class="btn btn-light" onclick="closeModal('listingModal')">Жабуу</button></div></div></div>
+<div class="field"><label>${tr('Жарыянын аталышы','Название объявления')}</label><input id="l-title" placeholder="${tr('Мисалы: Бишкектен Ошко картошка','Например: Картофель из Бишкека в Ош')}"></div><div class="field"><label>${tr('Аталышы орусча (милдеттүү эмес)','Название на русском (необязательно)')}</label><input id="l-title-ru" placeholder="Например: Картофель из Бишкека в Ош"></div><div class="profile-grid"><div class="field"><label>${tr('Кайдан — так дарек','Откуда — точный адрес')}</label><input id="l-from" type="text" autocomplete="street-address" placeholder="${tr('Ош облусу, Өзгөн району, айыл...','Ошская область, Узгенский район, село...')}"></div><div class="field"><label>${tr('Кайда — так дарек','Куда — точный адрес')}</label><input id="l-to" type="text" autocomplete="street-address" placeholder="${tr('Бишкек шаары, көчө, айыл...','г. Бишкек, улица, село...')}"></div></div><div class="field"><label>Жүктүн сүрөттөрү (5ке чейин)</label><input id="l-photos" type="file" accept="image/*" multiple><small class="muted">Телефондон жүктүн сүрөттөрүн тандаңыз.</small></div><div class="field"><label>${tr('Жол аралыгы','Расстояние по дороге')}</label><button type="button" class="btn btn-light" style="width:100%;margin-bottom:7px" onclick="calculateAddressRoute()">📍 ${tr('Даректер боюнча аралыкты эсептөө','Рассчитать расстояние по адресам')}</button><div id="routeDistance" class="notice">${tr('Эки даректи айылына, көчөсүнө чейин жазыңыз. Андан соң аралыкты эсептеңиз.','Укажите оба адреса как можно точнее — до села или улицы. Затем рассчитайте расстояние.')}</div><small class="muted">${tr('Даректи так жазсаңыз, маршрут да такыраак чыгат.','Чем точнее адрес, тем точнее маршрут.')}</small></div><div class="field"><label>${tr('Жүктүн түрү','Тип груза')}</label><input id="l-cargo" placeholder="${tr('Картошка, эмерек...','Картофель, мебель...')}"></div><div class="field"><label>${tr('Жүктүн түрү орусча (милдеттүү эмес)','Тип груза на русском (необязательно)')}</label><input id="l-cargo-ru" placeholder="Картофель, мебель..."></div><div class="field"><label>Жүктүн салмагы</label><div class="profile-grid"><input id="l-weight" type="number" min="0.01" step="0.01" placeholder="Мисалы: 500"><select id="l-weight-unit"><option value="kg">Килограмм (кг)</option><option value="t">Тонна (т)</option></select></div><small class="muted">Салмак базага тонна менен сакталат, сайтта кг же тонна болуп көрсөтүлөт.</small></div><div class="field"><label>Баасы, сом (0 — келишимдүү)</label><input id="l-price" type="number" min="0"></div><div class="field"><label>Телефон</label><input id="l-phone" type="tel"></div><div class="field"><label>WhatsApp</label><input id="l-whatsapp" type="tel"></div><div class="field"><label>${tr('Кошумча маалымат','Дополнительная информация')}</label><textarea id="l-description"></textarea></div><div class="field"><label>${tr('Кошумча маалымат орусча (милдеттүү эмес)','Дополнительная информация на русском (необязательно)')}</label><textarea id="l-description-ru"></textarea></div><label class="driver-availability-setting" style="border-color:#f4c9ce;background:#fff3f4;color:#a51f31"><input type="checkbox" id="l-urgent"> <span>${tr('⚡ Срочно — шашылыш жүк','⚡ Срочно — срочный груз')}</span></label><div id="listingMessage"></div><div class="modal-actions"><button class="btn btn-blue" onclick="publishListing()">Жарыялоо</button><button class="btn btn-light" onclick="closeModal('listingModal')">Жабуу</button></div></div></div>
 
 <section id="page-detail" class="hidden">
  <div class="section-head"><div><h2>Жүк тууралуу толук маалымат</h2><div class="muted">Жарыянын бардык шарттары жана байланыш маалыматтары</div></div>
@@ -376,6 +616,20 @@ const regions=['Бишкек шаары','Ош шаары','Чүй облусу'
 let currentUser=null,profile=null,driverProfile=null,isAdmin=false,authMode='login',allListings=[],allDrivers=[],lang=localStorage.getItem('juk_express_lang')||'ky';
 const savedKey='juk_express_saved_v1';
 function tr(ky,ru){return lang==='ru'?ru:ky}
+
+function bilingualText(ky,ru,fallback=''){
+ const a=String(ky??'').trim(),b=String(ru??'').trim();
+ if(lang==='ru'&&b)return b;
+ if(lang==='ru'&&a){
+  const common={'Ун':'Мука','Картошка':'Картофель','Эмерек':'Мебель','Скутер':'Скутер','Курулуш материалдары':'Строительные материалы','Жашылча':'Овощи','Мөмө-жемиш':'Фрукты','Буудай':'Пшеница','Көмүр':'Уголь','Кум':'Песок','Шагыл':'Щебень','Цемент':'Цемент','Отун':'Дрова','Айдоочу':'Водитель','Жүк ээси':'Владелец груза','Бишкек шаары':'город Бишкек','Ош шаары':'город Ош','Ош облусу':'Ошская область','Чүй облусу':'Чуйская область','Жалал-Абад облусу':'Джалал-Абадская область','Баткен облусу':'Баткенская область','Ысык-Көл облусу':'Иссык-Кульская область','Нарын облусу':'Нарынская область','Талас облусу':'Таласская область'};
+  return common[a]||a;
+ }
+ return a||fallback;
+}
+function vehicleTypeText(v){
+ const map={'Борттук унаа':'Бортовой автомобиль','Контейнер ташуучу':'Контейнеровоз','Башка':'Другое','Самосвал':'Самосвал','Трал':'Трал','Цистерна':'Цистерна','Рефрижератор':'Рефрижератор','Фура':'Фура','Газель':'Газель','Sprinter':'Sprinter','Atego':'Atego'};
+ return lang==='ru'?(map[v]||v):v;
+}
 function showMsg(id,msg,type='notice'){if($(id))$(id).innerHTML=msg?`<div class="notice ${type}">${esc(msg)}</div>`:''}
 function money(v){return Number(v)>0?Number(v).toLocaleString('ru-RU')+' сом':tr('Келишимдүү','Договорная')}
 function phoneClean(v){return String(v||'').replace(/[^\d+]/g,'')}
@@ -451,7 +705,7 @@ function setRouteAndSearch(from,to){
 async function loadListings(){
  $('homeListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';$('adsListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';
  try{const {data,error}=await db.from('loads').select('*').eq('country','Кыргызстан').eq('status','active').order('created_at',{ascending:false}).limit(100);if(error)throw error;
- allListings=(data||[]).filter(x=>!x.expires_at||new Date(x.expires_at)>=new Date()).map(x=>({...x,_table:'loads'}));renderListings();renderSaved();renderHomeListings()
+ let rows=(data||[]).filter(x=>!x.expires_at||new Date(x.expires_at)>=new Date());const ownerIds=[...new Set(rows.map(x=>x.owner_id).filter(Boolean))];let ownerNames={};if(ownerIds.length){try{const {data:owners,error:ownerError}=await db.from('profiles').select('id,full_name').in('id',ownerIds);if(!ownerError)(owners||[]).forEach(o=>{ownerNames[o.id]=o.full_name||''})}catch(ownerLookupError){console.warn('Жүк ээсинин аты алынган жок:',ownerLookupError.message)}}allListings=rows.map(x=>({...x,owner_name:ownerNames[x.owner_id]||x.owner_name||'',_table:'loads'}));renderListings();renderSaved();renderHomeListings()
  }catch(e){const msg=friendlyError(e);$('adsListings').innerHTML=`<div class="panel notice error">${esc(msg)}<br><small>Жарыялар таблицасы же RLS эрежелери да текшерилиши мүмкүн.</small></div>`;$('homeListings').innerHTML=`<div class="empty">${esc(msg)}</div>`}
 }
 function getSaved(){try{return JSON.parse(localStorage.getItem(savedKey)||'[]')}catch{return[]}}
@@ -459,41 +713,63 @@ function toggleSaved(key){let a=getSaved();a=a.includes(key)?a.filter(x=>x!==key
 function formatLoadWeight(tons){const n=Number(tons||0);if(!n)return '—';if(n<1)return `${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(n*1000)} кг`;return `${new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(n)} т`}
 function loadIsCurrent(x){return !!x.is_current&&!!x.current_confirmed_at&&(Date.now()-new Date(x.current_confirmed_at).getTime())<48*60*60*1000}
 async function confirmLoadCurrent(id){if(!currentUser)return openAuth();try{const {error}=await db.from('loads').update({is_current:true,current_confirmed_at:new Date().toISOString()}).eq('id',id).eq('owner_id',currentUser.id);if(error)throw error;await loadListings();const fresh=allListings.find(a=>String(a.id)===String(id));if(fresh)openDetail(id);alert('Жарыя 48 саатка актуалдуу деп белгиленди.')}catch(e){alert('Белги жаңырган жок: '+e.message)}}
-function listingCard(x){const route=`${x.city_from||'—'} → ${x.city_to||'—'}`,key=`loads:${x.id}`,saved=getSaved().includes(key),phone=phoneClean(x.phone),wa=waLink(x.whatsapp||x.phone);
-return `<article class="listing-card" role="button" tabindex="0" onclick="openDetail('${esc(x.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail('${esc(x.id)}')}"><div class="listing-top"><div>${(x.photo_urls||[]).length?`<img src="${esc(x.photo_urls[0])}" alt="Жүктүн сүрөтү" style="width:100%;max-height:190px;object-fit:cover;border-radius:12px;margin-bottom:10px">`:``}<span class="tag">ЖҮК</span>${loadIsCurrent(x)?'<span class="pill" style="margin-left:6px">АКТУАЛДУУ</span>':''}<div class="route">${esc(route)}</div><b>${esc(x.title||x.cargo||'Жүк')}</b></div><div class="price">${esc(money(x.price))}</div></div><div class="listing-meta"><span>📦 ${esc(x.cargo||'Жүк көрсөтүлгөн эмес')}</span>${x.route_km?`<span>🛣️ ${esc(x.route_km)} км</span>`:''}${x.weight_tons?`<span>⚖️ ${esc(formatLoadWeight(x.weight_tons))}</span>`:''}<span>📅 ${x.created_at?new Date(x.created_at).toLocaleDateString('ru-RU'):'—'}</span></div><div class="listing-actions"><button class="btn btn-light" onclick="event.stopPropagation();openDetail('${esc(x.id)}')">Толук маалымат</button><button class="btn btn-light" onclick="event.stopPropagation();toggleSaved('${key}')">${saved?'★ Сакталды':'☆ Сактоо'}</button>${phone?`<a class="btn btn-blue" onclick="event.stopPropagation()" href="tel:${esc(phone)}">Чалуу</a>`:''}${wa?`<a class="btn btn-primary" onclick="event.stopPropagation()" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}<button class="btn btn-light" onclick="event.stopPropagation();requestDispatcher('loads','${esc(x.id)}')">Диспетчер жардам берсин</button></div></article>`}
+function listingCard(x){
+ const route=`${x.city_from||'—'} <span class="route-arrow">→</span> ${x.city_to||'—'}`,key=`loads:${x.id}`,saved=getSaved().includes(key),phone=phoneClean(x.phone),wa=waLink(x.whatsapp||x.phone),photos=Array.isArray(x.photo_urls)?x.photo_urls:[];
+ const photo=photos.length?`<img class="load-thumb" src="${esc(photos[0])}" alt="${tr('Жүктүн сүрөтү','Фото груза')}" loading="lazy" onerror="this.outerHTML='<div class=&quot;load-thumb load-thumb-empty&quot;>📦<small>${tr('Сүрөт жок','Нет фото')}</small></div>'">`:`<div class="load-thumb load-thumb-empty"><span>📦</span><small>${tr('Сүрөт жок','Нет фото')}</small></div>`;
+ const date=x.created_at?new Date(x.created_at).toLocaleDateString(lang==='ru'?'ru-RU':'ky-KG'):'—';
+ const ownerName=x.owner_name||tr('Жүк ээси','Владелец груза');
+ const weight=formatLoadWeight(x.weight_tons);
+ const current=loadIsCurrent(x);
+ return `<article class="listing-card load-card" role="button" tabindex="0" onclick="openDetail('${esc(x.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail('${esc(x.id)}')}">
+  <div class="load-card-main"><div class="load-photo-wrap">${photo}${x.is_urgent?`<span class="load-urgent-badge">${tr('СРОЧНО','СРОЧНО')}</span>`:''}${photos.length>1?`<span class="photo-count">📷 ${photos.length}</span>`:''}</div>
+   <div class="load-info"><div class="load-card-head"><div class="route">${route}</div><button class="save-icon" aria-label="${tr('Сактоо','В избранное')}" onclick="event.stopPropagation();toggleSaved('${key}')">${saved?'♥':'♡'}</button></div>
+    <div class="load-title">${esc(bilingualText(x.title,x.title_ru,x.cargo||tr('Жүк','Груз')))}</div>
+    <div class="load-facts"><div><span>📦</span> ${tr('Жүк','Груз')}: <b>${esc(bilingualText(x.cargo,x.cargo_ru,tr('Көрсөтүлгөн эмес','Не указано')))}</b></div>${x.weight_tons?`<div><span>⚖️</span> ${tr('Салмак','Вес')}: <b>${esc(weight)}</b></div>`:''}${x.vehicle_type?`<div><span>🚚</span> ${tr('Унаа','Машина')}: <b>${esc(x.vehicle_type)}</b></div>`:''}${x.route_km?`<div><span>🛣️</span> ${tr('Аралык','Расстояние')}: <b>${esc(x.route_km)} ${tr('км','км')}</b></div>`:''}<div><span>📅</span> ${tr('Жүктөө','Загрузка')}: <b>${esc(date)}</b></div></div>
+    <div class="load-price">${esc(money(x.price))}</div>
+    <div class="load-status"><span class="tag">${tr('ЖҮК','ГРУЗ')}</span>${current?`<span class="pill">${tr('АКТУАЛДУУ','АКТУАЛЬНО')}</span>`:''}</div>
+   </div></div>
+  <div class="load-owner-row"><span class="load-owner-avatar">♙</span><div style="min-width:0;flex:1"><div class="load-owner-name">${esc(ownerName)}</div><div class="load-owner-caption">${tr('Жүк ээси','Владелец груза')}</div></div></div>
+  <div class="load-card-actions"><button class="btn btn-light" onclick="event.stopPropagation();openDetail('${esc(x.id)}')">${tr('Толук маалымат','Подробнее')}</button>${phone?`<a class="btn btn-blue" onclick="event.stopPropagation()" href="tel:${esc(phone)}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${wa?`<a class="btn btn-whatsapp" onclick="event.stopPropagation()" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}<button class="btn btn-light dispatcher-btn" onclick="event.stopPropagation();requestDispatcher('loads','${esc(x.id)}')">${tr('Диспетчер жардам','Помощь диспетчера')}</button></div>
+ </article>`
+}
 function filteredLoads(){let a=[...allListings],from=$('f-from').value.trim().toLowerCase(),to=$('f-to').value.trim().toLowerCase(),type=$('f-type').value.trim().toLowerCase(),w=Number($('f-weight').value),p=Number($('f-price').value);if(from)a=a.filter(x=>(x.city_from||'').toLowerCase().includes(from));if(to)a=a.filter(x=>(x.city_to||'').toLowerCase().includes(to));if(type)a=a.filter(x=>`${x.cargo||''} ${x.title||''}`.toLowerCase().includes(type));if(w)a=a.filter(x=>Number(x.weight_tons)>=w);if(p)a=a.filter(x=>Number(x.price||0)<=p);if($('f-sort').value==='cheap')a.sort((x,y)=>Number(x.price||0)-Number(y.price||0));if($('f-sort').value==='expensive')a.sort((x,y)=>Number(y.price||0)-Number(x.price||0));return a}
 function renderListings(){if(!$('adsListings'))return;const a=filteredLoads();$('adsCount').textContent=`Жарыялар: ${a.length}`;$('adsListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча ылайыктуу жарыя табылган жок</b>Фильтрлерди өзгөртүп кайра издеңиз.</div>';applyLanguage()}
 function renderHomeListings(){const a=allListings.slice(0,3);$('homeListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча жүк жарыясы жок</b>Жаңы жарыялар бул жерде көрүнөт.</div>';applyLanguage()}
 function renderSaved(){const ids=getSaved(),a=allListings.filter(x=>ids.includes(`loads:${x.id}`));$('savedListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Сакталган жарыялар жок</b>Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.</div>';applyLanguage()}
 function resetFilters(){['f-from','f-to','f-type','f-weight','f-price'].forEach(id=>$(id).value='');$('f-sort').value='new';renderListings()}
+let currentDetailId=null;
 function openDetail(id){
- const x=allListings.find(a=>String(a.id)===String(id));
- if(!x)return;
- const phone=phoneClean(x.phone),wa=waLink(x.whatsapp||x.phone);
+ currentDetailId=id;
+ const x=allListings.find(a=>String(a.id)===String(id));if(!x)return;
+ const phone=phoneClean(x.phone),wa=waLink(x.whatsapp||x.phone),photos=Array.isArray(x.photo_urls)?x.photo_urls:[];
+ const title=bilingualText(x.title,x.title_ru,x.cargo||tr('Жүк','Груз'));
+ const cargo=bilingualText(x.cargo,x.cargo_ru,tr('Көрсөтүлгөн эмес','Не указано'));
+ const description=bilingualText(x.description,x.description_ru,tr('Кошумча маалымат көрсөтүлгөн эмес.','Дополнительная информация не указана.'));
  $('detailPageContent').innerHTML=`
-  <span class="tag">ЖҮК ЖАРЫЯСЫ</span>${loadIsCurrent(x)?'<span class="pill" style="margin-left:7px">АКТУАЛДУУ</span>':''}
-  <h2 style="margin:14px 0 8px">${esc(x.title||x.cargo||'Жүк')}</h2>
+  <span class="tag">${tr('ЖҮК ЖАРЫЯСЫ','ЗАЯВКА НА ГРУЗ')}</span>${loadIsCurrent(x)?`<span class="pill" style="margin-left:7px">${tr('АКТУАЛДУУ','АКТУАЛЬНО')}</span>`:''}${x.is_urgent?`<span class="load-urgent-badge">${tr('СРОЧНО','СРОЧНО')}</span>`:''}
+  <h2 style="margin:14px 0 8px">${esc(title)}</h2>
+  ${photos.length?`<div class="detail-photo-grid">${photos.map((u,i)=>`<img src="${esc(u)}" alt="${tr('Жүктүн сүрөтү','Фото груза')} ${i+1}" loading="lazy">`).join('')}</div>`:''}
   <div class="route" style="font-size:22px">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div>
   <div class="price" style="font-size:25px;margin:14px 0">${esc(money(x.price))}</div>
   <div class="profile-grid" style="margin-top:18px">
-   <div><span class="muted">Жүктүн түрү</span><p><b>${esc(x.cargo||'Көрсөтүлгөн эмес')}</b></p></div>
-   <div><span class="muted">Салмагы</span><p><b>${esc(formatLoadWeight(x.weight_tons))}</b></p></div>
-   <div><span class="muted">Жарыяланган күнү</span><p><b>${x.created_at?new Date(x.created_at).toLocaleString('ru-RU'):'—'}</b></p></div>
-   <div><span class="muted">Өлкө</span><p><b>Кыргызстан</b></p></div>
+   <div><span class="muted">${tr('Жүктүн түрү','Тип груза')}</span><p><b>${esc(cargo)}</b></p></div>
+   <div><span class="muted">${tr('Салмагы','Вес')}</span><p><b>${esc(formatLoadWeight(x.weight_tons))}</b></p></div>
+   <div><span class="muted">${tr('Жарыяланган күнү','Дата публикации')}</span><p><b>${x.created_at?new Date(x.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):'—'}</b></p></div>
+   <div><span class="muted">${tr('Өлкө','Страна')}</span><p><b>Кыргызстан</b></p></div>
+   ${x.vehicle_type?`<div><span class="muted">${tr('Керектүү унаа','Требуемая машина')}</span><p><b>${esc(vehicleTypeText(x.vehicle_type))}</b></p></div>`:''}
+   ${x.route_km?`<div><span class="muted">${tr('Аралык','Расстояние')}</span><p><b>${esc(x.route_km)} км</b></p></div>`:''}
   </div>
   <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-  <h3>Кошумча маалымат</h3>
-  <p style="white-space:pre-wrap;line-height:1.6">${esc(x.description||'Кошумча маалымат көрсөтүлгөн эмес.')}</p>
-  <h3 style="margin-top:22px">Жүк ээси менен байланышуу</h3>
+  <h3>${tr('Кошумча маалымат','Дополнительная информация')}</h3><p style="white-space:pre-wrap;line-height:1.6">${esc(description)}</p>
+  <h3 style="margin-top:22px">${tr('Жүк ээси менен байланышуу','Связаться с владельцем груза')}</h3>
   <div class="listing-actions">
-   ${phone?`<a class="btn btn-blue" style="text-decoration:none" href="tel:${esc(phone)}">Чалуу</a>`:''}
+   ${phone?`<a class="btn btn-blue" style="text-decoration:none" href="tel:${esc(phone)}">${tr('Чалуу','Позвонить')}</a>`:''}
    ${wa?`<a class="btn btn-primary" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}
-   ${x.owner_id&&x.owner_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(x.owner_id)}','${esc(x.title||x.cargo||'Жүк ээси').replace(/'/g,'&#39;')}')">✉ Жеке билдирүү</button>`:''}
-   <button class="btn btn-light" onclick="toggleSaved('loads:${esc(x.id)}')">☆ Сактоо</button>
-   ${x.owner_id===currentUser?.id?`<button class="btn btn-primary" onclick="confirmLoadCurrent('${esc(x.id)}')">✓ Актуалдуу деп ырастоо</button>`:''}
+   ${x.owner_id&&x.owner_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(x.owner_id)}','${esc(title).replace(/'/g,'&#39;')}')">✉ ${tr('Жеке билдирүү','Личное сообщение')}</button>`:''}
+   <button class="btn btn-light" onclick="toggleSaved('loads:${esc(x.id)}')">☆ ${tr('Сактоо','В избранное')}</button>
+   ${x.owner_id===currentUser?.id?`<button class="btn btn-primary" onclick="confirmLoadCurrent('${esc(x.id)}')">✓ ${tr('Актуалдуу деп ырастоо','Подтвердить актуальность')}</button>`:''}
   </div>`;
- showPage('detail');
- applyLanguage();
+ showPage('detail');applyLanguage();
 }
 
 let activeChatUserId=null,activeChatName='',chatRealtime=null,chatMessagesCache=[];
@@ -552,24 +828,65 @@ const regionCenters={
 };
 let loadFromPoint=null,loadToPoint=null,routeKm=null,routeRequestId=0;
 function openListing(){if(!currentUser){openAuth();return}if(!['customer','dispatcher'].includes(profile?.account_type)){alert(tr('Айдоочу жүк жарыясын жарыялабайт. Жүк ээси аккаунту керек.','Водитель не публикует грузы. Нужен аккаунт владельца груза.'));return}$('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';$('l-phone').value=profile?.phone||'';routeKm=null;loadFromPoint=null;loadToPoint=null;$('routeDistance').textContent='Эки аймакты тандаңыз — унаа жолу боюнча км автоматтык эсептелет.';$('l-from').value='';$('l-to').value=''}
-async function calculateRegionRoute(){
- const from=$('l-from').value,to=$('l-to').value,id=++routeRequestId;routeKm=null;loadFromPoint=regionCenters[from]?{lat:regionCenters[from][0],lng:regionCenters[from][1]}:null;loadToPoint=regionCenters[to]?{lat:regionCenters[to][0],lng:regionCenters[to][1]}:null;
- if(!from||!to){$('routeDistance').textContent='Эки аймакты тең тандаңыз.';return}
- if(from===to){$('routeDistance').textContent='Бир эле аймак тандалды. Башка жеткирүү аймагын тандаңыз.';return}
- $('routeDistance').textContent='Унаа жолу боюнча аралык эсептелүүдө…';
- try{const a=loadFromPoint,b=loadToPoint;const url=`https://router.project-osrm.org/route/v1/driving/${a.lng},${a.lat};${b.lng},${b.lat}?overview=false`;const r=await fetch(url);if(!r.ok)throw Error('Маршрут кызматы убактылуу жооп берген жок');const j=await r.json();if(id!==routeRequestId)return;if(j.code!=='Ok'||!j.routes?.length)throw Error('Бул багыт боюнча маршрут табылган жок');routeKm=Math.round(j.routes[0].distance/1000);$('routeDistance').textContent=`🚚 Унаа жолу боюнча: ${routeKm} км`;
- }catch(e){if(id!==routeRequestId)return;routeKm=null;$('routeDistance').textContent='Км эсептелген жок. Бир аздан кийин кайра тандап көрүңүз.';console.warn('OSRM route:',e.message)}
+async function geocodeLoadAddress(address){
+ const q=String(address||'').trim();
+ if(q.length<5)throw Error(tr('Даректи толугураак жазыңыз.','Укажите более полный адрес.'));
+ const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=kg&accept-language='+encodeURIComponent(lang==='ru'?'ru':'ky')+'&q='+encodeURIComponent(q+', Кыргызстан');
+ const response=await fetch(url,{headers:{'Accept':'application/json'}});
+ if(!response.ok)throw Error('Дарек издөө кызматы убактылуу жеткиликсиз.');
+ const results=await response.json();
+ if(!results.length)throw Error(tr('Бул дарек табылган жок. Облус, район жана айылдын атын тактап жазыңыз.','Адрес не найден. Уточните область, район и название села.'));
+ return {lat:Number(results[0].lat),lng:Number(results[0].lon),label:results[0].display_name};
 }
-$('l-from')?.addEventListener('change',calculateRegionRoute);
-$('l-to')?.addEventListener('change',calculateRegionRoute);
+async function calculateAddressRoute(){
+ const from=$('l-from').value.trim(),to=$('l-to').value.trim(),id=++routeRequestId;
+ loadFromPoint=loadToPoint=null;routeKm=null;
+ if(!from||!to){$('routeDistance').textContent=tr('Кайдан жана кайда даректерин толтуруңуз.','Заполните адреса отправления и назначения.');return}
+ $('routeDistance').textContent=tr('Даректер картадан изделүүдө…','Ищем адреса на карте…');
+ try{
+  const a=await geocodeLoadAddress(from);
+  await new Promise(resolve=>setTimeout(resolve,1100));
+  const b=await geocodeLoadAddress(to);
+  if(id!==routeRequestId)return;
+  loadFromPoint={lat:a.lat,lng:a.lng};loadToPoint={lat:b.lat,lng:b.lng};
+  $('routeDistance').textContent=tr('Унаа жолу эсептелүүдө…','Рассчитываем автомобильный маршрут…');
+  const url=`https://router.project-osrm.org/route/v1/driving/${a.lng},${a.lat};${b.lng},${b.lat}?overview=false`;
+  const r=await fetch(url);if(!r.ok)throw Error(tr('Маршрут кызматы убактылуу жооп берген жок.','Сервис маршрутов временно недоступен.'));
+  const j=await r.json();if(id!==routeRequestId)return;
+  if(j.code!=='Ok'||!j.routes?.length)throw Error(tr('Бул даректердин ортосунда унаа жолу табылган жок.','Автомобильный маршрут между этими адресами не найден.'));
+  routeKm=Math.round(j.routes[0].distance/1000);
+  $('routeDistance').textContent=`🚚 ${tr('Унаа жолу боюнча','По автомобильной дороге')}: ${routeKm} км`;
+ }catch(e){
+  if(id!==routeRequestId)return;
+  loadFromPoint=loadToPoint=null;routeKm=null;
+  $('routeDistance').textContent=e.message||tr('Даректи же маршрутту эсептөө мүмкүн болгон жок.','Не удалось определить адрес или маршрут.');
+  console.warn('Address route:',e.message);
+ }
+}
 async function uploadImages(bucket,files,folder,max){const arr=Array.from(files||[]);if(arr.length>max)throw Error(`Эң көп дегенде ${max} сүрөт тандаңыз.`);const urls=[];for(const f of arr){if(!f.type.startsWith('image/'))throw Error('Сүрөт файлын гана тандаңыз.');if(f.size>5*1024*1024)throw Error('Ар бир сүрөт 5 МБдан ашпашы керек.');const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${currentUser.id}/${folder}_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;const {error}=await db.storage.from(bucket).upload(path,f,{upsert:false,contentType:f.type});if(error)throw error;const {data}=db.storage.from(bucket).getPublicUrl(path);urls.push(data.publicUrl)}return urls}
-async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value,to=$('l-to').value,phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage','Аталыш, кайдан, кайда жана телефонду толтуруңуз.','error');return}if(!(Number($('l-weight').value)>0)){showMsg('listingMessage','Жүктүн салмагын кг же тонна менен киргизиңиз.','error');return}if(!loadFromPoint||!loadToPoint||!routeKm){showMsg('listingMessage','Эки аймакты тандап, унаа жолу боюнча км эсептелишин күтүңүз.','error');return}const btn=document.querySelector('#listingModal .modal-actions .btn-blue');btn.disabled=true;try{const photo_urls=await uploadImages('load-photos',$('l-photos').files,'load',5);const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),cargo:$('l-cargo').value.trim(),weight_tons:(Number($('l-weight').value||0)*( $('l-weight-unit').value==='kg'?0.001:1)),is_current:true,current_confirmed_at:new Date().toISOString(),photo_urls,from_lat:loadFromPoint.lat,from_lng:loadFromPoint.lng,to_lat:loadToPoint.lat,to_lng:loadToPoint.lng,route_km:routeKm};const {data:createdLoad,error}=await db.from('loads').insert(payload).select('id').single();if(error)throw error;const {error:notifyError}=await db.functions.invoke('notify-new-load',{body:{load:{id:createdLoad.id,title,city_from:from,city_to:to,cargo:payload.cargo,weight_tons:payload.weight_tons,price:payload.price,currency:'KGS',route_km:routeKm,phone}}});if(notifyError)console.warn('Telegram билдирүүсү жөнөтүлгөн жок:',notifyError.message);closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}finally{btn.disabled=false}}
+async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value.trim(),to=$('l-to').value.trim(),phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage',tr('Аталыш, эки так дарек жана телефонду толтуруңуз.','Заполните название, оба точных адреса и телефон.'),'error');return}if(!(Number($('l-weight').value)>0)){showMsg('listingMessage','Жүктүн салмагын кг же тонна менен киргизиңиз.','error');return}if(!loadFromPoint||!loadToPoint||!routeKm){showMsg('listingMessage',tr('Адегенде эки даректи жазып, «Даректер боюнча аралыкты эсептөө» баскычын басыңыз.','Сначала укажите оба адреса и нажмите «Рассчитать расстояние по адресам».'),'error');return}const btn=document.querySelector('#listingModal .modal-actions .btn-blue');btn.disabled=true;try{const photo_urls=await uploadImages('load-photos',$('l-photos').files,'load',5);const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),title_ru:$('l-title-ru').value.trim(),cargo_ru:$('l-cargo-ru').value.trim(),description_ru:$('l-description-ru').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),is_urgent:$('l-urgent').checked,cargo:$('l-cargo').value.trim(),weight_tons:(Number($('l-weight').value||0)*( $('l-weight-unit').value==='kg'?0.001:1)),is_current:true,current_confirmed_at:new Date().toISOString(),photo_urls,from_lat:loadFromPoint.lat,from_lng:loadFromPoint.lng,to_lat:loadToPoint.lat,to_lng:loadToPoint.lng,route_km:routeKm};const {data:createdLoad,error}=await db.from('loads').insert(payload).select('id').single();if(error)throw error;const {error:notifyError}=await db.functions.invoke('notify-new-load',{body:{load:{id:createdLoad.id,title,city_from:from,city_to:to,cargo:payload.cargo,weight_tons:payload.weight_tons,price:payload.price,currency:'KGS',route_km:routeKm,phone}}});if(notifyError)console.warn('Telegram билдирүүсү жөнөтүлгөн жок:',notifyError.message);closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}finally{btn.disabled=false}}
 
 async function requestDispatcher(table,id){if(!currentUser){openAuth();return}const message=prompt('Диспетчерге кандай жардам керек?','Бул жүк боюнча байланышууга жардам бериңиз.');if(message===null)return;try{const {error}=await db.from('dispatch_requests').insert({requester_id:currentUser.id,request_type:'find_driver',listing_id:id,listing_table:table,message,payment_mode:'direct'});if(error)throw error;alert('Өтүнүч жөнөтүлдү.')}catch(e){alert('Өтүнүч жөнөтүлгөн жок: '+e.message)}}
 function regionOptions(){return regions.map(r=>`<option value="${esc(r)}">${esc(r)}</option>`).join('')}
-function setupRegions(){$('df-region').innerHTML='<option value="">Баары</option>'+regionOptions();$('l-from').innerHTML='<option value="">Аймакты тандаңыз</option>'+regionOptions();$('l-to').innerHTML='<option value="">Аймакты тандаңыз</option>'+regionOptions()}
-async function loadDrivers(){try{const {data,error}=await db.from('driver_profiles').select('user_id,driver_name,vehicle_type,vehicle_model,capacity_tons,region,work_directions,phone,whatsapp,description,is_public,driver_photo_url,vehicle_photo_urls').eq('is_public',true).order('created_at',{ascending:false}).limit(100);if(error)throw error;allDrivers=data||[];renderDrivers()}catch(e){$('driversList').innerHTML=`<div class="panel notice error">${esc(friendlyError(e))}<br>Айдоочулар таблицасынын SELECT уруксатын текшерүү керек.</div>`}}
-function renderDrivers(){const region=$('df-region').value,vehicle=$('df-vehicle').value.trim().toLowerCase(),capacity=Number($('df-capacity').value);let a=allDrivers.filter(d=>(!region||d.region===region)&&(!vehicle||`${d.vehicle_type||''} ${d.vehicle_model||''}`.toLowerCase().includes(vehicle))&&(!capacity||Number(d.capacity_tons)>=capacity));$('driversList').innerHTML=a.length?a.map(d=>`<article class="driver-card">${(d.vehicle_photo_urls||[]).length?`<img src="${esc(d.vehicle_photo_urls[0])}" alt="Унаанын сүрөтү" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px">`:d.driver_photo_url?`<img src="${esc(d.driver_photo_url)}" alt="Айдоочу" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px">`:``}<span class="pill">Айдоочу</span><h3>${esc(d.driver_name||'Айдоочу')}</h3><div class="listing-meta"><span>🚚 ${esc(d.vehicle_type||'Унаа көрсөтүлгөн эмес')} ${esc(d.vehicle_model||'')}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(d.region||'—')}</span></div><p class="muted">${esc(d.work_directions||'Багыт көрсөтүлгөн эмес')}</p>${d.description?`<p>${esc(d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">Чалуу</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}${d.user_id&&d.user_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(d.user_id)}','${esc(d.driver_name||'Айдоочу').replace(/'/g,'&#39;')}')">✉ Жеке билдирүү</button>`:''}</div></article>`).join(''):'<div class="panel empty"><b>Айдоочу табылган жок</b>Фильтрлерди өзгөртүп көрүңүз.</div>';applyLanguage()}
+function setupRegions(){$('df-region').innerHTML='<option value="">Баары</option>'+regionOptions()}
+async function loadDrivers(){try{const {data,error}=await db.from('driver_profiles').select('user_id,driver_name,vehicle_type,vehicle_model,capacity_tons,region,work_directions,work_directions_ru,phone,whatsapp,description,description_ru,is_public,is_available_today,driver_photo_url,vehicle_photo_urls').eq('is_public',true).order('created_at',{ascending:false}).limit(100);if(error)throw error;allDrivers=data||[];renderDrivers()}catch(e){$('driversList').innerHTML=`<div class="panel notice error">${esc(friendlyError(e))}<br>Айдоочулар таблицасынын SELECT уруксатын текшерүү керек.</div>`}}
+function renderDrivers(){
+ const region=$('df-region').value,vehicle=$('df-vehicle').value.trim().toLowerCase(),capacity=Number($('df-capacity').value);
+ let a=allDrivers.filter(d=>(!region||d.region===region)&&(!vehicle||`${d.vehicle_type||''} ${d.vehicle_model||''}`.toLowerCase().includes(vehicle))&&(!capacity||Number(d.capacity_tons)>=capacity));
+ $('driversList').innerHTML=a.length?a.map(d=>{
+  const driverPhoto=(typeof d.driver_photo_url==='string'&&d.driver_photo_url.trim())?d.driver_photo_url.trim():'';
+  const vehiclePhotos=Array.isArray(d.vehicle_photo_urls)?d.vehicle_photo_urls.filter(x=>typeof x==='string'&&x.trim()):[];
+  const vehiclePhoto=vehiclePhotos.length
+   ? `<img class="driver-vehicle-photo" src="${esc(vehiclePhotos[0])}" alt="Унаанын сүрөтү" loading="lazy" onerror="this.outerHTML='<div class=&quot;driver-photo-empty&quot;>🚚</div>'">`
+   : `<div class="driver-photo-empty">🚚</div>`;
+  const avatar=driverPhoto
+   ? `<img class="driver-avatar" src="${esc(driverPhoto)}" alt="Айдоочунун сүрөтү" loading="lazy" onerror="this.outerHTML='<div class=&quot;driver-avatar-fallback&quot;>👤</div>'">`
+   : `<div class="driver-avatar-fallback">👤</div>`;
+  const route=String(d.work_directions||'').trim();
+  return `<article class="driver-card"><div class="driver-media">${vehiclePhoto}${d.is_available_today?`<span class="driver-available-badge">${tr('Бүгүн бош','Свободен сегодня')}</span>`:''}${vehiclePhotos.length>1?`<span class="driver-photo-count">1/${vehiclePhotos.length}</span>`:''}</div><div class="driver-info"><div class="driver-profile-head">${avatar}<div style="min-width:0"><span class="pill">${tr('Айдоочу','Водитель')}</span><div class="driver-name">${esc(d.driver_name||'Айдоочу')}</div></div></div><div class="listing-meta"><span>🚚 ${esc([vehicleTypeText(d.vehicle_type),d.vehicle_model].filter(Boolean).join(' ')||tr('Унаа көрсөтүлгөн эмес','Транспорт не указан'))}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(bilingualText(d.region,d.region_ru,'—'))}</span></div>${route?`<p class="muted">↗ ${esc(bilingualText(route,d.work_directions_ru,''))}</p>`:''}${(lang==='ru'?(d.description_ru||d.description):d.description)?`<p>${esc(lang==='ru'?(d.description_ru||d.description):d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}${d.user_id&&d.user_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(d.user_id)}','${esc(d.driver_name||'Айдоочу').replace(/'/g,'&#39;')}')">✉ ${tr('Билдирүү','Сообщение')}</button>`:''}</div></div></article>`;
+ }).join(''):'<div class="panel empty"><b>Айдоочу табылган жок</b>Фильтрлерди өзгөртүп көрүңүз.</div>';
+ applyLanguage();
+}
 
 function resetDriverFilters(){$('df-region').value='';$('df-vehicle').value='';$('df-capacity').value='';renderDrivers()}
 function renderCabinet(){if(!currentUser){$('cabinetContent').innerHTML='<div class="empty"><b>Жеке кабинетке кирүү керек</b><button class="btn btn-blue" onclick="openAuth()">Кирүү / Катталуу</button></div>';return}
@@ -577,9 +894,9 @@ const role=profile?.account_type,roleName=role==='driver'?'Айдоочу':role=
 let base=`<div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аккаунт түрү</label><input value="${roleName}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button> `;
 if(role==='driver')base+=driverFormHtml();
 base+=`<div style="margin-top:15px"><button class="btn btn-danger" onclick="logout()">Аккаунттан чыгуу</button></div><div class="notice">Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.</div>`;$('cabinetContent').innerHTML=base;applyLanguage()}
-function driverFormHtml(){const d=driverProfile||{};return `<hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3 id="driver-profile-heading">Айдоочунун профили</h3><p class="muted">Профилди жалпыга көрсөтсөңүз, жүк ээлери сиз менен түз байланыша алышат.</p><div class="profile-grid"><div class="field"><label>Айдоочунун аты-жөнү</label><input id="d-name" value="${esc(d.driver_name||profile?.full_name||'')}"></div><div class="field"><label>Унаа түрү</label><select id="d-type">${['Sprinter','Atego','Газель','Фура','Рефрижератор','Борттук унаа','Самосвал','Трал','Контейнер ташуучу','Цистерна','Башка'].map(x=>`<option ${d.vehicle_type===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Унаанын модели</label><input id="d-model" value="${esc(d.vehicle_model||'')}"></div><div class="field"><label>Айдоочунун сүрөтү (1)</label><input id="d-driver-photo" type="file" accept="image/*"><small class="muted">${d.driver_photo_url?'Учурдагы сүрөт сакталган. Жаңы сүрөт тандасаңыз алмашат.':'Сүрөт жүктөө милдеттүү эмес.'}</small></div><div class="field"><label>Унаанын сүрөттөрү (5ке чейин)</label><input id="d-vehicle-photos" type="file" accept="image/*" multiple><small class="muted">${(d.vehicle_photo_urls||[]).length?'Сакталган сүрөттөр: '+(d.vehicle_photo_urls||[]).length:'Унаанын сырткы көрүнүшүн жүктөңүз.'}</small></div><div class="field"><label>Жүк көтөрүмдүүлүгү, тонна</label><input id="d-capacity" type="number" min="0" step=".1" value="${esc(d.capacity_tons||'')}"></div><div class="field"><label>Аймак</label><select id="d-region"><option value="">Аймакты тандаңыз</option>${regions.map(x=>`<option ${d.region===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Телефон</label><input id="d-phone" value="${esc(d.phone||profile?.phone||'')}"></div><div class="field"><label>WhatsApp</label><input id="d-whatsapp" value="${esc(d.whatsapp||'')}"></div><div class="field"><label>Каттаган багыттары</label><input id="d-directions" value="${esc(d.work_directions||'')}" placeholder="Мисалы: Ош — Бишкек"></div></div><div class="field"><label>Кошумча маалымат</label><textarea id="d-description">${esc(d.description||'')}</textarea></div><label style="display:flex;gap:9px;align-items:center;margin:14px 0"><input type="checkbox" id="d-public" ${d.is_public?'checked':''}> Профилимди жалпыга көрсөтүүгө уруксат берем</label><div id="driverMessage"></div><button class="btn btn-primary" onclick="saveDriverProfile()">Айдоочу профилин сактоо</button>`}
+function driverFormHtml(){const d=driverProfile||{};return `<hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3 id="driver-profile-heading">Айдоочунун профили</h3><p class="muted">Профилди жалпыга көрсөтсөңүз, жүк ээлери сиз менен түз байланыша алышат.</p><div class="profile-grid"><div class="field"><label>Айдоочунун аты-жөнү</label><input id="d-name" value="${esc(d.driver_name||profile?.full_name||'')}"></div><div class="field"><label>Унаа түрү</label><select id="d-type">${['Sprinter','Atego','Газель','Фура','Рефрижератор','Борттук унаа','Самосвал','Трал','Контейнер ташуучу','Цистерна','Башка'].map(x=>`<option ${d.vehicle_type===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Унаанын модели</label><input id="d-model" value="${esc(d.vehicle_model||'')}"></div><div class="field"><label>Айдоочунун сүрөтү (1)</label><input id="d-driver-photo" type="file" accept="image/*"><small class="muted">${d.driver_photo_url?'Учурдагы сүрөт сакталган. Жаңы сүрөт тандасаңыз алмашат.':'Сүрөт жүктөө милдеттүү эмес.'}</small></div><div class="field"><label>Унаанын сүрөттөрү (5ке чейин)</label><input id="d-vehicle-photos" type="file" accept="image/*" multiple><small class="muted">${(d.vehicle_photo_urls||[]).length?'Сакталган сүрөттөр: '+(d.vehicle_photo_urls||[]).length:'Унаанын сырткы көрүнүшүн жүктөңүз.'}</small></div><div class="field"><label>Жүк көтөрүмдүүлүгү, тонна</label><input id="d-capacity" type="number" min="0" step=".1" value="${esc(d.capacity_tons||'')}"></div><div class="field"><label>Аймак</label><select id="d-region"><option value="">Аймакты тандаңыз</option>${regions.map(x=>`<option ${d.region===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Телефон</label><input id="d-phone" value="${esc(d.phone||profile?.phone||'')}"></div><div class="field"><label>WhatsApp</label><input id="d-whatsapp" value="${esc(d.whatsapp||'')}"></div><div class="field"><label>${tr('Каттаган багыттары','Рабочие направления')}</label><input id="d-directions" value="${esc(d.work_directions||'')}" placeholder="Мисалы: Ош — Бишкек"></div><div class="field"><label>${tr('Багыттары орусча (милдеттүү эмес)','Направления на русском (необязательно)')}</label><input id="d-directions-ru" value="${esc(d.work_directions_ru||'')}" placeholder="Например: Ош — Бишкек"></div></div><div class="field"><label>${tr('Кошумча маалымат','Дополнительная информация')}</label><textarea id="d-description">${esc(d.description||'')}</textarea></div><div class="field"><label>${tr('Кошумча маалымат орусча (милдеттүү эмес)','Дополнительная информация на русском (необязательно)')}</label><textarea id="d-description-ru">${esc(d.description_ru||'')}</textarea></div><label class="driver-availability-setting"><input type="checkbox" id="d-available-today" ${d.is_available_today?'checked':''}> <span>${tr('Бүгүн бош — жүк алууга даярмын','Свободен сегодня — готов принять груз')}</span></label><label style="display:flex;gap:9px;align-items:center;margin:14px 0"><input type="checkbox" id="d-public" ${d.is_public?'checked':''}> Профилимди жалпыга көрсөтүүгө уруксат берем</label><div id="driverMessage"></div><button class="btn btn-primary" onclick="saveDriverProfile()">Айдоочу профилин сактоо</button>`}
 async function saveProfile(){try{const {data,error}=await db.from('profiles').update({full_name:$('p-name').value.trim(),phone:$('p-phone').value.trim()}).eq('id',currentUser.id).select().single();if(error)throw error;profile=data;showMsg('profileMessage','Маалымат сакталды.','success');if(profile.account_type==='driver'&&!$('d-phone').value.trim())$('d-phone').value=profile.phone||''}catch(e){showMsg('profileMessage',e.message,'error')}}
-async function saveDriverProfile(){if(!currentUser||profile?.account_type!=='driver')return;const name=$('d-name').value.trim(),phone=$('d-phone').value.trim();if(!name||!phone||!$('d-region').value){showMsg('driverMessage','Аты-жөнү, телефон жана аймак милдеттүү.','error');return}try{let driver_photo_url=driverProfile?.driver_photo_url||null,vehicle_photo_urls=driverProfile?.vehicle_photo_urls||[];if($('d-driver-photo').files.length){const a=await uploadImages('driver-photos',[$('d-driver-photo').files[0]],'driver',1);driver_photo_url=a[0]}if($('d-vehicle-photos').files.length){vehicle_photo_urls=await uploadImages('driver-photos',$('d-vehicle-photos').files,'vehicle',5)}const payload={user_id:currentUser.id,driver_name:name,vehicle_type:$('d-type').value,vehicle_model:$('d-model').value.trim(),capacity_tons:Number($('d-capacity').value||0),region:$('d-region').value,work_directions:$('d-directions').value.trim(),phone,whatsapp:$('d-whatsapp').value.trim(),description:$('d-description').value.trim(),is_public:$('d-public').checked,driver_photo_url,vehicle_photo_urls,updated_at:new Date().toISOString()};const {error}=await db.from('driver_profiles').upsert(payload,{onConflict:'user_id'});if(error)throw error;driverProfile=payload;showMsg('driverMessage','Айдоочу профили жана сүрөттөр сакталды.','success');loadDrivers()}catch(e){showMsg('driverMessage',e.message,'error')}}
+async function saveDriverProfile(){if(!currentUser||profile?.account_type!=='driver')return;const name=$('d-name').value.trim(),phone=$('d-phone').value.trim();if(!name||!phone||!$('d-region').value){showMsg('driverMessage','Аты-жөнү, телефон жана аймак милдеттүү.','error');return}try{let driver_photo_url=driverProfile?.driver_photo_url||null,vehicle_photo_urls=driverProfile?.vehicle_photo_urls||[];if($('d-driver-photo').files.length){const a=await uploadImages('driver-photos',[$('d-driver-photo').files[0]],'driver',1);driver_photo_url=a[0]}if($('d-vehicle-photos').files.length){vehicle_photo_urls=await uploadImages('driver-photos',$('d-vehicle-photos').files,'vehicle',5)}const payload={user_id:currentUser.id,driver_name:name,vehicle_type:$('d-type').value,vehicle_model:$('d-model').value.trim(),capacity_tons:Number($('d-capacity').value||0),region:$('d-region').value,work_directions:$('d-directions').value.trim(),work_directions_ru:$('d-directions-ru').value.trim(),phone,whatsapp:$('d-whatsapp').value.trim(),description:$('d-description').value.trim(),description_ru:$('d-description-ru').value.trim(),is_public:$('d-public').checked,is_available_today:$('d-available-today').checked,driver_photo_url,vehicle_photo_urls,updated_at:new Date().toISOString()};const {error}=await db.from('driver_profiles').upsert(payload,{onConflict:'user_id'});if(error)throw error;driverProfile=payload;showMsg('driverMessage','Айдоочу профили жана сүрөттөр сакталды.','success');loadDrivers()}catch(e){showMsg('driverMessage',e.message,'error')}}
 async function renderDispatcher(){if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b></div>';return}try{const {data:req,error}=await db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);if(error)throw error;$('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз.</div><h3>Ачык өтүнүчтөр</h3>${(req||[]).length?req.map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':'Айдоочу жүк издеп жатат'}</b><p>${esc(r.message||'')}</p><button class="btn btn-blue" onclick="acceptRequest('${esc(r.id)}')">Кабыл алуу</button></div>`).join(''):'<div class="empty">Ачык өтүнүч жок.</div>'}`}catch(e){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(e.message)}</div>`}}
 async function acceptRequest(id){try{const {error}=await db.from('dispatch_requests').update({dispatcher_id:currentUser.id,status:'accepted'}).eq('id',id).eq('status','open');if(error)throw error;renderDispatcher()}catch(e){alert(e.message)}}
 
@@ -657,6 +974,41 @@ async function adminAssignRequest(id){
 }
 
 const UI_RU = {
+ 'Билдирүү':'Сообщение',
+ 'Бүгүн бош':'Свободен сегодня',
+ 'Унаанын сүрөтү':'Фото транспорта',
+ 'Айдоочунун сүрөтү':'Фото водителя',
+ 'Жүктөө күнү':'Дата загрузки',
+ 'Жүктүн салмагы':'Вес груза',
+ 'Айдоочунун профили':"Профиль водителя",
+ 'Профилди жалпыга көрсөтсөңүз, жүк ээлери сиз менен түз байланыша алышат.':"Если откроете профиль, владельцы грузов смогут связаться с вами напрямую.",
+ 'Айдоочунун аты-жөнү':"Имя и фамилия водителя",
+ 'Унаа түрү':"Тип транспорта",
+ 'Унаанын модели':"Модель транспорта",
+ 'Айдоочунун сүрөтү (1)':"Фото водителя (1)",
+ 'Учурдагы сүрөт сакталган. Жаңы сүрөт тандасаңыз алмашат.':"Текущее фото сохранено. Новое фото заменит его.",
+ 'Сүрөт жүктөө милдеттүү эмес.':"Загрузка фото необязательна.",
+ 'Унаанын сүрөттөрү (5ке чейин)':"Фото транспорта (до 5)",
+ 'Унаанын сырткы көрүнүшүн жүктөңүз.':"Загрузите фото внешнего вида транспорта.",
+ 'Жүк көтөрүмдүүлүгү, тонна':"Грузоподъёмность, тонн",
+ 'Аймак':"Регион",
+ 'Профилимди жалпыга көрсөтүүгө уруксат берем':"Разрешаю показывать мой профиль публично",
+ 'Айдоочу профилин сактоо':"Сохранить профиль водителя",
+ 'Жүк ээси':"Владелец груза",
+ 'Салмак':"Вес",
+ 'Аралык':"Расстояние",
+ 'Жүктөө':"Загрузка",
+ 'Жүктүн сүрөтү':"Фото груза",
+ 'Сүрөт жок':"Нет фото",
+ 'Толук маалымат':"Подробнее",
+ 'Жеке билдирүү':"Личное сообщение",
+ 'Багыт көрсөтүлгөн эмес':"Направление не указано",
+ 'Көрсөтүлгөн эмес':"Не указано",
+ 'Жарыялар':"Объявления",
+ 'Айдоочу табылган жок':"Водители не найдены",
+ 'Жүк жарыясы':"Заявка на груз",
+ 'Каттаган багыттары':"Рабочие направления",
+ 'Кошумча маалымат':"Дополнительная информация",
  'Чыгуу':'Выйти',
  'Кирүү':'Войти',
  'Кыргызча':'Кыргызский',
@@ -805,7 +1157,7 @@ function applyLanguage(){
    o.textContent=(lang==='ru'?UI_RU[original]:null)||original;
  });
 }
-function setLang(v){lang=v;localStorage.setItem('juk_express_lang',v);document.documentElement.lang=v;$('lang').value=v;applyLanguage();}
+function setLang(v){lang=v;localStorage.setItem('juk_express_lang',v);document.documentElement.lang=v;$('lang').value=v;renderListings();renderHomeListings();renderSaved();renderDrivers();applyLanguage();if(currentDetailId&&$('page-detail')&&!$('page-detail').classList.contains('hidden'))openDetail(currentDetailId);}
 $('lang').addEventListener('change',e=>setLang(e.target.value));
 async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
