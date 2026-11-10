@@ -697,11 +697,11 @@ async function loadHomeStats(){
   const [users,loads,drivers]=await Promise.all([
    db.from('profiles').select('id',{count:'exact',head:true}),
    db.from('loads').select('id',{count:'exact',head:true}).eq('country','Кыргызстан').eq('status','active'),
-   db.from('driver_profiles').select('user_id',{count:'exact',head:true}).eq('is_public',true)
+   db.rpc('get_public_drivers_safe')
   ]);
   set('statUsers',users.error?NaN:(users.count??0));
   set('statLoads',loads.error?NaN:(loads.count??0));
-  set('statDrivers',drivers.error?NaN:(drivers.count??0));
+  set('statDrivers',drivers.error?NaN:((drivers.data||[]).length));
   if(users.error)console.warn('Stats users:',users.error.message);
   if(loads.error)console.warn('Stats loads:',loads.error.message);
   if(drivers.error)console.warn('Stats drivers:',drivers.error.message);
