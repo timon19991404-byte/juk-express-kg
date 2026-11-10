@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу — V42</title>
+<title>ЖҮК ЭКСПРЕСС.KG — Кыргызстан боюнча жүк ташуу — Коопсуз версия</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -687,7 +687,7 @@ async function afterLogin(){
  }
 }
 async function loadProfile(){if(!currentUser){profile=null;return}await ensureProfile(currentUser)}
-async function loadDriverProfile(){driverProfile=null;if(!currentUser||profile?.account_type!=='driver')return;const {data,error}=await db.rpc('get_my_driver_profile');if(error){console.warn('driver profile',error.message);return}driverProfile=data||null}
+async function loadDriverProfile(){driverProfile=null;if(!currentUser||profile?.account_type!=='driver')return;const {data,error}=await db.rpc('get_my_driver_profile');if(error){console.warn('driver profile',error.message);return}driverProfile=Array.isArray(data)?(data[0]||null):(typeof data==='string'?JSON.parse(data):data)}
 async function logout(){stopChatRealtime();activeChatUserId=null;const {error}=await db.auth.signOut();if(error){alert(error.message);return}currentUser=null;profile=null;driverProfile=null;isAdmin=false;refreshUI();showPage('home')}
 function refreshUI(){$('authButton').textContent=currentUser?tr('Чыгуу','Выйти'):tr('Кирүү','Войти');$('menuAdmin').classList.toggle('hidden',!isAdmin);$('menuDispatcher').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('dispatcherNav').classList.toggle('hidden',profile?.account_type!=='dispatcher');$('adminNav').classList.toggle('hidden',!isAdmin);renderCabinet();renderDispatcher();loadListings();loadHomeStats();applyLanguage();loadDrivers()}
 
@@ -697,11 +697,11 @@ async function loadHomeStats(){
   const [users,loads,drivers]=await Promise.all([
    db.from('profiles').select('id',{count:'exact',head:true}),
    db.from('loads').select('id',{count:'exact',head:true}).eq('country','Кыргызстан').eq('status','active'),
-   db.rpc('get_public_drivers_safe')
+   db.from('driver_profiles').select('user_id',{count:'exact',head:true}).eq('is_public',true)
   ]);
   set('statUsers',users.error?NaN:(users.count??0));
   set('statLoads',loads.error?NaN:(loads.count??0));
-  set('statDrivers',drivers.error?NaN:((drivers.data||[]).length));
+  set('statDrivers',drivers.error?NaN:(drivers.count??0));
   if(users.error)console.warn('Stats users:',users.error.message);
   if(loads.error)console.warn('Stats loads:',loads.error.message);
   if(drivers.error)console.warn('Stats drivers:',drivers.error.message);
@@ -716,8 +716,8 @@ function setRouteAndSearch(from,to){
 async function loadListings(){
  $('homeListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';$('adsListings').innerHTML='<div class="empty">Жарыялар жүктөлүүдө…</div>';
  try{const {data,error}=await db.rpc('get_public_loads_safe');if(error)throw error;
- let rows=(data||[]).filter(x=>!x.expires_at||new Date(x.expires_at)>=new Date());const ownerIds=[...new Set(rows.map(x=>x.owner_id).filter(Boolean))];let ownerNames={};if(ownerIds.length){try{const {data:owners,error:ownerError}=await db.from('profiles').select('id,full_name').in('id',ownerIds);if(!ownerError)(owners||[]).forEach(o=>{ownerNames[o.id]=o.full_name||''})}catch(ownerLookupError){console.warn('Жүк ээсинин аты алынган жок:',ownerLookupError.message)}}allListings=rows.map(x=>({...x,owner_name:ownerNames[x.owner_id]||x.owner_name||'',_table:'loads'}));renderListings();renderSaved();renderHomeListings()
- }catch(e){const msg=friendlyError(e);$('adsListings').innerHTML=`<div class="panel notice error">${esc(msg)}<br><small>Жарыялар таблицасы же RLS эрежелери да текшерилиши мүмкүн.</small></div>`;$('homeListings').innerHTML=`<div class="empty">${esc(msg)}</div>`}
+ let rows=(data||[]).map(x=>typeof x==='string'?JSON.parse(x):x).filter(x=>!x.expires_at||new Date(x.expires_at)>=new Date());const ownerIds=[...new Set(rows.map(x=>x.owner_id).filter(Boolean))];let ownerNames={};if(ownerIds.length){try{const {data:owners,error:ownerError}=await db.from('profiles').select('id,full_name').in('id',ownerIds);if(!ownerError)(owners||[]).forEach(o=>{ownerNames[o.id]=o.full_name||''})}catch(ownerLookupError){console.warn('Жүк ээсинин аты алынган жок:',ownerLookupError.message)}}allListings=rows.map(x=>({...x,owner_name:ownerNames[x.owner_id]||x.owner_name||'',_table:'loads'}));renderListings();renderSaved();renderHomeListings()
+ }catch(e){const msg=friendlyError(e);$('adsListings').innerHTML=`<div class="panel notice error">${esc(msg)}<br><small>Коопсуз жүк тизмесин жүктөө мүмкүн болгон жок.</small></div>`;$('homeListings').innerHTML=`<div class="empty">${esc(msg)}</div>`}
 }
 function getSaved(){try{return JSON.parse(localStorage.getItem(savedKey)||'[]')}catch{return[]}}
 function toggleSaved(key){let a=getSaved();a=a.includes(key)?a.filter(x=>x!==key):[...a,key];localStorage.setItem(savedKey,JSON.stringify(a));renderListings();renderSaved();renderHomeListings()}
@@ -776,7 +776,7 @@ function openDetail(id){
   <div class="listing-actions">
    ${phone?`<a class="btn btn-blue" style="text-decoration:none" href="tel:${esc(phone)}">${tr('Чалуу','Позвонить')}</a>`:''}
    ${wa?`<a class="btn btn-primary" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}
-   ${x.owner_id&&x.owner_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(x.owner_id)}','${esc(title).replace(/'/g,'&#39;')}')">✉ ${tr('Жеке билдирүү','Личное сообщение')}</button>`:''}
+   ${phone&&x.owner_id&&x.owner_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(x.owner_id)}','${esc(title).replace(/'/g,'&#39;')}')">✉ ${tr('Жеке билдирүү','Личное сообщение')}</button>`:''}
    <button class="btn btn-light" onclick="toggleSaved('loads:${esc(x.id)}')">☆ ${tr('Сактоо','В избранное')}</button>
    ${x.owner_id===currentUser?.id?`<button class="btn btn-primary" onclick="confirmLoadCurrent('${esc(x.id)}')">✓ ${tr('Актуалдуу деп ырастоо','Подтвердить актуальность')}</button>`:''}
   </div>`;
@@ -785,8 +785,8 @@ function openDetail(id){
 
 let activeChatUserId=null,activeChatName='',chatRealtime=null,chatMessagesCache=[];
 function canUsePrivateChat(){return !!currentUser&&['customer','driver'].includes(profile?.account_type)}
-function chatRoleNotice(){if(!currentUser)return tr('Жеке билдирүү жөнөтүү үчүн аккаунтка кириңиз.','Войдите в аккаунт, чтобы отправлять личные сообщения.');if(!canUsePrivateChat())return tr('Жеке чат жүк ээлери жана айдоочулар үчүн гана жеткиликтүү.','Личный чат доступен только владельцам грузов и водителям.');return ''}
-async function openChat(userId,displayName=''){if(!currentUser){openAuth();return}if(!canUsePrivateChat()){alert(chatRoleNotice());return}if(!userId||userId===currentUser.id){alert(tr('Өзүңүзгө билдирүү жөнөтө албайсыз.','Нельзя отправить сообщение самому себе.'));return}activeChatUserId=userId;activeChatName=displayName||tr('Колдонуучу','Пользователь');showPage('messages');await loadConversations();await openChatThread(userId,activeChatName)}
+function chatRoleNotice(){if(!currentUser)return tr('Жеке билдирүү жөнөтүү үчүн аккаунтка кириңиз.','Войдите в аккаунт, чтобы отправлять личные сообщения.');if(!canUsePrivateChat())return tr('Жеке чат жүк ээлери жана айдоочулар үчүн гана жеткиликтүү.','Личный чат доступен только владельцам грузов и водителям.');if(profile?.account_type==='driver')return tr('Айдоочулар үчүн жеке чат PRO же PRO+ активдүү болгондо гана жеткиликтүү.','Для водителей личный чат доступен только при активном PRO или PRO+.');return ''}
+async function openChat(userId,displayName=''){if(!currentUser){openAuth();return}if(!canUsePrivateChat()){alert(chatRoleNotice());return}if(!userId||userId===currentUser.id){alert(tr('Өзүңүзгө билдирүү жөнөтө албайсыз.','Нельзя отправить сообщение самому себе.'));return}if(profile?.account_type==='driver'){try{const {data,error}=await db.rpc('can_contact_user',{target_user_id:currentUser.id});if(error||data!==true){alert(tr('Жеке байланыш PRO же PRO+ тарифинде гана жеткиликтүү.','Личные сообщения доступны только на тарифах PRO или PRO+.'));return}}catch(e){alert(tr('PRO мүмкүнчүлүгүн текшерүү мүмкүн болгон жок. Кийин кайра аракет кылыңыз.','Не удалось проверить доступ PRO. Попробуйте позже.'));return}}activeChatUserId=userId;activeChatName=displayName||tr('Колдонуучу','Пользователь');showPage('messages');await loadConversations();await openChatThread(userId,activeChatName)}
 function stopChatRealtime(){if(chatRealtime){db.removeChannel(chatRealtime);chatRealtime=null}}
 async function loadConversations(){
  const list=$('conversationList');if(!list)return;if(!currentUser){list.innerHTML='<div class="empty">Аккаунтка кириңиз.</div>';return}if(!canUsePrivateChat()){list.innerHTML=`<div class="empty">${esc(chatRoleNotice())}</div>`;return}
@@ -880,7 +880,7 @@ async function publishListing(){if(!currentUser){openAuth();return}const title=$
 async function requestDispatcher(table,id){if(!currentUser){openAuth();return}const message=prompt('Диспетчерге кандай жардам керек?','Бул жүк боюнча байланышууга жардам бериңиз.');if(message===null)return;try{const {error}=await db.from('dispatch_requests').insert({requester_id:currentUser.id,request_type:'find_driver',listing_id:id,listing_table:table,message,payment_mode:'direct'});if(error)throw error;alert('Өтүнүч жөнөтүлдү.')}catch(e){alert('Өтүнүч жөнөтүлгөн жок: '+e.message)}}
 function regionOptions(){return regions.map(r=>`<option value="${esc(r)}">${esc(r)}</option>`).join('')}
 function setupRegions(){$('df-region').innerHTML='<option value="">Баары</option>'+regionOptions()}
-async function loadDrivers(){try{const {data,error}=await db.rpc('get_public_drivers_safe');if(error)throw error;allDrivers=(data||[]).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0)).slice(0,100);renderDrivers()}catch(e){$('driversList').innerHTML=`<div class="panel notice error">${esc(friendlyError(e))}<br>Айдоочулар тизмесин коопсуз жүктөө мүмкүн болгон жок.</div>`}}
+async function loadDrivers(){try{const {data,error}=await db.rpc('get_public_drivers_safe');if(error)throw error;allDrivers=(data||[]).map(d=>typeof d==='string'?JSON.parse(d):d);renderDrivers()}catch(e){$('driversList').innerHTML=`<div class="panel notice error">${esc(friendlyError(e))}<br>Айдоочулардын коопсуз тизмесин жүктөө мүмкүн болгон жок.</div>`}}
 function renderDrivers(){
  const region=$('df-region').value,vehicle=$('df-vehicle').value.trim().toLowerCase(),capacity=Number($('df-capacity').value);
  let a=allDrivers.filter(d=>(!region||d.region===region)&&(!vehicle||`${d.vehicle_type||''} ${d.vehicle_model||''}`.toLowerCase().includes(vehicle))&&(!capacity||Number(d.capacity_tons)>=capacity));
@@ -894,7 +894,7 @@ function renderDrivers(){
    ? `<img class="driver-avatar" src="${esc(driverPhoto)}" alt="Айдоочунун сүрөтү" loading="lazy" onerror="this.outerHTML='<div class=&quot;driver-avatar-fallback&quot;>👤</div>'">`
    : `<div class="driver-avatar-fallback">👤</div>`;
   const route=String(d.work_directions||'').trim();
-  return `<article class="driver-card"><div class="driver-media">${vehiclePhoto}${d.is_available_today?`<span class="driver-available-badge">${tr('Бүгүн бош','Свободен сегодня')}</span>`:''}${vehiclePhotos.length>1?`<span class="driver-photo-count">1/${vehiclePhotos.length}</span>`:''}</div><div class="driver-info"><div class="driver-profile-head">${avatar}<div style="min-width:0"><span class="pill">${tr('Айдоочу','Водитель')}</span><div class="driver-name">${esc(d.driver_name||'Айдоочу')}</div></div></div><div class="listing-meta"><span>🚚 ${esc([vehicleTypeText(d.vehicle_type),d.vehicle_model].filter(Boolean).join(' ')||tr('Унаа көрсөтүлгөн эмес','Транспорт не указан'))}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(bilingualText(d.region,d.region_ru,'—'))}</span></div>${route?`<p class="muted">↗ ${esc(bilingualText(route,d.work_directions_ru,''))}</p>`:''}${(lang==='ru'?(d.description_ru||d.description):d.description)?`<p>${esc(lang==='ru'?(d.description_ru||d.description):d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}${d.contact_access&&d.user_id&&d.user_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(d.user_id)}','${esc(d.driver_name||'Айдоочу').replace(/'/g,'&#39;')}')">✉ ${tr('Билдирүү','Сообщение')}</button>`:''}</div></div></article>`;
+  return `<article class="driver-card"><div class="driver-media">${vehiclePhoto}${d.is_available_today?`<span class="driver-available-badge">${tr('Бүгүн бош','Свободен сегодня')}</span>`:''}${vehiclePhotos.length>1?`<span class="driver-photo-count">1/${vehiclePhotos.length}</span>`:''}</div><div class="driver-info"><div class="driver-profile-head">${avatar}<div style="min-width:0"><span class="pill">${tr('Айдоочу','Водитель')}</span><div class="driver-name">${esc(d.driver_name||'Айдоочу')}</div></div></div><div class="listing-meta"><span>🚚 ${esc([vehicleTypeText(d.vehicle_type),d.vehicle_model].filter(Boolean).join(' ')||tr('Унаа көрсөтүлгөн эмес','Транспорт не указан'))}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(bilingualText(d.region,d.region_ru,'—'))}</span></div>${route?`<p class="muted">↗ ${esc(bilingualText(route,d.work_directions_ru,''))}</p>`:''}${(lang==='ru'?(d.description_ru||d.description):d.description)?`<p>${esc(lang==='ru'?(d.description_ru||d.description):d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}${d.phone&&d.user_id&&d.user_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(d.user_id)}','${esc(d.driver_name||'Айдоочу').replace(/'/g,'&#39;')}')">✉ ${tr('Билдирүү','Сообщение')}</button>`:''}</div></div></article>`;
  }).join(''):'<div class="panel empty"><b>Айдоочу табылган жок</b>Фильтрлерди өзгөртүп көрүңүз.</div>';
  applyLanguage();
 }
@@ -937,12 +937,15 @@ async function loadVehicleManager(){
   if(s.error && !String(s.error.message||'').toLowerCase().includes('permission'))throw s.error;
   managedVehicles=v.data||[];
   const sub=(s.data||[])[0]||{};
-  managedPlan=sub.plan||'free'; managedStatus=sub.status||'free';
-  const active=(managedPlan==='pro_plus'&&['active','trial','past_due'].includes(managedStatus));
-  const limit=active?5:1;
+  const now=Date.now();
+  const trialValid=sub.status==='trial'&&sub.trial_ends_at&&new Date(sub.trial_ends_at).getTime()>now;
+  const paidValid=sub.status==='active'&&sub.current_period_end&&new Date(sub.current_period_end).getTime()>now;
+  const entitlementValid=!!(trialValid||paidValid);
+  managedPlan=entitlementValid?(sub.plan||'free'):'free'; managedStatus=entitlementValid?sub.status:'expired';
+  const limit=managedPlan==='pro_plus'?5:1;
   const shown=managedVehicles.filter(x=>x.is_active!==false).length;
   const planText=managedPlan==='pro_plus'?'PRO+':managedPlan==='pro'?'PRO':'FREE';
-  $('vehiclePlanInfo').innerHTML=`<b>Тариф: ${planText}</b> · Активдүү унаалар: ${shown}/${limit}<br><small>PRO+: 899 сом/ай · 5 унаа. PRO: 599 сом/ай · 1 унаа. FREE: 1 унаа.</small>`;
+  $('vehiclePlanInfo').innerHTML=`<b>Тариф: ${planText}</b> · Активдүү унаалар: ${shown}/${limit}<br><small>PRO+: 899 сом/ай · 5 унаа. PRO: 599 сом/ай · 1 унаа. FREE: 1 унаа.${entitlementValid?'':' PRO мүмкүнчүлүгү мөөнөтү бүткөн же активдүү эмес.'}</small>`;
   renderManagedVehicles();
  }catch(e){
   $('vehicleManagerList').innerHTML=`<div class="notice error">Унааларды жүктөө катасы: ${esc(e.message||e)}</div>`;
