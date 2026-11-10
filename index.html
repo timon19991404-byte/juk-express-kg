@@ -494,6 +494,14 @@ main{max-width:1180px}
 .vehicle-manager-actions button{padding:7px 9px;font-size:12px}
 @media(max-width:420px){.vehicle-manager-item{align-items:flex-start}.vehicle-manager-item img{width:64px;height:58px}.vehicle-manager-actions{flex-direction:column}}
 
+
+/* V52.1 — clean profile cabinet inspired by the supplied reference */
+.cab-profile-wrap{display:grid;gap:14px;max-width:760px;margin:0 auto}
+.cab-user-card,.cab-menu-card,.cab-subview{background:#eef2f8;border:1px solid #e2e8f0;border-radius:22px;padding:18px 20px;box-shadow:none}
+.cab-user-card{padding:24px 22px}.cab-user-name{font-size:23px;font-weight:850;color:#111827;overflow-wrap:anywhere}.cab-user-email{font-size:14px;color:#687586;margin-top:7px;overflow-wrap:anywhere}.cab-role-chip{display:inline-block;margin-top:12px;border-radius:20px;padding:5px 10px;background:#fff;color:#43556a;font-size:11px;font-weight:800}
+.cab-menu-card{padding:0 18px}.cab-menu-item{width:100%;min-height:72px;display:flex;align-items:center;gap:14px;border:0;border-bottom:1px solid #d7dee8;background:transparent;text-align:left;color:#151b25;padding:14px 2px}.cab-menu-item:last-child{border-bottom:0}.cab-menu-item>span:nth-child(2){flex:1;min-width:0}.cab-menu-item b{font-size:16px;font-weight:750}.cab-menu-icon{width:30px;flex:0 0 30px;text-align:center;font-size:23px;color:#111827}.cab-chevron{font-size:29px;line-height:1;color:#111827}.cab-driver-item{background:#fff9e8;margin:0 -18px;width:calc(100% + 36px);padding-left:18px;padding-right:18px;border-radius:0 0 20px 20px}.cab-driver-item small{display:block;color:#718096;font-size:11px;margin-top:3px}.cab-logout-card{margin-bottom:8px}.cab-subview{background:#fff;padding:20px}.cab-subview h3{margin:18px 0 14px;font-size:21px}.cab-subview .profile-grid{grid-template-columns:1fr 1fr}
+@media(max-width:520px){.cab-user-card{padding:21px 19px}.cab-user-name{font-size:21px}.cab-menu-card{padding:0 15px}.cab-menu-item{min-height:68px;gap:11px}.cab-menu-item b{font-size:15px}.cab-driver-item{margin:0 -15px;width:calc(100% + 30px);padding-left:15px;padding-right:15px}.cab-subview{padding:16px}.cab-subview .profile-grid{grid-template-columns:1fr}}
+
 </style>
 <meta name="application-version" content="V42">
 </head>
@@ -924,11 +932,67 @@ async function enablePushNotifications(){const box=$('pushStatus');try{if(!curre
 async function disablePushNotifications(){const box=$('pushStatus');try{if(!currentUser)throw new Error('Адегенде аккаунтка кириңиз.');const reg=await getPushRegistration();const sub=await reg.pushManager.getSubscription();if(sub){const {error}=await db.from('push_subscriptions').delete().eq('user_id',currentUser.id).eq('endpoint',sub.endpoint);if(error)throw error;await sub.unsubscribe()}if(box){box.textContent='Бул түзмөктөгү Push билдирмелер өчүрүлдү.';box.className='notice'}}catch(e){if(box){box.textContent=e.message||String(e);box.className='notice error'}}}
 async function sendPushEvent(payload){try{if(!currentUser)return;const {error}=await db.functions.invoke('send-push',{body:{...payload,sender_id:currentUser.id}});if(error)console.warn('Push жөнөтүлгөн жок:',error.message)}catch(e){console.warn('Push:',e.message)}}
 
-function renderCabinet(){if(!currentUser){$('cabinetContent').innerHTML='<div class="empty"><b>Жеке кабинетке кирүү керек</b><button class="btn btn-blue" onclick="openAuth()">Кирүү / Катталуу</button></div>';return}
-const role=profile?.account_type,roleName=role==='driver'?'Айдоочу':role==='dispatcher'?'Диспетчер':'Жүк ээси';
-let base=`<div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аккаунт түрү</label><input value="${roleName}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button> <section class="panel" style="margin-top:16px"><h3>🔔 Push билдирмелер</h3><p class="muted">Жаңы жүк жарыялары жана жеке билдирүүлөр тууралуу телефонго эскертме алыңыз.</p><div id="pushStatus" class="notice">Билдирме абалы текшерилүүдө…</div><div class="listing-actions"><button class="btn btn-primary" type="button" onclick="enablePushNotifications()">🔔 Билдирмелерди күйгүзүү</button><button class="btn btn-light" type="button" onclick="disablePushNotifications()">Өчүрүү</button></div></section> `;
-if(role==='driver')base+=driverFormHtml()+vehicleManagerHtml();
-base+=`<div style="margin-top:15px"><button class="btn btn-danger" onclick="logout()">Аккаунттан чыгуу</button></div><div class="notice">Аккаунт түрүн колдонуучу өзү өзгөртө албайт. Диспетчер укугун администратор гана берет.</div>`;$('cabinetContent').innerHTML=base;applyLanguage();refreshPushStatus();if(role==='driver')loadVehicleManager()}
+function renderCabinet(){
+ if(!currentUser){$('cabinetContent').innerHTML='<div class="empty"><b>Жеке кабинетке кирүү керек</b><button class="btn btn-blue" onclick="openAuth()">Кирүү / Катталуу</button></div>';return}
+ const role=profile?.account_type;
+ const fullName=profile?.full_name||currentUser.user_metadata?.full_name||currentUser.email||'Колдонуучу';
+ const email=currentUser.email||'';
+ const items=[
+  ['personal','♙','Жеке маалымат','Личная информация'],
+  ['plans','▣','Жазылуулар жана сатып алуулар','Подписки и покупки'],
+  ['notifications','♧','Билдирмелерди жөндөө','Настройка уведомлений'],
+  ['language','◎','Тил: '+(lang==='ru'?'Русский':'Кыргызча'),'Язык: '+(lang==='ru'?'Русский':'Кыргызский')],
+  ['invite','♧','Досторду чакыруу','Пригласить друзей'],
+  ['gift','♧','Жазылууну белек кылуу','Подарить подписку'],
+  ['promo','◇','Менде промокод бар','У меня есть код'],
+  ['diagnostics','ⓘ','Диагностика','Диагностика'],
+  ['legal','▤','Юридикалык маалымат','Юридическая информация'],
+  ['support','?','Колдоо кызматы','Поддержка']
+ ];
+ const driverItem=role==='driver'?`<button class="cab-menu-item cab-driver-item" onclick="openCabinetSection('driver')"><span class="cab-menu-icon">🚚</span><span><b>Айдоочунун профили</b><small>Унаа, багыттар жана айдоочу маалыматы</small></span><span class="cab-chevron">›</span></button>`:'';
+ const menu=items.map(([id,ico,ky,ru])=>`<button class="cab-menu-item" onclick="openCabinetSection('${id}')"><span class="cab-menu-icon">${ico}</span><span><b>${lang==='ru'?ru:ky}</b></span><span class="cab-chevron">›</span></button>`).join('');
+ $('cabinetContent').innerHTML=`<div class="cab-profile-wrap">
+  <div class="cab-user-card"><div class="cab-user-name">${esc(fullName)}</div><div class="cab-user-email">${esc(email)}</div><span class="cab-role-chip">${role==='driver'?'Айдоочу':role==='dispatcher'?'Диспетчер':'Жүк ээси'}</span></div>
+  <div class="cab-menu-card">${menu}${driverItem}</div>
+  <div class="cab-menu-card cab-logout-card"><button class="cab-menu-item" onclick="logout()"><span class="cab-menu-icon">↪</span><span><b>Аккаунттан чыгуу</b></span><span class="cab-chevron">›</span></button></div>
+  <div class="cab-subview hidden" id="cabinetSubview"></div>
+ </div>`;
+}
+function openCabinetSection(section){
+ const host=$('cabinetSubview');if(!host)return;
+ const role=profile?.account_type;
+ const back=`<button class="btn btn-light" onclick="closeCabinetSection()">← Артка</button>`;
+ let html='';
+ if(section==='personal'){
+  html=`${back}<h3>Жеке маалымат</h3><div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button>`;
+ }else if(section==='notifications'){
+  html=`${back}<h3>🔔 Билдирмелерди жөндөө</h3><p class="muted">Жаңы жүк жарыялары жана жеке билдирүүлөр тууралуу телефонуңузга эскертме алыңыз.</p><div id="pushStatus" class="notice">Билдирме абалы текшерилүүдө…</div><div class="listing-actions"><button class="btn btn-primary" type="button" onclick="enablePushNotifications()">🔔 Билдирмелерди күйгүзүү</button><button class="btn btn-light" type="button" onclick="disablePushNotifications()">Өчүрүү</button></div>`;
+ }else if(section==='driver'&&role==='driver'){
+  html=`${back}<h3>🚚 Айдоочунун профили</h3><p class="muted">Бул бөлүмдө айдоочу маалыматыңызды жана унааларыңызды өзүнчө башкарасыз.</p>${driverFormHtml()}${vehicleManagerHtml()}`;
+ }else if(section==='language'){
+  html=`${back}<h3>Тил / Язык</h3><div class="listing-actions"><button class="btn ${lang==='ky'?'btn-primary':'btn-light'}" onclick="setLanguage('ky')">Кыргызча</button><button class="btn ${lang==='ru'?'btn-primary':'btn-light'}" onclick="setLanguage('ru')">Русский</button></div>`;
+ }else if(section==='plans'){
+  html=`${back}<h3>Жазылуулар жана сатып алуулар</h3><div class="notice">Айдоочулар үчүн FREE, PRO жана PRO+ мүмкүнчүлүктөрү ушул бөлүмдө көрсөтүлөт. Жүк ээлери жазылуу төлөбөйт.</div><p class="muted">PRO — 599 сом/ай · PRO+ — 899 сом/ай.</p>`;
+ }else if(section==='invite'){
+  html=`${back}<h3>Досторду чакыруу</h3><p class="muted">ЖҮК ЭКСПРЕСС.KG платформасын досторуңуз менен бөлүшүңүз.</p><button class="btn btn-blue" onclick="navigator.clipboard.writeText(location.href).then(()=>alert('Шилтеме көчүрүлдү'))">Шилтемени көчүрүү</button>`;
+ }else if(section==='gift'){
+  html=`${back}<h3>Жазылууну белек кылуу</h3><p class="muted">Жазылууну белек кылуу функциясы даярдалууда.</p>`;
+ }else if(section==='promo'){
+  html=`${back}<h3>Промокод</h3><div class="field"><label>Промокодду киргизиңиз</label><input id="cabPromoCode" placeholder="PROMO"></div><p class="muted">Промокоддор ишке киргенде бул жерден колдонсоңуз болот.</p>`;
+ }else if(section==='diagnostics'){
+  html=`${back}<h3>Диагностика</h3><p>Аккаунт: ${esc(currentUser.email||'')}</p><p>Браузер: ${esc(navigator.userAgent)}</p><p>Push колдоосу: ${('PushManager' in window)?'Бар':'Жок'}</p>`;
+ }else if(section==='legal'){
+  html=`${back}<h3>Юридикалык маалымат</h3><p class="muted">Колдонуу шарттары жана купуялык саясаты.</p>`;
+ }else if(section==='support'){
+  html=`${back}<h3>Колдоо кызматы</h3><p class="muted">Суроо же көйгөй болсо, администраторго кайрылыңыз.</p>`;
+ }
+ host.innerHTML=html;host.classList.remove('hidden');host.scrollIntoView({behavior:'smooth',block:'start'});
+ if(section==='notifications')refreshPushStatus();
+ if(section==='driver')loadVehicleManager();
+}
+function closeCabinetSection(){const host=$('cabinetSubview');if(host){host.classList.add('hidden');host.innerHTML='';window.scrollTo({top:0,behavior:'smooth'});}}
+function setLanguage(value){lang=value;try{localStorage.setItem('juk_lang',value)}catch(e){}renderCabinet();applyLanguage();}
+
 function driverFormHtml(){const d=driverProfile||{};return `<hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3 id="driver-profile-heading">Айдоочунун профили</h3><p class="muted">Профилди жалпыга көрсөтсөңүз, жүк ээлери сиз менен түз байланыша алышат.</p><div class="profile-grid"><div class="field"><label>Айдоочунун аты-жөнү</label><input id="d-name" value="${esc(d.driver_name||profile?.full_name||'')}"></div><div class="field"><label>Унаа түрү</label><select id="d-type">${['Sprinter','Atego','Газель','Фура','Рефрижератор','Борттук унаа','Самосвал','Трал','Контейнер ташуучу','Цистерна','Башка'].map(x=>`<option ${d.vehicle_type===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Унаанын модели</label><input id="d-model" value="${esc(d.vehicle_model||'')}"></div><div class="field"><label>Айдоочунун сүрөтү (1)</label><input id="d-driver-photo" type="file" accept="image/*"><small class="muted">${d.driver_photo_url?'Учурдагы сүрөт сакталган. Жаңы сүрөт тандасаңыз алмашат.':'Сүрөт жүктөө милдеттүү эмес.'}</small></div><div class="field"><label>Унаанын сүрөттөрү (5ке чейин)</label><input id="d-vehicle-photos" type="file" accept="image/*" multiple><small class="muted">${(d.vehicle_photo_urls||[]).length?'Сакталган сүрөттөр: '+(d.vehicle_photo_urls||[]).length:'Унаанын сырткы көрүнүшүн жүктөңүз.'}</small></div><div class="field"><label>Жүк көтөрүмдүүлүгү, тонна</label><input id="d-capacity" type="number" min="0" step=".1" value="${esc(d.capacity_tons||'')}"></div><div class="field"><label>Аймак</label><select id="d-region"><option value="">Аймакты тандаңыз</option>${regions.map(x=>`<option ${d.region===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Телефон</label><input id="d-phone" value="${esc(d.phone||profile?.phone||'')}"></div><div class="field"><label>WhatsApp</label><input id="d-whatsapp" value="${esc(d.whatsapp||'')}"></div><div class="field"><label>${tr('Каттаган багыттары','Рабочие направления')}</label><input id="d-directions" value="${esc(d.work_directions||'')}" placeholder="Мисалы: Ош — Бишкек"></div><div class="field"><label>${tr('Багыттары орусча (милдеттүү эмес)','Направления на русском (необязательно)')}</label><input id="d-directions-ru" value="${esc(d.work_directions_ru||'')}" placeholder="Например: Ош — Бишкек"></div></div><div class="field"><label>${tr('Кошумча маалымат','Дополнительная информация')}</label><textarea id="d-description">${esc(d.description||'')}</textarea></div><div class="field"><label>${tr('Кошумча маалымат орусча (милдеттүү эмес)','Дополнительная информация на русском (необязательно)')}</label><textarea id="d-description-ru">${esc(d.description_ru||'')}</textarea></div><label class="driver-availability-setting"><input type="checkbox" id="d-available-today" ${d.is_available_today?'checked':''}> <span>${tr('Бүгүн бош — жүк алууга даярмын','Свободен сегодня — готов принять груз')}</span></label><label style="display:flex;gap:9px;align-items:center;margin:14px 0"><input type="checkbox" id="d-public" ${d.is_public?'checked':''}> Профилимди жалпыга көрсөтүүгө уруксат берем</label><div id="driverMessage"></div><button class="btn btn-primary" onclick="saveDriverProfile()">Айдоочу профилин сактоо</button>`}
 
 function vehicleManagerHtml(){
