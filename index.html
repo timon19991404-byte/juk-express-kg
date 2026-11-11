@@ -589,6 +589,43 @@ main{max-width:1180px}
 }
 .taxi-brand-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:inherit}
 </style>
+
+<style id="taxi-address-search-styles">
+.taxi-address-wrap{position:relative;min-width:0}.taxi-address-wrap input{width:100%;box-sizing:border-box}
+.taxi-suggestions{position:absolute;z-index:1000;left:0;right:0;top:100%;max-height:230px;overflow:auto;background:#fff;border:1px solid #d7e0e8;border-radius:12px;box-shadow:0 10px 28px #14243a25}
+.taxi-suggestion{display:block;width:100%;padding:12px;text-align:left;border:0;border-bottom:1px solid #edf1f5;background:#fff;color:#17283b;font-size:14px}
+.taxi-suggestion:last-child{border-bottom:0}.taxi-suggestion:active{background:#eef5fb}
+.taxi-address-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:7px}.taxi-address-tools button{border:0;background:#edf3f8;color:#23415d;border-radius:9px;padding:7px 10px;font-size:12px}
+.taxi-search-panel{padding:14px;border:1px solid #dce4ec;background:#fff;border-radius:16px;margin:12px 0}
+.taxi-search-panel .taxi-form-grid{margin-bottom:10px}
+.taxi-route-line{font-size:16px;font-weight:800;color:#142d46;line-height:1.4}
+.taxi-card .taxi-address-detail{font-size:12px;color:#657487;margin:5px 0}
+.taxi-card .taxi-driver-line{display:flex;gap:10px;align-items:center;margin:9px 0}
+.taxi-card .taxi-driver-avatar{width:42px;height:42px;object-fit:cover;border-radius:50%;background:#edf2f6}
+.taxi-card .taxi-date-price{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.taxi-card .taxi-price{white-space:nowrap}
+@media(max-width:650px){.taxi-search-panel .taxi-form-grid{grid-template-columns:1fr}}
+</style>
+
+<style id="taxi-dashboard-v54">
+.taxi-dashboard-home{padding-bottom:12px}
+.taxi-dash-welcome{padding:8px 4px 14px}.taxi-dash-kicker{font-size:12px;letter-spacing:2px;color:#b58a20;font-weight:900}
+.taxi-dash-welcome h1{font-size:clamp(22px,4vw,30px);margin:5px 0;color:#132b43;line-height:1.18}
+.taxi-dash-welcome p{margin:0;color:#667587;font-size:13px}
+.taxi-dash-hero{min-height:245px;border-radius:22px;overflow:hidden;position:relative;background:linear-gradient(90deg,#071b31f2 0%,#102d48d9 48%,#102d4830 100%),url('taxi-hero.webp') center/cover;display:flex;align-items:center;padding:22px;color:white;box-shadow:0 12px 26px #0c274222}
+.taxi-dash-hero-copy{max-width:620px;position:relative;z-index:1}.taxi-dash-brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:950}.taxi-dash-brand img{width:54px;height:54px;object-fit:contain;border-radius:13px;background:#ffbd18;padding:5px}.taxi-dash-brand em{font-style:normal;color:#ffca31}
+.taxi-dash-hero h2{font-size:clamp(25px,4vw,36px);line-height:1.12;margin:18px 0 8px;max-width:520px}.taxi-dash-hero p{font-size:15px;line-height:1.5;max-width:520px;color:#edf4fb}
+.taxi-dash-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.taxi-dash-pills span{background:#ffffff22;border:1px solid #ffffff55;border-radius:30px;padding:7px 11px;font-size:12px;font-weight:800}
+.taxi-dash-role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.taxi-role-card{border:0;border-radius:16px;min-height:112px;padding:14px;text-align:left;position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;color:#172b40;box-shadow:0 5px 14px #14283d12}
+.taxi-role-card>span{font-size:26px}.taxi-role-card b{font-size:16px}.taxi-role-card small{font-size:11px;opacity:.8}.taxi-role-card i{position:absolute;right:12px;bottom:12px;font-size:25px;font-style:normal}
+.taxi-role-card.passenger{background:linear-gradient(135deg,#ffd83d,#ffb900)}.taxi-role-card.parcel{background:linear-gradient(135deg,#5a43db,#3923a7);color:white}.taxi-role-card.transport{grid-column:1/-1;min-height:76px;background:#e5edf5;display:grid;grid-template-columns:44px 1fr;align-content:center}.taxi-role-card.transport>span{grid-row:1/3}.taxi-role-card.transport b,.taxi-role-card.transport small{grid-column:2}
+.taxi-dash-section-head{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.taxi-dash-section-head h3{margin:0;font-size:18px;color:#172b40}.taxi-dash-section-head button{border:0;background:transparent;color:#27649b;font-weight:800}
+.taxi-home-active{display:grid;gap:8px}.taxi-home-mini{display:flex;align-items:center;gap:10px;background:white;border:1px solid #e4eaf0;border-radius:13px;padding:12px;font-size:13px;color:#34475b}
+.taxi-dash-benefits{margin:14px 0;padding:17px;border-radius:18px;background:linear-gradient(120deg,#102b45,#245277);color:white}.taxi-dash-benefits b{font-size:17px}.taxi-dash-benefits p{margin:6px 0 0;color:#e4edf6;font-size:13px;line-height:1.5}
+@media(min-width:700px){.taxi-dash-role-grid{grid-template-columns:repeat(3,1fr)}.taxi-role-card.transport{grid-column:auto;min-height:112px;display:flex}.taxi-dash-hero{min-height:310px}}
+@media(max-width:650px){.taxi-dash-hero{min-height:260px;padding:18px}.taxi-dash-hero h2{font-size:27px}.taxi-dash-role-grid{gap:8px}.taxi-role-card{min-height:118px;padding:11px}.taxi-role-card b{font-size:14px}.taxi-role-card.transport{min-height:76px}}
+</style>
 </head>
 <body>
 <header class="top v24-top"><div class="toprow">
@@ -632,11 +669,22 @@ main{max-width:1180px}
  <div class="v24-stats"><div><span class="v24-stat-icon blue">👥</span><b id="statDrivers">—</b><small data-ky="Айдоочулар" data-ru="Водители">Айдоочулар</small></div><div><span class="v24-stat-icon gold">📦</span><b id="statLoads">—</b><small data-ky="Жүк жарыялары" data-ru="Объявления о грузах">Жүк жарыялары</small></div><div><span class="v24-stat-icon green">📍</span><b>52</b><small data-ky="Кыргызстандын шаарлары" data-ru="Города Кыргызстана">Кыргызстандын шаарлары</small></div></div>
  <div class="v24-section-head"><h2 data-ky="Акыркы жүк жарыялары" data-ru="Последние объявления о грузах">Акыркы жүк жарыялары</h2><button onclick="showPage('ads')">Бардык жүктөр →</button></div><div id="homeListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
 </section>
-<section id="page-taxi-home" class="hidden">
- <button class="service-back" onclick="showPage('home')">← <span data-ky="Кызмат тандоо" data-ru="Выбор сервиса">Кызмат тандоо</span></button>
- <div class="taxi-home-hero"><div><div class="taxi-brand-lockup"><div class="taxi-brand-mark"><img src="taxi-logo.png" alt="ТАКСИ ЭКСПРЕСС логотиби"></div><div><b style="font-size:21px">ТАКСИ <span style="color:#ffbd18">ЭКСПРЕСС.KG</span></b><div style="font-size:11px;letter-spacing:1px">ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</div></div></div><h1 class="taxi-home-title" data-ky="Кыргызстан боюнча шаарлар аралык такси" data-ru="Междугороднее такси по Кыргызстану">Кыргызстан боюнча шаарлар аралык такси</h1><p class="taxi-home-sub" data-ky="А чекиттен Б чекитке чейин. Жүргүнчү же айдоочу катары өз каттамыңызды табыңыз." data-ru="Из пункта А в пункт Б. Найдите поездку как пассажир или разместите маршрут как водитель.">А чекиттен Б чекитке чейин. Жүргүнчү же айдоочу катары өз каттамыңызды табыңыз.</p></div></div>
- <div class="service-home-actions"><button class="btn btn-primary" onclick="showPage('taxi');setTaxiMode('driver')" data-ky="🚕 Айдоочу катары каттам жарыялоо" data-ru="🚕 Разместить маршрут как водитель">🚕 Айдоочу катары каттам жарыялоо</button><button class="btn btn-blue" onclick="showPage('taxi');setTaxiMode('passenger')" data-ky="💺 Жүргүнчү катары орун издөө" data-ru="💺 Найти место как пассажир">💺 Жүргүнчү катары орун издөө</button><button class="btn btn-dark" onclick="showPage('taxi');setTaxiMode('search')" data-ky="🔎 Каттамдарды көрүү" data-ru="🔎 Смотреть поездки">🔎 Каттамдарды көрүү</button></div>
- <div class="taxi-home-stats"><div>📍 <b>А → Б</b><small data-ky="Каалаган багыт" data-ru="Любое направление">Каалаган багыт</small></div><div>💺 <b data-ky="Бош орун" data-ru="Свободные места">Бош орун</b><small data-ky="Орундарды табуу" data-ru="Поиск мест">Орундарды табуу</small></div><div>🤝 <b data-ky="Бааны сүйлөшүү" data-ru="Договорная цена">Бааны сүйлөшүү</b><small data-ky="Эки тараптуу сунуш" data-ru="Предложения обеих сторон">Эки тараптуу сунуш</small></div></div>
+<section id="page-taxi-home" class="hidden taxi-dashboard-home">
+ <div class="taxi-dash-welcome"><div><span class="taxi-dash-kicker" data-ky="ТАКСИ ЭКСПРЕСС.KG" data-ru="ТАКСИ ЭКСПРЕСС.KG">ТАКСИ ЭКСПРЕСС.KG</span><h1 data-ky="Шаарлар аралык такси жана ПЕРЕДАЧА" data-ru="Междугороднее такси и ПЕРЕДАЧА">Шаарлар аралык такси жана ПЕРЕДАЧА</h1><p data-ky="Жүргүнчү • Посылка • Бош транспорт • Айдоочу үчүн өзүнчө кабинет" data-ru="Пассажир • Посылка • Свободный транспорт • Отдельный кабинет водителя">Жүргүнчү • Посылка • Бош транспорт • Айдоочу үчүн өзүнчө кабинет</p></div></div>
+ <div class="taxi-dash-hero">
+  <div class="taxi-dash-hero-copy"><div class="taxi-dash-brand"><img src="taxi-logo.png" alt="Такси Экспресс"><b>ТАКСИ <em>ЭКСПРЕСС.KG</em></b></div>
+  <h2 data-ky="Шаарлар аралык такси жана жүк жеткирүү" data-ru="Междугороднее такси и доставка посылок">Шаарлар аралык такси жана жүк жеткирүү</h2>
+  <p data-ky="Бир платформада жүргүнчү, айдоочу жана посылка жөнөтүүчү үчүн ыңгайлуу кызмат." data-ru="Удобный сервис для пассажиров, водителей и отправителей посылок на одной платформе.">Бир платформада жүргүнчү, айдоочу жана посылка жөнөтүүчү үчүн ыңгайлуу кызмат.</p>
+  <div class="taxi-dash-pills"><span>🛡️ <span data-ky="Коопсуз" data-ru="Безопасно">Коопсуз</span></span><span>⚡ <span data-ky="Тез" data-ru="Быстро">Тез</span></span><span>✓ <span data-ky="Ыңгайлуу" data-ru="Удобно">Ыңгайлуу</span></span></div></div>
+ </div>
+ <div class="taxi-dash-role-grid">
+  <button class="taxi-role-card passenger" onclick="showPage('taxi');setTaxiMode('passenger')"><span>🚕</span><b data-ky="Такси заказ кылуу" data-ru="Заказать такси">Такси заказ кылуу</b><small data-ky="Шаарлар аралык сапар" data-ru="Междугородняя поездка">Шаарлар аралык сапар</small><i>›</i></button>
+  <button class="taxi-role-card parcel" onclick="showPage('taxi-parcels')"><span>📦</span><b data-ky="Передача жарыялоо" data-ru="Отправить посылку">Передача жарыялоо</b><small data-ky="Посылка, документ, товар" data-ru="Посылка, документ, товар">Посылка, документ, товар</small><i>›</i></button>
+  <button class="taxi-role-card transport" onclick="showPage('taxi');setTaxiMode('search')"><span>🚐</span><b data-ky="Бош транспорт табуу" data-ru="Найти свободный транспорт">Бош транспорт табуу</b><small data-ky="Жолго же жүккө кошулуу" data-ru="Найти попутный транспорт">Жолго же жүккө кошулуу</small><i>›</i></button>
+ </div>
+ <div class="taxi-dash-section-head"><h3 data-ky="Активдүү жарыялар" data-ru="Активные объявления">Активдүү жарыялар</h3><button onclick="showPage('taxi');setTaxiMode('search')" data-ky="Баарын көрүү →" data-ru="Смотреть все →">Баарын көрүү →</button></div>
+ <div id="taxiHomeActive" class="taxi-home-active"><div class="taxi-home-mini">🚕 <span data-ky="Айдоочулардын каттамдары жана жүргүнчүлөрдүн суроо-талаптары" data-ru="Маршруты водителей и запросы пассажиров">Айдоочулардын каттамдары жана жүргүнчүлөрдүн суроо-талаптары</span></div><div class="taxi-home-mini">📦 <span data-ky="Шаарлар аралык посылка жана документ жеткирүү" data-ru="Междугородняя доставка посылок и документов">Шаарлар аралык посылка жана документ жеткирүү</span></div></div>
+ <div class="taxi-dash-benefits"><b data-ky="Максатыбыз" data-ru="Наша цель">Максатыбыз</b><p data-ky="Жүргүнчүгө тез жана ыңгайлуу сапар, жөнөтүүчүгө посылка жеткирүү, айдоочуга кошумча киреше табууга мүмкүнчүлүк берүү." data-ru="Дать пассажиру удобную поездку, отправителю — доставку посылки, а водителю — возможность дополнительного заработка.">Жүргүнчүгө тез жана ыңгайлуу сапар, жөнөтүүчүгө посылка жеткирүү, айдоочуга кошумча киреше табууга мүмкүнчүлүк берүү.</p></div>
 </section>
 <section id="page-ads" class="hidden"><div class="section-head"><div><h2>Жүк жарыялары</h2><div class="muted">Кыргызстан боюнча жүктөрдү издөө</div></div><button class="btn btn-primary" onclick="openListing()">+ Жүк жарыялоо</button></div>
 <div class="panel"><div class="filters">
@@ -1565,44 +1613,87 @@ function setLang(v){lang=v;localStorage.setItem('juk_express_lang',v);document.d
 $('lang').addEventListener('change',e=>setLang(e.target.value));
 let taxiMode='driver';
 function setTaxiMode(mode){taxiMode=mode;const d=$('taxiDriverTab'),p=$('taxiPassengerTab');if(d)d.className=mode==='driver'?'btn btn-blue':'btn btn-light';if(p)p.className=mode==='passenger'?'btn btn-blue':'btn btn-light';renderTaxiForm();}
+function taxiAddressField(name,label,placeholder){
+ return `<div class="field taxi-address-wrap"><label>${label}</label><input name="${name}" class="taxi-address-input" data-address-field="${name}" required maxlength="240" autocomplete="off" placeholder="${placeholder}"><div class="taxi-suggestions hidden" id="suggest-${name}"></div><div class="taxi-address-tools"><button type="button" onclick="taxiUseGps('${name}')">📍 ${lang==='ru'?'Моё местоположение':'Менин жайгашкан жерим'}</button><button type="button" onclick="taxiOpenMap('${name}')">🗺️ ${lang==='ru'?'Открыть карту':'Картадан тандоо'}</button></div></div>`;
+}
+function taxiBindAddressInputs(){
+ document.querySelectorAll('#taxiFormHost .taxi-address-input').forEach(input=>{
+  if(input.dataset.bound==='1')return;input.dataset.bound='1';
+  let timer;
+  input.addEventListener('input',()=>{
+   clearTimeout(timer);const q=input.value.trim(),box=document.getElementById('suggest-'+input.dataset.addressField);
+   if(!box)return;if(q.length<3){box.classList.add('hidden');box.innerHTML='';return;}
+   timer=setTimeout(()=>taxiSearchAddress(input,box,q),450);
+  });
+  input.addEventListener('blur',()=>setTimeout(()=>{const box=document.getElementById('suggest-'+input.dataset.addressField);if(box)box.classList.add('hidden')},220));
+  input.addEventListener('focus',()=>{const box=document.getElementById('suggest-'+input.dataset.addressField);if(box&&box.innerHTML.trim())box.classList.remove('hidden')});
+ });
+}
+async function taxiSearchAddress(input,box,q){
+ try{
+  const url='https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=6&countrycodes=kg&q='+encodeURIComponent(q);
+  const r=await fetch(url,{headers:{'Accept-Language':lang==='ru'?'ru':'ky,ru'}});
+  if(!r.ok)throw new Error('address lookup failed');const rows=await r.json();
+  box.innerHTML=rows.length?rows.map((x,i)=>`<button type="button" class="taxi-suggestion" data-index="${i}">📍 ${esc(x.display_name)}</button>`).join(''):`<div class="taxi-suggestion">${lang==='ru'?'Ничего не найдено':'Дарек табылган жок'}</div>`;
+  box.classList.remove('hidden');
+  box.querySelectorAll('button[data-index]').forEach(b=>b.addEventListener('click',()=>{input.value=rows[Number(b.dataset.index)].display_name;box.classList.add('hidden');box.innerHTML='';input.dataset.lat=rows[Number(b.dataset.index)].lat;input.dataset.lon=rows[Number(b.dataset.index)].lon;}));
+ }catch(e){box.innerHTML=`<div class="taxi-suggestion">${lang==='ru'?'Поиск адреса временно недоступен. Введите адрес вручную.':'Дарек издөө убактылуу жеткиликсиз. Даректи кол менен жазыңыз.'}</div>`;box.classList.remove('hidden');}
+}
+function taxiUseGps(field){
+ const input=document.querySelector(`#taxiFormHost [name="${field}"]`);
+ if(!navigator.geolocation){alert(lang==='ru'?'Геолокация не поддерживается':'GPS колдоого алынбайт');return;}
+ navigator.geolocation.getCurrentPosition(async pos=>{
+  try{const u=`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`;const r=await fetch(u,{headers:{'Accept-Language':lang==='ru'?'ru':'ky,ru'}});const d=await r.json();input.value=d.display_name||`${pos.coords.latitude}, ${pos.coords.longitude}`;input.dataset.lat=pos.coords.latitude;input.dataset.lon=pos.coords.longitude;}
+  catch(e){input.value=`${pos.coords.latitude}, ${pos.coords.longitude}`;}
+ },()=>alert(lang==='ru'?'Не удалось определить местоположение. Разрешите доступ к GPS.':'Жайгашкан жер аныкталган жок. GPS уруксат бериңиз.'),{enableHighAccuracy:true,timeout:12000});
+}
+function taxiOpenMap(field){
+ const input=document.querySelector(`#taxiFormHost [name="${field}"]`);
+ const q=encodeURIComponent(input.value||'Кыргызстан');
+ window.open('https://www.openstreetmap.org/search?query='+q,'_blank','noopener');
+}
 function renderTaxiForm(){
  const host=$('taxiFormHost');if(!host)return;
  const ru=lang==='ru',driver=taxiMode==='driver',t=(ky,rr)=>ru?rr:ky;
  if(taxiMode==='search'){
-  host.innerHTML=`<h3>${t('Жарыяларды издөө','Поиск объявлений')}</h3><p class="muted">${t('Төмөндөгү тизмелерден айдоочулардын жана жүргүнчүлөрдүн жарыяларын көрүңүз.','Смотрите предложения водителей и запросы пассажиров в списках ниже.')}</p>`;
-  return;
+  host.innerHTML=`<div class="taxi-search-panel"><h3>${t('Маршрут боюнча издөө','Поиск поездок по маршруту')}</h3><div class="taxi-form-grid">
+  ${taxiAddressField('search_from',t('Кайдан','Откуда'),t('Шаар, көчө, үй','Город, улица, дом'))}
+  ${taxiAddressField('search_to',t('Каякка','Куда'),t('Шаар, көчө, үй','Город, улица, дом'))}
+  <div class="field"><label>${t('Жөнөө күнү','Дата поездки')}</label><input id="taxiSearchDate" type="date" min="${new Date().toISOString().slice(0,10)}"></div>
+  </div><button class="btn btn-primary" type="button" onclick="filterTaxiListings()">${t('Издөө','Найти поездки')}</button> <button class="btn btn-light" type="button" onclick="loadTaxiListings()">${t('Баарын көрсөтүү','Показать все')}</button></div><p class="muted">${t('Даректи толук жазыңыз же GPS/картадан тандаңыз. Төмөндө ылайыктуу айдоочулардын жана жүргүнчүлөрдүн жарыялары чыгат.','Укажите полный адрес или выберите GPS/на карте. Ниже появятся подходящие предложения водителей и запросы пассажиров.')}</p>`;
+  taxiBindAddressInputs();return;
  }
- const today=new Date();const tomorrow=new Date(today.getTime()+86400000).toISOString().slice(0,10);
- const vehicleTypes=[
-  ['sedan',t('Седан','Седан')],
-  ['universal',t('Универсал','Универсал')],
-  ['minivan',t('Минивэн','Минивэн')],
-  ['minibus',t('Микроавтобус','Микроавтобус')],
-  ['microbus',t('Автобус (18–20 орун)','Автобус (18–20 мест)')]
- ];
+ const tomorrow=new Date(Date.now()+86400000).toISOString().slice(0,10);
+ const vehicleTypes=[['sedan',t('Седан','Седан')],['universal',t('Универсал','Универсал')],['minivan',t('Минивэн','Минивэн')],['minibus',t('Микроавтобус','Микроавтобус')],['microbus',t('Автобус (18–20 орун)','Автобус (18–20 мест)')]];
  host.innerHTML=`<h3>${driver?'🚘 '+t('Айдоочу катары маршрут жарыялоо','Разместить маршрут как водитель'):'🧍 '+t('Жүргүнчү катары сапар суроо','Запросить поездку как пассажир')}</h3>
  <form id="taxiForm" onsubmit="submitTaxi(event)"><div class="taxi-form-grid">
   <div class="field"><label>${t('Толук аты-жөнү','ФИО')}</label><input name="${driver?'driver_name':'passenger_name'}" required maxlength="100" autocomplete="name" placeholder="${t('Аты-жөнүңүз','Ваше имя и фамилия')}"></div>
   <div class="field"><label>WhatsApp ${t('номери','номер')}</label><input name="${driver?'driver_whatsapp':'passenger_whatsapp'}" type="tel" required maxlength="25" autocomplete="tel" placeholder="+996 XXX XXX XXX"></div>
-  <div class="field"><label>${t('Кайдан','Откуда')}</label><input name="city_from" required maxlength="100" value="${driver?'Ош шаары':''}" placeholder="${t('Мисалы: Ош','Например: Ош')}"></div>
-  <div class="field"><label>${t('Каякка','Куда')}</label><input name="city_to" required maxlength="100" value="${driver?'Бишкек шаары':''}" placeholder="${t('Мисалы: Бишкек','Например: Бишкек')}"></div>
+  ${taxiAddressField('city_from',t('Кайдан — толук дарек','Откуда — полный адрес'),t('Мисалы: Ош, Курманжан датка көч., 10','Например: Ош, ул. Курманжан Датка, 10'))}
+  ${taxiAddressField('city_to',t('Каякка — толук дарек','Куда — полный адрес'),t('Мисалы: Бишкек, Чүй проспекти, 100','Например: Бишкек, пр. Чуй, 100'))}
   <div class="field"><label>${t('Жөнөө күнү','Дата выезда')}</label><input name="travel_date" type="date" required min="${new Date().toISOString().slice(0,10)}" value="${tomorrow}"></div>
   <div class="field"><label>${t('Жөнөө убактысы','Время выезда')}</label><input name="travel_time" type="time" required value="08:00"></div>
-  ${driver?`
-   <div class="field"><label>${t('Унаанын түрү','Тип автомобиля')}</label><select name="vehicle_type" required><option value="">${t('Тандаңыз','Выберите')}</option>${vehicleTypes.map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select></div>
-   <div class="field"><label>${t('Унаадагы жалпы орун саны','Всего мест в автомобиле')}</label><select name="vehicle_seats" required><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="15">15</option><option value="18">18</option><option value="20">20</option></select></div>
-   <div class="field"><label>${t('Унаанын маркасы','Марка автомобиля')}</label><input name="vehicle_make" required maxlength="60" placeholder="${t('Мисалы: Toyota','Например: Toyota')}"></div>
-   <div class="field"><label>${t('Унаанын модели','Модель автомобиля')}</label><input name="vehicle_model" required maxlength="60" placeholder="${t('Мисалы: Camry','Например: Camry')}"></div>
+  ${driver?`<div class="field"><label>${t('Унаанын түрү','Тип автомобиля')}</label><select name="vehicle_type" required><option value="">${t('Тандаңыз','Выберите')}</option>${vehicleTypes.map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select></div>
+   <div class="field"><label>${t('Унаадагы жалпы орун саны','Всего мест в автомобиле')}</label><select name="vehicle_seats" required>${[4,5,6,7,8,10,12,15,18,20].map(n=>`<option value="${n}">${n}</option>`).join('')}</select></div>
+   <div class="field"><label>${t('Унаанын маркасы','Марка автомобиля')}</label><input name="vehicle_make" required maxlength="60" placeholder="Toyota"></div>
+   <div class="field"><label>${t('Унаанын модели','Модель автомобиля')}</label><input name="vehicle_model" required maxlength="60" placeholder="Camry"></div>
    <div class="field"><label>${t('Бош орун саны','Свободных мест')}</label><input name="seats" type="number" min="1" max="20" required value="3"></div>
-   <div class="field"><label>${t('Унаанын сүрөтү','Фото автомобиля')}</label><input name="vehicle_photo" type="file" accept="image/*"><small class="muted">${t('Бир сүрөт, 5 МБга чейин','Одно фото, до 5 МБ')}</small></div>
-  `:`
-   <div class="field"><label>${t('Керектүү орун саны','Количество нужных мест')}</label><input name="seats" type="number" min="1" max="20" required value="1"></div>
-  `}
+   <div class="field"><label>${t('Унаанын сүрөтү','Фото автомобиля')}</label><input name="vehicle_photo" type="file" accept="image/*"><small class="muted">${t('Бир сүрөт, 5 МБга чейин','Одно фото, до 5 МБ')}</small></div>`
+  :`<div class="field"><label>${t('Керектүү орун саны','Количество нужных мест')}</label><input name="seats" type="number" min="1" max="20" required value="1"></div>`}
   <div class="field"><label>${driver?t('Бир орунга баа (сом)','Цена за одно место (сом)'):t('Бир орунга сунуштаган баа (сом)','Предлагаемая цена за место (сом)')}</label><input name="price_per_seat" type="number" min="1" max="100000" required value="${driver?1500:1200}"></div>
-  <div class="field taxi-notes-field"><label>${t('Кошумча маалымат','Дополнительная информация')}</label><textarea name="notes" rows="2" maxlength="1000" placeholder="${t('Мисалы: кондиционер, жүк салгыч, аялдама...','Например: кондиционер, багажник, остановки...')}"></textarea></div>
- </div>
- <div class="taxi-form-actions"><button class="btn btn-primary" type="submit">${driver?t('Маршрутту жарыялоо','Разместить маршрут'):t('Сапарга суроо жөнөтүү','Отправить запрос на поездку')}</button></div>
+  <div class="field taxi-notes-field"><label>${t('Кошумча маалымат','Дополнительная информация')}</label><textarea name="notes" rows="2" maxlength="1000"></textarea></div>
+ </div><div class="taxi-form-actions"><button class="btn btn-primary" type="submit">${driver?t('Маршрутту жарыялоо','Разместить маршрут'):t('Сапарга суроо жөнөтүү','Отправить запрос на поездку')}</button></div>
  <p class="muted" style="font-size:12px">${t('WhatsApp номери жарыяда көрүнөт. Айдоочу бааны көрсөтөт, жүргүнчү өз сунушун бере алат.','Номер WhatsApp будет виден в объявлении. Водитель указывает цену, пассажир может предложить свою.')}</p></form>`;
+ taxiBindAddressInputs();
+}
+function filterTaxiListings(){
+ const from=(document.querySelector('[name="search_from"]')?.value||'').trim().toLowerCase();
+ const to=(document.querySelector('[name="search_to"]')?.value||'').trim().toLowerCase();
+ const date=$('taxiSearchDate')?.value||'';
+ document.querySelectorAll('#taxiTrips .taxi-card,#taxiRequests .taxi-card').forEach(card=>{
+  const txt=card.dataset.search||card.textContent.toLowerCase();
+  card.style.display=(!from||txt.includes(from))&&(!to||txt.includes(to))&&(!date||txt.includes(date))?'':'none';
+ });
 }
 async function submitTaxi(event){
  event.preventDefault();
@@ -1661,10 +1752,10 @@ async function loadTaxiListings(){
    const phone=driver?x.driver_whatsapp:x.passenger_whatsapp,wa=waLink(phone);
    const vehicle=driver?`<div class="taxi-meta"><span>🚘 ${esc(x.vehicle_type||'')}</span><span>${esc([x.vehicle_make,x.vehicle_model].filter(Boolean).join(' '))}</span><span>💺 ${esc(x.seats)} / ${esc(x.vehicle_seats)} ${tr('бош орун','свободных мест')}</span></div>`:'';
    const photo=driver&&x.vehicle_photo_url?`<img class="taxi-vehicle-photo" src="${esc(x.vehicle_photo_url)}" alt="${tr('Унаанын сүрөтү','Фото автомобиля')}" loading="lazy">`:'';
-   return `<article class="taxi-card">${photo}<div class="route">${esc(x.city_from)} → ${esc(x.city_to)}</div><span class="taxi-badge">${driver?tr('Айдоочу сунушу','Предложение водителя'):tr('Жүргүнчү суроо-талабы','Запрос пассажира')}</span>
-    <div class="taxi-meta"><span>👤 ${esc(driver?x.driver_name:x.passenger_name)}</span><span>📅 ${esc(x.travel_date)}</span><span>🕗 ${esc(String(x.travel_time||'').slice(0,5))}</span><span>💺 ${esc(x.seats)} ${driver?tr('бош орун','свободных мест'):tr('орун керек','мест требуется')}</span></div>${vehicle}
-    <div class="taxi-price">${money(x.price_per_seat)} / ${tr('орун','место')}</div>${x.notes?`<p class="muted">${esc(x.notes)}</p>`:''}
-    <div class="listing-actions">${wa?`<a class="btn btn-blue" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}?text=${encodeURIComponent(tr('Саламатсызбы! Сиздин такси жарыяңыз боюнча байланышып жатам.','Здравствуйте! Пишу по вашему объявлению такси.'))}">WhatsApp</a>`:''}${phone?`<a class="btn btn-light" href="tel:${esc(phoneClean(phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${currentUser&&x.user_id===currentUser.id?`<span class="muted">${tr('Сиздин жарыяңыз','Ваше объявление')}</span>`:''}</div>
+   return `<article class="taxi-card" data-search="${esc((x.city_from+' '+x.city_to+' '+x.travel_date).toLowerCase())}">${photo}<div class="taxi-route-line">📍 ${esc(x.city_from)}<br>🏁 ${esc(x.city_to)}</div><div class="taxi-date-price"><span>📅 ${esc(x.travel_date)} · 🕗 ${esc(String(x.travel_time||'').slice(0,5))}</span><span class="taxi-price">${money(x.price_per_seat)} / ${tr('орун','место')}</span></div><span class="taxi-badge">${driver?tr('Айдоочу сунушу','Предложение водителя'):tr('Жүргүнчү суроо-талабы','Запрос пассажира')}</span>
+    <div class="taxi-meta"><span>👤 ${esc(driver?x.driver_name:x.passenger_name)}</span><span>💺 ${esc(x.seats)} ${driver?tr('бош орун','свободных мест'):tr('орун керек','мест требуется')}</span></div>${vehicle}
+    ${x.notes?`<p class="muted">${esc(x.notes)}</p>`:''}
+    <div class="listing-actions">${wa?`<a class="btn btn-blue" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}?text=${encodeURIComponent(tr('Саламатсызбы! Сиздин такси жарыяңыз боюнча байланышып жатам.','Здравствуйте! Пишу по вашему объявлению такси.'))}">WhatsApp</a>`:''}${phone?`<a class="btn btn-light" href="tel:${esc(phoneClean(phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}<a class="btn btn-light" target="_blank" rel="noopener" href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${encodeURIComponent(x.city_from)}%3B${encodeURIComponent(x.city_to)}">🗺️ ${tr('Карта','Карта')}</a>${currentUser&&x.user_id===currentUser.id?`<span class="muted">${tr('Сиздин жарыяңыз','Ваше объявление')}</span>`:''}</div>
    </article>`;
   };
   trips.innerHTML=a.data?.length?a.data.map(x=>card(x,true)).join(''):`<div class="panel empty">${tr('Азырынча айдоочунун жарыясы жок.','Пока нет объявлений водителей.')}</div>`;
@@ -1714,7 +1805,7 @@ async function loadTaxiParcels(){
   if(!data?.length){host.innerHTML=`<div class="panel empty">${tr('Азырынча посылка жарыялары жок.','Пока нет объявлений о посылках.')}</div>`;return;}
   host.innerHTML=data.map(x=>{
    const wa=waLink(x.sender_whatsapp),photo=x.photo_url?`<img class="taxi-vehicle-photo" src="${esc(x.photo_url)}" alt="Посылка" loading="lazy">`:'';
-   return `<article class="taxi-card">${photo}<div class="route">${esc(x.city_from)} → ${esc(x.city_to)}</div><span class="taxi-badge">📦 ${tr('Посылка','Посылка')}</span><div class="taxi-meta"><span>👤 ${esc(x.sender_name)}</span><span>📅 ${esc(x.pickup_date||'')}</span><span>🕗 ${esc(String(x.pickup_time||'').slice(0,5))}</span></div><div class="taxi-meta"><span>${tr('Алуучу','Получатель')}: ${esc(x.receiver_name)}</span><span>${tr('Түрү','Тип')}: ${esc(x.parcel_type)}</span>${x.weight_kg?`<span>⚖️ ${esc(x.weight_kg)} кг</span>`:''}</div>${x.size_description?`<div class="taxi-meta">${esc(x.size_description)}</div>`:''}${x.parcel_description?`<p class="muted">${esc(x.parcel_description)}</p>`:''}<div class="taxi-price">${money(x.offered_price)} ${tr('жеткирүү үчүн','за доставку')}</div><div class="listing-actions">${wa?`<a class="btn btn-blue" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}?text=${encodeURIComponent(tr('Саламатсызбы! Посылкаңыз боюнча байланышып жатам.','Здравствуйте! Пишу по поводу вашей посылки.'))}">WhatsApp</a>`:''}${x.sender_whatsapp?`<a class="btn btn-light" href="tel:${esc(phoneClean(x.sender_whatsapp))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${currentUser&&x.user_id===currentUser.id?`<span class="muted">${tr('Сиздин жарыяңыз','Ваше объявление')}</span>`:''}</div></article>`;
+   return `<article class="taxi-card" data-search="${esc((x.city_from+' '+x.city_to+' '+x.travel_date).toLowerCase())}">${photo}<div class="taxi-route-line">📍 ${esc(x.city_from)}<br>🏁 ${esc(x.city_to)}</div><div class="taxi-date-price"><span>📅 ${esc(x.travel_date)} · 🕗 ${esc(String(x.travel_time||'').slice(0,5))}</span><span class="taxi-price">${money(x.price_per_seat)} / ${tr('орун','место')}</span></div><span class="taxi-badge">📦 ${tr('Посылка','Посылка')}</span><div class="taxi-meta"><span>👤 ${esc(x.sender_name)}</span><span>📅 ${esc(x.pickup_date||'')}</span><span>🕗 ${esc(String(x.pickup_time||'').slice(0,5))}</span></div><div class="taxi-meta"><span>${tr('Алуучу','Получатель')}: ${esc(x.receiver_name)}</span><span>${tr('Түрү','Тип')}: ${esc(x.parcel_type)}</span>${x.weight_kg?`<span>⚖️ ${esc(x.weight_kg)} кг</span>`:''}</div>${x.size_description?`<div class="taxi-meta">${esc(x.size_description)}</div>`:''}${x.parcel_description?`<p class="muted">${esc(x.parcel_description)}</p>`:''}<div class="taxi-price">${money(x.offered_price)} ${tr('жеткирүү үчүн','за доставку')}</div><div class="listing-actions">${wa?`<a class="btn btn-blue" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}?text=${encodeURIComponent(tr('Саламатсызбы! Посылкаңыз боюнча байланышып жатам.','Здравствуйте! Пишу по поводу вашей посылки.'))}">WhatsApp</a>`:''}${x.sender_whatsapp?`<a class="btn btn-light" href="tel:${esc(phoneClean(x.sender_whatsapp))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${currentUser&&x.user_id===currentUser.id?`<span class="muted">${tr('Сиздин жарыяңыз','Ваше объявление')}</span>`:''}</div></article>`;
   }).join('');
  }catch(e){host.innerHTML=`<div class="notice error">${tr('Посылкалар жүктөлгөн жок: ','Не удалось загрузить посылки: ')}${esc(e.message)}</div>`;}
 }
