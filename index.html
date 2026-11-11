@@ -970,7 +970,9 @@ function openCabinetSection(section){
  const role=profile?.account_type;
  const back=`<button class="btn btn-light" onclick="closeCabinetSection()">← Артка</button>`;
  let html='';
- if(section==='personal'){
+ if(section==='myloads'){
+  html=`${back}<h3>Менин жүк жарыяларым</h3><p class="muted">Өзүңүз жарыялаган жүктөрдү өзгөртүңүз, убактылуу токтотуңуз же өчүрүңүз.</p><div id="myLoadsList"><div class="empty">Жүктөлүүдө…</div></div>`;
+ }else if(section==='personal'){
   html=`${back}<h3>Жеке маалымат</h3><div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button>`;
  }else if(section==='notifications'){
   html=`${back}<h3>🔔 Билдирмелерди жөндөө</h3><p class="muted">Жаңы жүк жарыялары жана жеке билдирүүлөр тууралуу телефонуңузга эскертме алыңыз.</p><div id="pushStatus" class="notice">Билдирме абалы текшерилүүдө…</div><div class="listing-actions"><button class="btn btn-primary" type="button" onclick="enablePushNotifications()">🔔 Билдирмелерди күйгүзүү</button><button class="btn btn-light" type="button" onclick="disablePushNotifications()">Өчүрүү</button></div>`;
@@ -994,6 +996,7 @@ function openCabinetSection(section){
   html=`${back}<h3>Колдоо кызматы</h3><p class="muted">Сурооңуз же көйгөйүңүз болсо, WhatsApp аркылуу бизге жазыңыз.</p><div class="support-contact-list"><a class="support-contact" href="https://wa.me/996503141501" target="_blank" rel="noopener"><span class="support-wa-icon">◉</span><span><b>WhatsApp 1</b><small>+996 503 141 501</small></span><strong>Жазуу ↗</strong></a><a class="support-contact" href="https://wa.me/996502456666" target="_blank" rel="noopener"><span class="support-wa-icon">◉</span><span><b>WhatsApp 2</b><small>+996 502 456 666</small></span><strong>Жазуу ↗</strong></a></div>`;
  }
  host.innerHTML=html;host.classList.remove('hidden');host.scrollIntoView({behavior:'smooth',block:'start'});
+ if(section==='myloads')loadMyLoads();
  if(section==='notifications')refreshPushStatus();
  if(section==='driver')loadVehicleManager();
 }
