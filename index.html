@@ -499,7 +499,7 @@ main{max-width:1180px}
 .cab-profile-wrap{display:grid;gap:14px;max-width:760px;margin:0 auto}
 .cab-user-card,.cab-menu-card,.cab-subview{background:#eef2f8;border:1px solid #e2e8f0;border-radius:22px;padding:18px 20px;box-shadow:none}
 .cab-user-card{padding:24px 22px}.cab-user-name{font-size:23px;font-weight:850;color:#111827;overflow-wrap:anywhere}.cab-user-email{font-size:14px;color:#687586;margin-top:7px;overflow-wrap:anywhere}.cab-role-chip{display:inline-block;margin-top:12px;border-radius:20px;padding:5px 10px;background:#fff;color:#43556a;font-size:11px;font-weight:800}
-.cab-menu-card{padding:0 18px}.cab-menu-item{width:100%;min-height:72px;display:flex;align-items:center;gap:14px;border:0;border-bottom:1px solid #d7dee8;background:transparent;text-align:left;color:#151b25;padding:14px 2px}.cab-menu-item:last-child{border-bottom:0}.cab-menu-item>span:nth-child(2){flex:1;min-width:0}.cab-menu-item b{font-size:16px;font-weight:750}.cab-menu-icon{width:30px;flex:0 0 30px;text-align:center;font-size:23px;color:#111827}.cab-chevron{font-size:29px;line-height:1;color:#111827}.cab-driver-item{background:#fff9e8;margin:0 -18px;width:calc(100% + 36px);padding-left:18px;padding-right:18px;border-radius:0 0 20px 20px}.cab-driver-item small{display:block;color:#718096;font-size:11px;margin-top:3px}.cab-logout-card{margin-bottom:8px}.cab-subview{background:#fff;padding:20px}.cab-subview h3{margin:18px 0 14px;font-size:21px}.cab-subview .profile-grid{grid-template-columns:1fr 1fr}
+.cab-menu-card{padding:0 18px}.cab-menu-item{width:100%;min-height:72px;display:flex;align-items:center;gap:14px;border:0;border-bottom:1px solid #d7dee8;background:transparent;text-align:left;color:#151b25;padding:14px 2px}.cab-menu-item:last-child{border-bottom:0}.cab-menu-item>span:nth-child(2){flex:1;min-width:0}.cab-menu-item b{font-size:16px;font-weight:750}.cab-menu-icon{width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;color:#111827}.cab-menu-icon svg{width:25px;height:25px;display:block}.cab-chevron{font-size:29px;line-height:1;color:#111827}.cab-driver-item{background:#fff9e8;margin:0 -18px;width:calc(100% + 36px);padding-left:18px;padding-right:18px;border-radius:0 0 20px 20px}.cab-driver-item small{display:block;color:#718096;font-size:11px;margin-top:3px}.cab-logout-card{margin-bottom:8px}.cab-subview{background:#fff;padding:20px}.cab-subview h3{margin:18px 0 14px;font-size:21px}.cab-subview .profile-grid{grid-template-columns:1fr 1fr}
 @media(max-width:520px){.cab-user-card{padding:21px 19px}.cab-user-name{font-size:21px}.cab-menu-card{padding:0 15px}.cab-menu-item{min-height:68px;gap:11px}.cab-menu-item b{font-size:15px}.cab-driver-item{margin:0 -15px;width:calc(100% + 30px);padding-left:15px;padding-right:15px}.cab-subview{padding:16px}.cab-subview .profile-grid{grid-template-columns:1fr}}
 
 </style>
@@ -937,24 +937,24 @@ function renderCabinet(){
  const role=profile?.account_type;
  const fullName=profile?.full_name||currentUser.user_metadata?.full_name||currentUser.email||'Колдонуучу';
  const email=currentUser.email||'';
- const items=[
-  ['personal','♙','Жеке маалымат','Личная информация'],
-  ['plans','▣','Жазылуулар жана сатып алуулар','Подписки и покупки'],
-  ['notifications','♧','Билдирмелерди жөндөө','Настройка уведомлений'],
-  ['language','◎','Тил: '+(lang==='ru'?'Русский':'Кыргызча'),'Язык: '+(lang==='ru'?'Русский':'Кыргызский')],
-  ['invite','♧','Досторду чакыруу','Пригласить друзей'],
-  ['gift','♧','Жазылууну белек кылуу','Подарить подписку'],
-  ['promo','◇','Менде промокод бар','У меня есть код'],
-  ['diagnostics','ⓘ','Диагностика','Диагностика'],
-  ['legal','▤','Юридикалык маалымат','Юридическая информация'],
+ const iconPaths={personal:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',plans:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 10h8M8 14h5"/>',notifications:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',language:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',invite:'<path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M16 11h6"/>',gift:'<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M2 8h20v4H2z"/>',promo:'<path d="M20 13 11 3H3v8l10 10 7-8Z"/>',diagnostics:'<circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7h.01"/>',legal:'<path d="M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8"/>',support:'<circle cx="12" cy="12" r="10"/><path d="M5 5l14 14M19 5 5 19"/>',driver:'<path d="M3 13l2-6h14l2 6v6h-3v-3H6v3H3z"/>',logout:'<path d="M10 17l5-5-5-5M15 12H3"/>'}; const icon=(n)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${iconPaths[n]||''}</svg>`; const items=[
+  ['personal','personal','Жеке маалымат','Личная информация'],
+  ['plans','plans','Жазылуулар жана сатып алуулар','Подписки и покупки'],
+  ['notifications','notifications','Билдирмелерди жөндөө','Настройка уведомлений'],
+  ['language','language','Тил: '+(lang==='ru'?'Русский':'Кыргызча'),'Язык: '+(lang==='ru'?'Русский':'Кыргызский')],
+  ['invite','notifications','Досторду чакыруу','Пригласить друзей'],
+  ['gift','notifications','Жазылууну белек кылуу','Подарить подписку'],
+  ['promo','promo','Менде промокод бар','У меня есть код'],
+  ['diagnostics','diagnostics','Диагностика','Диагностика'],
+  ['legal','legal','Юридикалык маалымат','Юридическая информация'],
   ['support','?','Колдоо кызматы','Поддержка']
  ];
- const driverItem=role==='driver'?`<button class="cab-menu-item cab-driver-item" onclick="openCabinetSection('driver')"><span class="cab-menu-icon">🚚</span><span><b>Айдоочунун профили</b><small>Унаа, багыттар жана айдоочу маалыматы</small></span><span class="cab-chevron">›</span></button>`:'';
- const menu=items.map(([id,ico,ky,ru])=>`<button class="cab-menu-item" onclick="openCabinetSection('${id}')"><span class="cab-menu-icon">${ico}</span><span><b>${lang==='ru'?ru:ky}</b></span><span class="cab-chevron">›</span></button>`).join('');
+ const driverItem=role==='driver'?`<button class="cab-menu-item cab-driver-item" onclick="openCabinetSection('driver')"><span class="cab-menu-icon">${icon('driver')}</span><span><b>Айдоочунун профили</b><small>Унаа, багыттар жана айдоочу маалыматы</small></span><span class="cab-chevron">›</span></button>`:'';
+ const menu=items.map(([id,ico,ky,ru])=>`<button class="cab-menu-item" onclick="openCabinetSection('${id}')"><span class="cab-menu-icon">${icon(ico)}</span><span><b>${lang==='ru'?ru:ky}</b></span><span class="cab-chevron">›</span></button>`).join('');
  $('cabinetContent').innerHTML=`<div class="cab-profile-wrap">
   <div class="cab-user-card"><div class="cab-user-name">${esc(fullName)}</div><div class="cab-user-email">${esc(email)}</div><span class="cab-role-chip">${role==='driver'?'Айдоочу':role==='dispatcher'?'Диспетчер':'Жүк ээси'}</span></div>
   <div class="cab-menu-card">${menu}${driverItem}</div>
-  <div class="cab-menu-card cab-logout-card"><button class="cab-menu-item" onclick="logout()"><span class="cab-menu-icon">↪</span><span><b>Аккаунттан чыгуу</b></span><span class="cab-chevron">›</span></button></div>
+  <div class="cab-menu-card cab-logout-card"><button class="cab-menu-item" onclick="logout()"><span class="cab-menu-icon">${icon("logout")}</span><span><b>Аккаунттан чыгуу</b></span><span class="cab-chevron">›</span></button></div>
   <div class="cab-subview hidden" id="cabinetSubview"></div>
  </div>`;
 }
@@ -984,7 +984,7 @@ function openCabinetSection(section){
  }else if(section==='legal'){
   html=`${back}<h3>Юридикалык маалымат</h3><p class="muted">Колдонуу шарттары жана купуялык саясаты.</p>`;
  }else if(section==='support'){
-  html=`${back}<h3>Колдоо кызматы</h3><p class="muted">Суроо же көйгөй болсо, администраторго кайрылыңыз.</p>`;
+  html=`${back}<h3>Колдоо кызматы</h3><p class="muted">Сурооңуз же көйгөйүңүз болсо, WhatsApp аркылуу бизге жазыңыз.</p><div class="support-contact-list"><a class="support-contact" href="https://wa.me/996503141501" target="_blank" rel="noopener"><span class="support-wa-icon">◉</span><span><b>WhatsApp 1</b><small>+996 503 141 501</small></span><strong>Жазуу ↗</strong></a><a class="support-contact" href="https://wa.me/996502456666" target="_blank" rel="noopener"><span class="support-wa-icon">◉</span><span><b>WhatsApp 2</b><small>+996 502 456 666</small></span><strong>Жазуу ↗</strong></a></div>`;
  }
  host.innerHTML=html;host.classList.remove('hidden');host.scrollIntoView({behavior:'smooth',block:'start'});
  if(section==='notifications')refreshPushStatus();
@@ -1379,3 +1379,4 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
 <style>
 @media(max-width:520px){.v24-hero{aspect-ratio:16/9;min-height:0}.v24-hero-picture{width:100%;inset:0;background-size:100% 100%;opacity:1}}
 </style>
+\n<style>.support-contact-list{display:grid;gap:11px;margin-top:18px}.support-contact{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid #dce6e1;border-radius:14px;background:#f3fbf6;color:#173b2b;text-decoration:none}.support-wa-icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#19a85b;color:#fff;font-size:24px}.support-contact span:nth-child(2){display:grid;gap:3px;flex:1}.support-contact small{color:#60776a}.support-contact strong{color:#12834a;font-size:13px}</style>\n
