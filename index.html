@@ -539,6 +539,12 @@ main{max-width:1180px}
 .taxi-home-stats>div{background:#fff;border:1px solid #e3eaf1;border-radius:14px;padding:13px;text-align:center}
 .taxi-home-stats b{display:block;font-size:18px;color:#142d46}
 @media(max-width:650px){.cargo-home-hero,.taxi-home-hero{aspect-ratio:4/3;min-height:250px;padding:17px}.service-home-actions{grid-template-columns:1fr}.taxi-home-stats{grid-template-columns:1fr 1fr}}
+
+.taxi-vehicle-photo{display:block;width:100%;max-height:210px;object-fit:cover;border-radius:12px;margin-bottom:10px;background:#eef3f8}
+.taxi-notes-field{grid-column:1/-1}
+#taxiForm input[type=file]{padding:9px;background:#f8fafc}
+@media(max-width:650px){.taxi-notes-field{grid-column:1}}
+
 </style>
 <meta name="application-version" content="V42">
 <style>
@@ -1511,21 +1517,114 @@ $('lang').addEventListener('change',e=>setLang(e.target.value));
 let taxiMode='driver';
 function setTaxiMode(mode){taxiMode=mode;const d=$('taxiDriverTab'),p=$('taxiPassengerTab');if(d)d.className=mode==='driver'?'btn btn-blue':'btn btn-light';if(p)p.className=mode==='passenger'?'btn btn-blue':'btn btn-light';renderTaxiForm();}
 function renderTaxiForm(){
- const host=$('taxiFormHost');if(!host)return;const ru=lang==='ru',driver=taxiMode==='driver',t=(ky,rr)=>ru?rr:ky;
- if(taxiMode==='search'){host.innerHTML=`<h3>${t('Жарыяларды издөө','Поиск объявлений')}</h3><p class="muted">${t('Төмөндөгү эки тизмеден айдоочулардын жана жүргүнчүлөрдүн жарыяларын көрүңүз.','В двух списках ниже отображаются предложения водителей и запросы пассажиров.')}</p>`;return;}
+ const host=$('taxiFormHost');if(!host)return;
+ const ru=lang==='ru',driver=taxiMode==='driver',t=(ky,rr)=>ru?rr:ky;
+ if(taxiMode==='search'){
+  host.innerHTML=`<h3>${t('Жарыяларды издөө','Поиск объявлений')}</h3><p class="muted">${t('Төмөндөгү тизмелерден айдоочулардын жана жүргүнчүлөрдүн жарыяларын көрүңүз.','Смотрите предложения водителей и запросы пассажиров в списках ниже.')}</p>`;
+  return;
+ }
+ const today=new Date();const tomorrow=new Date(today.getTime()+86400000).toISOString().slice(0,10);
+ const vehicleTypes=[
+  ['sedan',t('Седан','Седан')],
+  ['universal',t('Универсал','Универсал')],
+  ['minivan',t('Минивэн','Минивэн')],
+  ['minibus',t('Микроавтобус','Микроавтобус')],
+  ['microbus',t('Автобус (18–20 орун)','Автобус (18–20 мест)')]
+ ];
  host.innerHTML=`<h3>${driver?'🚘 '+t('Айдоочу катары маршрут жарыялоо','Разместить маршрут как водитель'):'🧍 '+t('Жүргүнчү катары сапар суроо','Запросить поездку как пассажир')}</h3>
  <form id="taxiForm" onsubmit="submitTaxi(event)"><div class="taxi-form-grid">
- <div class="field"><label>${t('Кайдан','Откуда')}</label><input name="city_from" required value="${driver?'Ош шаары':''}" placeholder="${t('Мисалы: Ош','Например: Ош')}"></div>
- <div class="field"><label>${t('Каякка','Куда')}</label><input name="city_to" required value="${driver?'Бишкек шаары':''}" placeholder="${t('Мисалы: Бишкек','Например: Бишкек')}"></div>
- <div class="field"><label>${t('Жөнөө күнү','Дата выезда')}</label><input name="travel_date" type="date" required min="${new Date().toISOString().slice(0,10)}" value="${new Date(Date.now()+86400000).toISOString().slice(0,10)}"></div>
- <div class="field"><label>${t('Жөнөө убактысы','Время выезда')}</label><input name="travel_time" type="time" required value="08:00"></div>
- <div class="field"><label>${driver?t('Бош орун саны','Количество свободных мест'):t('Керектүү орун саны','Количество нужных мест')}</label><input name="seats" type="number" min="1" max="8" required value="${driver?3:1}"></div>
- <div class="field"><label>${driver?t('Бир орунга баа (сом)','Цена за одно место (сом)'):t('Бир орунга сунуштаган баа (сом)','Предлагаемая цена за место (сом)')}</label><input name="price_per_seat" type="number" min="1" required value="${driver?1500:1200}"></div>
- <div class="field" style="grid-column:1/-1"><label>${t('Кошумча маалымат','Дополнительная информация')}</label><textarea name="notes" rows="2" placeholder="${t('Мисалы: кондиционер, жүк салгыч, аялдама...','Например: кондиционер, багажник, остановки...')}"></textarea></div>
- </div><div class="taxi-form-actions"><button class="btn btn-primary" type="submit">${driver?t('Маршрутту жарыялоо','Разместить маршрут'):t('Сапарга суроо жөнөтүү','Отправить запрос на поездку')}</button></div>
- <p class="muted" style="font-size:12px">${t('Айдоочу бааны көрсөтөт, жүргүнчү өз сунушун бере алат.','Водитель указывает цену, пассажир может предложить свою цену.')}</p></form>`;
-}async function submitTaxi(event){event.preventDefault();if(!currentUser){openAuth();return;}const form=event.currentTarget,fd=new FormData(form),driver=taxiMode==='driver';const payload={user_id:currentUser.id,city_from:String(fd.get('city_from')).trim(),city_to:String(fd.get('city_to')).trim(),travel_date:fd.get('travel_date'),travel_time:fd.get('travel_time'),seats:Number(fd.get('seats')),price_per_seat:Number(fd.get('price_per_seat')),notes:String(fd.get('notes')||'').trim(),status:'active'};if(!payload.city_from||!payload.city_to||payload.city_from.toLowerCase()===payload.city_to.toLowerCase()||payload.seats<1||payload.price_per_seat<1){alert('Маалыматтарды туура толтуруңуз.');return;}const btn=form.querySelector('button[type="submit"]');btn.disabled=true;try{const table=driver?'taxi_trips':'taxi_requests';const {error}=await db.from(table).insert(payload);if(error)throw error;alert(driver?'Такси маршруту жарыяланды!':'Жүргүнчү суроо-талабы жарыяланды!');form.reset();await loadTaxiListings();}catch(e){alert('Сакталган жок: '+e.message+'\nЭгер taxi таблицалары али түзүлө элек болсо, берилген SQL файлды Supabase SQL Editor ичинде иштетиңиз.');}finally{btn.disabled=false;}}
-async function loadTaxiListings(){const trips=$('taxiTrips'),requests=$('taxiRequests');if(!trips||!requests)return;trips.innerHTML='<div class="empty">Жүктөлүүдө…</div>';requests.innerHTML='<div class="empty">Жүктөлүүдө…</div>';try{const [a,b]=await Promise.all([db.from('taxi_trips').select('id,user_id,city_from,city_to,travel_date,travel_time,seats,price_per_seat,notes,created_at').eq('status','active').gte('travel_date',new Date().toISOString().slice(0,10)).order('travel_date').limit(50),db.from('taxi_requests').select('id,user_id,city_from,city_to,travel_date,travel_time,seats,price_per_seat,notes,created_at').eq('status','active').gte('travel_date',new Date().toISOString().slice(0,10)).order('travel_date').limit(50)]);if(a.error)throw a.error;if(b.error)throw b.error;const card=(x,driver)=>`<article class="taxi-card"><div class="route">${esc(x.city_from)} → ${esc(x.city_to)}</div><span class="taxi-badge">${driver?'Айдоочу сунушу':'Жүргүнчү суроо-талабы'}</span><div class="taxi-meta"><span>📅 ${esc(x.travel_date)}</span><span>🕗 ${esc(String(x.travel_time||'').slice(0,5))}</span><span>💺 ${esc(x.seats)} ${driver?'бош орун':'орун керек'}</span></div><div class="taxi-price">${money(x.price_per_seat)} / орун</div>${x.notes?`<p class="muted">${esc(x.notes)}</p>`:''}${currentUser&&x.user_id===currentUser.id?'<small class="muted">Сиздин жарыяңыз</small>':''}</article>`;trips.innerHTML=a.data?.length?a.data.map(x=>card(x,true)).join(''):'<div class="panel empty">Азырынча айдоочунун жарыясы жок.</div>';requests.innerHTML=b.data?.length?b.data.map(x=>card(x,false)).join(''):'<div class="panel empty">Азырынча жүргүнчүнүн суроо-талабы жок.</div>';}catch(e){const msg=`<div class="notice error">Такси маалыматтары жүктөлгөн жок: ${esc(e.message)}<br><small>Алгач JUK_EXPRESS_TAXI.sql файлын Supabase SQL Editor ичинде иштетиңиз.</small></div>`;trips.innerHTML=msg;requests.innerHTML=msg;}}
+  <div class="field"><label>${t('Толук аты-жөнү','ФИО')}</label><input name="${driver?'driver_name':'passenger_name'}" required maxlength="100" autocomplete="name" placeholder="${t('Аты-жөнүңүз','Ваше имя и фамилия')}"></div>
+  <div class="field"><label>WhatsApp ${t('номери','номер')}</label><input name="${driver?'driver_whatsapp':'passenger_whatsapp'}" type="tel" required maxlength="25" autocomplete="tel" placeholder="+996 XXX XXX XXX"></div>
+  <div class="field"><label>${t('Кайдан','Откуда')}</label><input name="city_from" required maxlength="100" value="${driver?'Ош шаары':''}" placeholder="${t('Мисалы: Ош','Например: Ош')}"></div>
+  <div class="field"><label>${t('Каякка','Куда')}</label><input name="city_to" required maxlength="100" value="${driver?'Бишкек шаары':''}" placeholder="${t('Мисалы: Бишкек','Например: Бишкек')}"></div>
+  <div class="field"><label>${t('Жөнөө күнү','Дата выезда')}</label><input name="travel_date" type="date" required min="${new Date().toISOString().slice(0,10)}" value="${tomorrow}"></div>
+  <div class="field"><label>${t('Жөнөө убактысы','Время выезда')}</label><input name="travel_time" type="time" required value="08:00"></div>
+  ${driver?`
+   <div class="field"><label>${t('Унаанын түрү','Тип автомобиля')}</label><select name="vehicle_type" required><option value="">${t('Тандаңыз','Выберите')}</option>${vehicleTypes.map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select></div>
+   <div class="field"><label>${t('Унаадагы жалпы орун саны','Всего мест в автомобиле')}</label><select name="vehicle_seats" required><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="15">15</option><option value="18">18</option><option value="20">20</option></select></div>
+   <div class="field"><label>${t('Унаанын маркасы','Марка автомобиля')}</label><input name="vehicle_make" required maxlength="60" placeholder="${t('Мисалы: Toyota','Например: Toyota')}"></div>
+   <div class="field"><label>${t('Унаанын модели','Модель автомобиля')}</label><input name="vehicle_model" required maxlength="60" placeholder="${t('Мисалы: Camry','Например: Camry')}"></div>
+   <div class="field"><label>${t('Бош орун саны','Свободных мест')}</label><input name="seats" type="number" min="1" max="20" required value="3"></div>
+   <div class="field"><label>${t('Унаанын сүрөтү','Фото автомобиля')}</label><input name="vehicle_photo" type="file" accept="image/*"><small class="muted">${t('Бир сүрөт, 5 МБга чейин','Одно фото, до 5 МБ')}</small></div>
+  `:`
+   <div class="field"><label>${t('Керектүү орун саны','Количество нужных мест')}</label><input name="seats" type="number" min="1" max="20" required value="1"></div>
+  `}
+  <div class="field"><label>${driver?t('Бир орунга баа (сом)','Цена за одно место (сом)'):t('Бир орунга сунуштаган баа (сом)','Предлагаемая цена за место (сом)')}</label><input name="price_per_seat" type="number" min="1" max="100000" required value="${driver?1500:1200}"></div>
+  <div class="field taxi-notes-field"><label>${t('Кошумча маалымат','Дополнительная информация')}</label><textarea name="notes" rows="2" maxlength="1000" placeholder="${t('Мисалы: кондиционер, жүк салгыч, аялдама...','Например: кондиционер, багажник, остановки...')}"></textarea></div>
+ </div>
+ <div class="taxi-form-actions"><button class="btn btn-primary" type="submit">${driver?t('Маршрутту жарыялоо','Разместить маршрут'):t('Сапарга суроо жөнөтүү','Отправить запрос на поездку')}</button></div>
+ <p class="muted" style="font-size:12px">${t('WhatsApp номери жарыяда көрүнөт. Айдоочу бааны көрсөтөт, жүргүнчү өз сунушун бере алат.','Номер WhatsApp будет виден в объявлении. Водитель указывает цену, пассажир может предложить свою.')}</p></form>`;
+}
+async function submitTaxi(event){
+ event.preventDefault();
+ if(!currentUser){openAuth();return;}
+ const form=event.currentTarget,fd=new FormData(form),driver=taxiMode==='driver';
+ const phoneField=driver?'driver_whatsapp':'passenger_whatsapp';
+ const nameField=driver?'driver_name':'passenger_name';
+ const common={
+  user_id:currentUser.id,
+  [nameField]:String(fd.get(nameField)||'').trim(),
+  [phoneField]:String(fd.get(phoneField)||'').trim(),
+  city_from:String(fd.get('city_from')||'').trim(),
+  city_to:String(fd.get('city_to')||'').trim(),
+  travel_date:fd.get('travel_date'),
+  travel_time:fd.get('travel_time'),
+  seats:Number(fd.get('seats')),
+  price_per_seat:Number(fd.get('price_per_seat')),
+  notes:String(fd.get('notes')||'').trim(),
+  status:'active'
+ };
+ if(!common[nameField]||!common[phoneField]||!common.city_from||!common.city_to||common.city_from.toLowerCase()===common.city_to.toLowerCase()||!common.travel_date||!common.travel_time||common.seats<1||common.price_per_seat<1){
+  alert(tr('Маалыматтарды туура толтуруңуз.','Пожалуйста, заполните данные правильно.'));return;
+ }
+ const btn=form.querySelector('button[type="submit"]');btn.disabled=true;
+ try{
+  let payload={...common},table=driver?'taxi_trips':'taxi_requests';
+  if(driver){
+   payload.vehicle_type=String(fd.get('vehicle_type')||'');
+   payload.vehicle_make=String(fd.get('vehicle_make')||'').trim();
+   payload.vehicle_model=String(fd.get('vehicle_model')||'').trim();
+   payload.vehicle_seats=Number(fd.get('vehicle_seats'));
+   if(!payload.vehicle_type||!payload.vehicle_make||!payload.vehicle_model||payload.seats>payload.vehicle_seats)throw Error(tr('Унаа тууралуу маалыматты текшериңиз. Бош орун жалпы орундан көп болбошу керек.','Проверьте данные автомобиля. Свободных мест не может быть больше общего количества мест.'));
+   const photo=fd.get('vehicle_photo');
+   if(photo&&photo.size){
+    const urls=await uploadImages('taxi-vehicles',[photo],'vehicle',1);
+    payload.vehicle_photo_url=urls[0];
+   }
+  }
+  const {error}=await db.from(table).insert(payload);if(error)throw error;
+  alert(driver?tr('Такси маршруту жарыяланды!','Маршрут такси опубликован!'):tr('Жүргүнчүнүн суроо-талабы жарыяланды!','Запрос пассажира опубликован!'));
+  form.reset();await loadTaxiListings();
+ }catch(e){
+  alert(tr('Сакталган жок: ','Не удалось сохранить: ')+e.message);
+ }finally{btn.disabled=false;}
+}
+async function loadTaxiListings(){
+ const trips=$('taxiTrips'),requests=$('taxiRequests');if(!trips||!requests)return;
+ trips.innerHTML='<div class="empty">Жүктөлүүдө…</div>';requests.innerHTML='<div class="empty">Жүктөлүүдө…</div>';
+ try{
+  const [a,b]=await Promise.all([
+   db.from('taxi_trips').select('id,user_id,driver_name,driver_whatsapp,city_from,city_to,travel_date,travel_time,vehicle_type,vehicle_make,vehicle_model,vehicle_seats,vehicle_photo_url,seats,price_per_seat,notes,created_at').eq('status','active').gte('travel_date',new Date().toISOString().slice(0,10)).order('travel_date').limit(50),
+   db.from('taxi_requests').select('id,user_id,passenger_name,passenger_whatsapp,city_from,city_to,travel_date,travel_time,seats,price_per_seat,notes,created_at').eq('status','active').gte('travel_date',new Date().toISOString().slice(0,10)).order('travel_date').limit(50)
+  ]);
+  if(a.error)throw a.error;if(b.error)throw b.error;
+  const card=(x,driver)=>{
+   const phone=driver?x.driver_whatsapp:x.passenger_whatsapp,wa=waLink(phone);
+   const vehicle=driver?`<div class="taxi-meta"><span>🚘 ${esc(x.vehicle_type||'')}</span><span>${esc([x.vehicle_make,x.vehicle_model].filter(Boolean).join(' '))}</span><span>💺 ${esc(x.seats)} / ${esc(x.vehicle_seats)} ${tr('бош орун','свободных мест')}</span></div>`:'';
+   const photo=driver&&x.vehicle_photo_url?`<img class="taxi-vehicle-photo" src="${esc(x.vehicle_photo_url)}" alt="${tr('Унаанын сүрөтү','Фото автомобиля')}" loading="lazy">`:'';
+   return `<article class="taxi-card">${photo}<div class="route">${esc(x.city_from)} → ${esc(x.city_to)}</div><span class="taxi-badge">${driver?tr('Айдоочу сунушу','Предложение водителя'):tr('Жүргүнчү суроо-талабы','Запрос пассажира')}</span>
+    <div class="taxi-meta"><span>👤 ${esc(driver?x.driver_name:x.passenger_name)}</span><span>📅 ${esc(x.travel_date)}</span><span>🕗 ${esc(String(x.travel_time||'').slice(0,5))}</span><span>💺 ${esc(x.seats)} ${driver?tr('бош орун','свободных мест'):tr('орун керек','мест требуется')}</span></div>${vehicle}
+    <div class="taxi-price">${money(x.price_per_seat)} / ${tr('орун','место')}</div>${x.notes?`<p class="muted">${esc(x.notes)}</p>`:''}
+    <div class="listing-actions">${wa?`<a class="btn btn-blue" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}?text=${encodeURIComponent(tr('Саламатсызбы! Сиздин такси жарыяңыз боюнча байланышып жатам.','Здравствуйте! Пишу по вашему объявлению такси.'))}">WhatsApp</a>`:''}${phone?`<a class="btn btn-light" href="tel:${esc(phoneClean(phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${currentUser&&x.user_id===currentUser.id?`<span class="muted">${tr('Сиздин жарыяңыз','Ваше объявление')}</span>`:''}</div>
+   </article>`;
+  };
+  trips.innerHTML=a.data?.length?a.data.map(x=>card(x,true)).join(''):`<div class="panel empty">${tr('Азырынча айдоочунун жарыясы жок.','Пока нет объявлений водителей.')}</div>`;
+  requests.innerHTML=b.data?.length?b.data.map(x=>card(x,false)).join(''):`<div class="panel empty">${tr('Азырынча жүргүнчүнүн суроо-талабы жок.','Пока нет запросов пассажиров.')}</div>`;
+ }catch(e){
+  const msg=`<div class="notice error">${tr('Такси маалыматтары жүктөлгөн жок: ','Не удалось загрузить данные такси: ')}${esc(e.message)}</div>`;
+  trips.innerHTML=msg;requests.innerHTML=msg;
+ }
+}
 async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
 
