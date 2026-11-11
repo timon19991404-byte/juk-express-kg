@@ -665,6 +665,42 @@ main{max-width:1180px}
  <div class="taxi-columns"><div><h3>🚘 Айдоочулардын сунуштары</h3><div id="taxiTrips" class="listing"><div class="empty">Жүктөлүүдө…</div></div></div><div><h3>🧍 Жүргүнчүлөрдүн суроо-талаптары</h3><div id="taxiRequests" class="listing"><div class="empty">Жүктөлүүдө…</div></div></div></div>
  <div id="taxiNotice" class="muted"></div>
 </section>
+<section id="page-taxi-parcels" class="hidden">
+ <div class="section-head"><div><h2>📦 <span data-ky="ПЕРЕДАЧА — посылка жөнөтүү" data-ru="ПЕРЕДАЧА — отправка посылок">ПЕРЕДАЧА — посылка жөнөтүү</span></h2><div class="muted" data-ky="Шаарлар арасында документ жана буюм жеткирүү" data-ru="Доставка документов и вещей между городами">Шаарлар арасында документ жана буюм жеткирүү</div></div><button class="btn btn-light" onclick="loadTaxiParcels()">↻</button></div>
+ <div class="panel">
+  <h3 data-ky="Посылка жөнөтүү" data-ru="Отправить посылку">Посылка жөнөтүү</h3>
+  <form id="taxiParcelForm" onsubmit="submitTaxiParcel(event)">
+   <div class="taxi-form-grid">
+    <div class="field"><label data-ky="Жөнөтүүчүнүн аты-жөнү" data-ru="ФИО отправителя">Жөнөтүүчүнүн аты-жөнү</label><input name="sender_name" required maxlength="100" autocomplete="name"></div>
+    <div class="field"><label data-ky="Жөнөтүүчүнүн WhatsApp номери" data-ru="WhatsApp отправителя">Жөнөтүүчүнүн WhatsApp номери</label><input name="sender_whatsapp" type="tel" required maxlength="25" placeholder="+996..."></div>
+    <div class="field"><label data-ky="Алуучунун аты-жөнү" data-ru="ФИО получателя">Алуучунун аты-жөнү</label><input name="receiver_name" required maxlength="100"></div>
+    <div class="field"><label data-ky="Алуучунун WhatsApp номери" data-ru="WhatsApp получателя">Алуучунун WhatsApp номери</label><input name="receiver_whatsapp" type="tel" required maxlength="25" placeholder="+996..."></div>
+    <div class="field"><label data-ky="Кайдан" data-ru="Откуда">Кайдан</label><input name="city_from" required maxlength="100" placeholder="Ош"></div>
+    <div class="field"><label data-ky="Кайда" data-ru="Куда">Кайда</label><input name="city_to" required maxlength="100" placeholder="Бишкек"></div>
+    <div class="field"><label data-ky="Жөнөтүү күнү" data-ru="Дата отправки">Жөнөтүү күнү</label><input name="pickup_date" type="date" required></div>
+    <div class="field"><label data-ky="Даяр болуу убактысы" data-ru="Время отправки">Даяр болуу убактысы</label><input name="pickup_time" type="time"></div>
+    <div class="field"><label data-ky="Посылканын түрү" data-ru="Тип посылки">Посылканын түрү</label><select name="parcel_type" required><option value="">Тандаңыз / Выберите</option><option value="document">Документ / Документы</option><option value="small">Чакан буюм / Небольшая вещь</option><option value="box">Куту / Коробка</option><option value="other">Башка / Другое</option></select></div>
+    <div class="field"><label data-ky="Салмагы (кг)" data-ru="Вес (кг)">Салмагы (кг)</label><input name="weight_kg" type="number" min="0" step="0.1"></div>
+    <div class="field"><label data-ky="Өлчөмү" data-ru="Размер">Өлчөмү</label><input name="size_description" maxlength="120" placeholder="Мисалы: 30×20×15 см"></div>
+    <div class="field"><label data-ky="Сүрөтү (5 МБ чейин)" data-ru="Фото (до 5 МБ)">Сүрөтү (5 МБ чейин)</label><input name="parcel_photo" type="file" accept="image/*"></div>
+    <div class="field" style="grid-column:1/-1"><label data-ky="Кошумча маалымат" data-ru="Описание">Кошумча маалымат</label><textarea name="parcel_description" rows="2" maxlength="1000"></textarea></div>
+    <div class="field"><label data-ky="Сунушталган жеткирүү баасы (сом)" data-ru="Предлагаемая цена доставки (сом)">Сунушталган жеткирүү баасы (сом)</label><input name="offered_price" type="number" min="0" max="100000" required value="200"></div>
+   </div>
+   <div class="taxi-form-actions"><button class="btn btn-primary" type="submit" data-ky="Посылканы жарыялоо" data-ru="Опубликовать посылку">Посылканы жарыялоо</button></div>
+   <p class="muted" style="font-size:12px" data-ky="Азыр төлөм жөнөтүүчү менен айдоочунун ортосунда түз жүргүзүлөт. Платформа аркылуу төлөм кийин кошулат." data-ru="Пока оплата производится напрямую между отправителем и водителем. Оплата через платформу будет добавлена позже.">Азыр төлөм жөнөтүүчү менен айдоочунун ортосунда түз жүргүзүлөт. Платформа аркылуу төлөм кийин кошулат.</p>
+  </form>
+ </div>
+ <div class="section-head"><h2 data-ky="Жеткирүүнү күтүп жаткан посылкалар" data-ru="Посылки, ожидающие доставки">Жеткирүүнү күтүп жаткан посылкалар</h2></div>
+ <div id="taxiParcelListings" class="listing"><div class="empty">Жүктөлүүдө…</div></div>
+</section>
+<section id="page-taxi-cabinet" class="hidden">
+ <div class="section-head"><div><h2 data-ky="Такси жеке кабинети" data-ru="Личный кабинет такси">Такси жеке кабинети</h2><div class="muted" data-ky="Такси каттамдары жана посылка жарыяларыңызды башкаруу" data-ru="Управление поездками и объявлениями о посылках">Такси каттамдары жана посылка жарыяларыңызды башкаруу</div></div></div>
+ <div id="taxiCabinetContent" class="panel"><div class="empty">Маалымат жүктөлүүдө…</div></div>
+</section>
+<section id="page-taxi-messages" class="hidden">
+ <div class="section-head"><h2 data-ky="Такси байланыштары" data-ru="Контакты такси">Такси байланыштары</h2></div>
+ <div class="panel"><p data-ky="Азырынча айдоочу, жүргүнчү жана жөнөтүүчү менен WhatsApp же телефон аркылуу түз байланышса болот. Ички чат кийинки этапта кошулат." data-ru="Пока можно связаться с водителем, пассажиром или отправителем напрямую через WhatsApp или телефон. Внутренний чат добавим следующим этапом.">Азырынча айдоочу, жүргүнчү жана жөнөтүүчү менен WhatsApp же телефон аркылуу түз байланышса болот. Ички чат кийинки этапта кошулат.</p></div>
+</section>
 <section id="page-saved" class="hidden"><div class="section-head"><h2>Сакталган жарыялар</h2></div><div id="savedListings" class="listing"></div></section>
 <section id="page-messages" class="hidden">
  <div class="section-head"><div><h2>Билдирүүлөр</h2><div class="muted">Жүк ээси жана айдоочу ортосундагы жеке чат</div></div><button class="btn btn-light" onclick="loadConversations()">Жаңылоо</button></div>
@@ -690,6 +726,14 @@ main{max-width:1180px}
  <button data-page="drivers" onclick="showPage('drivers')"><span class="nav-ico">🚚</span><span>Айдоочулар</span></button>
  <button data-page="messages" onclick="showPage('messages')"><span class="nav-ico">▢</span><span>Чаттар</span></button>
  <button data-page="cabinet" onclick="showPage('cabinet')"><span class="nav-ico">♙</span><span>Профиль</span></button>
+</nav>
+<nav class="app-bottom-nav v24-bottom hidden" id="taxiBottomNav" aria-label="Такси төмөнкү меню">
+ <button data-taxi-page="taxi-home" class="active" onclick="showPage('taxi-home')"><span class="nav-ico">⌂</span><span data-ky="Башкы" data-ru="Главная">Башкы</span></button>
+ <button data-taxi-page="taxi" onclick="showPage('taxi');setTaxiMode('search')"><span class="nav-ico">🚕</span><span data-ky="Каттамдар" data-ru="Поездки">Каттамдар</span></button>
+ <button class="add-nav" onclick="showPage('taxi');setTaxiMode('driver')"><span class="nav-ico">＋</span><span data-ky="Жарыялоо" data-ru="Добавить">Жарыялоо</span></button>
+ <button data-taxi-page="taxi-parcels" onclick="showPage('taxi-parcels')"><span class="nav-ico">📦</span><span data-ky="Передача" data-ru="Посылки">Передача</span></button>
+ <button data-taxi-page="taxi-messages" onclick="showPage('taxi-messages')"><span class="nav-ico">💬</span><span data-ky="Чаттар" data-ru="Чаты">Чаттар</span></button>
+ <button data-taxi-page="taxi-cabinet" onclick="showPage('taxi-cabinet')"><span class="nav-ico">♙</span><span data-ky="Профиль" data-ru="Профиль">Профиль</span></button>
 </nav>
 
 
@@ -932,14 +976,17 @@ function handleAuthMenu(){ if(currentUser){closeTopMenu();logout()}else{closeTop
 function showPage(page){
  document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));
  const target=$('page-'+page);if(target)target.classList.remove('hidden');
- const taxiArea=['taxi-home','taxi'].includes(page),hub=page==='home';
+ const taxiPages=['taxi-home','taxi','taxi-parcels','taxi-cabinet','taxi-messages'];
+ const taxiArea=taxiPages.includes(page),hub=page==='home';
  $('nav')?.classList.toggle('hidden',taxiArea||hub);
  $('appBottomNav')?.classList.toggle('hidden',taxiArea||hub);
+ $('taxiBottomNav')?.classList.toggle('hidden',!taxiArea);
  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
  document.querySelectorAll('#appBottomNav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ document.querySelectorAll('#taxiBottomNav button[data-taxi-page]').forEach(b=>b.classList.toggle('active',b.dataset.taxiPage===page));
  const brand=document.querySelector('.top .brand');
  if(brand){brand.innerHTML=taxiArea?'<div class="logo v26-logo"><img src="taxi-logo.png" alt="ТАКСИ ЭКСПРЕСС логотиби"></div><div>ТАКСИ ЭКСПРЕСС.KG<small>ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</small></div>':'<div class="logo v26-logo"><img src="logo.png" alt="ЖҮК ЭКСПРЕСС.KG логотиби"></div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div>';}
- if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode(taxiMode);loadTaxiListings()}if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
+ if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode(taxiMode);loadTaxiListings()}if(page==='taxi-parcels')loadTaxiParcels();if(page==='taxi-cabinet')loadTaxiCabinet();if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
  applyLanguage();window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
@@ -1627,6 +1674,61 @@ async function loadTaxiListings(){
   trips.innerHTML=msg;requests.innerHTML=msg;
  }
 }
+
+async function submitTaxiParcel(event){
+ event.preventDefault();
+ if(!currentUser){openAuth();return;}
+ const form=event.currentTarget,fd=new FormData(form),btn=form.querySelector('button[type="submit"]');
+ const from=String(fd.get('city_from')||'').trim(),to=String(fd.get('city_to')||'').trim();
+ const sender=String(fd.get('sender_name')||'').trim(),senderPhone=String(fd.get('sender_whatsapp')||'').trim();
+ const receiver=String(fd.get('receiver_name')||'').trim(),receiverPhone=String(fd.get('receiver_whatsapp')||'').trim();
+ const price=Number(fd.get('offered_price'));
+ if(!from||!to||from.toLowerCase()===to.toLowerCase()||!sender||!senderPhone||!receiver||!receiverPhone||price<0){
+  alert(tr('Маалыматтарды туура толтуруңуз.','Пожалуйста, проверьте заполненные данные.'));return;
+ }
+ btn.disabled=true;
+ try{
+  let photoUrl=null;const photo=fd.get('parcel_photo');
+  if(photo&&photo.size){const urls=await uploadImages('taxi-parcels',[photo],'parcel',1);photoUrl=urls[0];}
+  const payload={
+   user_id:currentUser.id,sender_name:sender,sender_whatsapp:senderPhone,
+   receiver_name:receiver,receiver_whatsapp:receiverPhone,
+   city_from:from,city_to:to,pickup_date:fd.get('pickup_date'),
+   pickup_time:fd.get('pickup_time')||null,parcel_type:String(fd.get('parcel_type')||''),
+   parcel_description:String(fd.get('parcel_description')||'').trim(),
+   weight_kg:fd.get('weight_kg')?Number(fd.get('weight_kg')):null,
+   size_description:String(fd.get('size_description')||'').trim(),
+   photo_url:photoUrl,offered_price:price,status:'active'
+  };
+  const {error}=await db.from('taxi_parcels').insert(payload);if(error)throw error;
+  alert(tr('Посылка жарыяланды!','Посылка опубликована!'));form.reset();await loadTaxiParcels();
+ }catch(e){alert(tr('Сакталган жок: ','Не удалось сохранить: ')+e.message);}
+ finally{btn.disabled=false;}
+}
+async function loadTaxiParcels(){
+ const host=$('taxiParcelListings');if(!host)return;
+ host.innerHTML='<div class="empty">Жүктөлүүдө…</div>';
+ try{
+  const {data,error}=await db.from('taxi_parcels').select('id,user_id,sender_name,sender_whatsapp,receiver_name,receiver_whatsapp,city_from,city_to,pickup_date,pickup_time,parcel_type,parcel_description,weight_kg,size_description,photo_url,offered_price,status,created_at').eq('status','active').gte('pickup_date',new Date().toISOString().slice(0,10)).order('pickup_date').limit(60);
+  if(error)throw error;
+  if(!data?.length){host.innerHTML=`<div class="panel empty">${tr('Азырынча посылка жарыялары жок.','Пока нет объявлений о посылках.')}</div>`;return;}
+  host.innerHTML=data.map(x=>{
+   const wa=waLink(x.sender_whatsapp),photo=x.photo_url?`<img class="taxi-vehicle-photo" src="${esc(x.photo_url)}" alt="Посылка" loading="lazy">`:'';
+   return `<article class="taxi-card">${photo}<div class="route">${esc(x.city_from)} → ${esc(x.city_to)}</div><span class="taxi-badge">📦 ${tr('Посылка','Посылка')}</span><div class="taxi-meta"><span>👤 ${esc(x.sender_name)}</span><span>📅 ${esc(x.pickup_date||'')}</span><span>🕗 ${esc(String(x.pickup_time||'').slice(0,5))}</span></div><div class="taxi-meta"><span>${tr('Алуучу','Получатель')}: ${esc(x.receiver_name)}</span><span>${tr('Түрү','Тип')}: ${esc(x.parcel_type)}</span>${x.weight_kg?`<span>⚖️ ${esc(x.weight_kg)} кг</span>`:''}</div>${x.size_description?`<div class="taxi-meta">${esc(x.size_description)}</div>`:''}${x.parcel_description?`<p class="muted">${esc(x.parcel_description)}</p>`:''}<div class="taxi-price">${money(x.offered_price)} ${tr('жеткирүү үчүн','за доставку')}</div><div class="listing-actions">${wa?`<a class="btn btn-blue" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}?text=${encodeURIComponent(tr('Саламатсызбы! Посылкаңыз боюнча байланышып жатам.','Здравствуйте! Пишу по поводу вашей посылки.'))}">WhatsApp</a>`:''}${x.sender_whatsapp?`<a class="btn btn-light" href="tel:${esc(phoneClean(x.sender_whatsapp))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${currentUser&&x.user_id===currentUser.id?`<span class="muted">${tr('Сиздин жарыяңыз','Ваше объявление')}</span>`:''}</div></article>`;
+  }).join('');
+ }catch(e){host.innerHTML=`<div class="notice error">${tr('Посылкалар жүктөлгөн жок: ','Не удалось загрузить посылки: ')}${esc(e.message)}</div>`;}
+}
+async function loadTaxiCabinet(){
+ const host=$('taxiCabinetContent');if(!host)return;
+ if(!currentUser){host.innerHTML=`<p>${tr('Жеке кабинетке кирүү үчүн аккаунтка кириңиз.','Войдите в аккаунт, чтобы открыть личный кабинет.')}</p><button class="btn btn-primary" onclick="openAuth()">${tr('Кирүү','Войти')}</button>`;return;}
+ host.innerHTML=`<div class="empty">${tr('Маалымат жүктөлүүдө…','Загрузка…')}</div>`;
+ try{
+  const {data,error}=await db.from('taxi_parcels').select('id,city_from,city_to,pickup_date,offered_price,status,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(30);
+  if(error)throw error;
+  const parcelRows=(data||[]).map(x=>`<div class="taxi-meta" style="padding:10px 0;border-bottom:1px solid var(--line)"><b>📦 ${esc(x.city_from)} → ${esc(x.city_to)}</b><span>${esc(x.pickup_date||'')}</span><span>${money(x.offered_price)}</span><span>${esc(x.status)}</span></div>`).join('');
+  host.innerHTML=`<h3>${esc(profile?.full_name||currentUser.email||'')}</h3><p class="muted">${esc(profile?.phone||'')}</p><h3>${tr('Менин посылка жарыяларым','Мои объявления о посылках')}</h3>${parcelRows||`<p class="muted">${tr('Азырынча жарыя жок.','Пока объявлений нет.')}</p>`}<button class="btn btn-primary" onclick="showPage('taxi-parcels')">${tr('Посылка жарыялоо','Опубликовать посылку')}</button>`;
+ }catch(e){host.innerHTML=`<div class="notice error">${esc(e.message)}</div>`;}
+}
 async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
 
@@ -1635,3 +1737,10 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
 }
 
 </script></body></html>
+<style>
+#taxiBottomNav{z-index:35}
+#taxiBottomNav button{font-size:10px}
+#page-taxi-parcels .taxi-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#page-taxi-parcels .taxi-form-grid .field{min-width:0}
+@media(max-width:650px){#page-taxi-parcels .taxi-form-grid{grid-template-columns:1fr}#taxiBottomNav{height:74px}}
+</style>
