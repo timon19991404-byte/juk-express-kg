@@ -1008,7 +1008,18 @@ async function loadMyLoads(){
   const {data,error}=await db.from('loads').select('id,owner_id,title,cargo,city_from,city_to,weight_tons,price,phone,whatsapp,description,status,expires_at,is_current,created_at').eq('owner_id',currentUser.id).order('created_at',{ascending:false});
   if(error)throw error;
   if(!data?.length){host.innerHTML='<div class="empty"><b>Азырынча жарыяңыз жок</b>Жүк жарыяласаңыз, ушул жерден башкара аласыз.</div>';return}
-  host.innerHTML=data.map(x=>`<article class="listing-card"><div class="route">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div><b>${esc(x.title||x.cargo||'Жүк')}</b><div class="listing-meta"><span>📦 ${esc(x.cargo||'—')}</span><span>⚖️ ${esc(formatLoadWeight(x.weight_tons))}</span><span>💰 ${esc(money(x.price))}</span></div><div class="listing-actions"><button class="btn btn-blue" onclick="editMyLoad('${esc(x.id)}')">✏️ Өзгөртүү</button><button class="btn btn-light" onclick="toggleMyLoadStatus('${esc(x.id)}','${x.status==='paused'?'active':'paused'}')">${x.status==='paused'?'▶️ Кайра жарыялоо':'⏸ Убактылуу токтотуу'}</button><button class="btn btn-danger" onclick="deleteMyLoad('${esc(x.id)}')">🗑 Өчүрүү</button></div><small class="muted">Абалы: ${x.status==='paused'?'Убактылуу токтотулган':x.status==='active'?'Активдүү':esc(x.status||'Активдүү')}</small></article>`).join('');
+  // Мөөнөтү бүткөн жарыяны базага expired деп белгилеп, ээсине Push жөнөтөбүз.
+  const now=Date.now();
+  for(const item of data){
+   const due=!!item.expires_at&&new Date(item.expires_at).getTime()<=now;
+   if(due&&item.status!=='expired'){
+    const {error:expireError}=await db.from('loads').update({status:'expired',is_current:false,current_confirmed_at:null}).eq('id',item.id).eq('owner_id',currentUser.id).neq('status','expired');
+    if(expireError){console.warn('Жүктү мөөнөтү бүткөн деп белгилөө катасы:',expireError.message);continue;}
+    item.status='expired';item.is_current=false;
+    await sendPushEvent({event:'load_expired',load_id:item.id});
+   }
+  }
+  host.innerHTML=data.map(x=>{const expired=!!x.expires_at&&new Date(x.expires_at).getTime()<=Date.now()||x.status==='expired';const paused=x.status==='paused'&&!expired;const statusLabel=expired?'Мөөнөтү бүттү':paused?'Убактылуу токтотулган':x.status==='active'?'Активдүү':esc(x.status||'Активдүү');const expiryLabel=x.expires_at?new Date(x.expires_at).toLocaleDateString('ru-RU'):'—';return `<article class="listing-card"><div class="route">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div><b>${esc(x.title||x.cargo||'Жүк')}</b><div class="listing-meta"><span>📦 ${esc(x.cargo||'—')}</span><span>⚖️ ${esc(formatLoadWeight(x.weight_tons))}</span><span>💰 ${esc(money(x.price))}</span></div><div class="listing-actions"><button class="btn btn-blue" onclick="editMyLoad('${esc(x.id)}')">✏️ Өзгөртүү</button>${expired?`<button class="btn btn-primary" onclick="renewMyLoad('${esc(x.id)}')">🔄 Дагы 7 күнгө жаңыртуу</button>`:`<button class="btn btn-light" onclick="toggleMyLoadStatus('${esc(x.id)}','${paused?'active':'paused'}')">${paused?'▶️ Кайра жарыялоо':'⏸ Убактылуу токтотуу'}</button>`}<button class="btn btn-danger" onclick="deleteMyLoad('${esc(x.id)}')">🗑 Өчүрүү</button></div><small class="muted">Абалы: ${statusLabel} · Бүткөн күнү: ${expiryLabel}</small></article>`}).join('');
  }catch(e){host.innerHTML=`<div class="notice error">${esc(e.message)}<br><small>loads таблицасында RLS уруксаттарын текшерүү керек.</small></div>`}
 }
 async function editMyLoad(id){
@@ -1037,6 +1048,17 @@ async function toggleMyLoadStatus(id,status){
 async function deleteMyLoad(id){
  if(!confirm('Бул жарыяны биротоло өчүрөсүзбү? Бул аракетти артка кайтаруу мүмкүн эмес.'))return;
  try{const {error}=await db.from('loads').delete().eq('id',id).eq('owner_id',currentUser.id);if(error)throw error;await loadMyLoads();await loadListings();alert('Жарыя өчүрүлдү.')}catch(e){alert('Өчүрүлгөн жок: '+e.message)}
+}
+async function renewMyLoad(id){
+ if(!currentUser)return openAuth();
+ if(!confirm('Бул жарыяны дагы 7 күнгө жаңыртасызбы?'))return;
+ const nextExpiry=new Date(Date.now()+7*86400000).toISOString();
+ try{
+  const {error}=await db.from('loads').update({status:'active',expires_at:nextExpiry,is_current:true,current_confirmed_at:new Date().toISOString()}).eq('id',id).eq('owner_id',currentUser.id);
+  if(error)throw error;
+  await loadMyLoads();await loadListings();
+  alert('Жарыя дагы 7 күнгө жаңыртылды жана кайра активдүү болду.');
+ }catch(e){alert('Жарыя жаңыртылган жок: '+e.message)}
 }
 
 function closeCabinetSection(){const host=$('cabinetSubview');if(host){host.classList.add('hidden');host.innerHTML='';window.scrollTo({top:0,behavior:'smooth'});}}
