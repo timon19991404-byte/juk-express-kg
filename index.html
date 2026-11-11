@@ -762,12 +762,12 @@ function listingCard(x){
  const weight=formatLoadWeight(x.weight_tons);
  const current=loadIsCurrent(x);
  return `<article class="listing-card load-card" role="button" tabindex="0" onclick="openDetail('${esc(x.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDetail('${esc(x.id)}')}">
-  <div class="load-card-main"><div class="load-photo-wrap">${photo}${x.is_urgent?`<span class="load-urgent-badge">${tr('СРОЧНО','СРОЧНО')}</span>`:''}${photos.length>1?`<span class="photo-count">📷 ${photos.length}</span>`:''}</div>
+  <div class="load-card-main"><div class="load-photo-wrap">${photo}${photos.length>1?`<span class="photo-count">📷 ${photos.length}</span>`:''}</div>
    <div class="load-info"><div class="load-card-head"><div class="route">${route}</div><button class="save-icon" aria-label="${tr('Сактоо','В избранное')}" onclick="event.stopPropagation();toggleSaved('${key}')">${saved?'♥':'♡'}</button></div>
     <div class="load-title">${esc(bilingualText(x.title,x.title_ru,x.cargo||tr('Жүк','Груз')))}</div>
     <div class="load-facts"><div><span>📦</span> ${tr('Жүк','Груз')}: <b>${esc(bilingualText(x.cargo,x.cargo_ru,tr('Көрсөтүлгөн эмес','Не указано')))}</b></div>${x.weight_tons?`<div><span>⚖️</span> ${tr('Салмак','Вес')}: <b>${esc(weight)}</b></div>`:''}${x.vehicle_type?`<div><span>🚚</span> ${tr('Унаа','Машина')}: <b>${esc(x.vehicle_type)}</b></div>`:''}${x.route_km?`<div><span>🛣️</span> ${tr('Аралык','Расстояние')}: <b>${esc(x.route_km)} ${tr('км','км')}</b></div>`:''}<div><span>📅</span> ${tr('Жүктөө','Загрузка')}: <b>${esc(date)}</b></div></div>
     <div class="load-price">${esc(money(x.price))}</div>
-    <div class="load-status"><span class="tag">${tr('ЖҮК','ГРУЗ')}</span>${current?`<span class="pill">${tr('АКТУАЛДУУ','АКТУАЛЬНО')}</span>`:''}</div>
+    <div class="load-status"><span class="tag">${tr('ЖҮК','ГРУЗ')}</span>${current?`<span class="pill">${tr('АКТУАЛДУУ','АКТУАЛЬНО')}</span>`:''}${x.is_urgent?`<span class="load-urgent-badge">${tr('СРОЧНО','СРОЧНО')}</span>`:''}</div>
    </div></div>
   <div class="load-owner-row"><span class="load-owner-avatar">♙</span><div style="min-width:0;flex:1"><div class="load-owner-name">${esc(ownerName)}</div><div class="load-owner-caption">${tr('Жүк ээси','Владелец груза')}</div></div></div>
   <div class="load-card-actions"><button class="btn btn-light" onclick="event.stopPropagation();openDetail('${esc(x.id)}')">${tr('Толук маалымат','Подробнее')}</button>${phone?`<a class="btn btn-blue" onclick="event.stopPropagation()" href="tel:${esc(phone)}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${wa?`<a class="btn btn-whatsapp" onclick="event.stopPropagation()" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}<button class="btn btn-light dispatcher-btn" onclick="event.stopPropagation();requestDispatcher('loads','${esc(x.id)}')">${tr('Диспетчер жардам','Помощь диспетчера')}</button></div>
@@ -955,6 +955,7 @@ function renderCabinet(){
   ['legal','legal','Юридикалык маалымат','Юридическая информация'],
   ['support','?','Колдоо кызматы','Поддержка']
  ];
+ items.unshift(['myloads','personal','Менин жүк жарыяларым','Мои объявления']);
  const driverItem=role==='driver'?`<button class="cab-menu-item cab-driver-item" onclick="openCabinetSection('driver')"><span class="cab-menu-icon">${icon('driver')}</span><span><b>Айдоочунун профили</b><small>Унаа, багыттар жана айдоочу маалыматы</small></span><span class="cab-chevron">›</span></button>`:'';
  const menu=items.map(([id,ico,ky,ru])=>`<button class="cab-menu-item" onclick="openCabinetSection('${id}')"><span class="cab-menu-icon">${icon(ico)}</span><span><b>${lang==='ru'?ru:ky}</b></span><span class="cab-chevron">›</span></button>`).join('');
  $('cabinetContent').innerHTML=`<div class="cab-profile-wrap">
@@ -996,6 +997,45 @@ function openCabinetSection(section){
  if(section==='notifications')refreshPushStatus();
  if(section==='driver')loadVehicleManager();
 }
+
+async function loadMyLoads(){
+ const host=$('myLoadsList');if(!host||!currentUser)return;
+ host.innerHTML='<div class="empty">Жүктөлүүдө…</div>';
+ try{
+  const {data,error}=await db.from('loads').select('id,owner_id,title,cargo,city_from,city_to,weight_tons,price,phone,whatsapp,description,status,expires_at,is_current,created_at').eq('owner_id',currentUser.id).order('created_at',{ascending:false});
+  if(error)throw error;
+  if(!data?.length){host.innerHTML='<div class="empty"><b>Азырынча жарыяңыз жок</b>Жүк жарыяласаңыз, ушул жерден башкара аласыз.</div>';return}
+  host.innerHTML=data.map(x=>`<article class="listing-card"><div class="route">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div><b>${esc(x.title||x.cargo||'Жүк')}</b><div class="listing-meta"><span>📦 ${esc(x.cargo||'—')}</span><span>⚖️ ${esc(formatLoadWeight(x.weight_tons))}</span><span>💰 ${esc(money(x.price))}</span></div><div class="listing-actions"><button class="btn btn-blue" onclick="editMyLoad('${esc(x.id)}')">✏️ Өзгөртүү</button><button class="btn btn-light" onclick="toggleMyLoadStatus('${esc(x.id)}','${x.status==='paused'?'active':'paused'}')">${x.status==='paused'?'▶️ Кайра жарыялоо':'⏸ Убактылуу токтотуу'}</button><button class="btn btn-danger" onclick="deleteMyLoad('${esc(x.id)}')">🗑 Өчүрүү</button></div><small class="muted">Абалы: ${x.status==='paused'?'Убактылуу токтотулган':x.status==='active'?'Активдүү':esc(x.status||'Активдүү')}</small></article>`).join('');
+ }catch(e){host.innerHTML=`<div class="notice error">${esc(e.message)}<br><small>loads таблицасында RLS уруксаттарын текшерүү керек.</small></div>`}
+}
+async function editMyLoad(id){
+ try{
+  const {data:x,error}=await db.from('loads').select('*').eq('id',id).eq('owner_id',currentUser.id).single();if(error)throw error;
+  const overlay=document.createElement('div');overlay.className='modal-back';overlay.id='editLoadOverlay';
+  overlay.innerHTML=`<div class="modal"><h2>Жарыяны өзгөртүү</h2><p class="muted">Керектүү маалыматтарды оңдоп, сактаңыз.</p>
+   <div class="field"><label>Жарыянын аталышы</label><input id="el-title" value="${esc(x.title||'')}"></div>
+   <div class="profile-grid"><div class="field"><label>Кайдан</label><input id="el-from" value="${esc(x.city_from||'')}"></div><div class="field"><label>Кайда</label><input id="el-to" value="${esc(x.city_to||'')}"></div></div>
+   <div class="profile-grid"><div class="field"><label>Жүктүн түрү</label><input id="el-cargo" value="${esc(x.cargo||'')}"></div><div class="field"><label>Салмагы, тонна</label><input id="el-weight" type="number" min="0.001" step="0.001" value="${esc(x.weight_tons||'')}"></div></div>
+   <div class="profile-grid"><div class="field"><label>Баасы, сом</label><input id="el-price" type="number" min="0" value="${esc(x.price??0)}"></div><div class="field"><label>Телефон</label><input id="el-phone" value="${esc(x.phone||'')}"></div></div>
+   <div class="field"><label>WhatsApp</label><input id="el-whatsapp" value="${esc(x.whatsapp||'')}"></div><div class="field"><label>Кошумча маалымат</label><textarea id="el-description">${esc(x.description||'')}</textarea></div>
+   <div class="modal-actions"><button class="btn btn-light" onclick="document.getElementById('editLoadOverlay').remove()">Жабуу</button><button class="btn btn-blue" onclick="saveMyLoad('${esc(x.id)}')">Сактоо</button></div><div id="editLoadMessage"></div></div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove()});document.body.appendChild(overlay);
+ }catch(e){alert('Жарыя ачылган жок: '+e.message)}
+}
+async function saveMyLoad(id){
+ const patch={title:$('el-title').value.trim(),city_from:$('el-from').value.trim(),city_to:$('el-to').value.trim(),cargo:$('el-cargo').value.trim(),weight_tons:Number($('el-weight').value),price:Number($('el-price').value||0),phone:$('el-phone').value.trim(),whatsapp:$('el-whatsapp').value.trim(),description:$('el-description').value.trim()};
+ if(!patch.title||!patch.city_from||!patch.city_to||!patch.phone||!(patch.weight_tons>0)){showMsg('editLoadMessage','Аталыш, багыт, телефон жана салмакты туура толтуруңуз.','error');return}
+ try{const {error}=await db.from('loads').update(patch).eq('id',id).eq('owner_id',currentUser.id);if(error)throw error;document.getElementById('editLoadOverlay')?.remove();await loadMyLoads();await loadListings();alert('Жарыя ийгиликтүү өзгөртүлдү.')}catch(e){showMsg('editLoadMessage','Сакталган жок: '+e.message,'error')}
+}
+async function toggleMyLoadStatus(id,status){
+ if(!confirm(status==='paused'?'Жарыяны убактылуу токтотосузбу?':'Жарыяны кайра активдүү кыласызбы?'))return;
+ try{const {error}=await db.from('loads').update({status,is_current:status==='active',current_confirmed_at:status==='active'?new Date().toISOString():null}).eq('id',id).eq('owner_id',currentUser.id);if(error)throw error;await loadMyLoads();await loadListings();alert(status==='paused'?'Жарыя убактылуу токтотулду.':'Жарыя кайра активдүү болду.')}catch(e){alert('Өзгөртүү сакталган жок: '+e.message)}
+}
+async function deleteMyLoad(id){
+ if(!confirm('Бул жарыяны биротоло өчүрөсүзбү? Бул аракетти артка кайтаруу мүмкүн эмес.'))return;
+ try{const {error}=await db.from('loads').delete().eq('id',id).eq('owner_id',currentUser.id);if(error)throw error;await loadMyLoads();await loadListings();alert('Жарыя өчүрүлдү.')}catch(e){alert('Өчүрүлгөн жок: '+e.message)}
+}
+
 function closeCabinetSection(){const host=$('cabinetSubview');if(host){host.classList.add('hidden');host.innerHTML='';window.scrollTo({top:0,behavior:'smooth'});}}
 function setLanguage(value){lang=value;try{localStorage.setItem('juk_lang',value)}catch(e){}renderCabinet();applyLanguage();}
 
