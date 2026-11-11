@@ -587,7 +587,9 @@ main{max-width:1180px}
  .taxi-brand-points{gap:5px;margin-top:12px}
  .taxi-brand-points span{font-size:9px;padding:6px 8px}
 }
-</style>\n</head>
+.taxi-brand-mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:inherit}
+</style>
+</head>
 <body>
 <header class="top v24-top"><div class="toprow">
  <div class="brand"><div class="logo v26-logo"><img src="logo.png" alt="ЖҮК ЭКСПРЕСС.KG логотиби"></div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div></div>
@@ -632,7 +634,7 @@ main{max-width:1180px}
 </section>
 <section id="page-taxi-home" class="hidden">
  <button class="service-back" onclick="showPage('home')">← <span data-ky="Кызмат тандоо" data-ru="Выбор сервиса">Кызмат тандоо</span></button>
- <div class="taxi-home-hero"><div><div class="taxi-brand-lockup"><div class="taxi-brand-mark">🚕</div><div><b style="font-size:21px">ТАКСИ <span style="color:#ffbd18">ЭКСПРЕСС.KG</span></b><div style="font-size:11px;letter-spacing:1px">ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</div></div></div><h1 class="taxi-home-title" data-ky="Кыргызстан боюнча шаарлар аралык такси" data-ru="Междугороднее такси по Кыргызстану">Кыргызстан боюнча шаарлар аралык такси</h1><p class="taxi-home-sub" data-ky="А чекиттен Б чекитке чейин. Жүргүнчү же айдоочу катары өз каттамыңызды табыңыз." data-ru="Из пункта А в пункт Б. Найдите поездку как пассажир или разместите маршрут как водитель.">А чекиттен Б чекитке чейин. Жүргүнчү же айдоочу катары өз каттамыңызды табыңыз.</p></div></div>
+ <div class="taxi-home-hero"><div><div class="taxi-brand-lockup"><div class="taxi-brand-mark"><img src="taxi-logo.png" alt="ТАКСИ ЭКСПРЕСС логотиби"></div><div><b style="font-size:21px">ТАКСИ <span style="color:#ffbd18">ЭКСПРЕСС.KG</span></b><div style="font-size:11px;letter-spacing:1px">ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</div></div></div><h1 class="taxi-home-title" data-ky="Кыргызстан боюнча шаарлар аралык такси" data-ru="Междугороднее такси по Кыргызстану">Кыргызстан боюнча шаарлар аралык такси</h1><p class="taxi-home-sub" data-ky="А чекиттен Б чекитке чейин. Жүргүнчү же айдоочу катары өз каттамыңызды табыңыз." data-ru="Из пункта А в пункт Б. Найдите поездку как пассажир или разместите маршрут как водитель.">А чекиттен Б чекитке чейин. Жүргүнчү же айдоочу катары өз каттамыңызды табыңыз.</p></div></div>
  <div class="service-home-actions"><button class="btn btn-primary" onclick="showPage('taxi');setTaxiMode('driver')" data-ky="🚕 Айдоочу катары каттам жарыялоо" data-ru="🚕 Разместить маршрут как водитель">🚕 Айдоочу катары каттам жарыялоо</button><button class="btn btn-blue" onclick="showPage('taxi');setTaxiMode('passenger')" data-ky="💺 Жүргүнчү катары орун издөө" data-ru="💺 Найти место как пассажир">💺 Жүргүнчү катары орун издөө</button><button class="btn btn-dark" onclick="showPage('taxi');setTaxiMode('search')" data-ky="🔎 Каттамдарды көрүү" data-ru="🔎 Смотреть поездки">🔎 Каттамдарды көрүү</button></div>
  <div class="taxi-home-stats"><div>📍 <b>А → Б</b><small data-ky="Каалаган багыт" data-ru="Любое направление">Каалаган багыт</small></div><div>💺 <b data-ky="Бош орун" data-ru="Свободные места">Бош орун</b><small data-ky="Орундарды табуу" data-ru="Поиск мест">Орундарды табуу</small></div><div>🤝 <b data-ky="Бааны сүйлөшүү" data-ru="Договорная цена">Бааны сүйлөшүү</b><small data-ky="Эки тараптуу сунуш" data-ru="Предложения обеих сторон">Эки тараптуу сунуш</small></div></div>
 </section>
@@ -936,7 +938,7 @@ function showPage(page){
  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
  document.querySelectorAll('#appBottomNav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
  const brand=document.querySelector('.top .brand');
- if(brand){brand.innerHTML=taxiArea?'<div class="logo" style="background:#ffbd18;color:#14243a">🚕</div><div>ТАКСИ ЭКСПРЕСС.KG<small>ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</small></div>':'<div class="logo v26-logo"><img src="logo.png" alt="ЖҮК ЭКСПРЕСС.KG логотиби"></div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div>';}
+ if(brand){brand.innerHTML=taxiArea?'<div class="logo v26-logo"><img src="taxi-logo.png" alt="ТАКСИ ЭКСПРЕСС логотиби"></div><div>ТАКСИ ЭКСПРЕСС.KG<small>ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</small></div>':'<div class="logo v26-logo"><img src="logo.png" alt="ЖҮК ЭКСПРЕСС.KG логотиби"></div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div>';}
  if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode(taxiMode);loadTaxiListings()}if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
  applyLanguage();window.scrollTo({top:0,behavior:'smooth'});
 }
