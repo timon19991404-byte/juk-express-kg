@@ -554,6 +554,17 @@ main{max-width:1180px}
 .taxi-booking-total{display:flex;justify-content:space-between;padding:14px 2px;border-top:1px solid #ddd;font-size:20px}
 #page-taxi-driver .taxi-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media(max-width:600px){#page-taxi-driver .taxi-form-grid{grid-template-columns:1fr}}
+
+#page-taxi-cabinet .taxi-profile-menu{padding:20px;border-radius:22px}
+#page-taxi-cabinet .taxi-profile-menu-user{padding:4px 0 18px;border-bottom:1px solid var(--line);margin-bottom:14px}
+#page-taxi-cabinet .taxi-profile-menu-user h2{margin:0 0 6px}
+#page-taxi-cabinet .taxi-profile-menu-user p{margin:0}
+#page-taxi-cabinet .taxi-profile-menu-item{width:100%;display:flex;align-items:center;gap:14px;text-align:left;padding:16px 10px;border:0;border-bottom:1px solid var(--line);background:transparent;color:inherit;border-radius:14px}
+#page-taxi-cabinet .taxi-profile-menu-item:last-child{border-bottom:0}
+#page-taxi-cabinet .taxi-profile-menu-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:#eef3f8;font-size:25px;flex:none}
+#page-taxi-cabinet .taxi-profile-menu-item span:nth-child(2){display:grid;gap:5px;flex:1}
+#page-taxi-cabinet .taxi-profile-menu-item small{color:var(--muted,#7b8794);font-size:13px}
+#page-taxi-cabinet .taxi-profile-menu-item strong{font-size:28px;color:var(--muted,#7b8794)}
 </style>
 <meta name="application-version" content="V42">
 <style>
@@ -740,7 +751,15 @@ main{max-width:1180px}
  <div id="taxiParcelListings" class="listing"><div class="empty">Жүктөлүүдө…</div></div>
 </section>
 <section id="page-taxi-cabinet" class="hidden">
- <div class="section-head"><div><h2 data-ky="Такси жеке кабинети" data-ru="Личный кабинет такси">Такси жеке кабинети</h2><div class="muted" data-ky="Такси каттамдары жана посылка жарыяларыңызды башкаруу" data-ru="Управление поездками и объявлениями о посылках">Такси каттамдары жана посылка жарыяларыңызды башкаруу</div></div></div>
+ <div class="section-head"><div><h2 data-ky="Профиль" data-ru="Профиль">Профиль</h2><div class="muted" data-ky="Жеке кабинетиңиз жана кызматтарыңыз" data-ru="Ваш профиль и личные разделы">Жеке кабинетиңиз жана кызматтарыңыз</div></div></div>
+ <div class="panel taxi-profile-menu">
+  <div class="taxi-profile-menu-user"><h2 id="taxiProfileName">Аккаунт</h2><p class="muted" id="taxiProfilePhone"></p></div>
+  <button class="taxi-profile-menu-item" onclick="showPage('taxi-driver-cabinet')"><span class="taxi-profile-menu-icon">🚘</span><span><b data-ky="Айдоочунун жеке кабинети" data-ru="Личный кабинет водителя">Айдоочунун жеке кабинети</b><small data-ky="Менин каттамдарым, өзгөртүү жана башкаруу" data-ru="Мои маршруты, редактирование и управление">Менин каттамдарым, өзгөртүү жана башкаруу</small></span><strong>›</strong></button>
+  <button class="taxi-profile-menu-item" onclick="showPage('taxi-parcels')"><span class="taxi-profile-menu-icon">📦</span><span><b data-ky="Посылка жарыялары" data-ru="Объявления о посылках">Посылка жарыялары</b><small data-ky="Посылкаларды жарыялоо жана көрүү" data-ru="Публикация и просмотр посылок">Посылкаларды жарыялоо жана көрүү</small></span><strong>›</strong></button>
+ </div>
+</section>
+<section id="page-taxi-driver-cabinet" class="hidden">
+ <div class="section-head"><button class="btn btn-light" onclick="showPage('taxi-cabinet')">← <span data-ky="Профильге кайтуу" data-ru="Назад в профиль">Профильге кайтуу</span></button><div><h2 data-ky="Айдоочунун жеке кабинети" data-ru="Личный кабинет водителя">Айдоочунун жеке кабинети</h2><div class="muted" data-ky="Менин каттамдарымды башкаруу" data-ru="Управление моими маршрутами">Менин каттамдарымды башкаруу</div></div></div>
  <div id="taxiCabinetContent" class="panel"><div class="empty">Маалымат жүктөлүүдө…</div></div>
 </section>
 <section id="page-taxi-messages" class="hidden">
@@ -1022,7 +1041,7 @@ function handleAuthMenu(){ if(currentUser){closeTopMenu();logout()}else{closeTop
 function showPage(page){
  document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));
  const target=$('page-'+page);if(target)target.classList.remove('hidden');
- const taxiPages=['taxi-home','taxi','taxi-driver','taxi-parcels','taxi-cabinet','taxi-messages'];
+ const taxiPages=['taxi-home','taxi','taxi-driver','taxi-parcels','taxi-cabinet','taxi-driver-cabinet','taxi-messages'];
  const taxiArea=taxiPages.includes(page),hub=page==='home';
  $('nav')?.classList.toggle('hidden',taxiArea||hub);
  $('appBottomNav')?.classList.toggle('hidden',taxiArea||hub);
@@ -1032,7 +1051,7 @@ function showPage(page){
  document.querySelectorAll('#taxiBottomNav button[data-taxi-page]').forEach(b=>b.classList.toggle('active',b.dataset.taxiPage===page));
  const brand=document.querySelector('.top .brand');
  if(brand){brand.innerHTML=taxiArea?'<div class="logo v26-logo"><img src="taxi-logo.png" alt="ТАКСИ ЭКСПРЕСС логотиби"></div><div>ТАКСИ ЭКСПРЕСС.KG<small>ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</small></div>':'<div class="logo v26-logo"><img src="logo.png" alt="ЖҮК ЭКСПРЕСС.KG логотиби"></div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div>';}
- if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode('search');loadTaxiListings()}if(page==='taxi-driver'){setTaxiMode('driver')}if(page==='taxi-parcels')loadTaxiParcels();if(page==='taxi-cabinet')loadTaxiCabinet();if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
+ if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode('search');loadTaxiListings()}if(page==='taxi-driver'){setTaxiMode('driver')}if(page==='taxi-parcels')loadTaxiParcels();if(page==='taxi-cabinet')loadTaxiProfileMenu();if(page==='taxi-driver-cabinet')loadTaxiCabinet();if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
  applyLanguage();window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
@@ -1786,17 +1805,59 @@ async function loadTaxiParcels(){
   }).join('');
  }catch(e){host.innerHTML=`<div class="notice error">${tr('Посылкалар жүктөлгөн жок: ','Не удалось загрузить посылки: ')}${esc(e.message)}</div>`;}
 }
+async function loadTaxiProfileMenu(){
+ const nameEl=$('taxiProfileName'),phoneEl=$('taxiProfilePhone');
+ if(!currentUser){if(nameEl)nameEl.textContent=tr('Аккаунтка кириңиз','Войдите в аккаунт');if(phoneEl)phoneEl.textContent='';return;}
+ try{
+  const {data}=await db.from('profiles').select('full_name,phone').eq('id',currentUser.id).maybeSingle();
+  if(nameEl)nameEl.textContent=data?.full_name||currentUser.email||tr('Колдонуучу','Пользователь');
+  if(phoneEl)phoneEl.textContent=data?.phone||'';
+ }catch(e){if(nameEl)nameEl.textContent=currentUser.email||tr('Профиль','Профиль');}
+}
 async function loadTaxiCabinet(){
  const host=$('taxiCabinetContent');if(!host)return;
  if(!currentUser){host.innerHTML=`<p>${tr('Жеке кабинетке кирүү үчүн аккаунтка кириңиз.','Войдите в аккаунт, чтобы открыть личный кабинет.')}</p><button class="btn btn-primary" onclick="openAuth()">${tr('Кирүү','Войти')}</button>`;return;}
  host.innerHTML=`<div class="empty">${tr('Маалымат жүктөлүүдө…','Загрузка…')}</div>`;
  try{
-  const {data,error}=await db.from('taxi_parcels').select('id,city_from,city_to,pickup_date,offered_price,status,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(30);
-  if(error)throw error;
-  const parcelRows=(data||[]).map(x=>`<div class="taxi-meta" style="padding:10px 0;border-bottom:1px solid var(--line)"><b>📦 ${esc(x.city_from)} → ${esc(x.city_to)}</b><span>${esc(x.pickup_date||'')}</span><span>${money(x.offered_price)}</span><span>${esc(x.status)}</span></div>`).join('');
-  host.innerHTML=`<h3>${esc(profile?.full_name||currentUser.email||'')}</h3><p class="muted">${esc(profile?.phone||'')}</p><h3>${tr('Менин посылка жарыяларым','Мои объявления о посылках')}</h3>${parcelRows||`<p class="muted">${tr('Азырынча жарыя жок.','Пока объявлений нет.')}</p>`}<button class="btn btn-primary" onclick="showPage('taxi-parcels')">${tr('Посылка жарыялоо','Опубликовать посылку')}</button>`;
- }catch(e){host.innerHTML=`<div class="notice error">${esc(e.message)}</div>`;}
+  const [tripsRes,parcelsRes]=await Promise.all([
+   db.from('taxi_trips').select('id,driver_name,driver_whatsapp,city_from,city_to,travel_date,travel_time,vehicle_type,vehicle_make,vehicle_model,vehicle_seats,seats,price_per_seat,notes,status,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(50),
+   db.from('taxi_parcels').select('id,city_from,city_to,pickup_date,offered_price,status,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(30)
+  ]);
+  if(tripsRes.error)throw tripsRes.error;if(parcelsRes.error)throw parcelsRes.error;
+  const tripRows=(tripsRes.data||[]).map(x=>{
+   const paused=x.status!=='active';
+   return `<article class="taxi-card taxi-own-trip"><div class="taxi-route-line">📍 ${esc(x.city_from)}<br>🏁 ${esc(x.city_to)}</div><div class="taxi-date-price"><span>📅 ${esc(x.travel_date||'')} · 🕒 ${esc(String(x.travel_time||'').slice(0,5))}</span><span class="taxi-price">${money(x.price_per_seat)} / ${tr('орун','место')}</span></div><div class="taxi-meta"><span>🚘 ${esc([x.vehicle_make,x.vehicle_model].filter(Boolean).join(' '))}</span><span>💺 ${esc(x.seats)} / ${esc(x.vehicle_seats)} ${tr('бош орун','свободных мест')}</span></div><div class="taxi-meta"><span class="taxi-badge">${paused?tr('Токтотулган','Приостановлено'):tr('Активдүү','Активно')}</span></div>${x.notes?`<p class="muted">${esc(x.notes)}</p>`:''}<div class="listing-actions"><button class="btn btn-primary" onclick="editMyTaxiTrip('${esc(x.id)}')">✏️ ${tr('Өзгөртүү','Изменить')}</button><button class="btn btn-light" onclick="toggleMyTaxiTrip('${esc(x.id)}','${paused?'active':'paused'}')">${paused?tr('Кайра жарыялоо','Возобновить'):tr('Убактылуу токтотуу','Приостановить')}</button><button class="btn btn-danger" onclick="deleteMyTaxiTrip('${esc(x.id)}')">🗑 ${tr('Өчүрүү','Удалить')}</button></div></article>`;
+  }).join('');
+  const parcelRows=(parcelsRes.data||[]).map(x=>`<div class="taxi-meta" style="padding:10px 0;border-bottom:1px solid var(--line)"><b>📦 ${esc(x.city_from)} → ${esc(x.city_to)}</b><span>${esc(x.pickup_date||'')}</span><span>${money(x.offered_price)}</span><span>${esc(x.status)}</span></div>`).join('');
+  host.innerHTML=`<div class="taxi-driver-profile-head"><h2>${esc(profile?.full_name||currentUser.email||'')}</h2><p class="muted">${esc(profile?.phone||'')}</p><span class="taxi-badge">🚘 ${tr('Айдоочунун жеке кабинети','Личный кабинет водителя')}</span></div><div class="taxi-cabinet-section"><div class="section-head"><h3>🚘 ${tr('Менин каттамдарым','Мои маршруты')}</h3><button class="btn btn-primary" onclick="showPage('taxi-driver')">＋ ${tr('Жаңы каттам','Новый маршрут')}</button></div>${tripRows||`<p class="muted">${tr('Азырынча каттам жарыялаган жоксуз.','Вы пока не размещали маршруты.')}</p>`}</div><div class="taxi-cabinet-section"><h3>📦 ${tr('Менин посылка жарыяларым','Мои объявления о посылках')}</h3>${parcelRows||`<p class="muted">${tr('Азырынча посылка жарыясы жок.','Пока объявлений о посылках нет.')}</p>`}<button class="btn btn-light" onclick="showPage('taxi-parcels')">${tr('Посылка жарыялоо','Опубликовать посылку')}</button></div>`;
+ }catch(e){host.innerHTML=`<div class="notice error">${tr('Маалымат жүктөлгөн жок: ','Не удалось загрузить данные: ')}${esc(e.message)}</div>`;}
 }
+async function toggleMyTaxiTrip(id,status){
+ if(!currentUser)return;
+ try{const {error}=await db.from('taxi_trips').update({status}).eq('id',id).eq('user_id',currentUser.id);if(error)throw error;await loadTaxiCabinet();await loadTaxiListings();}
+ catch(e){alert(tr('Өзгөртүү сакталган жок: ','Не удалось изменить: ')+e.message)}
+}
+async function deleteMyTaxiTrip(id){
+ if(!currentUser)return;
+ if(!confirm(tr('Бул каттамды биротоло өчүрөсүзбү?','Удалить этот маршрут навсегда?')))return;
+ try{const {error}=await db.from('taxi_trips').delete().eq('id',id).eq('user_id',currentUser.id);if(error)throw error;await loadTaxiCabinet();await loadTaxiListings();}
+ catch(e){alert(tr('Өчүрүлгөн жок: ','Не удалось удалить: ')+e.message)}
+}
+async function editMyTaxiTrip(id){
+ if(!currentUser)return;
+ const {data:x,error}=await db.from('taxi_trips').select('id,city_from,city_to,travel_date,travel_time,seats,price_per_seat,notes,vehicle_make,vehicle_model,vehicle_seats').eq('id',id).eq('user_id',currentUser.id).single();
+ if(error||!x){alert(tr('Каттам табылган жок.','Маршрут не найден.'));return;}
+ const host=$('taxiCabinetContent');
+ host.innerHTML=`<div class="panel"><h3>✏️ ${tr('Каттамды өзгөртүү','Изменить маршрут')}</h3><form id="editMyTaxiTripForm" onsubmit="saveMyTaxiTrip(event,'${esc(id)}')"><div class="taxi-form-grid"><div class="field"><label>${tr('Кайдан','Откуда')}</label><input name="city_from" required value="${esc(x.city_from)}"></div><div class="field"><label>${tr('Кайда','Куда')}</label><input name="city_to" required value="${esc(x.city_to)}"></div><div class="field"><label>${tr('Күнү','Дата')}</label><input name="travel_date" type="date" required min="${new Date().toISOString().slice(0,10)}" value="${esc(x.travel_date)}"></div><div class="field"><label>${tr('Убактысы','Время')}</label><input name="travel_time" type="time" required value="${esc(String(x.travel_time||'').slice(0,5))}"></div><div class="field"><label>${tr('Бош орун','Свободные места')}</label><input name="seats" type="number" min="1" max="${Number(x.vehicle_seats)||20}" required value="${esc(x.seats)}"></div><div class="field"><label>${tr('Баасы / орун (сом)','Цена за место (сом)')}</label><input name="price_per_seat" type="number" min="1" required value="${esc(x.price_per_seat)}"></div><div class="field"><label>${tr('Унаа маркасы','Марка автомобиля')}</label><input name="vehicle_make" value="${esc(x.vehicle_make||'')}" required></div><div class="field"><label>${tr('Унаа модели','Модель автомобиля')}</label><input name="vehicle_model" value="${esc(x.vehicle_model||'')}" required></div><div class="field" style="grid-column:1/-1"><label>${tr('Кошумча маалымат','Дополнительная информация')}</label><textarea name="notes" rows="3">${esc(x.notes||'')}</textarea></div></div><div class="taxi-form-actions"><button class="btn btn-primary" type="submit">${tr('Өзгөртүүнү сактоо','Сохранить изменения')}</button><button class="btn btn-light" type="button" onclick="loadTaxiCabinet()">${tr('Артка','Назад')}</button></div></form></div>`;
+}
+async function saveMyTaxiTrip(event,id){
+ event.preventDefault();const form=event.currentTarget,fd=new FormData(form),payload={city_from:String(fd.get('city_from')||'').trim(),city_to:String(fd.get('city_to')||'').trim(),travel_date:fd.get('travel_date'),travel_time:fd.get('travel_time'),seats:Number(fd.get('seats')),price_per_seat:Number(fd.get('price_per_seat')),vehicle_make:String(fd.get('vehicle_make')||'').trim(),vehicle_model:String(fd.get('vehicle_model')||'').trim(),notes:String(fd.get('notes')||'').trim()};
+ if(payload.city_from.toLowerCase()===payload.city_to.toLowerCase()||payload.seats<1||payload.price_per_seat<1){alert(tr('Маалыматты текшериңиз.','Проверьте данные.'));return;}
+ const btn=form.querySelector('button[type="submit"]');btn.disabled=true;
+ try{const {error}=await db.from('taxi_trips').update(payload).eq('id',id).eq('user_id',currentUser.id);if(error)throw error;alert(tr('Каттам өзгөртүлдү.','Маршрут обновлён.'));await loadTaxiCabinet();await loadTaxiListings();}
+ catch(e){alert(tr('Сакталган жок: ','Не удалось сохранить: ')+e.message)}finally{btn.disabled=false;}
+}
+
 async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
 
@@ -1821,4 +1882,14 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
 #page-taxi .taxi-form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 #page-taxi .taxi-card{background:#fff;border:1px solid #e2e8ef;border-radius:17px;padding:15px;margin-bottom:11px;box-shadow:0 4px 15px #10243a0a}
 @media(max-width:520px){#page-taxi .taxi-search-panel .taxi-form-grid{grid-template-columns:1fr}}
+</style>
+
+<style>
+#page-taxi-cabinet .taxi-cabinet-section{margin-top:24px;padding-top:14px;border-top:1px solid var(--line)}
+#page-taxi-cabinet .taxi-own-trip{margin:12px 0;padding:16px;border:1px solid var(--line);border-radius:18px;background:var(--card,#fff)}
+#page-taxi-cabinet .taxi-driver-profile-head{padding:6px 0 12px}
+#page-taxi-cabinet .listing-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+#page-taxi-cabinet .btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+#page-taxi-cabinet .taxi-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:650px){#page-taxi-cabinet .taxi-form-grid{grid-template-columns:1fr}}
 </style>
