@@ -555,16 +555,8 @@ main{max-width:1180px}
 #page-taxi-driver .taxi-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media(max-width:600px){#page-taxi-driver .taxi-form-grid{grid-template-columns:1fr}}
 
-#page-taxi-cabinet .taxi-profile-menu{padding:20px;border-radius:22px}
-#page-taxi-cabinet .taxi-profile-menu-user{padding:4px 0 18px;border-bottom:1px solid var(--line);margin-bottom:14px}
-#page-taxi-cabinet .taxi-profile-menu-user h2{margin:0 0 6px}
-#page-taxi-cabinet .taxi-profile-menu-user p{margin:0}
-#page-taxi-cabinet .taxi-profile-menu-item{width:100%;display:flex;align-items:center;gap:14px;text-align:left;padding:16px 10px;border:0;border-bottom:1px solid var(--line);background:transparent;color:inherit;border-radius:14px}
-#page-taxi-cabinet .taxi-profile-menu-item:last-child{border-bottom:0}
-#page-taxi-cabinet .taxi-profile-menu-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:#eef3f8;font-size:25px;flex:none}
-#page-taxi-cabinet .taxi-profile-menu-item span:nth-child(2){display:grid;gap:5px;flex:1}
-#page-taxi-cabinet .taxi-profile-menu-item small{color:var(--muted,#7b8794);font-size:13px}
-#page-taxi-cabinet .taxi-profile-menu-item strong{font-size:28px;color:var(--muted,#7b8794)}
+.tracking-panel{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--soft,#f7f9fc)}
+.tracking-timeline{display:grid;gap:12px}.tracking-event{display:flex;gap:10px;align-items:flex-start}.tracking-dot{width:26px;height:26px;min-width:26px;border-radius:50%;display:grid;place-items:center;background:var(--primary,#1769aa);color:white;font-weight:700;font-size:12px}.tracking-event p{margin:5px 0 0;white-space:pre-wrap}
 </style>
 <meta name="application-version" content="V42">
 <style>
@@ -690,7 +682,6 @@ main{max-width:1180px}
  <div class="v24-section-head"><h2 data-ky="Акыркы жүк жарыялары" data-ru="Последние объявления о грузах">Акыркы жүк жарыялары</h2><button onclick="showPage('ads')">Бардык жүктөр →</button></div><div id="homeListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div>
 </section>
 <section id="page-taxi-home" class="hidden taxi-dashboard-home">
- <button class="service-back" onclick="showPage('home')">← <span data-ky="Кызмат тандоо" data-ru="Выбор сервиса">Кызмат тандоо</span></button>
  <div class="taxi-dash-welcome"><div><span class="taxi-dash-kicker" data-ky="ТАКСИ ЭКСПРЕСС.KG" data-ru="ТАКСИ ЭКСПРЕСС.KG">ТАКСИ ЭКСПРЕСС.KG</span><h1 data-ky="Шаарлар аралык такси жана ПЕРЕДАЧА" data-ru="Междугороднее такси и ПЕРЕДАЧА">Шаарлар аралык такси жана ПЕРЕДАЧА</h1><p data-ky="Жүргүнчү • Посылка • Бош транспорт • Айдоочу үчүн өзүнчө кабинет" data-ru="Пассажир • Посылка • Свободный транспорт • Отдельный кабинет водителя">Жүргүнчү • Посылка • Бош транспорт • Айдоочу үчүн өзүнчө кабинет</p></div></div>
  <div class="taxi-dash-hero">
   <div class="taxi-dash-hero-copy"><div class="taxi-dash-brand"><img src="taxi-logo.png" alt="Такси Экспресс"><b>ТАКСИ <em>ЭКСПРЕСС.KG</em></b></div>
@@ -709,7 +700,22 @@ main{max-width:1180px}
 </section>
 <section id="page-ads" class="hidden"><div class="section-head"><div><h2>Жүк жарыялары</h2><div class="muted">Кыргызстан боюнча жүктөрдү издөө</div></div><button class="btn btn-primary" onclick="openListing()">+ Жүк жарыялоо</button></div>
 <div class="panel"><div class="filters">
-<div class="field"><label>Кайдан</label><input id="f-from" placeholder="Мисалы: Бишкек"></div><div class="field"><label>Кайда</label><input id="f-to" placeholder="Мисалы: Ош"></div><div class="field"><label>Жүктүн түрү</label><input id="f-type" placeholder="Мисалы: картошка"></div><div class="field"><label>Салмак, тоннадан</label><input id="f-weight" type="number" min="0" step=".1"></div><div class="field"><label>Баасы, сомго чейин</label><input id="f-price" type="number" min="0"></div><div class="field"><label>Иреттөө</label><select id="f-sort"><option value="new">Жаңылары биринчи</option><option value="cheap">Баасы төмөндөн</option><option value="expensive">Баасы жогорудан</option></select></div><div class="filter-actions"><button class="btn btn-blue" onclick="renderListings()">Издөө</button><button class="btn btn-light" onclick="resetFilters()">Тазалоо</button></div></div></div>
+<div class="field"><label data-ky="Кайдан" data-ru="Откуда">Кайдан</label><input id="f-from" placeholder="Мисалы: Бишкек"></div><div class="field"><label data-ky="Кайда" data-ru="Куда">Кайда</label><input id="f-to" placeholder="Мисалы: Ош"></div><div class="field"><label data-ky="Жүктүн түрү" data-ru="Тип груза">Жүктүн түрү</label><input id="f-type" placeholder="Мисалы: картошка"></div><div class="field"><label data-ky="Унаа түрү" data-ru="Тип машины">Унаа түрү</label><select id="f-vehicle"><option value="">Баары / Все</option><option>Фура</option><option>Газель</option><option>Sprinter</option><option>Atego</option><option>Самосвал</option><option>Трал</option><option>Цистерна</option><option>Рефрижератор</option><option>Борттук унаа</option><option>Контейнер ташуучу</option></select></div><div class="field"><label data-ky="Салмак, тоннадан" data-ru="Вес, от тонн">Салмак, тоннадан</label><input id="f-weight" type="number" min="0" step=".1"></div><div class="field"><label data-ky="Баасы, сомго чейин" data-ru="Цена, до сом">Баасы, сомго чейин</label><input id="f-price" type="number" min="0"></div><div class="field"><label data-ky="Багыт" data-ru="Направление">Багыт</label><select id="f-direction"><option value="forward" data-ky="Так ушул багыт" data-ru="Только это направление">Так ушул багыт</option><option value="both" data-ky="Кайтарым багытты да көрсөтүү" data-ru="Показать и обратное направление">Кайтарым багытты да көрсөтүү</option></select></div><div class="field"><label data-ky="Иреттөө" data-ru="Сортировка">Иреттөө</label><select id="f-sort"><option value="match" selected data-ky="Багытка ылайыктуулар биринчи" data-ru="Сначала подходящие по маршруту">Багытка ылайыктуулар биринчи</option><option value="new" data-ky="Жаңылары биринчи" data-ru="Сначала новые">Жаңылары биринчи</option><option value="cheap" data-ky="Баасы төмөндөн" data-ru="Сначала дешевле">Баасы төмөндөн</option><option value="expensive" data-ky="Баасы жогорудан" data-ru="Сначала дороже">Баасы жогорудан</option></select></div><div class="filter-actions"><button class="btn btn-blue" onclick="renderListings()">Акылдуу издөө</button><button class="btn btn-light" onclick="resetFilters()">Тазалоо</button></div></div></div>
+<div class="v45-route-panel panel" style="margin:14px 0">
+ <div class="section-head" style="margin-bottom:8px"><div><h2>🗺️ Карта жана маршрут</h2><div class="muted">Кыргызстандын картасын көрүп, багытты карта кызматында ачыңыз</div></div></div>
+ <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line);height:260px">
+  <iframe title="Кыргызстандын картасы" src="https://www.openstreetmap.org/export/embed.html?bbox=69.2%2C39.1%2C80.3%2C43.3&layer=mapnik" style="width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+ </div>
+ <div class="muted" style="margin:9px 0">Маршрут үчүн жогорудагы «Кайдан» жана «Кайда» талааларын толтуруңуз. Аралык жана убакыт карта кызматында эсептелет.</div>
+ <div style="display:flex;flex-wrap:wrap;gap:7px;margin:10px 0">
+  <button class="btn btn-light" type="button" onclick="v45SetRoute('Бишкек','Ош')">Бишкек → Ош</button>
+  <button class="btn btn-light" type="button" onclick="v45SetRoute('Ош','Бишкек')">Ош → Бишкек</button>
+  <button class="btn btn-light" type="button" onclick="v45SetRoute('Бишкек','Манас')">Бишкек → Манас</button>
+  <button class="btn btn-light" type="button" onclick="v45SetRoute('Ош','Жалал-Абад')">Ош → Жалал-Абад</button>
+ </div>
+ <div class="filter-actions"><button class="btn btn-blue" type="button" onclick="v45OpenCurrentRoute()">Маршрутту картадан ачуу</button><button class="btn btn-light" type="button" onclick="v45FindRouteLoads()">Бул багыттагы жүктөрдү табуу</button></div>
+ <div id="v45-route-message" class="muted" style="margin-top:8px" aria-live="polite">Маршрутту ачуу үчүн кайдан жана кайда талааларын толтуруңуз.</div>
+</div>
 <div class="section-head"><h2 id="adsCount">Жарыялар</h2><span class="muted">Активдүү жүк жарыялары</span></div><div id="adsListings" class="listing"><div class="empty">Жарыялар жүктөлүүдө…</div></div></section>
 <section id="page-drivers" class="hidden"><div class="section-head"><div><h2>Айдоочулар</h2><div class="muted">Жалпыга көрсөтүүгө уруксат берген айдоочулар</div></div></div><div class="panel"><div class="filters"><div class="field"><label>Облус / шаар</label><select id="df-region"><option value="">Баары</option></select></div><div class="field"><label>Унаа түрү / модели</label><input id="df-vehicle" placeholder="Мисалы: Sprinter, Atego"></div><div class="field"><label>Көтөрүмдүүлүгү, тоннадан</label><input id="df-capacity" type="number" min="0" step=".1"></div><div class="filter-actions"><button class="btn btn-blue" onclick="renderDrivers()">Издөө</button><button class="btn btn-light" onclick="resetDriverFilters()">Тазалоо</button></div></div></div><div id="driversList" class="listing"><div class="empty">Айдоочулар жүктөлүүдө…</div></div></section>
 <section id="page-taxi" class="hidden"><button class="service-back" onclick="showPage('taxi-home')">← <span data-ky="Такси башкы бетине кайтуу" data-ru="Вернуться на главную такси">Такси башкы бетине кайтуу</span></button>
@@ -752,15 +758,7 @@ main{max-width:1180px}
  <div id="taxiParcelListings" class="listing"><div class="empty">Жүктөлүүдө…</div></div>
 </section>
 <section id="page-taxi-cabinet" class="hidden">
- <div class="section-head"><div><h2 data-ky="Профиль" data-ru="Профиль">Профиль</h2><div class="muted" data-ky="Жеке кабинетиңиз жана кызматтарыңыз" data-ru="Ваш профиль и личные разделы">Жеке кабинетиңиз жана кызматтарыңыз</div></div></div>
- <div class="panel taxi-profile-menu">
-  <div class="taxi-profile-menu-user"><h2 id="taxiProfileName">Аккаунт</h2><p class="muted" id="taxiProfilePhone"></p></div>
-  <button class="taxi-profile-menu-item" onclick="showPage('taxi-driver-cabinet')"><span class="taxi-profile-menu-icon">🚘</span><span><b data-ky="Айдоочунун жеке кабинети" data-ru="Личный кабинет водителя">Айдоочунун жеке кабинети</b><small data-ky="Менин каттамдарым, өзгөртүү жана башкаруу" data-ru="Мои маршруты, редактирование и управление">Менин каттамдарым, өзгөртүү жана башкаруу</small></span><strong>›</strong></button>
-  <button class="taxi-profile-menu-item" onclick="showPage('taxi-parcels')"><span class="taxi-profile-menu-icon">📦</span><span><b data-ky="Посылка жарыялары" data-ru="Объявления о посылках">Посылка жарыялары</b><small data-ky="Посылкаларды жарыялоо жана көрүү" data-ru="Публикация и просмотр посылок">Посылкаларды жарыялоо жана көрүү</small></span><strong>›</strong></button>
- </div>
-</section>
-<section id="page-taxi-driver-cabinet" class="hidden">
- <div class="section-head"><button class="btn btn-light" onclick="showPage('taxi-cabinet')">← <span data-ky="Профильге кайтуу" data-ru="Назад в профиль">Профильге кайтуу</span></button><div><h2 data-ky="Айдоочунун жеке кабинети" data-ru="Личный кабинет водителя">Айдоочунун жеке кабинети</h2><div class="muted" data-ky="Менин каттамдарымды башкаруу" data-ru="Управление моими маршрутами">Менин каттамдарымды башкаруу</div></div></div>
+ <div class="section-head"><div><h2 data-ky="Такси жеке кабинети" data-ru="Личный кабинет такси">Такси жеке кабинети</h2><div class="muted" data-ky="Такси каттамдары жана посылка жарыяларыңызды башкаруу" data-ru="Управление поездками и объявлениями о посылках">Такси каттамдары жана посылка жарыяларыңызды башкаруу</div></div></div>
  <div id="taxiCabinetContent" class="panel"><div class="empty">Маалымат жүктөлүүдө…</div></div>
 </section>
 <section id="page-taxi-messages" class="hidden">
@@ -809,13 +807,42 @@ main{max-width:1180px}
 <div id="authMessage"></div><div class="modal-actions"><button class="btn btn-blue" id="authSubmit" onclick="submitAuth()">Кирүү</button><button class="btn btn-light" id="authSwitch" onclick="toggleAuthMode()">Катталуу</button></div><div style="display:flex;align-items:center;gap:10px;margin:14px 0;color:#7b8794;font-size:12px"><span style="height:1px;background:#e1e8f0;flex:1"></span><span>ЖЕ / ИЛИ</span><span style="height:1px;background:#e1e8f0;flex:1"></span></div><button type="button" class="btn btn-light" id="googleAuthBtn" onclick="signInWithGoogle()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #d7e0e9;background:#fff;color:#243447;padding:12px"><span aria-hidden="true" style="font-weight:900;font-size:18px;color:#4285f4">G</span><span>Google аркылуу кирүү</span></button><p class="muted" style="font-size:11px">Email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.</p></div></div>
 
 <div class="modal-back hidden" id="listingModal"><div class="modal"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Жаңы жүк жарыясы</h2><button class="btn btn-light" onclick="closeModal('listingModal')">✕</button></div>
-<div class="field"><label>Жарыянын аталышы</label><input id="l-title" placeholder="Мисалы: Бишкектен Ошко картошка"></div><div class="field"><label>Аталышы орусча (милдеттүү эмес)</label><input id="l-title-ru" placeholder="Например: Картофель из Бишкека в Ош"></div><div class="profile-grid"><div class="field"><label>Кайдан — так дарек</label><input id="l-from" type="text" autocomplete="street-address" placeholder="Ош облусу, Өзгөн району, айыл..."></div><div class="field"><label>Кайда — так дарек</label><input id="l-to" type="text" autocomplete="street-address" placeholder="Бишкек шаары, көчө, айыл..."></div></div><div class="field"><label>Жүктүн сүрөттөрү (5ке чейин)</label><input id="l-photos" type="file" accept="image/*" multiple><small class="muted">Телефондон жүктүн сүрөттөрүн тандаңыз.</small></div><div class="field"><label>Жол аралыгы</label><button type="button" class="btn btn-light" style="width:100%;margin-bottom:7px" onclick="calculateAddressRoute()">📍 Даректер боюнча аралыкты эсептөө</button><div id="routeDistance" class="notice">Эки даректи айылына, көчөсүнө чейин жазыңыз. Андан соң аралыкты эсептеңиз.</div><small class="muted">Даректи так жазсаңыз, маршрут да такыраак чыгат.</small></div><div class="field"><label>Жүктүн түрү</label><input id="l-cargo" placeholder="Картошка, эмерек..."></div><div class="field"><label>Жүктүн түрү орусча (милдеттүү эмес)</label><input id="l-cargo-ru" placeholder="Картофель, мебель..."></div><div class="field"><label>Жүктүн салмагы</label><div class="profile-grid"><input id="l-weight" type="number" min="0.01" step="0.01" placeholder="Мисалы: 500"><select id="l-weight-unit"><option value="kg">Килограмм (кг)</option><option value="t">Тонна (т)</option></select></div><small class="muted">Салмак базага тонна менен сакталат, сайтта кг же тонна болуп көрсөтүлөт.</small></div><div class="field"><label>Баасы, сом (0 — келишимдүү)</label><input id="l-price" type="number" min="0"></div><div class="field"><label>Телефон</label><input id="l-phone" type="tel"></div><div class="field"><label>WhatsApp</label><input id="l-whatsapp" type="tel"></div><div class="field"><label>Кошумча маалымат</label><textarea id="l-description"></textarea></div><div class="field"><label>Кошумча маалымат орусча (милдеттүү эмес)</label><textarea id="l-description-ru"></textarea></div><label class="driver-availability-setting" style="border-color:#f4c9ce;background:#fff3f4;color:#a51f31"><input type="checkbox" id="l-urgent"> <span>⚡ Срочно — шашылыш жүк</span></label><div id="listingMessage"></div><div class="modal-actions"><button class="btn btn-blue" onclick="publishListing()">Жарыялоо</button><button class="btn btn-light" onclick="closeModal('listingModal')">Жабуу</button></div></div></div>
+<div class="field"><label>Жарыянын аталышы</label><input id="l-title" placeholder="Мисалы: Бишкектен Ошко картошка"></div><div class="profile-grid">
+<div class="field"><label>Кайдан — жөнөтүү жери</label>
+<select id="l-from-region" onchange="updateCargoCities('from')"><option value="">Облусту тандаңыз</option></select>
+<select id="l-from-city" onchange="updateCargoDistricts('from')" style="margin-top:8px" disabled><option value="">Адегенде шаарды тандаңыз</option></select>
+<select id="l-from-district" onchange="updateCargoAddress('from')" style="margin-top:8px" disabled><option value="">Районду / шаарды тандаңыз</option></select>
+<input id="l-from-locality" type="text" style="margin-top:8px" placeholder="Так дарек (милдеттүү эмес)" oninput="updateCargoAddress('from')">
+<input id="l-from" type="hidden">
+</div>
+<div class="field"><label>Кайда — жеткирүү жери</label>
+<select id="l-to-region" onchange="updateCargoCities('to')"><option value="">Облусту тандаңыз</option></select>
+<select id="l-to-city" onchange="updateCargoDistricts('to')" style="margin-top:8px" disabled><option value="">Адегенде шаарды тандаңыз</option></select>
+<select id="l-to-district" onchange="updateCargoAddress('to')" style="margin-top:8px" disabled><option value="">Районду / шаарды тандаңыз</option></select>
+<input id="l-to-locality" type="text" style="margin-top:8px" placeholder="Так дарек (милдеттүү эмес)" oninput="updateCargoAddress('to')">
+<input id="l-to" type="hidden">
+</div></div><div class="field"><label>Жүктүн сүрөттөрү (5ке чейин)</label><input id="l-photos" type="file" accept="image/*" multiple><small class="muted">Телефондон жүктүн сүрөттөрүн тандаңыз.</small></div><div class="field"><label>Жүктүн түрү</label><input id="l-cargo" placeholder="Картошка, эмерек..."></div><div class="field"><label>Жүктүн салмагы</label><div class="profile-grid"><input id="l-weight" type="number" min="0.01" step="0.01" placeholder="Мисалы: 500"><select id="l-weight-unit"><option value="kg">Килограмм (кг)</option><option value="t">Тонна (т)</option></select></div><small class="muted">Салмак базага тонна менен сакталат, сайтта кг же тонна болуп көрсөтүлөт.</small></div><div class="field"><label>Баасы, сом (0 — келишимдүү)</label><input id="l-price" type="number" min="0"></div><div class="field"><label>Телефон</label><input id="l-phone" type="tel"></div><div class="field"><label>WhatsApp</label><input id="l-whatsapp" type="tel"></div><div class="field"><label>Кошумча маалымат</label><textarea id="l-description"></textarea></div><div class="field"><label>Кошумча маалымат орусча (милдеттүү эмес)</label><textarea id="l-description-ru"></textarea></div><label class="driver-availability-setting" style="border-color:#f4c9ce;background:#fff3f4;color:#a51f31"><input type="checkbox" id="l-urgent"> <span>⚡ Срочно — шашылыш жүк</span></label><div id="listingMessage"></div><div class="modal-actions"><button class="btn btn-blue" onclick="publishListing()">Жарыялоо</button><button class="btn btn-light" onclick="closeModal('listingModal')">Жабуу</button></div></div></div>
 
 <section id="page-detail" class="hidden">
  <div class="section-head"><div><h2>Жүк тууралуу толук маалымат</h2><div class="muted">Жарыянын бардык шарттары жана байланыш маалыматтары</div></div>
  <button class="btn btn-light" onclick="showPage('ads')">← Жарыяларга кайтуу</button></div>
- <div id="detailPageContent" class="panel"></div>
+ <div id="detailPageContent" class="panel"></div><div class="panel" style="margin-top:14px"><h3>Электрондук келишимдер</h3><div id="contractList" class="contract-list"></div></div><div class="panel" style="margin-top:14px"><h3>⭐ Ишеним жана рейтинг</h3><div id="loadReviewsList" class="contract-list"><div class="muted">Пикирлер жүктөлүүдө…</div></div></div>
 </section>
+<div id="contractModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="contractTitle">
+ <div class="modal-content contract-modal-content">
+  <div class="section-head"><div><h2 id="contractTitle">Электрондук келишим</h2><div class="muted" id="contractSubtitle">Жүк ээси жана айдоочу үчүн</div></div><button class="btn btn-light" onclick="closeModal('contractModal')">✕</button></div>
+  <div id="contractMessage"></div>
+  <div class="field" id="contractDriverField"><label>Айдоочуну тандаңыз</label><select id="contractDriver"><option value="">Айдоочу тандалган жок</option></select></div>
+  <div class="field"><label>Келишимдин суммасы (сом)</label><input id="contractAmount" type="number" min="0" step="1" placeholder="Мисалы: 15000"></div>
+  <div class="contract-grid">
+   <div class="field"><label>Жүктөө күнү</label><input id="contractLoadDate" type="date"></div>
+   <div class="field"><label>Жеткирүү күнү</label><input id="contractDeliveryDate" type="date"></div>
+  </div>
+  <div class="field"><label>Кошумча шарттар</label><textarea id="contractTerms" rows="4" placeholder="Жүктү кабыл алуу, жеткирүү, төлөм жана башка шарттар..."></textarea></div>
+  <p class="muted">Келишим экинчи тарапка сунуш катары жөнөтүлөт. Сунушту жөнөткөн тарап да, экинчи тарап да электрондук макулдук бергенде гана бекитилет.</p>
+  <div class="modal-actions"><button class="btn btn-blue" id="contractSubmitBtn" onclick="submitContract()">Келишимди жөнөтүү</button><button class="btn btn-light" onclick="closeModal('contractModal')">Жабуу</button></div>
+ </div>
+</div>
 <script>
 'use strict';
 const SUPABASE_URL='https://esnmfwhzwrmcvokfgqld.supabase.co';
@@ -958,11 +985,35 @@ function listingCard(x){
   <div class="load-card-actions"><button class="btn btn-light" onclick="event.stopPropagation();openDetail('${esc(x.id)}')">${tr('Толук маалымат','Подробнее')}</button>${phone?`<a class="btn btn-blue" onclick="event.stopPropagation()" href="tel:${esc(phone)}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${wa?`<a class="btn btn-whatsapp" onclick="event.stopPropagation()" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}<button class="btn btn-light dispatcher-btn" onclick="event.stopPropagation();requestDispatcher('loads','${esc(x.id)}')">${tr('Диспетчер жардам','Помощь диспетчера')}</button></div>
  </article>`
 }
-function filteredLoads(){let a=[...allListings],from=$('f-from').value.trim().toLowerCase(),to=$('f-to').value.trim().toLowerCase(),type=$('f-type').value.trim().toLowerCase(),w=Number($('f-weight').value),p=Number($('f-price').value);if(from)a=a.filter(x=>(x.city_from||'').toLowerCase().includes(from));if(to)a=a.filter(x=>(x.city_to||'').toLowerCase().includes(to));if(type)a=a.filter(x=>`${x.cargo||''} ${x.title||''}`.toLowerCase().includes(type));if(w)a=a.filter(x=>Number(x.weight_tons)>=w);if(p)a=a.filter(x=>Number(x.price||0)<=p);if($('f-sort').value==='cheap')a.sort((x,y)=>Number(x.price||0)-Number(y.price||0));if($('f-sort').value==='expensive')a.sort((x,y)=>Number(y.price||0)-Number(x.price||0));return a}
+function normalizeLoadRoute(value){return String(value||'').trim().toLocaleLowerCase('ky-KG').replace(/[ьъ]/g,'').replace(/[.,\s-]+/g,'')}
+function loadRouteMatchScore(x,from,to){
+ const a=normalizeLoadRoute(x.city_from),b=normalizeLoadRoute(x.city_to),f=normalizeLoadRoute(from),t=normalizeLoadRoute(to);
+ if(!f&&!t)return 0;
+ const direct=(!f||(!!a&&(a.includes(f)||f.includes(a))))&&(!t||(!!b&&(b.includes(t)||t.includes(b))));
+ const reverse=(!f||(!!b&&(b.includes(f)||f.includes(b))))&&(!t||(!!a&&(a.includes(t)||t.includes(a))));
+ if(direct&&reverse)return 3;
+ if(direct)return 2;
+ if(reverse)return 1;
+ return 0;
+}
+function filteredLoads(){
+ let a=[...allListings],from=$('f-from').value.trim(),to=$('f-to').value.trim(),type=$('f-type').value.trim().toLowerCase(),vehicle=($('f-vehicle')?.value||'').trim().toLowerCase(),direction=$('f-direction')?.value||'forward',w=Number($('f-weight').value),p=Number($('f-price').value);
+ if(from||to)a=a.filter(x=>{const score=loadRouteMatchScore(x,from,to);return direction==='both'?score>0:score>=2});
+ if(type)a=a.filter(x=>`${x.cargo||''} ${x.title||''}`.toLowerCase().includes(type));
+ if(vehicle)a=a.filter(x=>String(x.vehicle_type||'').toLowerCase().includes(vehicle));
+ if(w)a=a.filter(x=>Number(x.weight_tons||0)>=w);
+ if(p)a=a.filter(x=>Number(x.price||0)<=p);
+ const sort=$('f-sort')?.value||'new';
+ if(sort==='match')a.sort((x,y)=>loadRouteMatchScore(y,from,to)-loadRouteMatchScore(x,from,to)||new Date(y.created_at||0)-new Date(x.created_at||0));
+ if(sort==='cheap')a.sort((x,y)=>Number(x.price||0)-Number(y.price||0));
+ if(sort==='expensive')a.sort((x,y)=>Number(y.price||0)-Number(x.price||0));
+ if(sort==='new')a.sort((x,y)=>new Date(y.created_at||0)-new Date(x.created_at||0));
+ return a
+}
 function renderListings(){if(!$('adsListings'))return;const a=filteredLoads();$('adsCount').textContent=`Жарыялар: ${a.length}`;$('adsListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча ылайыктуу жарыя табылган жок</b>Фильтрлерди өзгөртүп кайра издеңиз.</div>';applyLanguage()}
 function renderHomeListings(){const a=allListings.slice(0,3);$('homeListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Азырынча жүк жарыясы жок</b>Жаңы жарыялар бул жерде көрүнөт.</div>';applyLanguage()}
 function renderSaved(){const ids=getSaved(),a=allListings.filter(x=>ids.includes(`loads:${x.id}`));$('savedListings').innerHTML=a.length?a.map(listingCard).join(''):'<div class="panel empty"><b>Сакталган жарыялар жок</b>Керектүү жарыянын жанындагы «Сактоо» баскычын басыңыз.</div>';applyLanguage()}
-function resetFilters(){['f-from','f-to','f-type','f-weight','f-price'].forEach(id=>$(id).value='');$('f-sort').value='new';renderListings()}
+function resetFilters(){['f-from','f-to','f-type','f-vehicle','f-weight','f-price'].forEach(id=>{if($(id))$(id).value=''});if($('f-direction'))$('f-direction').value='forward';$('f-sort').value='match';renderListings()}
 let currentDetailId=null;
 function openDetail(id){
  currentDetailId=id;
@@ -986,6 +1037,12 @@ function openDetail(id){
    ${x.route_km?`<div><span class="muted">${tr('Аралык','Расстояние')}</span><p><b>${esc(x.route_km)} км</b></p></div>`:''}
   </div>
   <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+  <section class="auction-box" style="margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--soft,#f7f9fc)">
+   <h3 style="margin:0 0 8px">💰 ${tr('Бааны сунуштоо','Предложить свою цену')}</h3>
+   <p class="muted">${tr('Айдоочу өз баасын сунуштай алат. Жүк ээси сунушту кабыл алат же четке кагат.','Водитель может предложить свою цену. Владелец груза может принять или отклонить предложение.')}</p>
+   ${x.owner_id!==currentUser?.id?`<div class="form-grid"><div class="field"><label>${tr('Сунушталган баа (сом)','Предлагаемая цена (сом)')}</label><input id="bidAmount" type="number" min="1" step="1" placeholder="${esc(String(x.price||''))}"></div><div class="field"><label>${tr('Комментарий (милдеттүү эмес)','Комментарий (необязательно)')}</label><input id="bidMessage" maxlength="500" placeholder="${tr('Мисалы: жүктү эртең алам','Например: заберу груз завтра')}"></div></div><button class="btn btn-blue" style="margin-top:10px" onclick="submitLoadBid('${esc(x.id)}')">${tr('Бааны сунуштоо','Отправить предложение')}</button><div id="bidFormMessage" class="muted" style="margin-top:8px"></div>`:`<div class="notice">${tr('Бул сиздин жарыяңыз. Айдоочулардын сунуштарын төмөндөн караңыз.','Это ваше объявление. Предложения водителей смотрите ниже.')}</div>`}
+   <div id="loadBidsList" style="margin-top:14px"><div class="muted">${tr('Сунуштар жүктөлүүдө…','Загрузка предложений…')}</div></div>
+  </section>
   <h3>${tr('Кошумча маалымат','Дополнительная информация')}</h3><p style="white-space:pre-wrap;line-height:1.6">${esc(description)}</p>
   <h3 style="margin-top:22px">${tr('Жүк ээси менен байланышуу','Связаться с владельцем груза')}</h3>
   <div class="listing-actions">
@@ -993,9 +1050,11 @@ function openDetail(id){
    ${wa?`<a class="btn btn-primary" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${esc(wa)}">WhatsApp</a>`:''}
    ${phone&&x.owner_id&&x.owner_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(x.owner_id)}','${esc(title).replace(/'/g,'&#39;')}')">✉ ${tr('Жеке билдирүү','Личное сообщение')}</button>`:''}
    <button class="btn btn-light" onclick="toggleSaved('loads:${esc(x.id)}')">☆ ${tr('Сактоо','В избранное')}</button>
+   ${currentUser&&profile?.account_type==='driver'&&x.owner_id!==currentUser.id?`<button class="btn btn-blue" onclick="openContractModal('${esc(x.id)}')">✍ ${tr('Электрондук келишим','Электронный договор')}</button>`:''}
+   ${currentUser&&['customer','dispatcher'].includes(profile?.account_type)&&x.owner_id===currentUser.id?`<button class="btn btn-blue" onclick="openContractModal('${esc(x.id)}')">✍ ${tr('Электрондук келишим түзүү','Создать электронный договор')}</button>`:''}
    ${x.owner_id===currentUser?.id?`<button class="btn btn-primary" onclick="confirmLoadCurrent('${esc(x.id)}')">✓ ${tr('Актуалдуу деп ырастоо','Подтвердить актуальность')}</button>`:''}
   </div>`;
- showPage('detail');applyLanguage();
+ showPage('detail');applyLanguage();loadContractsForCurrentLoad();loadBidsForCurrentLoad();loadReviewsForCurrentLoad();
 }
 
 let activeChatUserId=null,activeChatName='',chatRealtime=null,chatMessagesCache=[];
@@ -1042,7 +1101,7 @@ function handleAuthMenu(){ if(currentUser){closeTopMenu();logout()}else{closeTop
 function showPage(page){
  document.querySelectorAll('main section[id^="page-"]').forEach(s=>s.classList.add('hidden'));
  const target=$('page-'+page);if(target)target.classList.remove('hidden');
- const taxiPages=['taxi-home','taxi','taxi-driver','taxi-parcels','taxi-cabinet','taxi-driver-cabinet','taxi-messages'];
+ const taxiPages=['taxi-home','taxi','taxi-driver','taxi-parcels','taxi-cabinet','taxi-messages'];
  const taxiArea=taxiPages.includes(page),hub=page==='home';
  $('nav')?.classList.toggle('hidden',taxiArea||hub);
  $('appBottomNav')?.classList.toggle('hidden',taxiArea||hub);
@@ -1052,7 +1111,7 @@ function showPage(page){
  document.querySelectorAll('#taxiBottomNav button[data-taxi-page]').forEach(b=>b.classList.toggle('active',b.dataset.taxiPage===page));
  const brand=document.querySelector('.top .brand');
  if(brand){brand.innerHTML=taxiArea?'<div class="logo v26-logo"><img src="taxi-logo.png" alt="ТАКСИ ЭКСПРЕСС логотиби"></div><div>ТАКСИ ЭКСПРЕСС.KG<small>ШААРЛАР АРАЛЫК ТАКСИ / МЕЖГОРОДНЕЕ ТАКСИ</small></div>':'<div class="logo v26-logo"><img src="logo.png" alt="ЖҮК ЭКСПРЕСС.KG логотиби"></div><div>ЖҮК ЭКСПРЕСС.KG<small>КЫРГЫЗСТАН БОЮНЧА ЖҮК ПЛАТФОРМАСЫ</small></div>';}
- if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode('search');loadTaxiListings()}if(page==='taxi-driver'){setTaxiMode('driver')}if(page==='taxi-parcels')loadTaxiParcels();if(page==='taxi-cabinet')loadTaxiProfileMenu();if(page==='taxi-driver-cabinet')loadTaxiCabinet();if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
+ if(page==='cabinet')renderCabinet();if(page==='drivers')loadDrivers();if(page==='taxi'){setTaxiMode('search');loadTaxiListings()}if(page==='taxi-driver'){setTaxiMode('driver')}if(page==='taxi-parcels')loadTaxiParcels();if(page==='taxi-cabinet')loadTaxiCabinet();if(page==='cargo-home'){loadListings();renderHomeListings()}if(page==='dispatcher')renderDispatcher();if(page==='admin')loadAdminData();if(page==='saved')renderSaved();if(page==='messages'){loadConversations()}else stopChatRealtime();
  applyLanguage();window.scrollTo({top:0,behavior:'smooth'});
 }
 document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
@@ -1068,44 +1127,84 @@ const regionCenters={
  'Баткен облусу':[40.0620,70.8194]
 };
 let loadFromPoint=null,loadToPoint=null,routeKm=null,routeRequestId=0;
-function openListing(){if(!currentUser){openAuth();return}if(!['customer','dispatcher'].includes(profile?.account_type)){alert(tr('Айдоочу жүк жарыясын жарыялабайт. Жүк ээси аккаунту керек.','Водитель не публикует грузы. Нужен аккаунт владельца груза.'));return}$('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';$('l-phone').value=profile?.phone||'';routeKm=null;loadFromPoint=null;loadToPoint=null;$('routeDistance').textContent='Эки аймакты тандаңыз — унаа жолу боюнча км автоматтык эсептелет.';$('l-from').value='';$('l-to').value=''}
-async function geocodeLoadAddress(address){
- const q=String(address||'').trim();
- if(q.length<5)throw Error(tr('Даректи толугураак жазыңыз.','Укажите более полный адрес.'));
- const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=kg&accept-language='+encodeURIComponent(lang==='ru'?'ru':'ky')+'&q='+encodeURIComponent(q+', Кыргызстан');
- const response=await fetch(url,{headers:{'Accept':'application/json'}});
- if(!response.ok)throw Error('Дарек издөө кызматы убактылуу жеткиликсиз.');
- const results=await response.json();
- if(!results.length)throw Error(tr('Бул дарек табылган жок. Облус, район жана айылдын атын тактап жазыңыз.','Адрес не найден. Уточните область, район и название села.'));
- return {lat:Number(results[0].lat),lng:Number(results[0].lon),label:results[0].display_name};
+
+const cargoRegions={
+'Бишкек шаары':['Ленин району','Октябрь району','Биринчи май району','Свердлов району'],
+'Ош шаары':['Ош шаары'],
+'Баткен облусу':['Баткен району','Кадамжай району','Лейлек району'],
+'Ош облусу':['Алай району','Араван району','Кара-Суу району','Ноокат району','Кара-Кулжа району','Өзгөн району','Чоң-Алай району'],
+'Жалал-Абад облусу':['Ала-Бука району','Базар-Коргон району','Аксы району','Ноокен району','Сузак району','Тогуз-Торо району','Токтогул району','Чаткал району'],
+'Нарын облусу':['Ак-Талаа району','Ат-Башы району','Жумгал району','Кочкор району','Нарын району'],
+'Талас облусу':['Айтматов району','Бакай-Ата району','Манас району','Талас району'],
+'Ысык-Көл облусу':['Ак-Суу району','Жети-Өгүз району','Ысык-Көл району','Тоң району','Түп району'],
+'Чүй облусу':['Аламүдүн району','Ысык-Ата району','Жайыл району','Москва району','Кемин району','Панфилов району','Сокулук району','Чүй району']
+};
+const cargoCities={
+'Бишкек шаары':['Бишкек шаары'],
+'Ош шаары':['Ош шаары'],
+'Баткен облусу':['Баткен шаары','Кызыл-Кыя шаары','Сүлүктү шаары','Кадамжай шаары','Раззаков шаары','Айдаркен шаары'],
+'Ош облусу':['Кара-Суу шаары','Өзгөн шаары','Ноокат шаары','Гүлчө шаары'],
+'Жалал-Абад облусу':['Манас шаары','Таш-Көмүр шаары','Майлуу-Суу шаары','Кара-Көл шаары','Базар-Коргон шаары','Кербен шаары','Кочкор-Ата шаары','Шамалды-Сай шаары','Көк-Жаңгак шаары','Токтогул шаары'],
+'Нарын облусу':['Нарын шаары'],
+'Талас облусу':['Талас шаары'],
+'Ысык-Көл облусу':['Каракол шаары','Балыкчы шаары','Чолпон-Ата шаары'],
+'Чүй облусу':['Токмок шаары','Кант шаары','Кара-Балта шаары','Орловка шаары','Каинды шаары','Шопоков шаары']
+};
+const cargoCityRu={
+'Бишкек шаары':'город Бишкек','Ош шаары':'город Ош','Баткен шаары':'город Баткен','Кызыл-Кыя шаары':'город Кызыл-Кия','Сүлүктү шаары':'город Сулюкта','Кадамжай шаары':'город Кадамжай','Раззаков шаары':'город Раззаков','Айдаркен шаары':'город Айдаркен','Кара-Суу шаары':'город Кара-Суу','Өзгөн шаары':'город Узген','Ноокат шаары':'город Ноокат','Гүлчө шаары':'город Гульчо','Манас шаары':'город Манас','Таш-Көмүр шаары':'город Таш-Кумыр','Майлуу-Суу шаары':'город Майлуу-Суу','Кара-Көл шаары':'город Кара-Куль','Базар-Коргон шаары':'город Базар-Коргон','Кербен шаары':'город Кербен','Кочкор-Ата шаары':'город Кочкор-Ата','Шамалды-Сай шаары':'город Шамалды-Сай','Көк-Жаңгак шаары':'город Кок-Жангак','Токтогул шаары':'город Токтогул','Нарын шаары':'город Нарын','Талас шаары':'город Талас','Каракол шаары':'город Каракол','Балыкчы шаары':'город Балыкчы','Чолпон-Ата шаары':'город Чолпон-Ата','Токмок шаары':'город Токмок','Кант шаары':'город Кант','Кара-Балта шаары':'город Кара-Балта','Орловка шаары':'город Орловка','Каинды шаары':'город Каинды','Шопоков шаары':'город Шопоков'
+};
+const cargoRegionsRu={'Бишкек шаары':'город Бишкек','Ош шаары':'город Ош','Баткен облусу':'Баткенская область','Ош облусу':'Ошская область','Жалал-Абад облусу':'Джалал-Абадская область','Нарын облусу':'Нарынская область','Талас облусу':'Таласская область','Ысык-Көл облусу':'Иссык-Кульская область','Чүй облусу':'Чуйская область'};
+const cargoDistrictRu={
+'Ленин району':'Ленинский район','Октябрь району':'Октябрьский район','Биринчи май району':'Первомайский район','Свердлов району':'Свердловский район',
+'Баткен району':'Баткенский район','Кадамжай району':'Кадамжайский район','Лейлек району':'Лейлекский район',
+'Алай району':'Алайский район','Араван району':'Араванский район','Кара-Суу району':'Кара-Суйский район','Ноокат району':'Ноокатский район','Кара-Кулжа району':'Кара-Кульджинский район','Өзгөн району':'Узгенский район','Чоң-Алай району':'Чон-Алайский район',
+'Ала-Бука району':'Ала-Букинский район','Базар-Коргон району':'Базар-Коргонский район','Аксы району':'Аксыйский район','Ноокен району':'Ноокенский район','Сузак району':'Сузакский район','Тогуз-Торо району':'Тогуз-Тороуский район','Токтогул району':'Токтогульский район','Чаткал району':'Чаткальский район',
+'Ак-Талаа району':'Ак-Талинский район','Ат-Башы району':'Ат-Башинский район','Жумгал району':'Жумгальский район','Кочкор району':'Кочкорский район','Нарын району':'Нарынский район',
+'Айтматов району':'Айтматовский район','Бакай-Ата району':'Бакай-Атинский район','Манас району':'Манасский район','Талас району':'Таласский район',
+'Ак-Суу району':'Ак-Суйский район','Жети-Өгүз району':'Джети-Огузский район','Ысык-Көл району':'Иссык-Кульский район','Тоң району':'Тонский район','Түп району':'Тюпский район',
+'Аламүдүн району':'Аламудунский район','Ысык-Ата району':'Ысык-Атинский район','Жайыл району':'Жайылский район','Москва району':'Московский район','Кемин району':'Кеминский район','Панфилов району':'Панфиловский район','Сокулук району':'Сокулукский район','Чүй району':'Чуйский район'
+};
+function cargoLabel(v){return lang==='ru'?(cargoRegionsRu[v]||cargoCityRu[v]||cargoDistrictRu[v]||v):v}
+function initCargoLocationSelectors(){
+ ['from','to'].forEach(side=>{
+  const el=$('l-'+side+'-region'); if(!el)return;
+  el.innerHTML='<option value="">'+tr('Облусту тандаңыз','Выберите область')+'</option>'+Object.keys(cargoRegions).map(v=>`<option value="${v}">${cargoLabel(v)}</option>`).join('');
+  const city=$('l-'+side+'-city'),district=$('l-'+side+'-district');
+  city.innerHTML='<option value="">'+tr('Адегенде шаарды тандаңыз','Сначала выберите город')+'</option>';city.disabled=true;
+  district.innerHTML='<option value="">'+tr('Адегенде шаарды тандаңыз','Сначала выберите город')+'</option>';district.disabled=true;
+ });
 }
-async function calculateAddressRoute(){
- const from=$('l-from').value.trim(),to=$('l-to').value.trim(),id=++routeRequestId;
- loadFromPoint=loadToPoint=null;routeKm=null;
- if(!from||!to){$('routeDistance').textContent=tr('Кайдан жана кайда даректерин толтуруңуз.','Заполните адреса отправления и назначения.');return}
- $('routeDistance').textContent=tr('Даректер картадан изделүүдө…','Ищем адреса на карте…');
- try{
-  const a=await geocodeLoadAddress(from);
-  await new Promise(resolve=>setTimeout(resolve,1100));
-  const b=await geocodeLoadAddress(to);
-  if(id!==routeRequestId)return;
-  loadFromPoint={lat:a.lat,lng:a.lng};loadToPoint={lat:b.lat,lng:b.lng};
-  $('routeDistance').textContent=tr('Унаа жолу эсептелүүдө…','Рассчитываем автомобильный маршрут…');
-  const url=`https://router.project-osrm.org/route/v1/driving/${a.lng},${a.lat};${b.lng},${b.lat}?overview=false`;
-  const r=await fetch(url);if(!r.ok)throw Error(tr('Маршрут кызматы убактылуу жооп берген жок.','Сервис маршрутов временно недоступен.'));
-  const j=await r.json();if(id!==routeRequestId)return;
-  if(j.code!=='Ok'||!j.routes?.length)throw Error(tr('Бул даректердин ортосунда унаа жолу табылган жок.','Автомобильный маршрут между этими адресами не найден.'));
-  routeKm=Math.round(j.routes[0].distance/1000);
-  $('routeDistance').textContent=`🚚 ${tr('Унаа жолу боюнча','По автомобильной дороге')}: ${routeKm} км`;
- }catch(e){
-  if(id!==routeRequestId)return;
-  loadFromPoint=loadToPoint=null;routeKm=null;
-  $('routeDistance').textContent=e.message||tr('Даректи же маршрутту эсептөө мүмкүн болгон жок.','Не удалось определить адрес или маршрут.');
-  console.warn('Address route:',e.message);
+function updateCargoCities(side){
+ const region=$('l-'+side+'-region').value,city=$('l-'+side+'-city'),district=$('l-'+side+'-district');
+ city.innerHTML='<option value="">'+tr('Шаарды тандаңыз','Выберите город')+'</option><option value="__rural__">'+tr('Шаар эмес — районду тандоо','Без города — выбрать район')+'</option>';
+ (cargoCities[region]||[]).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=cargoLabel(v);city.appendChild(o)});
+ city.disabled=!(cargoCities[region]||[]).length;
+ district.innerHTML='<option value="">'+tr('Адегенде шаарды тандаңыз','Сначала выберите город')+'</option>';district.disabled=true;
+ $('l-'+side+'-locality').value='';updateCargoAddress(side);
+}
+function updateCargoDistricts(side){
+ const region=$('l-'+side+'-region').value,city=$('l-'+side+'-city').value,district=$('l-'+side+'-district');
+ district.innerHTML='<option value="">'+tr('Районду тандаңыз','Выберите район')+'</option>';
+ if(region==='Бишкек шаары'){
+  ['Ленин району','Октябрь району','Биринчи май району','Свердлов району'].forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=cargoLabel(v);district.appendChild(o)});
+ }else if(region==='Ош шаары'){
+  const o=document.createElement('option');o.value='Ош шаары';o.textContent=cargoLabel('Ош шаары');district.appendChild(o);
+ }else{
+  (cargoRegions[region]||[]).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=cargoLabel(v);district.appendChild(o)});
  }
+ district.disabled=!city.value;
+ $('l-'+side+'-locality').value='';updateCargoAddress(side);
 }
+function updateCargoAddress(side){
+ const region=$('l-'+side+'-region').value,city=$('l-'+side+'-city').value,district=$('l-'+side+'-district').value;
+ const detail=$('l-'+side+'-locality')?.value.trim()||'';
+ const parts=[region,city,district,detail,'Кыргызстан'].filter(Boolean);
+ $('l-'+side).value=parts.join(', ');
+}
+
+function openListing(){if(!currentUser){openAuth();return}if(!['customer','dispatcher'].includes(profile?.account_type)){alert(tr('Айдоочу жүк жарыясын жарыялабайт. Жүк ээси аккаунту керек.','Водитель не публикует грузы. Нужен аккаунт владельца груза.'));return}$('listingModal').classList.remove('hidden');$('listingMessage').innerHTML='';$('l-phone').value=profile?.phone||'';routeKm=null;loadFromPoint=null;loadToPoint=null;$('l-from').value='';$('l-to').value='';initCargoLocationSelectors();['from','to'].forEach(side=>{ $('l-'+side+'-district').innerHTML='<option value="">'+tr('Районду / шаарды тандаңыз','Выберите район / город')+'</option>'; $('l-'+side+'-district').disabled=true;$('l-'+side+'-city').innerHTML='<option value="">'+tr('Адегенде шаарды тандаңыз','Сначала выберите город')+'</option>';$('l-'+side+'-city').disabled=true;$('l-'+side+'-region').value='';$('l-'+side+'-locality').value='';});}
 async function uploadImages(bucket,files,folder,max){const arr=Array.from(files||[]);if(arr.length>max)throw Error(`Эң көп дегенде ${max} сүрөт тандаңыз.`);const urls=[];for(const f of arr){if(!f.type.startsWith('image/'))throw Error('Сүрөт файлын гана тандаңыз.');if(f.size>5*1024*1024)throw Error('Ар бир сүрөт 5 МБдан ашпашы керек.');const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';const path=`${currentUser.id}/${folder}_${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;const {error}=await db.storage.from(bucket).upload(path,f,{upsert:false,contentType:f.type});if(error)throw error;const {data}=db.storage.from(bucket).getPublicUrl(path);urls.push(data.publicUrl)}return urls}
-async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value.trim(),to=$('l-to').value.trim(),phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage',tr('Аталыш, эки так дарек жана телефонду толтуруңуз.','Заполните название, оба точных адреса и телефон.'),'error');return}if(!(Number($('l-weight').value)>0)){showMsg('listingMessage','Жүктүн салмагын кг же тонна менен киргизиңиз.','error');return}if(!loadFromPoint||!loadToPoint||!routeKm){showMsg('listingMessage',tr('Адегенде эки даректи жазып, «Даректер боюнча аралыкты эсептөө» баскычын басыңыз.','Сначала укажите оба адреса и нажмите «Рассчитать расстояние по адресам».'),'error');return}const btn=document.querySelector('#listingModal .modal-actions .btn-blue');btn.disabled=true;try{const photo_urls=await uploadImages('load-photos',$('l-photos').files,'load',5);const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),title_ru:$('l-title-ru').value.trim(),cargo_ru:$('l-cargo-ru').value.trim(),description_ru:$('l-description-ru').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),is_urgent:$('l-urgent').checked,cargo:$('l-cargo').value.trim(),weight_tons:(Number($('l-weight').value||0)*( $('l-weight-unit').value==='kg'?0.001:1)),is_current:true,current_confirmed_at:new Date().toISOString(),photo_urls,from_lat:loadFromPoint.lat,from_lng:loadFromPoint.lng,to_lat:loadToPoint.lat,to_lng:loadToPoint.lng,route_km:routeKm};const {data:createdLoad,error}=await db.from('loads').insert(payload).select('id').single();if(error)throw error;sendPushEvent({event:'new_load',city_from:from,city_to:to,title});const {error:notifyError}=await db.functions.invoke('notify-new-load',{body:{load:{id:createdLoad.id,title,city_from:from,city_to:to,cargo:payload.cargo,weight_tons:payload.weight_tons,price:payload.price,currency:'KGS',route_km:routeKm,phone}}});if(notifyError)console.warn('Telegram билдирүүсү жөнөтүлгөн жок:',notifyError.message);closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}finally{btn.disabled=false}}
+async function publishListing(){if(!currentUser){openAuth();return}const title=$('l-title').value.trim(),from=$('l-from').value.trim(),to=$('l-to').value.trim(),phone=$('l-phone').value.trim();if(!title||!from||!to||!phone){showMsg('listingMessage',tr('Аталыш, кайдан/кайда аймагы жана телефонду толтуруңуз. Так дарек милдеттүү эмес.','Заполните название, пункты отправления/назначения и телефон. Точный адрес необязателен.'),'error');return}if(!(Number($('l-weight').value)>0)){showMsg('listingMessage','Жүктүн салмагын кг же тонна менен киргизиңиз.','error');return}const btn=document.querySelector('#listingModal .modal-actions .btn-blue');btn.disabled=true;try{const photo_urls=await uploadImages('load-photos',$('l-photos').files,'load',5);const payload={owner_id:currentUser.id,title,city_from:from,city_to:to,price:Number($('l-price').value||0),phone,whatsapp:$('l-whatsapp').value.trim(),description:$('l-description').value.trim(),title_ru:"",cargo_ru:'',description_ru:$('l-description-ru').value.trim(),currency:'KGS',country:'Кыргызстан',status:'active',expires_at:new Date(Date.now()+7*86400000).toISOString(),is_urgent:$('l-urgent').checked,cargo:$('l-cargo').value.trim(),weight_tons:(Number($('l-weight').value||0)*( $('l-weight-unit').value==='kg'?0.001:1)),is_current:true,current_confirmed_at:new Date().toISOString(),photo_urls,from_lat:null,from_lng:null,to_lat:null,to_lng:null,route_km:null};const {data:createdLoad,error}=await db.from('loads').insert(payload).select('id').single();if(error)throw error;sendPushEvent({event:'new_load',city_from:from,city_to:to,title});const {error:notifyError}=await db.functions.invoke('notify-new-load',{body:{load:{id:createdLoad.id,title,city_from:from,city_to:to,cargo:payload.cargo,weight_tons:payload.weight_tons,price:payload.price,currency:'KGS',route_km:routeKm,phone}}});if(notifyError)console.warn('Telegram билдирүүсү жөнөтүлгөн жок:',notifyError.message);closeModal('listingModal');await loadListings();showPage('ads')}catch(e){showMsg('listingMessage',friendlyError(e),'error')}finally{btn.disabled=false}}
 
 async function requestDispatcher(table,id){if(!currentUser){openAuth();return}const message=prompt('Диспетчерге кандай жардам керек?','Бул жүк боюнча байланышууга жардам бериңиз.');if(message===null)return;try{const {error}=await db.from('dispatch_requests').insert({requester_id:currentUser.id,request_type:'find_driver',listing_id:id,listing_table:table,message,payment_mode:'direct'});if(error)throw error;alert('Өтүнүч жөнөтүлдү.')}catch(e){alert('Өтүнүч жөнөтүлгөн жок: '+e.message)}}
 function regionOptions(){return regions.map(r=>`<option value="${esc(r)}">${esc(r)}</option>`).join('')}
@@ -1124,7 +1223,7 @@ function renderDrivers(){
    ? `<img class="driver-avatar" src="${esc(driverPhoto)}" alt="Айдоочунун сүрөтү" loading="lazy" onerror="this.outerHTML='<div class=&quot;driver-avatar-fallback&quot;>👤</div>'">`
    : `<div class="driver-avatar-fallback">👤</div>`;
   const route=String(d.work_directions||'').trim();
-  return `<article class="driver-card"><div class="driver-media">${vehiclePhoto}${d.is_available_today?`<span class="driver-available-badge">${tr('Бүгүн бош','Свободен сегодня')}</span>`:''}${vehiclePhotos.length>1?`<span class="driver-photo-count">1/${vehiclePhotos.length}</span>`:''}</div><div class="driver-info"><div class="driver-profile-head">${avatar}<div style="min-width:0"><span class="pill">${tr('Айдоочу','Водитель')}</span><div class="driver-name">${esc(d.driver_name||'Айдоочу')}</div></div></div><div class="listing-meta"><span>🚚 ${esc([vehicleTypeText(d.vehicle_type),d.vehicle_model].filter(Boolean).join(' ')||tr('Унаа көрсөтүлгөн эмес','Транспорт не указан'))}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(bilingualText(d.region,d.region_ru,'—'))}</span></div>${route?`<p class="muted">↗ ${esc(bilingualText(route,d.work_directions_ru,''))}</p>`:''}${(lang==='ru'?(d.description_ru||d.description):d.description)?`<p>${esc(lang==='ru'?(d.description_ru||d.description):d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}${d.phone&&d.user_id&&d.user_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(d.user_id)}','${esc(d.driver_name||'Айдоочу').replace(/'/g,'&#39;')}')">✉ ${tr('Билдирүү','Сообщение')}</button>`:''}</div></div></article>`;
+  return `<article class="driver-card"><div class="driver-media">${vehiclePhoto}${d.is_available_today?`<span class="driver-available-badge">${tr('Бүгүн бош','Свободен сегодня')}</span>`:''}${vehiclePhotos.length>1?`<span class="driver-photo-count">1/${vehiclePhotos.length}</span>`:''}</div><div class="driver-info"><div class="driver-profile-head">${avatar}<div style="min-width:0"><span class="pill">${tr('Айдоочу','Водитель')}</span><div class="driver-name">${esc(d.driver_name||'Айдоочу')} ${d.verification_status==='approved'?'<span class="pill" style="background:#e7f7ee;color:#16734b">✓ Текшерилген</span>':''}</div></div></div><div class="listing-meta"><span>🚚 ${esc([vehicleTypeText(d.vehicle_type),d.vehicle_model].filter(Boolean).join(' ')||tr('Унаа көрсөтүлгөн эмес','Транспорт не указан'))}</span><span>⚖️ ${esc(d.capacity_tons||'—')} т</span><span>📍 ${esc(bilingualText(d.region,d.region_ru,'—'))}</span></div>${route?`<p class="muted">↗ ${esc(bilingualText(route,d.work_directions_ru,''))}</p>`:''}${(lang==='ru'?(d.description_ru||d.description):d.description)?`<p>${esc(lang==='ru'?(d.description_ru||d.description):d.description)}</p>`:''}<div class="listing-actions">${d.phone?`<a class="btn btn-blue" href="tel:${esc(phoneClean(d.phone))}">☎ ${tr('Чалуу','Позвонить')}</a>`:''}${(d.whatsapp||d.phone)?`<a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/${esc(waLink(d.whatsapp||d.phone))}">WhatsApp</a>`:''}${d.phone&&d.user_id&&d.user_id!==currentUser?.id?`<button class="btn btn-dark" onclick="openChat('${esc(d.user_id)}','${esc(d.driver_name||'Айдоочу').replace(/'/g,'&#39;')}')">✉ ${tr('Билдирүү','Сообщение')}</button>`:''}</div></div></article>`;
  }).join(''):'<div class="panel empty"><b>Айдоочу табылган жок</b>Фильтрлерди өзгөртүп көрүңүз.</div>';
  applyLanguage();
 }
@@ -1155,6 +1254,7 @@ function renderCabinet(){
   ['legal','legal','Юридикалык маалымат','Юридическая информация'],
   ['support','?','Колдоо кызматы','Поддержка']
  ];
+ items.unshift(['verification','shield','Текшерүү жана коопсуздук','Проверка и безопасность']);
  items.unshift(['myloads','personal','Менин жүк жарыяларым','Мои объявления']);
  const driverItem=role==='driver'?`<button class="cab-menu-item cab-driver-item" onclick="openCabinetSection('driver')"><span class="cab-menu-icon">${icon('driver')}</span><span><b>Айдоочунун профили</b><small>Унаа, багыттар жана айдоочу маалыматы</small></span><span class="cab-chevron">›</span></button>`:'';
  const menu=items.map(([id,ico,ky,ru])=>`<button class="cab-menu-item" onclick="openCabinetSection('${id}')"><span class="cab-menu-icon">${icon(ico)}</span><span><b>${lang==='ru'?ru:ky}</b></span><span class="cab-chevron">›</span></button>`).join('');
@@ -1171,9 +1271,12 @@ function openCabinetSection(section){
  const back=`<button class="btn btn-light" onclick="closeCabinetSection()">← Артка</button>`;
  let html='';
  if(section==='myloads'){
-  html=`${back}<h3>Менин жүк жарыяларым</h3><p class="muted">Өзүңүз жарыялаган жүктөрдү өзгөртүңүз, убактылуу токтотуңуз же өчүрүңүз.</p><div id="myLoadsList"><div class="empty">Жүктөлүүдө…</div></div>`;
+  html=`${back}<h3>Менин жүк жарыяларым</h3><p class="muted">Жарыяларды башкарыңыз: убактылуу токтотуңуз, жабылган жарыяларды архивден көрүңүз же кайра активдештириңиз.</p><div class="listing-actions" style="margin:12px 0"><button id="myLoadsActiveTab" class="btn btn-primary" onclick="loadMyLoads('active')">Активдүү</button><button id="myLoadsArchiveTab" class="btn btn-light" onclick="loadMyLoads('archive')">Архив</button></div><div id="myLoadsList"><div class="empty">Жүктөлүүдө…</div></div>`;
  }else if(section==='personal'){
   html=`${back}<h3>Жеке маалымат</h3><div class="profile-grid"><div class="field"><label>Email</label><input value="${esc(currentUser.email||'')}" disabled></div><div class="field"><label>Аты-жөнү</label><input id="p-name" value="${esc(profile?.full_name||'')}"></div><div class="field"><label>Телефон</label><input id="p-phone" value="${esc(profile?.phone||'')}"></div></div><div id="profileMessage"></div><button class="btn btn-blue" onclick="saveProfile()">Маалыматты сактоо</button>`;
+ }else if(section==='verification'){
+  html=`${back}<h3>🛡️ Коопсуздук жана верификация</h3><div id="verificationStatus" class="notice">Маалымат жүктөлүүдө…</div><div class="card" style="margin:12px 0"><h4>📱 Телефонду ырастоо</h4><p class="muted">SMS код Supabase Auth аркылуу жөнөтүлөт. Телефон номериңиз өлкө коду менен жазылышы керек (+996...).</p><div class="field"><label>Телефон номери</label><input id="verifyPhone" type="tel" value="${esc(profile?.phone||'')}" placeholder="+996700123456"></div><div class="listing-actions"><button class="btn btn-blue" onclick="sendPhoneVerification()">SMS код жөнөтүү</button></div><div class="field"><label>SMS код</label><input id="verifyOtp" inputmode="numeric" maxlength="8" placeholder="Кодду киргизиңиз"></div><button class="btn btn-primary" onclick="confirmPhoneVerification()">Телефонду ырастоо</button></div><div class="card"><h4>🪪 Айдоочунун документтерин текшерүү</h4><p class="muted">Айдоочу аккаунту үчүн гана. Документ сүрөтү жеке сактагычка жүктөлөт жана администратор текшерет.</p>${role==='driver'?`<div class="field"><label>Документтин түрү</label><select id="verifyDocType"><option value="driver_license">Айдоочулук күбөлүк</option><option value="vehicle_registration">Унаанын каттоо күбөлүгү</option></select></div><div class="field"><label>Документтин сүрөтү</label><input id="verifyDocFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></div><button class="btn btn-primary" onclick="submitVerificationDocument()">Документти текшерүүгө жөнөтүү</button>`:`<div class="notice">Документтерди текшерүү айдоочулар үчүн жеткиликтүү.</div>`}<div id="verificationDocMessage"></div></div>`;
+  setTimeout(loadMyVerification,0);
  }else if(section==='notifications'){
   html=`${back}<h3>🔔 Билдирмелерди жөндөө</h3><p class="muted">Жаңы жүк жарыялары жана жеке билдирүүлөр тууралуу телефонуңузга эскертме алыңыз.</p><div id="pushStatus" class="notice">Билдирме абалы текшерилүүдө…</div><div class="listing-actions"><button class="btn btn-primary" type="button" onclick="enablePushNotifications()">🔔 Билдирмелерди күйгүзүү</button><button class="btn btn-light" type="button" onclick="disablePushNotifications()">Өчүрүү</button></div>`;
  }else if(section==='driver'&&role==='driver'){
@@ -1201,15 +1304,43 @@ function openCabinetSection(section){
  if(section==='driver')loadVehicleManager();
 }
 
-async function loadMyLoads(){
+let myLoadsFilter='active';
+async function loadMyLoads(filter=myLoadsFilter){
  const host=$('myLoadsList');if(!host||!currentUser)return;
+ myLoadsFilter=filter;
+ const activeTab=$('myLoadsActiveTab'),archiveTab=$('myLoadsArchiveTab');
+ if(activeTab){activeTab.className='btn '+(filter==='active'?'btn-primary':'btn-light');}
+ if(archiveTab){archiveTab.className='btn '+(filter==='archive'?'btn-primary':'btn-light');}
  host.innerHTML='<div class="empty">Жүктөлүүдө…</div>';
  try{
   const {data,error}=await db.from('loads').select('id,owner_id,title,cargo,city_from,city_to,weight_tons,price,phone,whatsapp,description,status,expires_at,is_current,created_at').eq('owner_id',currentUser.id).order('created_at',{ascending:false});
   if(error)throw error;
-  if(!data?.length){host.innerHTML='<div class="empty"><b>Азырынча жарыяңыз жок</b>Жүк жарыяласаңыз, ушул жерден башкара аласыз.</div>';return}
-  host.innerHTML=data.map(x=>{const expired=!!x.expires_at&&new Date(x.expires_at).getTime()<=Date.now()||x.status==='expired';const paused=x.status==='paused'&&!expired;const statusLabel=expired?'Мөөнөтү бүттү':paused?'Убактылуу токтотулган':x.status==='active'?'Активдүү':esc(x.status||'Активдүү');const expiryLabel=x.expires_at?new Date(x.expires_at).toLocaleDateString('ru-RU'):'—';return `<article class="listing-card"><div class="route">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div><b>${esc(x.title||x.cargo||'Жүк')}</b><div class="listing-meta"><span>📦 ${esc(x.cargo||'—')}</span><span>⚖️ ${esc(formatLoadWeight(x.weight_tons))}</span><span>💰 ${esc(money(x.price))}</span></div><div class="listing-actions"><button class="btn btn-blue" onclick="editMyLoad('${esc(x.id)}')">✏️ Өзгөртүү</button>${expired?`<button class="btn btn-primary" onclick="renewMyLoad('${esc(x.id)}')">🔄 Дагы 7 күнгө жаңыртуу</button>`:`<button class="btn btn-light" onclick="toggleMyLoadStatus('${esc(x.id)}','${paused?'active':'paused'}')">${paused?'▶️ Кайра жарыялоо':'⏸ Убактылуу токтотуу'}</button>`}<button class="btn btn-danger" onclick="deleteMyLoad('${esc(x.id)}')">🗑 Өчүрүү</button></div><small class="muted">Абалы: ${statusLabel} · Бүткөн күнү: ${expiryLabel}</small></article>`}).join('');
+  const all=data||[];
+  const isArchived=x=>['closed','archived','expired'].includes(String(x.status||'').toLowerCase())||!!x.expires_at&&new Date(x.expires_at).getTime()<=Date.now();
+  const rows=all.filter(x=>filter==='archive'?isArchived(x):!isArchived(x));
+  if(!rows.length){host.innerHTML=filter==='archive'?'<div class="empty"><b>Архив азырынча бош</b>Жабылган же мөөнөтү бүткөн жарыялар бул жерде сакталат.</div>':'<div class="empty"><b>Активдүү жарыя жок</b>Жаңы жүк жарыяласаңыз, ушул жерден башкара аласыз.</div>';return}
+  host.innerHTML=rows.map(x=>{
+   const expired=!!x.expires_at&&new Date(x.expires_at).getTime()<=Date.now()||x.status==='expired';
+   const closed=['closed','archived'].includes(String(x.status||'').toLowerCase());
+   const paused=x.status==='paused'&&!expired;
+   const archived=expired||closed;
+   const statusLabel=expired?'Мөөнөтү бүттү':closed?'Жабылды':paused?'Убактылуу токтотулган':x.status==='active'?'Активдүү':esc(x.status||'Активдүү');
+   const expiryLabel=x.expires_at?new Date(x.expires_at).toLocaleDateString('ru-RU'):'—';
+   const controls=archived
+    ? `<button class="btn btn-primary" onclick="renewMyLoad('${esc(x.id)}')">🔄 Кайра активдештирүү · 7 күн</button>`
+    : `<button class="btn btn-blue" onclick="editMyLoad('${esc(x.id)}')">✏️ Өзгөртүү</button><button class="btn btn-light" onclick="toggleMyLoadStatus('${esc(x.id)}','${paused?'active':'paused'}')">${paused?'▶️ Кайра жарыялоо':'⏸ Убактылуу токтотуу'}</button>${!paused?`<button class="btn btn-light" onclick="closeMyLoad('${esc(x.id)}')">✓ Жарыяны жабуу</button>`:''}`;
+   return `<article class="listing-card"><div class="route">${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</div><b>${esc(x.title||x.cargo||'Жүк')}</b><div class="listing-meta"><span>📦 ${esc(x.cargo||'—')}</span><span>⚖️ ${esc(formatLoadWeight(x.weight_tons))}</span><span>💰 ${esc(money(x.price))}</span></div><div class="listing-actions">${controls}<button class="btn btn-danger" onclick="deleteMyLoad('${esc(x.id)}')">🗑 Өчүрүү</button></div><small class="muted">Абалы: ${statusLabel} · Бүткөн күнү: ${expiryLabel}</small></article>`;
+  }).join('');
  }catch(e){host.innerHTML=`<div class="notice error">${esc(e.message)}<br><small>loads таблицасында RLS уруксаттарын текшерүү керек.</small></div>`}
+}
+async function closeMyLoad(id){
+ if(!confirm('Бул жарыяны жабасызбы? Ал жалпы издөөдөн чыгарылып, архивде сакталат.'))return;
+ try{
+  const {error}=await db.from('loads').update({status:'closed',is_current:false,current_confirmed_at:null}).eq('id',id).eq('owner_id',currentUser.id);
+  if(error)throw error;
+  await loadMyLoads(myLoadsFilter);await loadListings();
+  alert('Жарыя жабылып, архивге өткөрүлдү.');
+ }catch(e){alert('Жарыя жабылган жок: '+e.message)}
 }
 async function editMyLoad(id){
  try{
@@ -1245,7 +1376,7 @@ async function renewMyLoad(id){
  try{
   const {error}=await db.from('loads').update({status:'active',expires_at:nextExpiry,is_current:true,current_confirmed_at:new Date().toISOString()}).eq('id',id).eq('owner_id',currentUser.id);
   if(error)throw error;
-  await loadMyLoads();await loadListings();
+  await loadMyLoads('active');await loadListings();
   alert('Жарыя дагы 7 күнгө жаңыртылды жана кайра активдүү болду.');
  }catch(e){alert('Жарыя жаңыртылган жок: '+e.message)}
 }
@@ -1365,7 +1496,27 @@ async function syncPrimaryVehicleToProfile(){
 
 async function saveProfile(){try{const {data,error}=await db.from('profiles').update({full_name:$('p-name').value.trim(),phone:$('p-phone').value.trim()}).eq('id',currentUser.id).select().single();if(error)throw error;profile=data;showMsg('profileMessage','Маалымат сакталды.','success');if(profile.account_type==='driver'&&!$('d-phone').value.trim())$('d-phone').value=profile.phone||''}catch(e){showMsg('profileMessage',e.message,'error')}}
 async function saveDriverProfile(){if(!currentUser||profile?.account_type!=='driver')return;const name=$('d-name').value.trim(),phone=$('d-phone').value.trim();if(!name||!phone||!$('d-region').value){showMsg('driverMessage','Аты-жөнү, телефон жана аймак милдеттүү.','error');return}try{let driver_photo_url=driverProfile?.driver_photo_url||null,vehicle_photo_urls=driverProfile?.vehicle_photo_urls||[];if($('d-driver-photo').files.length){const a=await uploadImages('driver-photos',[$('d-driver-photo').files[0]],'driver',1);driver_photo_url=a[0]}if($('d-vehicle-photos').files.length){vehicle_photo_urls=await uploadImages('driver-photos',$('d-vehicle-photos').files,'vehicle',5)}const payload={user_id:currentUser.id,driver_name:name,vehicle_type:$('d-type').value,vehicle_model:$('d-model').value.trim(),capacity_tons:Number($('d-capacity').value||0),region:$('d-region').value,work_directions:$('d-directions').value.trim(),work_directions_ru:$('d-directions-ru').value.trim(),phone,whatsapp:$('d-whatsapp').value.trim(),description:$('d-description').value.trim(),description_ru:$('d-description-ru').value.trim(),is_public:$('d-public').checked,is_available_today:$('d-available-today').checked,driver_photo_url,vehicle_photo_urls,updated_at:new Date().toISOString()};const {error}=await db.from('driver_profiles').upsert(payload,{onConflict:'user_id'});if(error)throw error;driverProfile=payload;showMsg('driverMessage','Айдоочу профили жана сүрөттөр сакталды.','success');loadDrivers()}catch(e){showMsg('driverMessage',e.message,'error')}}
-async function renderDispatcher(){if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b></div>';return}try{const {data:req,error}=await db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50);if(error)throw error;$('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз.</div><h3>Ачык өтүнүчтөр</h3>${(req||[]).length?req.map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':'Айдоочу жүк издеп жатат'}</b><p>${esc(r.message||'')}</p><button class="btn btn-blue" onclick="acceptRequest('${esc(r.id)}')">Кабыл алуу</button></div>`).join(''):'<div class="empty">Ачык өтүнүч жок.</div>'}`}catch(e){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(e.message)}</div>`}}
+async function renderDispatcher(){
+ if(!currentUser||profile?.account_type!=='dispatcher'){$('dispatcherContent').innerHTML='<div class="empty"><b>Бул бөлүмгө уруксат жок</b></div>';return}
+ try{
+  const [tasksRes,reqRes]=await Promise.all([
+   db.from('dispatcher_assignments').select('*').eq('dispatcher_id',currentUser.id).order('updated_at',{ascending:false}).limit(100),
+   db.from('dispatch_requests').select('*').eq('status','open').order('created_at',{ascending:false}).limit(50)
+  ]);
+  if(tasksRes.error)throw tasksRes.error;if(reqRes.error)throw reqRes.error;
+  const tasks=tasksRes.data||[],req=reqRes.data||[];
+  $('dispatcherContent').innerHTML=`<div class="notice">Диспетчер катары кирдиңиз. Сизге дайындалган тапшырмалар гана көрсөтүлөт.</div>
+  <h3>📦 Мага дайындалган жүктөр (${tasks.length})</h3>
+  ${tasks.length?tasks.map(t=>`<div class="listing-card"><b>${esc(t.load_title||'Жүк')}</b><p>${esc(t.route_text||'Маршрут көрсөтүлгөн эмес')}</p><p><span class="pill">${esc(t.status)}</span></p><label>Тапшырманын статусу</label><select id="dispatch-task-status-${esc(t.id)}"><option value="new" ${t.status==='new'?'selected':''}>Жаңы</option><option value="in_progress" ${t.status==='in_progress'?'selected':''}>Иштелүүдө</option><option value="waiting" ${t.status==='waiting'?'selected':''}>Күтүүдө</option><option value="completed" ${t.status==='completed'?'selected':''}>Аяктады</option><option value="cancelled" ${t.status==='cancelled'?'selected':''}>Жокко чыгарылды</option></select><label>Админ гана көрө турган ички эскертме</label><textarea id="dispatch-task-note-${esc(t.id)}" maxlength="1000" placeholder="Иштин жүрүшү боюнча ички эскертме">${esc(t.internal_note||'')}</textarea><button class="btn btn-blue" onclick="updateDispatcherTask('${esc(t.id)}')">Өзгөртүүнү сактоо</button></div>`).join(''):'<div class="empty">Азырынча тапшырма дайындала элек.</div>'}
+  <h3>Ачык диспетчер өтүнүчтөрү</h3>${req.length?req.map(r=>`<div class="listing-card"><b>${r.request_type==='find_driver'?'Жүк ээси айдоочу издеп жатат':'Айдоочу жүк издеп жатат'}</b><p>${esc(r.message||'')}</p><button class="btn btn-blue" onclick="acceptRequest('${esc(r.id)}')">Кабыл алуу</button></div>`).join(''):'<div class="empty">Ачык өтүнүч жок.</div>'}`;
+ }catch(e){$('dispatcherContent').innerHTML=`<div class="notice error">${esc(e.message)}<br><small>V53 SQL таблицасын орнотконуңузду текшериңиз.</small></div>`}
+}
+async function updateDispatcherTask(id){
+ if(!currentUser||profile?.account_type!=='dispatcher')return alert('Уруксат жок');
+ const status=$('dispatch-task-status-'+id)?.value,note=($('dispatch-task-note-'+id)?.value||'').trim();
+ if(!['new','in_progress','waiting','completed','cancelled'].includes(status))return alert('Статус туура эмес');
+ try{const {error}=await db.rpc('dispatcher_update_assignment',{p_assignment_id:id,p_status:status,p_internal_note:note||null});if(error)throw error;alert('Тапшырма жаңыртылды.');await renderDispatcher()}catch(e){alert('Сактоо ишке ашкан жок: '+e.message)}
+}
 async function acceptRequest(id){try{const {error}=await db.from('dispatch_requests').update({dispatcher_id:currentUser.id,status:'accepted'}).eq('id',id).eq('status','open');if(error)throw error;renderDispatcher()}catch(e){alert(e.message)}}
 
 
@@ -1389,31 +1540,78 @@ async function loadAdminData(){
  if(!ok){adminDenied();return}
  $('adminContent').innerHTML='<div class="empty">Маалымат жүктөлүүдө…</div>';
  try{
-  const [usersRes,loadsRes,requestsRes]=await Promise.all([
+  const [usersRes,loadsRes,requestsRes,disputesRes,verificationsRes,assignmentsRes,assignmentEventsRes]=await Promise.all([
    db.from('profiles').select('id,full_name,phone,account_type,created_at').order('created_at',{ascending:false}).limit(200),
    db.from('loads').select('id,title,cargo,city_from,city_to,status,price,created_at,owner_id').order('created_at',{ascending:false}).limit(200),
-   db.from('dispatch_requests').select('id,request_type,message,status,requester_id,dispatcher_id,created_at').order('created_at',{ascending:false}).limit(100)
+   db.from('dispatch_requests').select('id,request_type,message,status,requester_id,dispatcher_id,created_at').order('created_at',{ascending:false}).limit(100),
+   db.from('load_disputes').select('id,contract_id,load_id,reporter_id,category,description,status,admin_note,created_at,reviewed_at,closed_at').order('created_at',{ascending:false}).limit(200),
+   db.from('driver_verifications').select('id,user_id,document_type,document_path,status,admin_note,created_at').order('created_at',{ascending:false}).limit(200),
+   db.from('dispatcher_assignments').select('*').order('updated_at',{ascending:false}).limit(200),
+   db.from('dispatcher_assignment_events').select('*').order('created_at',{ascending:false}).limit(300)
   ]);
   if(usersRes.error)throw usersRes.error;
   if(loadsRes.error)throw loadsRes.error;
   if(requestsRes.error)throw requestsRes.error;
-  const users=usersRes.data||[],loads=loadsRes.data||[],requests=requestsRes.data||[];
+  if(disputesRes.error)throw disputesRes.error;
+  if(verificationsRes.error)throw verificationsRes.error;if(assignmentsRes.error)throw assignmentsRes.error;if(assignmentEventsRes.error)throw assignmentEventsRes.error;
+  const users=usersRes.data||[],loads=loadsRes.data||[],requests=requestsRes.data||[],disputes=disputesRes.data||[],verifications=verificationsRes.data||[],assignments=assignmentsRes.data||[],assignmentEvents=assignmentEventsRes.data||[];
+  const dispatchers=users.filter(u=>u.account_type==='dispatcher');window.allAdminLoads=loads;
+  const verificationLinks={};await Promise.all(verifications.map(async v=>{const {data}=await db.storage.from('verification-docs').createSignedUrl(v.document_path,300);if(data?.signedUrl)verificationLinks[v.id]=data.signedUrl;}));
   const userRows=users.map(u=>`<tr>
    <td>${esc(u.full_name||'—')}<br><small>${esc(u.phone||'')}</small></td>
    <td><select id="admin-role-${esc(u.id)}"><option value="customer" ${u.account_type==='customer'?'selected':''}>Жүк ээси</option><option value="driver" ${u.account_type==='driver'?'selected':''}>Айдоочу</option><option value="dispatcher" ${u.account_type==='dispatcher'?'selected':''}>Диспетчер</option></select></td>
    <td><button class="btn btn-blue" onclick="adminChangeRole('${esc(u.id)}')">Сактоо</button></td></tr>`).join('');
   const loadRows=loads.map(x=>`<tr><td><b>${esc(x.title||x.cargo||'Жүк')}</b><br><small>${esc(x.city_from||'—')} → ${esc(x.city_to||'—')}</small></td><td>${esc(x.status||'—')}</td><td><div class="listing-actions"><button class="btn btn-light" onclick="adminSetLoadStatus('${esc(x.id)}','closed')">Жабуу</button><button class="btn btn-danger" onclick="adminDeleteLoad('${esc(x.id)}')">Өчүрүү</button></div></td></tr>`).join('');
   const requestRows=requests.map(r=>`<tr><td>${esc(r.request_type||'—')}<br><small>${esc(r.message||'')}</small></td><td>${esc(r.status||'—')}</td><td>${r.status==='open'?`<button class="btn btn-blue" onclick="adminAssignRequest('${esc(r.id)}')">Өзүмө алуу</button>`:'—'}</td></tr>`).join('');
+  const dispatcherOptions=dispatchers.map(d=>`<option value="${esc(d.id)}">${esc(d.full_name||d.phone||d.id)}</option>`).join('');
+  const loadOptions=loads.filter(l=>l.status==='active').map(l=>`<option value="${esc(l.id)}">${esc(l.title||l.cargo||'Жүк')} — ${esc(l.city_from||'')} → ${esc(l.city_to||'')}</option>`).join('');
+  const assignmentRows=assignments.map(a=>`<tr><td>${esc(a.load_title||'Жүк')}<br><small>${esc(a.route_text||'')}</small></td><td><small>${esc(dispatchers.find(d=>d.id===a.dispatcher_id)?.full_name||a.dispatcher_id)}</small></td><td>${esc(a.status)}</td><td><small>${esc(a.internal_note||'—')}</small></td></tr>`).join('');
+  const assignmentEventRows=assignmentEvents.map(e=>`<tr><td><small>${e.created_at?new Date(e.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):''}</small></td><td><small>${esc(assignments.find(a=>a.id===e.assignment_id)?.load_title||e.assignment_id)}</small></td><td>${esc(e.old_status||'—')} → ${esc(e.new_status)}</td><td><small>${esc(e.note||'—')}</small></td><td><small>${esc(users.find(u=>u.id===e.changed_by)?.full_name||e.changed_by||'—')}</small></td></tr>`).join('');
+  const disputeLabels={late_delivery:'Жеткирүү кечикти',cargo_damage:'Жүк бузулду/жетишпейт',payment_disagreement:'Төлөм талашы',terms_disagreement:'Келишим шарты',communication:'Байланыш көйгөйү',other:'Башка'};
+  const disputeRows=disputes.map(d=>`<tr><td><b>${esc(disputeLabels[d.category]||d.category)}</b><br><small>Келишим: ${esc(d.contract_id)}<br>Жүк: ${esc(d.load_id)}<br>Колдонуучу: ${esc(d.reporter_id)}</small></td><td>${esc(d.description)}</td><td><span class="pill">${esc(d.status)}</span><br><small>${d.created_at?new Date(d.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):''}</small></td><td><textarea id="admin-dispute-note-${esc(d.id)}" rows="2" maxlength="1000" placeholder="Админдин түшүндүрмөсү">${esc(d.admin_note||'')}</textarea><select id="admin-dispute-status-${esc(d.id)}"><option value="open" ${d.status==='open'?'selected':''}>Ачык</option><option value="reviewed" ${d.status==='reviewed'?'selected':''}>Каралууда</option><option value="closed" ${d.status==='closed'?'selected':''}>Чечилди</option></select><button class="btn btn-blue" onclick="adminUpdateDispute('${esc(d.id)}')">Сактоо</button></td></tr>`).join('');
   $('adminContent').innerHTML=`
-   <div class="notice success">Администратор катары кирдиңиз. Табылган колдонуучулар: ${users.length}; жүк жарыялары: ${loads.length}; өтүнүчтөр: ${requests.length}.</div>
+   <div class="notice success">Администратор катары кирдиңиз. Колдонуучулар: ${users.length}; жүк жарыялары: ${loads.length}; өтүнүчтөр: ${requests.length}; талаштар: ${disputes.length}.</div>
    <h3>Колдонуучулар жана ролдор</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Колдонуучу</th><th align="left">Роль</th><th></th></tr></thead><tbody>${userRows||'<tr><td colspan="3">Колдонуучулар жок</td></tr>'}</tbody></table></div>
    <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
    <h3>Жүк жарыялары</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Жарыя</th><th align="left">Статус</th><th align="left">Аракет</th></tr></thead><tbody>${loadRows||'<tr><td colspan="3">Жарыялар жок</td></tr>'}</tbody></table></div>
    <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
-   <h3>Диспетчер өтүнүчтөрү</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Өтүнүч</th><th align="left">Статус</th><th align="left">Аракет</th></tr></thead><tbody>${requestRows||'<tr><td colspan="3">Өтүнүчтөр жок</td></tr>'}</tbody></table></div>`;
+   <h3>Диспетчер өтүнүчтөрү</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Өтүнүч</th><th align="left">Статус</th><th align="left">Аракет</th></tr></thead><tbody>${requestRows||'<tr><td colspan="3">Өтүнүчтөр жок</td></tr>'}</tbody></table></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+   <h3>🧭 Диспетчерге жүк дайындоо</h3>
+   <div class="form-grid"><div class="field"><label>Жүк жарыясы</label><select id="admin-assign-load"><option value="">Жүктү тандаңыз</option>${loadOptions}</select></div><div class="field"><label>Диспетчер</label><select id="admin-assign-dispatcher"><option value="">Диспетчерди тандаңыз</option>${dispatcherOptions}</select></div></div>
+   <button class="btn btn-blue" onclick="adminCreateDispatcherAssignment()">Дайындоо</button>
+   <p class="muted">Диспетчер өзүнө дайындалган тапшырмаларды гана көрөт. Ички эскертмелер кардарларга жана айдоочуларга көрүнбөйт.</p>
+   <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Жүк / маршрут</th><th align="left">Диспетчер</th><th align="left">Статус</th><th align="left">Ички эскертме</th></tr></thead><tbody>${assignmentRows||'<tr><td colspan="4">Дайындалган тапшырма жок</td></tr>'}</tbody></table></div>
+   <h4>Тапшырмалардын тарыхы</h4><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Убакыт</th><th align="left">Жүк</th><th align="left">Статус өзгөрүүсү</th><th align="left">Эскертме</th><th align="left">Ким өзгөрттү</th></tr></thead><tbody>${assignmentEventRows||'<tr><td colspan="5">Тарых азырынча бош</td></tr>'}</tbody></table></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+   <h3>⚠️ Көйгөй жана талаш билдирүүлөрү</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Билдирүү</th><th align="left">Түшүндүрмө</th><th align="left">Статус/убакыт</th><th align="left">Админ чечими</th></tr></thead><tbody>${disputeRows||'<tr><td colspan="4">Талаш билдирүүлөрү жок</td></tr>'}</tbody></table></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3>🛡️ Айдоочулардын документтерин текшерүү</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th align="left">Колдонуучу / документ</th><th align="left">Статус</th><th align="left">Админ чечими</th></tr></thead><tbody>${verifications.map(v=>`<tr><td><small>${esc(v.user_id)}<br>${esc(v.document_type)}<br>${verificationLinks[v.id]?`<a href="${esc(verificationLinks[v.id])}" target="_blank" rel="noopener">Документти көрүү ↗</a>`:'Документ шилтемеси жеткиликсиз'}</small></td><td>${esc(v.status)}</td><td><textarea id="verify-admin-note-${esc(v.id)}" maxlength="500" placeholder="Комментарий">${esc(v.admin_note||'')}</textarea><select id="verify-admin-status-${esc(v.id)}"><option value="approved" ${v.status==='approved'?'selected':''}>Ырасталды</option><option value="rejected" ${v.status==='rejected'?'selected':''}>Четке кагылды</option><option value="pending" ${v.status==='pending'?'selected':''}>Каралууда</option></select><button class="btn btn-blue" onclick="adminReviewVerification('${esc(v.id)}')">Сактоо</button></td></tr>`).join('')||'<tr><td colspan="3">Документтер жок</td></tr>'}</tbody></table></div>`;
  }catch(e){$('adminContent').innerHTML=`<div class="notice error">Админ маалыматын жүктөөдө ката: ${esc(e.message)}<br><small>Supabase RLS SQL эрежелерин орнотуу керек болушу мүмкүн.</small></div>`}
  applyLanguage();
 }
+async function adminCreateDispatcherAssignment(){
+ if(!isAdmin)return alert('Уруксат жок');
+ const loadId=$('admin-assign-load')?.value,dispatcherId=$('admin-assign-dispatcher')?.value;
+ if(!loadId||!dispatcherId)return alert('Жүк жана диспетчер тандаңыз.');
+ const load=(window.allAdminLoads||[]).find(x=>String(x.id)===String(loadId));
+ if(!load)return alert('Жүк табылган жок. Админ панелди жаңылаңыз.');
+ const payload={load_id:String(load.id),load_title:load.title||load.cargo||'Жүк',route_text:`${load.city_from||'—'} → ${load.city_to||'—'}`,dispatcher_id:dispatcherId,assigned_by:currentUser.id,status:'new'};
+ try{const {error}=await db.from('dispatcher_assignments').insert(payload);if(error)throw error;alert('Жүк диспетчерге дайындалды.');await loadAdminData()}catch(e){alert('Дайындоо ишке ашкан жок: '+e.message)}
+}
+async function adminUpdateDispute(id){
+ if(!isAdmin)return alert('Уруксат жок');
+ const status=$('admin-dispute-status-'+id)?.value;
+ const adminNote=($('admin-dispute-note-'+id)?.value||'').trim();
+ if(!['open','reviewed','closed'].includes(status))return alert('Статус туура эмес');
+ if(adminNote.length>1000)return alert('Түшүндүрмө 1000 белгиден ашпашы керек');
+ try{
+  const {error}=await db.rpc('admin_update_load_dispute',{p_dispute_id:id,p_status:status,p_admin_note:adminNote||null});
+  if(error)throw error;
+  alert('Талаш билдирүүсү жаңыртылды.');
+  await loadAdminData();
+ }catch(e){alert('Сактоо ишке ашкан жок: '+friendlyError(e));}
+}
+
 async function adminChangeRole(userId){
  if(!isAdmin)return alert('Уруксат жок');
  const role=$('admin-role-'+userId)?.value;
@@ -1524,7 +1722,7 @@ const UI_RU = {
 'Email':'Email','Сыр сөз':'Пароль','Аты-жөнү':'Имя и фамилия','Телефон':'Телефон','Аккаунт түрү':'Тип аккаунта','Жүк ээси':'Владелец груза',
 'Email ырастоо талап кылынса, почтаңызга келген шилтемени ачыңыз.':'Если требуется подтверждение email, откройте ссылку из письма.',
 'Жаңы жүк жарыясы':'Новое объявление о грузе','Жарыянын аталышы':'Название объявления','Жүктүн салмагы, тонна':'Вес груза, тонн','Баасы, сом (0 — келишимдүү)':'Цена, сом (0 — договорная)',
-'Аталышы орусча (милдеттүү эмес)':'Название на русском (необязательно)','Кайдан — так дарек':'Откуда — точный адрес','Кайда — так дарек':'Куда — точный адрес','Жүктүн сүрөттөрү (5ке чейин)':'Фотографии груза (до 5)','Телефондон жүктүн сүрөттөрүн тандаңыз.':'Выберите фотографии груза с телефона.','Жол аралыгы':'Расстояние по дороге','Даректер боюнча аралыкты эсептөө':'Рассчитать расстояние по адресам','Эки даректи айылына, көчөсүнө чейин жазыңыз. Андан соң аралыкты эсептеңиз.':'Укажите оба адреса до села или улицы, затем рассчитайте расстояние.','Даректи так жазсаңыз, маршрут да такыраак чыгат.':'Чем точнее адрес, тем точнее маршрут.','Жүктүн түрү орусча (милдеттүү эмес)':'Тип груза на русском (необязательно)','Кошумча маалымат орусча (милдеттүү эмес)':'Дополнительная информация на русском (необязательно)',
+'Аталышы орусча (милдеттүү эмес)':'Название на русском (необязательно)','Кайдан — так дарек':'Откуда — точный адрес','Кайда — так дарек':'Куда — точный адрес','Жүктүн сүрөттөрү (5ке чейин)':'Фотографии груза (до 5)','Телефондон жүктүн сүрөттөрүн тандаңыз.':'Выберите фотографии груза с телефона.','Жол аралыгы':'Расстояние по дороге','Даректер боюнча аралыкты эсептөө':'Рассчитать расстояние по адресам','Эки даректи айылына, көчөсүнө чейин жазыңыз. Андан соң аралыкты эсептеңиз.':'Выберите область/город и район, затем рассчитайте расстояние.','Даректи так жазсаңыз, маршрут да такыраак чыгат.':'Чем точнее выбран район, тем точнее маршрут.','Кошумча маалымат орусча (милдеттүү эмес)':'Дополнительная информация на русском (необязательно)',
 'WhatsApp':'WhatsApp','Кошумча маалымат':'Дополнительная информация','Жарыялоо':'Опубликовать','Жабуу':'Закрыть','Жүк тууралуу маалымат':'Информация о грузе',
 'Жүк тууралуу толук маалымат':'Полная информация о грузе',
 'Жарыянын бардык шарттары жана байланыш маалыматтары':'Все условия объявления и контактная информация',
@@ -1608,6 +1806,8 @@ function applyLanguage(){
   'Мисалы: Бишкек':'Например: Бишкек',
   'Мисалы: Ош':'Например: Ош',
   'Мисалы: картошка':'Например: картофель',
+   'Мисалы: Бишкек':'Например: Бишкек',
+   'Мисалы: Ош':'Например: Ош',
   'Аты-жөнүңүз':'Ваше имя и фамилия',
   'Кеминде 6 белги':'Не менее 6 символов',
   'Кошумча маалымат':'Дополнительная информация',
@@ -1806,15 +2006,6 @@ async function loadTaxiParcels(){
   }).join('');
  }catch(e){host.innerHTML=`<div class="notice error">${tr('Посылкалар жүктөлгөн жок: ','Не удалось загрузить посылки: ')}${esc(e.message)}</div>`;}
 }
-async function loadTaxiProfileMenu(){
- const nameEl=$('taxiProfileName'),phoneEl=$('taxiProfilePhone');
- if(!currentUser){if(nameEl)nameEl.textContent=tr('Аккаунтка кириңиз','Войдите в аккаунт');if(phoneEl)phoneEl.textContent='';return;}
- try{
-  const {data}=await db.from('profiles').select('full_name,phone').eq('id',currentUser.id).maybeSingle();
-  if(nameEl)nameEl.textContent=data?.full_name||currentUser.email||tr('Колдонуучу','Пользователь');
-  if(phoneEl)phoneEl.textContent=data?.phone||'';
- }catch(e){if(nameEl)nameEl.textContent=currentUser.email||tr('Профиль','Профиль');}
-}
 async function loadTaxiCabinet(){
  const host=$('taxiCabinetContent');if(!host)return;
  if(!currentUser){host.innerHTML=`<p>${tr('Жеке кабинетке кирүү үчүн аккаунтка кириңиз.','Войдите в аккаунт, чтобы открыть личный кабинет.')}</p><button class="btn btn-primary" onclick="openAuth()">${tr('Кирүү','Войти')}</button>`;return;}
@@ -1859,6 +2050,45 @@ async function saveMyTaxiTrip(event,id){
  catch(e){alert(tr('Сакталган жок: ','Не удалось сохранить: ')+e.message)}finally{btn.disabled=false;}
 }
 
+async function loadMyVerification(){
+ if(!currentUser)return;
+ const host=$('verificationStatus');if(!host)return;
+ try{
+  const {data,error}=await db.from('driver_verifications').select('document_type,status,admin_note,created_at').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(5);
+  if(error)throw error;
+  const phoneOk=!!currentUser.phone_confirmed_at;
+  const docs=(data||[]).map(x=>`${x.document_type}: ${x.status==='approved'?'Ырасталды':x.status==='rejected'?'Четке кагылды':'Каралууда'}${x.admin_note?' — '+x.admin_note:''}`).join('<br>');
+  host.innerHTML=`Телефон: <b>${phoneOk?'Ырасталган':'Ырастала элек'}</b><br>Документтер: ${docs||'Азырынча жөнөтүлгөн эмес'}`;
+ }catch(e){host.innerHTML=`<span class="error">${esc(e.message)}</span>`}
+}
+async function sendPhoneVerification(){
+ const phone=($('verifyPhone')?.value||'').trim();if(!/^\+[1-9]\d{7,14}$/.test(phone))return alert('Телефонду +996... форматында киргизиңиз.');
+ try{const {error}=await db.auth.updateUser({phone});if(error)throw error;alert('SMS код жөнөтүлдү. Кодду киргизиңиз.')}catch(e){alert('SMS жөнөтүлгөн жок: '+friendlyError(e))}
+}
+async function confirmPhoneVerification(){
+ const phone=($('verifyPhone')?.value||'').trim(),token=($('verifyOtp')?.value||'').trim();if(!token)return alert('SMS кодду киргизиңиз.');
+ try{const {data,error}=await db.auth.verifyOtp({phone,token,type:'phone_change'});if(error)throw error;currentUser=data.user||currentUser;await loadProfile();alert('Телефон ырасталды.');await loadMyVerification()}catch(e){alert('Код ырасталган жок: '+friendlyError(e))}
+}
+async function submitVerificationDocument(){
+ if(!currentUser||profile?.account_type!=='driver')return alert('Бул функция айдоочулар үчүн.');
+ const file=$('verifyDocFile')?.files?.[0],type=$('verifyDocType')?.value;if(!file)return alert('Документтин сүрөтүн тандаңыз.');
+ if(file.size>8*1024*1024)return alert('Файл 8 МБдан чоң болбошу керек.');
+ if(!['image/jpeg','image/png','image/webp','application/pdf'].includes(file.type))return alert('JPG, PNG, WEBP же PDF файл жүктөңүз.');
+ const msg=$('verificationDocMessage');try{
+  msg.innerHTML='<div class="notice">Жүктөлүүдө…</div>';
+  const ext=(file.name.split('.').pop()||'bin').toLowerCase().replace(/[^a-z0-9]/g,'');
+  const path=`${currentUser.id}/${Date.now()}-${type}.${ext}`;
+  const {error:upErr}=await db.storage.from('verification-docs').upload(path,file,{upsert:false,contentType:file.type});if(upErr)throw upErr;
+  const {error}=await db.from('driver_verifications').insert({user_id:currentUser.id,document_type:type,document_path:path,status:'pending'});if(error)throw error;
+  msg.innerHTML='<div class="notice success">Документ текшерүүгө жөнөтүлдү.</div>';await loadMyVerification();
+ }catch(e){msg.innerHTML=`<div class="notice error">${esc(e.message)}</div>`}
+}
+async function adminReviewVerification(id){
+ if(!isAdmin)return alert('Администраторго гана уруксат берилет.');
+ const status=$('verify-admin-status-'+id)?.value,note=($('verify-admin-note-'+id)?.value||'').trim();
+ try{const {error}=await db.rpc('admin_review_driver_verification',{p_verification_id:id,p_status:status,p_admin_note:note||null});if(error)throw error;alert('Текшерүү чечими сакталды.');await loadAdminData()}catch(e){alert('Сакталган жок: '+friendlyError(e))}
+}
+
 async function init(){setupRegions();$('lang').value=lang;try{const {data,error}=await db.auth.getSession();if(error)throw error;currentUser=data.session?.user||null;if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}}catch(e){console.warn('Session init:',e.message)}refreshUI();applyLanguage();db.auth.onAuthStateChange((event,session)=>{currentUser=session?.user||null;setTimeout(async()=>{try{if(currentUser){await loadProfile();await loadDriverProfile();await checkAdminAccess()}else{profile=null;driverProfile=null;isAdmin=false}refreshUI()}catch(e){console.error(e)}},0)})}
 init();
 
@@ -1866,6 +2096,270 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('PWA worker:',e)));
 }
 
+
+let activeContractLoad=null,contractCounterparty=null,contractRole=null;
+async function openContractModal(loadId){
+ if(!currentUser){openAuth();return}
+ const load=allListings.find(x=>String(x.id)===String(loadId));
+ if(!load){alert(tr('Жүк жарыясы табылган жок.','Объявление о грузе не найдено.'));return}
+ if(!['customer','dispatcher','driver'].includes(profile?.account_type)){alert(tr('Келишим түзүү үчүн жүк ээси же айдоочу аккаунту керек.','Для договора нужен аккаунт владельца груза или водителя.'));return}
+ activeContractLoad=load;contractCounterparty=null;contractRole=profile.account_type;
+ $('contractMessage').innerHTML='';$('contractAmount').value=Number(load.price||0)||'';
+ $('contractLoadDate').value='';$('contractDeliveryDate').value='';$('contractTerms').value='';
+ const driverField=$('contractDriverField'),driverSelect=$('contractDriver');
+ if(profile.account_type==='driver'){
+  if(!load.owner_id||load.owner_id===currentUser.id){alert(tr('Бул жарыя боюнча келишим сунуштай албайсыз.','Нельзя предложить договор по этому объявлению.'));return}
+  contractCounterparty=load.owner_id;driverField.classList.add('hidden');
+ }else{
+  driverField.classList.remove('hidden');driverSelect.innerHTML='<option value="">Айдоочулар жүктөлүүдө…</option>';
+  try{
+   const {data,error}=await db.rpc('get_public_drivers_safe');if(error)throw error;
+   const drivers=(data||[]).map(x=>typeof x==='string'?JSON.parse(x):x).filter(d=>d.user_id&&d.user_id!==load.owner_id);
+   driverSelect.innerHTML='<option value="">Айдоочуну тандаңыз</option>'+drivers.map(d=>`<option value="${esc(d.user_id)}">${esc(d.driver_name||'Айдоочу')} · ${esc(d.vehicle_model||d.vehicle_type||'Унаа көрсөтүлгөн эмес')}</option>`).join('');
+   if(!drivers.length)driverSelect.innerHTML='<option value="">Азырынча айдоочу табылган жок</option>';
+  }catch(e){driverSelect.innerHTML='<option value="">Айдоочуларды жүктөө мүмкүн болгон жок</option>';showMsg('contractMessage',friendlyError(e),'error')}
+ }
+ $('contractSubtitle').textContent=(load.title||load.cargo||'Жүк')+' · '+(load.city_from||'—')+' → '+(load.city_to||'—');
+ $('contractModal').classList.remove('hidden');
+}
+async function submitContract(){
+ if(!currentUser||!activeContractLoad)return;
+ const load=activeContractLoad,amount=Number($('contractAmount').value||0);
+ if(contractRole!=='driver')contractCounterparty=$('contractDriver').value;
+ if(!contractCounterparty){showMsg('contractMessage',tr('Келишимдин экинчи тарабын тандаңыз.','Выберите вторую сторону договора.'),'error');return}
+ if(amount<0||!Number.isFinite(amount)){showMsg('contractMessage',tr('Сумманы туура киргизиңиз.','Укажите корректную сумму.'),'error');return}
+ const loadDate=$('contractLoadDate').value,deliveryDate=$('contractDeliveryDate').value;
+ if(loadDate&&deliveryDate&&deliveryDate<loadDate){showMsg('contractMessage',tr('Жеткирүү күнү жүктөө күнүнөн эрте болбошу керек.','Дата доставки не может быть раньше даты погрузки.'),'error');return}
+ const ownerId=load.owner_id,driverId=contractRole==='driver'?currentUser.id:contractCounterparty;
+ if(!ownerId||!driverId||ownerId===driverId){showMsg('contractMessage',tr('Келишим тараптарын аныктоо мүмкүн болгон жок.','Не удалось определить стороны договора.'),'error');return}
+ const btn=$('contractSubmitBtn');btn.disabled=true;
+ try{
+  const payload={load_id:load.id,owner_id:ownerId,driver_id:driverId,created_by:currentUser.id,initiator_role:contractRole,amount_kgs:amount,load_date:loadDate||null,delivery_date:deliveryDate||null,terms:$('contractTerms').value.trim(),status:'pending',owner_accepted:false,driver_accepted:false};
+  const {error}=await db.from('load_contracts').insert(payload);if(error)throw error;
+  showMsg('contractMessage',tr('Келишим сунушу жөнөтүлдү. Экинчи тарап кабыл алганда келишим бекитилет.','Предложение договора отправлено. Договор вступит в статус принятого после согласия второй стороны.'),'success');
+  btn.disabled=true;
+  setTimeout(()=>closeModal('contractModal'),1200);
+ }catch(e){showMsg('contractMessage',tr('Келишим жөнөтүлгөн жок: ','Не удалось отправить договор: ')+friendlyError(e),'error')}
+ finally{btn.disabled=false}
+}
+async function loadContractsForCurrentLoad(){
+ const host=$('contractList');if(!host||!currentDetailId)return;
+ host.innerHTML='<div class="muted">Келишимдер жүктөлүүдө…</div>';
+ try{
+  const {data,error}=await db.from('load_contracts').select('*').eq('load_id',currentDetailId).order('created_at',{ascending:false});
+  if(error)throw error;
+  const rows=data||[];
+  if(!rows.length){host.innerHTML='<div class="muted">Азырынча келишим жок.</div>';return}
+  host.innerHTML=rows.map(c=>{
+   const mine=c.owner_id===currentUser?.id||c.driver_id===currentUser?.id;
+   const accepted=c.status==='accepted';
+   const isOwner=c.owner_id===currentUser?.id,isDriver=c.driver_id===currentUser?.id;const alreadyAccepted=isOwner?c.owner_accepted:isDriver?c.driver_accepted:true;const canRespond=mine&&!accepted&&c.status==='pending'&&!alreadyAccepted;
+   const revieweeId=isOwner?c.driver_id:c.owner_id;
+   const reviewAction=accepted&&mine?`<button class="btn btn-primary" onclick="openReviewForm('${esc(c.id)}','${esc(revieweeId)}')">⭐ ${tr('Баалоо жана пикир калтыруу','Оценить и оставить отзыв')}</button>`:'';
+   return `<article class="contract-item"><b>Келишим · ${esc(money(c.amount_kgs))}</b><span class="pill">${esc(c.status==='accepted'?'Кабыл алынды':c.status==='rejected'?'Четке кагылды':'Күтүүдө')}</span><p class="muted">Жүктөө: ${esc(c.load_date||'—')} · Жеткирүү: ${esc(c.delivery_date||'—')}</p><p>${esc(c.terms||'Кошумча шарттар көрсөтүлгөн эмес.')}</p>${canRespond?`<div class="listing-actions"><button class="btn btn-blue" onclick="respondContract('${esc(c.id)}',true)">Кабыл алуу</button><button class="btn btn-light" onclick="respondContract('${esc(c.id)}',false)">Четке кагуу</button></div>`:''}${accepted&&mine?`<div class="listing-actions"><button class="btn btn-light" onclick="printContract('${esc(c.id)}')">PDF / Басып чыгаруу</button>${reviewAction}<button class="btn btn-blue" onclick="loadTracking('${esc(c.id)}')">📍 ${tr('Жүктүн жүрүшү','Отслеживание груза')}</button><button class="btn btn-primary" onclick="loadSettlement('${esc(c.id)}')">🤝 ${tr('Бүтүмдү ырастоо','Подтвердить сделку')}</button></div><div id="tracking-${esc(c.id)}" class="tracking-panel" style="margin-top:12px"><div class="muted">${tr('Жүктүн абалын көрүү үчүн басыңыз.','Нажмите, чтобы посмотреть статус груза.')}</div></div><div id="settlement-${esc(c.id)}" class="tracking-panel" style="margin-top:12px"></div><div class="listing-actions" style="margin-top:10px"><button class="btn btn-light" onclick="openDisputeForm('${esc(c.id)}')">⚠️ ${tr('Көйгөй же талаш билдирүү','Сообщить о проблеме или споре')}</button><button class="btn btn-light" onclick="loadDisputes('${esc(c.id)}')">${tr('Билдирүүлөрдүн тарыхы','История обращений')}</button></div><div id="disputes-${esc(c.id)}" class="tracking-panel" style="margin-top:10px"></div>`:''}</article>`;
+  }).join('');
+ }catch(e){host.innerHTML=`<div class="notice error">${esc(friendlyError(e))}<br><small>load_contracts таблицасы жана уруксаттары орнотулушу керек.</small></div>`}
+}
+const TRACKING_STEPS=[
+ {value:'confirmed',ky:'Келишим ырасталды',ru:'Договор подтверждён'},
+ {value:'loading',ky:'Жүк жүктөлүүдө',ru:'Идёт погрузка'},
+ {value:'in_transit',ky:'Жолдо',ru:'В пути'},
+ {value:'delivered',ky:'Жүк жеткирилди',ru:'Груз доставлен'}
+];
+function trackingLabel(value){const s=TRACKING_STEPS.find(x=>x.value===value);return s?(lang==='ru'?s.ru:s.ky):value}
+async function loadTracking(contractId){
+ const host=$('tracking-'+contractId);if(!host)return;
+ host.innerHTML=`<div class="muted">${tr('Жүктөлүүдө…','Загрузка…')}</div>`;
+ try{
+  const {data,error}=await db.from('load_tracking_events').select('id,status,note,created_by,created_at').eq('contract_id',contractId).order('created_at',{ascending:true});
+  if(error)throw error;
+  const rows=data||[],last=rows[rows.length-1],allowed=!!currentUser&&rows.length<4&&(!last||TRACKING_STEPS.findIndex(x=>x.value===last.status)<TRACKING_STEPS.length-1);
+  host.innerHTML=`<div class="tracking-timeline">${rows.length?rows.map((r,i)=>`<div class="tracking-event"><span class="tracking-dot">${i+1}</span><div><b>${esc(trackingLabel(r.status))}</b><small class="muted" style="display:block">${r.created_at?new Date(r.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):''}</small>${r.note?`<p>${esc(r.note)}</p>`:''}</div></div>`).join(''):`<p class="muted">${tr('Азырынча жүктүн абалы жаңыртыла элек.','Статус груза пока не обновлялся.')}</p>`}</div>${allowed?`<div class="field" style="margin-top:12px"><label>${tr('Кийинки абал','Следующий статус')}</label><select id="track-status-${esc(contractId)}">${TRACKING_STEPS.filter(x=>TRACKING_STEPS.findIndex(y=>y.value===x.value)===(last?TRACKING_STEPS.findIndex(y=>y.value===last.status)+1:0)).map(x=>`<option value="${x.value}" ${last&&TRACKING_STEPS.findIndex(y=>y.value===y.status)>=0?'disabled':''}>${esc(lang==='ru'?x.ru:x.ky)}</option>`).join('')}</select></div><div class="field"><label>${tr('Кошумча маалымат (милдеттүү эмес)','Комментарий (необязательно)')}</label><input id="track-note-${esc(contractId)}" maxlength="500" placeholder="${tr('Мисалы: Бишкектен чыкты','Например: выехал из Бишкека')}"></div><button class="btn btn-primary" onclick="addTrackingEvent('${esc(contractId)}')">${tr('Абалды жаңыртуу','Обновить статус')}</button><div id="track-msg-${esc(contractId)}" class="muted"></div>`:`<div class="notice">${tr('Жүк жеткирилди же кийинки абалды жаңыртууга мүмкүнчүлүк жок.','Груз доставлен или дальнейшее обновление недоступно.')}</div>`}`;
+ }catch(e){host.innerHTML=`<div class="notice error">${tr('Жүктүн жүрүшүн ачуу мүмкүн болгон жок: ','Не удалось загрузить отслеживание: ')}${esc(friendlyError(e))}</div>`}
+}
+async function addTrackingEvent(contractId){
+ if(!currentUser)return openAuth();
+ const status=$('track-status-'+contractId)?.value,note=($('track-note-'+contractId)?.value||'').trim(),msg=$('track-msg-'+contractId);
+ if(!status)return;
+ try{const {error}=await db.rpc('add_load_tracking_event',{p_contract_id:contractId,p_status:status,p_note:note||null});if(error)throw error;if(msg)msg.textContent=tr('Жүктүн абалы жаңыртылды.','Статус груза обновлён.');await loadTracking(contractId)}
+ catch(e){if(msg)msg.textContent=tr('Жаңыртуу ишке ашкан жок: ','Не удалось обновить: ')+friendlyError(e)}
+}
+
+function openReviewForm(contractId,revieweeId){
+ if(!currentUser){openAuth();return}
+ const old=$('reviewFormOverlay');if(old)old.remove();
+ const overlay=document.createElement('div');overlay.id='reviewFormOverlay';overlay.className='modal-overlay';
+ overlay.innerHTML=`<div class="modal contract-modal-content"><div class="modal-header"><h3>⭐ ${tr('Баалоо жана пикир','Оценка и отзыв')}</h3><button class="btn btn-light" onclick="document.getElementById('reviewFormOverlay').remove()">✕</button></div><p class="muted">${tr('Келишим боюнча экинчи тарапка баа бериңиз. Бир келишимге бир жолу баалоого болот.','Оцените вторую сторону по договору. Для одного договора отзыв можно оставить один раз.')}</p><div class="field"><label>${tr('Баалоо (1–5 жылдыз)','Оценка (1–5 звёзд)')}</label><select id="reviewRating"><option value="5">★★★★★ — 5</option><option value="4">★★★★☆ — 4</option><option value="3">★★★☆☆ — 3</option><option value="2">★★☆☆☆ — 2</option><option value="1">★☆☆☆☆ — 1</option></select></div><div class="field"><label>${tr('Пикир (милдеттүү эмес)','Отзыв (необязательно)')}</label><textarea id="reviewComment" maxlength="1000" rows="4" placeholder="${tr('Кызматташуу тууралуу пикириңиз…','Ваш отзыв о сотрудничестве…')}"></textarea></div><div id="reviewMessage" class="muted"></div><div class="modal-actions"><button class="btn btn-primary" onclick="submitLoadReview('${esc(contractId)}','${esc(revieweeId)}')">${tr('Пикирди жөнөтүү','Отправить отзыв')}</button></div></div>`;
+ document.body.appendChild(overlay);
+}
+async function submitLoadReview(contractId,revieweeId){
+ if(!currentUser){openAuth();return}
+ const rating=Number($('reviewRating')?.value||5),comment=($('reviewComment')?.value||'').trim(),msg=$('reviewMessage');
+ if(!Number.isInteger(rating)||rating<1||rating>5){if(msg)msg.textContent=tr('Бааны 1ден 5ке чейин тандаңыз.','Выберите оценку от 1 до 5.');return}
+ const load=allListings.find(x=>String(x.id)===String(currentDetailId));
+ if(!load){if(msg)msg.textContent=tr('Жүк жарыясы табылган жок.','Объявление не найдено.');return}
+ try{
+  const {error}=await db.from('load_reviews').insert({contract_id:contractId,load_id:load.id,reviewer_id:currentUser.id,reviewee_id:revieweeId,rating,comment});
+  if(error)throw error;
+  if(msg)msg.textContent=tr('Пикириңиз сакталды. Рахмат!','Ваш отзыв сохранён. Спасибо!');
+  await loadReviewsForCurrentLoad();
+  setTimeout(()=>{$('reviewFormOverlay')?.remove();loadContractsForCurrentLoad()},700);
+ }catch(e){if(msg)msg.textContent=tr('Пикир жөнөтүлгөн жок: ','Не удалось отправить отзыв: ')+friendlyError(e)}
+}
+async function loadReviewsForCurrentLoad(){
+ const host=$('loadReviewsList');if(!host||!currentDetailId)return;
+ host.innerHTML=`<div class="muted">${tr('Пикирлер жүктөлүүдө…','Загрузка отзывов…')}</div>`;
+ try{
+  const {data,error}=await db.from('load_reviews').select('id,reviewer_id,reviewee_id,rating,comment,created_at').eq('load_id',currentDetailId).order('created_at',{ascending:false});
+  if(error)throw error;
+  const rows=data||[];
+  if(!rows.length){host.innerHTML=`<div class="muted">${tr('Азырынча пикир жок. Келишим кабыл алынып, кызматташуу аяктагандан кийин баа калтырууга болот.','Пока отзывов нет. Оценку можно оставить после принятия договора и завершения сотрудничества.')}</div>`;return}
+  const ids=[...new Set(rows.flatMap(r=>[r.reviewer_id,r.reviewee_id]).filter(Boolean))];let names={};
+  if(ids.length){const {data:ps,error:pe}=await db.from('profiles').select('id,full_name').in('id',ids);if(!pe)(ps||[]).forEach(p=>names[p.id]=p.full_name||tr('Колдонуучу','Пользователь'))}
+  const grouped={};rows.forEach(r=>{const k=r.reviewee_id;(grouped[k]??=[]).push(Number(r.rating)||0)});
+  const summary=Object.entries(grouped).map(([id,ratings])=>`<div class="notice">⭐ <b>${esc(names[id]||tr('Колдонуучу','Пользователь'))}: ${(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1)} / 5</b> · ${ratings.length} ${tr('баа','оценок')}</div>`).join('');
+  host.innerHTML=summary+rows.map(r=>`<article class="contract-item"><b>${esc(names[r.reviewer_id]||tr('Колдонуучу','Пользователь'))} → ${esc(names[r.reviewee_id]||tr('Колдонуучу','Пользователь'))}</b><span class="pill">${'★'.repeat(Number(r.rating)||0)}${'☆'.repeat(5-(Number(r.rating)||0))} ${Number(r.rating)||0}/5</span><p>${esc(r.comment||tr('Комментарий жок','Без комментария'))}</p><small class="muted">${r.created_at?new Date(r.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):''}</small></article>`).join('');
+ }catch(e){host.innerHTML=`<div class="notice error">${tr('Пикирлерди жүктөө мүмкүн болгон жок: ','Не удалось загрузить отзывы: ')}${esc(friendlyError(e))}<br><small>load_reviews SQL миграциясын Supabase'те иштетүү керек.</small></div>`}
+}
+
+async function loadSettlement(contractId){
+ const host=$('settlement-'+contractId);if(!host)return;
+ host.innerHTML=`<div class="muted">${tr('Бүтүм маалыматы жүктөлүүдө…','Загрузка данных сделки…')}</div>`;
+ try{
+  const {data:c,error:ce}=await db.from('load_contracts').select('id,load_id,owner_id,driver_id,status').eq('id',contractId).single();if(ce)throw ce;
+  if(c.status!=='accepted'||![c.owner_id,c.driver_id].includes(currentUser?.id))throw Error(tr('Бул бүтүмгө уруксат жок.','Нет доступа к этой сделке.'));
+  const {data:events,error:te}=await db.from('load_tracking_events').select('status').eq('contract_id',contractId).order('created_at',{ascending:false}).limit(1);if(te)throw te;
+  const delivered=events?.[0]?.status==='delivered';
+  const {data:r,error}=await db.from('load_settlements').select('*').eq('contract_id',contractId).maybeSingle();if(error)throw error;
+  const mineOwner=c.owner_id===currentUser.id, mineConfirmed=mineOwner?r?.owner_confirmed:r?.driver_confirmed;
+  const complete=r?.status==='completed';
+  host.innerHTML=`<div class="notice"><b>🤝 ${tr('Бүтүмдүн жыйынтыгы','Статус сделки')}: ${complete?tr('Эки тарап тең ырастап бүттү','Обе стороны подтвердили'):tr('Ырастоо күтүлүүдө','Ожидается подтверждение')}</b><p>${tr('Жүк ээси','Владелец груза')}: ${r?.owner_confirmed?'✅ '+tr('Ырасталды','Подтверждено'):tr('Күтүүдө','Ожидается')}</p><p>${tr('Айдоочу','Водитель')}: ${r?.driver_confirmed?'✅ '+tr('Ырасталды','Подтверждено'):tr('Күтүүдө','Ожидается')}</p></div>${complete?'':mineConfirmed?`<p class="muted">${tr('Сиз ырастап койдуңуз. Экинчи тараптын ырастоосун күтүңүз.','Вы уже подтвердили. Ожидайте подтверждения второй стороны.')}</p>`:`<p class="muted">${delivered?tr('Жүк жеткирилгенин жана кызмат аяктаганын ырастасаңыз болот.','Подтвердите доставку груза и завершение услуги.'):tr('Эки тараптын ырастоосу жүк «Жеткирилди» статусуна өткөндөн кийин жеткиликтүү болот.','Подтверждение станет доступно после статуса «Доставлено».')}</p><button class="btn btn-primary" ${delivered?'':'disabled'} onclick="confirmSettlement('${esc(contractId)}')">${tr('Кызмат аяктаганын ырастайм','Подтверждаю завершение услуги')}</button>`}`;
+ }catch(e){host.innerHTML=`<div class="notice error">${esc(friendlyError(e))}<br><small>${tr('load_settlements SQL миграциясын иштеткениңизди текшериңиз.','Проверьте, что SQL-миграция load_settlements выполнена.')}</small></div>`}
+}
+async function confirmSettlement(contractId){
+ if(!currentUser)return openAuth();
+ if(!confirm(tr('Кызмат толук аткарылганын ырастайсызбы? Бул аракетти артка кайтарууга болбойт.','Подтверждаете, что услуга полностью выполнена? Это действие нельзя отменить.')))return;
+ try{const {data,error}=await db.rpc('confirm_load_settlement',{p_contract_id:contractId});if(error)throw error;await loadSettlement(contractId);if(data?.completed)alert(tr('Эки тарап тең ырастап, бүтүм аяктады.','Обе стороны подтвердили сделку. Сделка завершена.'));}
+ catch(e){alert(tr('Ырастоо ишке ашкан жок: ','Не удалось подтвердить: ')+friendlyError(e))}
+}
+
+
+function openDisputeForm(contractId){
+ if(!currentUser){openAuth();return;}
+ const existing=$('disputeFormOverlay');if(existing)existing.remove();
+ const overlay=document.createElement('div');overlay.id='disputeFormOverlay';overlay.className='modal-overlay';
+ overlay.innerHTML=`<div class="modal contract-modal-content"><div class="modal-header"><h3>⚠️ ${tr('Көйгөй же талаш билдирүү','Сообщить о проблеме или споре')}</h3><button class="btn btn-light" onclick="document.getElementById('disputeFormOverlay').remove()">✕</button></div><p class="muted">${tr('Бул билдирүү келишимге байланып сакталат. Чыныгы төлөмдү токтотуу же кайтаруу автоматтык түрдө жүргүзүлбөйт.','Обращение сохранится в истории договора. Автоматическая блокировка или возврат платежа не выполняется.')}</p><div class="field"><label>${tr('Көйгөйдүн түрү','Тип проблемы')}</label><select id="disputeCategory"><option value="late_delivery">${tr('Жеткирүү кечикти','Задержка доставки')}</option><option value="cargo_damage">${tr('Жүк бузулду же жетишпейт','Груз повреждён или не хватает')}</option><option value="payment_disagreement">${tr('Төлөм боюнча пикир келишпестик','Разногласие по оплате')}</option><option value="terms_disagreement">${tr('Келишим шарттары аткарылган жок','Нарушение условий договора')}</option><option value="communication">${tr('Байланыш көйгөйү','Проблема со связью')}</option><option value="other">${tr('Башка','Другое')}</option></select></div><div class="field"><label>${tr('Көйгөйдү түшүндүрүңүз','Опишите проблему')}</label><textarea id="disputeDescription" maxlength="2000" rows="5" placeholder="${tr('Эмне болгонун жана качан болгонун жазыңыз…','Опишите, что произошло и когда…')}"></textarea></div><div id="disputeFormMessage" class="muted"></div><button class="btn btn-primary" onclick="submitDispute('${esc(contractId)}')">${tr('Билдирүүнү жөнөтүү','Отправить обращение')}</button></div>`;
+ document.body.appendChild(overlay);
+}
+async function submitDispute(contractId){
+ const category=$('disputeCategory')?.value,description=($('disputeDescription')?.value||'').trim(),msg=$('disputeFormMessage');
+ if(description.length<10){if(msg)msg.textContent=tr('Көйгөйдү кеминде 10 белги менен түшүндүрүңүз.','Опишите проблему минимум в 10 символах.');return;}
+ try{const {data,error}=await db.rpc('create_load_dispute',{p_contract_id:contractId,p_category:category,p_description:description});if(error)throw error;if(msg)msg.textContent=tr('Билдирүү кабыл алынды.','Обращение принято.');await loadDisputes(contractId);setTimeout(()=> $('disputeFormOverlay')?.remove(),900);}
+ catch(e){if(msg)msg.textContent=tr('Жөнөтүү ишке ашкан жок: ','Не удалось отправить: ')+friendlyError(e);}
+}
+async function loadDisputes(contractId){
+ const host=$('disputes-'+contractId);if(!host)return;
+ host.innerHTML=`<div class="muted">${tr('Билдирүүлөр жүктөлүүдө…','Загрузка обращений…')}</div>`;
+ try{const {data,error}=await db.from('load_disputes').select('id,category,description,status,admin_note,created_at').eq('contract_id',contractId).order('created_at',{ascending:false});if(error)throw error;
+ const labels={late_delivery:tr('Жеткирүү кечикти','Задержка доставки'),cargo_damage:tr('Жүк бузулду же жетишпейт','Груз повреждён или не хватает'),payment_disagreement:tr('Төлөм боюнча пикир келишпестик','Разногласие по оплате'),terms_disagreement:tr('Келишим шарттары аткарылган жок','Нарушение условий договора'),communication:tr('Байланыш көйгөйү','Проблема со связью'),other:tr('Башка','Другое')};
+ host.innerHTML=data?.length?data.map(d=>`<div class="notice"><b>${esc(labels[d.category]||d.category)}</b> · <span class="pill">${d.status==='open'?tr('Ачык','Открыто'):d.status==='closed'?tr('Чечилди','Решено'):tr('Каралууда','На рассмотрении')}</span><p>${esc(d.description)}</p>${d.admin_note?`<p><b>${tr('Администратордун жообу','Ответ администратора')}:</b> ${esc(d.admin_note)}</p>`:''}<small class="muted">${d.created_at?new Date(d.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):''}</small></div>`).join(''):`<p class="muted">${tr('Азырынча билдирүү жок.','Обращений пока нет.')}</p>`;
+ }catch(e){host.innerHTML=`<div class="notice error">${tr('Билдирүүлөрдү ачуу мүмкүн болгон жок: ','Не удалось загрузить обращения: ')}${esc(friendlyError(e))}</div>`;}
+}
+
+async function respondContract(id,accept){
+ if(!currentUser)return;
+ try{
+  const {data:row,error:readError}=await db.from('load_contracts').select('*').eq('id',id).single();if(readError)throw readError;
+  if(![row.owner_id,row.driver_id].includes(currentUser.id)||row.created_by===currentUser.id){throw Error('Бул келишимге жооп берүүгө уруксатыңыз жок.')}
+  const update=row.owner_id===currentUser.id?{owner_accepted:accept,owner_responded_at:new Date().toISOString()}:{driver_accepted:accept,driver_responded_at:new Date().toISOString()};
+  const ownerAccepted=row.owner_id===currentUser.id?accept:row.owner_accepted;const driverAccepted=row.driver_id===currentUser.id?accept:row.driver_accepted;update.status=accept?(ownerAccepted&&driverAccepted?'accepted':'pending'):'rejected';
+  const {error}=await db.from('load_contracts').update(update).eq('id',id);if(error)throw error;
+  await loadContractsForCurrentLoad();
+ }catch(e){alert('Келишим жаңыртылган жок: '+friendlyError(e))}
+}
+function printContract(id){
+ db.from('load_contracts').select('*').eq('id',id).single().then(({data,error})=>{
+  if(error||!data){alert('Келишимди ачуу мүмкүн болгон жок.');return}
+  const load=allListings.find(x=>String(x.id)===String(data.load_id))||{};
+  const w=window.open('','_blank');if(!w){alert('PDF үчүн браузердин калкыма терезелерине уруксат бериңиз.');return}
+  const html=`<!doctype html><html lang="ky"><meta charset="utf-8"><title>Электрондук келишим</title><style>body{font:16px Arial,sans-serif;max-width:800px;margin:35px auto;padding:20px;color:#172638}h1{text-align:center}table{width:100%;border-collapse:collapse}td{padding:10px;border:1px solid #ccd5df}p{line-height:1.6}.sign{display:flex;gap:50px;margin-top:65px}.sign div{flex:1;border-top:1px solid #333;padding-top:10px}</style><h1>ЖҮК ТАШУУ БОЮНЧА ЭЛЕКТРОНДУК КЕЛИШИМ</h1><p>Келишим № ${esc(data.id)} · ${new Date(data.created_at||Date.now()).toLocaleDateString('ky-KG')}</p><table><tr><td>Жүк</td><td>${esc(load.title||load.cargo||'—')}</td></tr><tr><td>Маршрут</td><td>${esc(load.city_from||'—')} → ${esc(load.city_to||'—')}</td></tr><tr><td>Сумма</td><td>${esc(money(data.amount_kgs))}</td></tr><tr><td>Жүктөө күнү</td><td>${esc(data.load_date||'—')}</td></tr><tr><td>Жеткирүү күнү</td><td>${esc(data.delivery_date||'—')}</td></tr><tr><td>Статус</td><td>${esc(data.status)}</td></tr></table><h3>Кошумча шарттар</h3><p>${esc(data.terms||'Көрсөтүлгөн эмес.').replace(/\n/g,'<br>')}</p><p>Бул документ платформанын ичинде тараптардын электрондук макулдугун каттайт. Кагаз түрүндөгү кол тамганын же мыйзам талап кылган электрондук кол тамганын ордун автоматтык түрдө баспайт.</p><div class="sign"><div>Жүк ээси: электрондук макулдук<br>${data.owner_accepted?'Кабыл алды':'—'}</div><div>Айдоочу: электрондук макулдук<br>${data.driver_accepted?'Кабыл алды':'—'}</div></div><script>window.onload=()=>window.print()<\/script></html>`;
+  w.document.open();w.document.write(html);w.document.close();
+ });
+}
+
+
+function v45SetRoute(from,to){
+ const a=$('f-from'),b=$('f-to');if(a)a.value=from;if(b)b.value=to;
+ if($('f-direction'))$('f-direction').value='forward';
+ if($('f-sort'))$('f-sort').value='match';
+ if($('v45-route-message'))$('v45-route-message').textContent=`Тандалган багыт: ${from} → ${to}. Эми картадан ачыңыз же ушул багыттагы жүктөрдү издеңиз.`;
+ renderListings();
+}
+function v45OpenCurrentRoute(){
+ const from=($('f-from')?.value||'').trim(),to=($('f-to')?.value||'').trim();
+ const msg=$('v45-route-message');
+ if(!from||!to){if(msg)msg.textContent='Алгач «Кайдан» жана «Кайда» талааларын толтуруңуз.';return;}
+ const url='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(from+', Кыргызстан')+'&destination='+encodeURIComponent(to+', Кыргызстан')+'&travelmode=driving';
+ if(msg)msg.textContent=`${from} → ${to}: маршрут Google Maps кызматында ачылат. Аралык жана убакыт ошол кызматтагы маалымат боюнча көрсөтүлөт.`;
+ window.open(url,'_blank','noopener');
+}
+function v45FindRouteLoads(){
+ const from=($('f-from')?.value||'').trim(),to=($('f-to')?.value||'').trim();
+ if(!from||!to){if($('v45-route-message'))$('v45-route-message').textContent='Жүктөрдү издөө үчүн эки багытты тең толтуруңуз.';return;}
+ if($('f-direction'))$('f-direction').value='forward';
+ if($('f-sort'))$('f-sort').value='match';
+ renderListings();
+ if($('v45-route-message'))$('v45-route-message').textContent=`${from} → ${to} багыты боюнча жарыялар төмөндө көрсөтүлдү.`;
+}
+
+async function submitLoadBid(loadId){
+ const msg=$('bidFormMessage'),amount=Number($('bidAmount')?.value||0),note=($('bidMessage')?.value||'').trim();
+ if(!currentUser){if(msg)msg.textContent='Сунуш жөнөтүү үчүн аккаунтуңузга кириңиз.';openAuth();return;}
+ const load=allListings.find(x=>String(x.id)===String(loadId));
+ if(!load){if(msg)msg.textContent='Жүк жарыясы табылган жок.';return;}
+ if(load.owner_id===currentUser.id){if(msg)msg.textContent='Өз жарыяңызга баа сунуштай албайсыз.';return;}
+ if(!Number.isFinite(amount)||amount<=0){if(msg)msg.textContent='Сунушталган бааны туура киргизиңиз.';return;}
+ const btn=document.querySelector('.auction-box button.btn-blue');if(btn)btn.disabled=true;
+ try{
+  const {data:existing,error:readError}=await db.from('load_bids').select('id,status').eq('load_id',loadId).eq('bidder_id',currentUser.id).eq('status','pending').limit(1);
+  if(readError)throw readError;
+  if(existing?.length)throw new Error('Бул жүккө сиздин күтүүдөгү сунушуңуз бар. Жүк ээси жооп бергенден кийин кайра сунуштай аласыз.');
+  const {error}=await db.from('load_bids').insert({load_id:loadId,owner_id:load.owner_id,bidder_id:currentUser.id,amount_kgs:amount,message:note,status:'pending'});
+  if(error)throw error;
+  if(msg)msg.textContent='Сунушуңуз жүк ээсине жөнөтүлдү.';
+  if($('bidAmount'))$('bidAmount').value='';if($('bidMessage'))$('bidMessage').value='';
+  await loadBidsForCurrentLoad();
+ }catch(e){if(msg)msg.textContent='Сунуш жөнөтүлгөн жок: '+friendlyError(e);}
+ finally{if(btn)btn.disabled=false;}
+}
+async function loadBidsForCurrentLoad(){
+ const host=$('loadBidsList');if(!host||!currentDetailId)return;
+ const load=allListings.find(x=>String(x.id)===String(currentDetailId));if(!load)return;
+ host.innerHTML='<div class="muted">Сунуштар жүктөлүүдө…</div>';
+ try{
+  let query=db.from('load_bids').select('*').eq('load_id',currentDetailId).order('created_at',{ascending:false});
+  if(currentUser?.id!==load.owner_id)query=query.eq('bidder_id',currentUser?.id||'00000000-0000-0000-0000-000000000000');
+  const {data,error}=await query;if(error)throw error;
+  const rows=data||[];
+  if(!rows.length){host.innerHTML='<div class="muted">Азырынча баа сунуштары жок.</div>';return;}
+  host.innerHTML=rows.map(b=>{
+   const owner=load.owner_id===currentUser?.id;
+   const status=b.status==='accepted'?'Кабыл алынды':b.status==='rejected'?'Четке кагылды':'Күтүүдө';
+   const actions=owner&&b.status==='pending'?`<div class="listing-actions" style="margin-top:8px"><button class="btn btn-blue" onclick="respondLoadBid('${esc(b.id)}','accepted')">Кабыл алуу</button><button class="btn btn-light" onclick="respondLoadBid('${esc(b.id)}','rejected')">Четке кагуу</button></div>`:'';
+   return `<article class="v45-result" style="margin-top:8px"><b>${esc(money(b.amount_kgs))}</b> <span class="pill">${status}</span><p class="muted">${esc(b.message||'Комментарий жок')} · ${b.created_at?new Date(b.created_at).toLocaleString(lang==='ru'?'ru-RU':'ky-KG'):'—'}</p>${actions}</article>`;
+  }).join('');
+ }catch(e){host.innerHTML=`<div class="notice error">Сунуштарды жүктөө мүмкүн болгон жок: ${esc(friendlyError(e))}<br><small>load_bids SQL миграциясын Supabase'те иштетүү керек.</small></div>`;}
+}
+async function respondLoadBid(bidId,decision){
+ if(!currentUser)return openAuth();
+ if(!['accepted','rejected'].includes(decision))return;
+ try{
+  const {data,error}=await db.rpc('respond_load_bid',{p_bid_id:bidId,p_decision:decision});
+  if(error)throw error;
+  showMsg('detailMessage',decision==='accepted'?'Бааны кабыл алдыңыз. Эми эки тарап заказ шарттарын тактап, келишим түзө алат.':'Сунуш четке кагылды.','success');
+  await loadBidsForCurrentLoad();
+ }catch(e){alert('Сунушка жооп берилген жок: '+friendlyError(e));}
+}
 </script></body></html>
 <style>
 #taxiBottomNav{z-index:35}
@@ -1893,4 +2387,12 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
 #page-taxi-cabinet .btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
 #page-taxi-cabinet .taxi-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media(max-width:650px){#page-taxi-cabinet .taxi-form-grid{grid-template-columns:1fr}}
+</style>
+
+<style>
+.contract-modal-content{max-width:720px;width:min(720px,96vw);max-height:90vh;overflow:auto}
+.contract-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.contract-item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;background:var(--card)}
+.contract-item .pill{margin-left:8px}
+@media(max-width:560px){.contract-grid{grid-template-columns:1fr}}
 </style>
